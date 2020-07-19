@@ -2,6 +2,8 @@ extends TouchScreenButton
 
 var resAmount = 0
 
+onready var labAddBuilding = get_tree().get_root().get_node("Game/Globals/TopBarNode/btnAddBuilding/labAddBuilding")
+
 func _ready():
 	pass
 
