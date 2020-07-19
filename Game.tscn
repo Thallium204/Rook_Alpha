@@ -1,3 +1,152 @@
-[gd_scene format=2]
+[gd_scene load_steps=19 format=2]
 
-[node name="Node2D" type="Node2D"]
+[ext_resource path="res://Sprites/img_dirt_tile_64x.png" type="Texture" id=1]
+[ext_resource path="res://Sprites/img_stone.png" type="Texture" id=2]
+[ext_resource path="res://Fonts/minecraft_bold.otf" type="DynamicFontData" id=3]
+[ext_resource path="res://btnProcess.gd" type="Script" id=4]
+[ext_resource path="res://FactoryFloor.gd" type="Script" id=5]
+[ext_resource path="res://btnAdd.gd" type="Script" id=6]
+[ext_resource path="res://Sprites/img_table.png" type="Texture" id=7]
+[ext_resource path="res://Sprites/img_stone_tile_64x.png" type="Texture" id=8]
+[ext_resource path="res://Sprites/img_grass_tile_64x.png" type="Texture" id=9]
+[ext_resource path="res://Fonts/minecraft_regular.otf" type="DynamicFontData" id=10]
+[ext_resource path="res://Sprites/img_grasstop_tile_64x.png" type="Texture" id=11]
+[ext_resource path="res://TopBar.gd" type="Script" id=12]
+[ext_resource path="res://Globals.gd" type="Script" id=13]
+
+[sub_resource type="CircleShape2D" id=1]
+radius = 134.0
+
+[sub_resource type="DynamicFont" id=2]
+size = 128
+outline_size = 2
+outline_color = Color( 0, 0, 0, 1 )
+font_data = ExtResource( 3 )
+
+[sub_resource type="RectangleShape2D" id=3]
+extents = Vector2( 150, 50 )
+
+[sub_resource type="DynamicFont" id=4]
+size = 80
+font_data = ExtResource( 10 )
+
+[sub_resource type="CircleShape2D" id=5]
+radius = 134.0
+
+[node name="Game" type="Node2D"]
+
+[node name="Globals" type="Node2D" parent="."]
+script = ExtResource( 13 )
+
+[node name="Background" type="TextureRect" parent="Globals"]
+margin_right = 540.0
+margin_bottom = 960.0
+rect_scale = Vector2( 2, 2 )
+texture = ExtResource( 1 )
+stretch_mode = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="BottomBar" type="TextureRect" parent="Globals"]
+margin_top = 1792.0
+margin_right = 540.0
+margin_bottom = 1856.0
+rect_scale = Vector2( 2, 2 )
+texture = ExtResource( 8 )
+stretch_mode = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="FactoryFloor" type="GridContainer" parent="Globals"]
+margin_left = 45.0
+margin_top = 205.0
+margin_right = 1035.0
+margin_bottom = 1747.0
+custom_constants/vseparation = 45
+custom_constants/hseparation = 45
+columns = 3
+script = ExtResource( 5 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="texCobble" type="TextureRect" parent="Globals/FactoryFloor"]
+margin_right = 300.0
+margin_bottom = 300.0
+texture = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="btnProcess" type="TouchScreenButton" parent="Globals/FactoryFloor/texCobble"]
+position = Vector2( 16, 16 )
+z_index = 1
+shape = SubResource( 1 )
+script = ExtResource( 4 )
+
+[node name="labResource" type="Label" parent="Globals/FactoryFloor/texCobble"]
+margin_left = -2.37842
+margin_top = 146.85
+margin_right = 297.622
+margin_bottom = 296.85
+custom_fonts/font = SubResource( 2 )
+text = "res"
+align = 2
+valign = 2
+clip_text = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TopBarNode" type="Node2D" parent="Globals"]
+script = ExtResource( 12 )
+
+[node name="texTopBar" type="TextureRect" parent="Globals/TopBarNode"]
+margin_right = 540.0
+margin_bottom = 64.0
+rect_scale = Vector2( 2, 2 )
+texture = ExtResource( 9 )
+stretch_mode = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="btnAddBuilding" type="TouchScreenButton" parent="Globals/TopBarNode"]
+shape = SubResource( 3 )
+script = ExtResource( 6 )
+
+[node name="labAddBuilding" type="Label" parent="Globals/TopBarNode/btnAddBuilding"]
+margin_right = 300.0
+margin_bottom = 100.0
+custom_fonts/font = SubResource( 4 )
+text = "Add"
+align = 1
+valign = 1
+clip_text = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="texTopBarAdd" type="TextureRect" parent="Globals/TopBarNode/btnAddBuilding"]
+margin_top = -383.0
+margin_right = 540.0
+margin_bottom = -191.0
+rect_scale = Vector2( 2, 2 )
+texture = ExtResource( 11 )
+stretch_mode = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="btnAdd" type="TouchScreenButton" parent="Globals/TopBarNode/btnAddBuilding"]
+position = Vector2( 40.1561, -350.272 )
+normal = ExtResource( 7 )
+shape = SubResource( 5 )
+
+[node name="twnTopBarAdd" type="Tween" parent="Globals/TopBarNode/btnAddBuilding"]
+[connection signal="released" from="Globals/FactoryFloor/texCobble/btnProcess" to="Globals/FactoryFloor/texCobble/btnProcess" method="_on_btnProcess_released"]
+[connection signal="released" from="Globals/TopBarNode/btnAddBuilding" to="Globals/TopBarNode/btnAddBuilding" method="_on_btnAddBuilding_released"]
+[connection signal="released" from="Globals/TopBarNode/btnAddBuilding" to="Globals" method="_on_btnAddBuilding_released"]
+[connection signal="released" from="Globals/TopBarNode/btnAddBuilding/btnAdd" to="Globals/FactoryFloor" method="_on_btnAdd_released"]

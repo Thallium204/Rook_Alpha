@@ -15,10 +15,10 @@ _global_script_class_icons={
 
 [application]
 
-config/name="Voxilent_Alpha"
-run/main_scene="res://Scenes/Game.tscn"
+config/name="Voxilent_Factory"
+run/main_scene="res://Game.tscn"
 boot_splash/image="res://Sprites/img_bootstrap.png"
-config/icon="res://Sprites/img_grass.png"
+config/icon="res://icon.png"
 
 [display]
 
@@ -37,7 +37,6 @@ pointing/emulate_touch_from_mouse=true
 [rendering]
 
 quality/driver/driver_name="GLES2"
-quality/2d/use_pixel_snap=true
 vram_compression/import_etc=true
 vram_compression/import_etc2=false
 environment/default_environment="res://default_env.tres"
