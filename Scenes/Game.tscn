@@ -939,11 +939,9 @@ tracks/5/keys = {
 
 [node name="Game" type="Node2D"]
 
-[node name="MainWindow" type="CanvasLayer" parent="."]
+[node name="UI" type="CanvasLayer" parent="."]
 
-[node name="Background" type="Node2D" parent="MainWindow"]
-
-[node name="TextureRect" type="TextureRect" parent="MainWindow/Background"]
+[node name="TextureRect" type="TextureRect" parent="UI"]
 margin_right = 540.0
 margin_bottom = 960.0
 rect_scale = Vector2( 2, 2 )
@@ -952,6 +950,29 @@ stretch_mode = 2
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="topBar" type="TextureRect" parent="UI"]
+margin_right = 540.0
+margin_bottom = 64.0
+rect_scale = Vector2( 2, 2 )
+texture = ExtResource( 4 )
+stretch_mode = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="bottomBar" type="TextureRect" parent="UI"]
+margin_top = 1792.0
+margin_right = 540.0
+margin_bottom = 1856.0
+rect_scale = Vector2( 2, 2 )
+texture = ExtResource( 5 )
+stretch_mode = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MainWindow" type="CanvasLayer" parent="."]
 
 [node name="Buttons" type="Node2D" parent="MainWindow"]
 process_priority = -1
@@ -1191,29 +1212,6 @@ anims/aniTexture = SubResource( 18 )
 
 [node name="Highlight" type="AnimationPlayer" parent="MainWindow/Buttons/btnChest"]
 anims/aniTexture = SubResource( 19 )
-
-[node name="UI" type="CanvasLayer" parent="."]
-
-[node name="topBar" type="TextureRect" parent="UI"]
-margin_right = 540.0
-margin_bottom = 64.0
-rect_scale = Vector2( 2, 2 )
-texture = ExtResource( 4 )
-stretch_mode = 2
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="bottomBar" type="TextureRect" parent="UI"]
-margin_top = 1792.0
-margin_right = 540.0
-margin_bottom = 1856.0
-rect_scale = Vector2( 2, 2 )
-texture = ExtResource( 5 )
-stretch_mode = 2
-__meta__ = {
-"_edit_use_anchors_": false
-}
 [connection signal="released" from="MainWindow/Buttons/btnCobble" to="MainWindow/Buttons/btnCobble" method="_on_TouchScreenButton_released"]
 [connection signal="released" from="MainWindow/Buttons/btnFurnace" to="MainWindow/Buttons/btnFurnace" method="_on_TouchScreenButton_released"]
 [connection signal="released" from="MainWindow/Buttons/btnLog" to="MainWindow/Buttons/btnLog" method="_on_TouchScreenButton_released"]
