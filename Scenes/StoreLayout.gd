@@ -1,10 +1,9 @@
-extends TextureButton
+extends Node2D
 
 
 # Declare member variables here. Examples:
 # var a = 2
 # var b = "text"
-var resPlank = 0
 
 
 # Called when the node enters the scene tree for the first time.
@@ -15,8 +14,7 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
 #	pass
-
-
-func _on_IncPlank_pressed():
-	resPlank += 1
-	get_node("ResPlank").text = str(resPlank)
+func move(target):
+	var move_tween = get_node("toFactoryLayout")
+	move_tween.interpolate_property(self, "position", position, target, 1, Tween.TRANS_EXPO, Tween.EASE_OUT)
+	move_tween.start()
