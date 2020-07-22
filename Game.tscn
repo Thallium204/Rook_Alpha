@@ -1,40 +1,48 @@
-[gd_scene load_steps=22 format=2]
+[gd_scene load_steps=27 format=2]
 
-[ext_resource path="res://Sprites/img_dirt_tile_64x.png" type="Texture" id=1]
-[ext_resource path="res://Sprites/img_cobble.png" type="Texture" id=2]
+[ext_resource path="res://Sprites/Tileables/img_dirt_tile_128x.png" type="Texture" id=1]
+[ext_resource path="res://grdAddBuildings.gd" type="Script" id=2]
 [ext_resource path="res://Fonts/minecraft_bold.otf" type="DynamicFontData" id=3]
-[ext_resource path="res://btnProcess.gd" type="Script" id=4]
+[ext_resource path="res://Sprites/Tileables/img_grass_side_tile_128x.png" type="Texture" id=4]
 [ext_resource path="res://FactoryFloor.gd" type="Script" id=5]
-[ext_resource path="res://btnAddBuilding.gd" type="Script" id=6]
-[ext_resource path="res://Sprites/img_furnace.png" type="Texture" id=7]
-[ext_resource path="res://Sprites/img_stone_tile_64x.png" type="Texture" id=8]
-[ext_resource path="res://Sprites/img_grass_tile_64x.png" type="Texture" id=9]
+[ext_resource path="res://btnBuildingMenu.gd" type="Script" id=6]
+[ext_resource path="res://Sprites/Tileables/img_grass_top_tile_128x.png" type="Texture" id=7]
+[ext_resource path="res://Sprites/Tileables/img_stone_tile_128x.png" type="Texture" id=8]
+[ext_resource path="res://Sprites/Resources/img_cobble.png" type="Texture" id=9]
 [ext_resource path="res://Fonts/minecraft_regular.otf" type="DynamicFontData" id=10]
-[ext_resource path="res://Sprites/img_grasstop_tile_64x.png" type="Texture" id=11]
+[ext_resource path="res://Sprites/Buildings/img_quarry.png" type="Texture" id=11]
 [ext_resource path="res://TopBarNode.gd" type="Script" id=12]
 [ext_resource path="res://Globals.gd" type="Script" id=13]
-[ext_resource path="res://btnAdd.gd" type="Script" id=14]
-[ext_resource path="res://Sprites/img_chest.png" type="Texture" id=15]
+[ext_resource path="res://tmpAddBuilding.gd" type="Script" id=14]
+[ext_resource path="res://grdAddStorage.gd" type="Script" id=15]
 [ext_resource path="res://BeepBox-Song.wav" type="AudioStream" id=16]
+[ext_resource path="res://tmpBuilding.gd" type="Script" id=17]
+[ext_resource path="res://btnInfoToggle.gd" type="Script" id=18]
+[ext_resource path="res://tmpStorage.gd" type="Script" id=19]
+[ext_resource path="res://tmpAddStorage.gd" type="Script" id=20]
 
-[sub_resource type="RectangleShape2D" id=3]
+[sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 150, 50 )
 
-[sub_resource type="DynamicFont" id=4]
+[sub_resource type="DynamicFont" id=2]
 size = 80
 font_data = ExtResource( 10 )
 
-[sub_resource type="CircleShape2D" id=5]
+[sub_resource type="CircleShape2D" id=3]
 radius = 134.0
 
-[sub_resource type="CircleShape2D" id=1]
-radius = 134.0
-
-[sub_resource type="DynamicFont" id=2]
+[sub_resource type="DynamicFont" id=4]
 size = 128
 outline_size = 2
 outline_color = Color( 0, 0, 0, 1 )
 font_data = ExtResource( 3 )
+
+[sub_resource type="DynamicFont" id=5]
+size = 56
+font_data = ExtResource( 10 )
+
+[sub_resource type="CircleShape2D" id=6]
+radius = 134.0
 
 [node name="Game" type="Node2D"]
 
@@ -42,9 +50,8 @@ font_data = ExtResource( 3 )
 script = ExtResource( 13 )
 
 [node name="Background" type="TextureRect" parent="Globals"]
-margin_right = 540.0
-margin_bottom = 960.0
-rect_scale = Vector2( 2, 2 )
+margin_right = 1080.0
+margin_bottom = 1920.0
 texture = ExtResource( 1 )
 stretch_mode = 2
 __meta__ = {
@@ -68,25 +75,30 @@ __meta__ = {
 script = ExtResource( 12 )
 
 [node name="texTopBar" type="TextureRect" parent="Globals/TopBarNode"]
-margin_right = 540.0
-margin_bottom = 64.0
-rect_scale = Vector2( 2, 2 )
-texture = ExtResource( 9 )
+margin_right = 1080.0
+margin_bottom = 128.0
+texture = ExtResource( 4 )
 stretch_mode = 2
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="btnAddBuilding" type="TouchScreenButton" parent="Globals/TopBarNode"]
-shape = SubResource( 3 )
+[node name="btnBuildingMenu" type="TouchScreenButton" parent="Globals/TopBarNode"]
+shape = SubResource( 1 )
 script = ExtResource( 6 )
 
-[node name="labAddBuilding" type="Label" parent="Globals/TopBarNode/btnAddBuilding"]
+[node name="labBuildingMenu" type="Label" parent="Globals/TopBarNode/btnBuildingMenu"]
 margin_top = 8.0
 margin_right = 300.0
 margin_bottom = 108.0
-custom_fonts/font = SubResource( 4 )
-text = "Add"
+rect_pivot_offset = Vector2( -2813.23, -1445.46 )
+custom_fonts/font = SubResource( 2 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+custom_constants/shadow_offset_x = 4
+custom_constants/shadow_offset_y = 3
+custom_constants/shadow_as_outline = 0
+text = "Build"
 align = 1
 valign = 1
 clip_text = true
@@ -94,72 +106,135 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="texTopBarAdd" type="TextureRect" parent="Globals/TopBarNode/btnAddBuilding"]
+[node name="texBuildingMenu" type="TextureRect" parent="Globals/TopBarNode/btnBuildingMenu"]
+margin_left = -0.078
 margin_top = -383.0
-margin_right = 540.0
-margin_bottom = -191.0
-rect_scale = Vector2( 2, 2 )
-texture = ExtResource( 11 )
+margin_right = 1079.92
+margin_bottom = 1.00003
+texture = ExtResource( 7 )
 stretch_mode = 2
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="btnAddCobble" type="TouchScreenButton" parent="Globals/TopBarNode/btnAddBuilding"]
-position = Vector2( 37.4864, -350.272 )
-normal = ExtResource( 2 )
-shape = SubResource( 5 )
-script = ExtResource( 14 )
+[node name="scrAddBuildings" type="ScrollContainer" parent="Globals/TopBarNode/btnBuildingMenu/texBuildingMenu"]
+margin_top = 21.0
+margin_right = 2160.0
+margin_bottom = 363.0
+rect_scale = Vector2( 0.5, 0.5 )
+follow_focus = true
+scroll_vertical_enabled = false
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
-[node name="btnAddFurnace" type="TouchScreenButton" parent="Globals/TopBarNode/btnAddBuilding"]
-position = Vector2( 381.875, -350.272 )
-normal = ExtResource( 7 )
-shape = SubResource( 5 )
-script = ExtResource( 14 )
+[node name="grdAddBuildings" type="HBoxContainer" parent="Globals/TopBarNode/btnBuildingMenu/texBuildingMenu/scrAddBuildings"]
+alignment = 1
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
-[node name="btnAddChest" type="TouchScreenButton" parent="Globals/TopBarNode/btnAddBuilding"]
-position = Vector2( 720.924, -347.602 )
-normal = ExtResource( 15 )
-shape = SubResource( 5 )
-script = ExtResource( 14 )
+[node name="scrAddStorage" type="ScrollContainer" parent="Globals/TopBarNode/btnBuildingMenu/texBuildingMenu"]
+margin_top = 192.0
+margin_right = 2160.0
+margin_bottom = 576.0
+rect_scale = Vector2( 0.5, 0.5 )
+follow_focus = true
+scroll_vertical_enabled = false
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
-[node name="twnTopBarAdd" type="Tween" parent="Globals/TopBarNode/btnAddBuilding"]
+[node name="grdAddStorage" type="HBoxContainer" parent="Globals/TopBarNode/btnBuildingMenu/texBuildingMenu/scrAddStorage"]
+alignment = 1
+script = ExtResource( 15 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="twnTopBarAdd" type="Tween" parent="Globals/TopBarNode/btnBuildingMenu"]
+
+[node name="btnInfoToggle" type="TouchScreenButton" parent="Globals/TopBarNode"]
+position = Vector2( 768.29, 6.34961 )
+shape = SubResource( 1 )
+script = ExtResource( 18 )
+
+[node name="labInfoToggle" type="Label" parent="Globals/TopBarNode/btnInfoToggle"]
+margin_top = 7.33258
+margin_right = 300.0
+margin_bottom = 107.333
+rect_pivot_offset = Vector2( -2813.23, -1445.46 )
+custom_fonts/font = SubResource( 2 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+custom_constants/shadow_offset_x = 4
+custom_constants/shadow_offset_y = 3
+text = "Info"
+align = 1
+valign = 1
+clip_text = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="BottomBarNode" type="Node2D" parent="Globals"]
 
 [node name="BottomBar" type="TextureRect" parent="Globals/BottomBarNode"]
 margin_top = 1792.0
-margin_right = 540.0
-margin_bottom = 1856.0
-rect_scale = Vector2( 2, 2 )
+margin_right = 1080.0
+margin_bottom = 1920.0
 texture = ExtResource( 8 )
 stretch_mode = 2
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="texBuilding" type="TextureRect" parent="Globals"]
-margin_left = 40.243
-margin_top = -725.252
-margin_right = 340.243
-margin_bottom = -425.252
-texture = ExtResource( 2 )
+[node name="BackgroundMusic" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 16 )
+autoplay = true
+
+[node name="templateNode" type="Node2D" parent="."]
+position = Vector2( -864.588, -1623.52 )
+
+[node name="tmpText" type="Label" parent="templateNode"]
+margin_left = 80.7938
+margin_top = -40.005
+margin_right = 516.794
+margin_bottom = 59.995
+rect_pivot_offset = Vector2( -2813.23, -1445.46 )
+custom_fonts/font = SubResource( 2 )
+text = "Templates"
+align = 1
+valign = 1
+clip_text = true
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="btnProcess" type="TouchScreenButton" parent="Globals/texBuilding"]
-position = Vector2( 16, 16 )
-shape = SubResource( 1 )
-script = ExtResource( 4 )
+[node name="tmpBuilding" type="TextureRect" parent="templateNode"]
+margin_left = 100.0
+margin_top = 100.0
+margin_right = 400.0
+margin_bottom = 400.0
+texture = ExtResource( 11 )
+stretch_mode = 1
+script = ExtResource( 17 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
-[node name="labResource" type="Label" parent="Globals/texBuilding"]
-margin_left = -2.37842
-margin_top = 146.85
-margin_right = 297.622
-margin_bottom = 296.85
-custom_fonts/font = SubResource( 2 )
-text = "res"
+[node name="btnProcess" type="TouchScreenButton" parent="templateNode/tmpBuilding"]
+position = Vector2( 16, 16 )
+shape = SubResource( 3 )
+
+[node name="labResource" type="Label" parent="templateNode/tmpBuilding"]
+visible = false
+margin_top = 150.0
+margin_right = 300.0
+margin_bottom = 300.0
+custom_fonts/font = SubResource( 4 )
+text = "0"
 align = 2
 valign = 2
 clip_text = true
@@ -167,14 +242,251 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="BackgroundMusic" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( 16 )
-volume_db = -13.565
-autoplay = true
-[connection signal="released" from="Globals/TopBarNode/btnAddBuilding" to="Globals/TopBarNode/btnAddBuilding" method="_on_btnAddBuilding_released"]
-[connection signal="released" from="Globals/TopBarNode/btnAddBuilding" to="Globals" method="_on_btnAddBuilding_released"]
-[connection signal="released" from="Globals/TopBarNode/btnAddBuilding/btnAddCobble" to="Globals/TopBarNode/btnAddBuilding/btnAddCobble" method="_on_btnAdd_released"]
-[connection signal="released" from="Globals/TopBarNode/btnAddBuilding/btnAddFurnace" to="Globals/TopBarNode/btnAddBuilding/btnAddFurnace" method="_on_btnAdd_released"]
-[connection signal="released" from="Globals/TopBarNode/btnAddBuilding/btnAddChest" to="Globals/TopBarNode/btnAddBuilding/btnAddChest" method="_on_btnAdd_released"]
-[connection signal="released" from="Globals/texBuilding/btnProcess" to="Globals/texBuilding/btnProcess" method="_on_btnProcess_released"]
-[connection signal="released" from="Globals/texBuilding/btnProcess" to="Globals" method="_on_btnProcess_released"]
+[node name="labBuilding" type="Label" parent="templateNode/tmpBuilding"]
+margin_left = 150.0
+margin_top = 300.0
+margin_right = 450.0
+margin_bottom = 450.0
+rect_rotation = -90.0
+custom_fonts/font = SubResource( 5 )
+text = "building"
+align = 1
+valign = 2
+clip_text = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="grdResCostList" type="VBoxContainer" parent="templateNode/tmpBuilding"]
+margin_right = 300.0
+margin_bottom = 300.0
+alignment = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="tmpStorage" type="TextureRect" parent="templateNode"]
+margin_left = 400.0
+margin_top = 100.0
+margin_right = 700.0
+margin_bottom = 400.0
+texture = ExtResource( 11 )
+stretch_mode = 1
+script = ExtResource( 19 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="labResource" type="Label" parent="templateNode/tmpStorage"]
+visible = false
+margin_top = 150.0
+margin_right = 300.0
+margin_bottom = 300.0
+custom_fonts/font = SubResource( 4 )
+text = "0"
+align = 2
+valign = 2
+clip_text = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="labStorage" type="Label" parent="templateNode/tmpStorage"]
+margin_left = 150.0
+margin_top = 300.0
+margin_right = 450.0
+margin_bottom = 450.0
+rect_rotation = -90.0
+custom_fonts/font = SubResource( 5 )
+text = "storage"
+align = 1
+valign = 2
+clip_text = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="grdInventory" type="VBoxContainer" parent="templateNode/tmpStorage"]
+margin_right = 300.0
+margin_bottom = 300.0
+alignment = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="tmpAddBuilding" type="TextureRect" parent="templateNode"]
+margin_left = 100.0
+margin_top = 400.0
+margin_right = 400.0
+margin_bottom = 700.0
+texture = ExtResource( 11 )
+stretch_mode = 4
+script = ExtResource( 14 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="btnAddBuilding" type="TouchScreenButton" parent="templateNode/tmpAddBuilding"]
+position = Vector2( 16, 16 )
+shape = SubResource( 6 )
+
+[node name="tmpAddStorage" type="TextureRect" parent="templateNode"]
+margin_left = 400.0
+margin_top = 400.0
+margin_right = 700.0
+margin_bottom = 700.0
+texture = ExtResource( 11 )
+stretch_mode = 4
+script = ExtResource( 20 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="btnAddStorage" type="TouchScreenButton" parent="templateNode/tmpAddStorage"]
+position = Vector2( 16, 16 )
+shape = SubResource( 6 )
+
+[node name="tmpResCost" type="HBoxContainer" parent="templateNode"]
+margin_left = 113.782
+margin_top = -300.0
+margin_right = 413.782
+margin_bottom = -236.0
+size_flags_vertical = 0
+alignment = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="labResCost_have" type="Label" parent="templateNode/tmpResCost"]
+margin_left = 61.0
+margin_right = 95.0
+margin_bottom = 64.0
+size_flags_vertical = 1
+custom_fonts/font = SubResource( 5 )
+custom_colors/font_color = Color( 1, 0, 0, 1 )
+text = "0"
+valign = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="labResCost_slash" type="Label" parent="templateNode/tmpResCost"]
+margin_left = 99.0
+margin_right = 133.0
+margin_bottom = 64.0
+size_flags_vertical = 1
+custom_fonts/font = SubResource( 5 )
+text = "/"
+valign = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="labResCost_need" type="Label" parent="templateNode/tmpResCost"]
+margin_left = 137.0
+margin_right = 171.0
+margin_bottom = 64.0
+size_flags_vertical = 1
+custom_fonts/font = SubResource( 5 )
+text = "3"
+valign = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="texResCost" type="TextureRect" parent="templateNode/tmpResCost"]
+margin_left = 175.0
+margin_right = 239.0
+margin_bottom = 64.0
+texture = ExtResource( 9 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="tmpResDivider" type="HBoxContainer" parent="templateNode"]
+margin_left = 113.782
+margin_top = -200.0
+margin_right = 413.782
+margin_bottom = -136.0
+size_flags_vertical = 0
+alignment = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="labResGain_slash" type="Label" parent="templateNode/tmpResDivider"]
+margin_left = 51.0
+margin_right = 249.0
+margin_bottom = 64.0
+size_flags_vertical = 1
+custom_fonts/font = SubResource( 5 )
+text = "----->"
+valign = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="tmpResGain" type="HBoxContainer" parent="templateNode"]
+margin_left = 113.782
+margin_top = -100.0
+margin_right = 413.782
+margin_bottom = -36.0
+size_flags_vertical = 0
+alignment = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="labResGain_yield" type="Label" parent="templateNode/tmpResGain"]
+margin_left = 61.0
+margin_right = 95.0
+margin_bottom = 64.0
+size_flags_vertical = 1
+custom_fonts/font = SubResource( 5 )
+custom_colors/font_color = Color( 0.0627451, 0.713726, 0.0705882, 1 )
+text = "0"
+valign = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="labResGain_slash" type="Label" parent="templateNode/tmpResGain"]
+margin_left = 99.0
+margin_right = 133.0
+margin_bottom = 64.0
+size_flags_vertical = 1
+custom_fonts/font = SubResource( 5 )
+text = "/"
+valign = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="labResGain_inv" type="Label" parent="templateNode/tmpResGain"]
+margin_left = 137.0
+margin_right = 171.0
+margin_bottom = 64.0
+size_flags_vertical = 1
+custom_fonts/font = SubResource( 5 )
+text = "3"
+valign = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="texResGain" type="TextureRect" parent="templateNode/tmpResGain"]
+margin_left = 175.0
+margin_right = 239.0
+margin_bottom = 64.0
+texture = ExtResource( 9 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+[connection signal="released" from="Globals/TopBarNode/btnBuildingMenu" to="Globals/TopBarNode/btnBuildingMenu" method="_on_btnBuildingMenu_released"]
+[connection signal="released" from="Globals/TopBarNode/btnBuildingMenu" to="Globals/TopBarNode" method="_on_btnBuildingMenu_released"]
+[connection signal="released" from="Globals/TopBarNode/btnInfoToggle" to="Globals/TopBarNode/btnInfoToggle" method="_on_btnInfoToggle_released"]
+[connection signal="released" from="templateNode/tmpBuilding/btnProcess" to="templateNode/tmpBuilding" method="_on_btnProcess_released"]
+[connection signal="pressed" from="templateNode/tmpAddBuilding/btnAddBuilding" to="templateNode/tmpAddBuilding" method="_on_btnAddBuilding_pressed"]
+[connection signal="released" from="templateNode/tmpAddBuilding/btnAddBuilding" to="templateNode/tmpAddBuilding" method="_on_btnAddBuilding_released"]
+[connection signal="pressed" from="templateNode/tmpAddStorage/btnAddStorage" to="templateNode/tmpAddStorage" method="_on_btnAddStorage_pressed"]
+[connection signal="released" from="templateNode/tmpAddStorage/btnAddStorage" to="templateNode/tmpAddStorage" method="_on_btnAddStorage_released"]

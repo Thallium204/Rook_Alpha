@@ -1,7 +1,46 @@
 extends GridContainer
 
-func addBuilding(name):
-	var newNode = get_node("../texBuilding").duplicate()
-	newNode.set_name("tex"+name)
-	newNode.texture = load("res://Sprites/img_"+name.to_lower()+".png")
-	add_child(newNode)
+onready var templateNode = get_tree().get_root().get_node("Game/templateNode")
+
+func addBuilding(buildingData):
+	var nameID = buildingData[0] # Isolate the name index from buildingData
+	var newBuilding = templateNode.get_node("tmpBuilding").duplicate() # Create new building from template as a variable
+	newBuilding.set_name("tex"+nameID) # Set correctly formated name i.e. "Quarry" -> "texQuarry2"
+	newBuilding.texture = load("res://Sprites/Buildings/img_"+nameID.to_lower()+".png") # Set texture based upon nameID
+	
+	# Create resource cost UI
+	for resCost in buildingData[1]:
+		var newResCost = templateNode.get_node("tmpResCost").duplicate()
+		newResCost.name = "grdResCost"+resCost[0]
+		newBuilding.get_node("grdResCostList").add_child(newResCost)
+		
+	# Create divider between Costs and gain (if costs exist)
+	if buildingData[1] != []:
+		var newResDivider = templateNode.get_node("tmpResDivider").duplicate()
+		newResDivider.name = "grdResDivider"
+		newBuilding.get_node("grdResCostList").add_child(newResDivider)
+	
+	# Create resource gain UI
+	var newResGain = templateNode.get_node("tmpResGain").duplicate()
+	newResGain.name = "grdResGain"
+	newBuilding.get_node("grdResCostList").add_child(newResGain)
+	
+	# Update the new building's internals
+	newBuilding.updateBuildingData(buildingData)
+	
+	add_child(newBuilding) # Create the actual node as a child of FactoryFloor (Grid)
+
+func addStorage(storageData):
+	var nameID = storageData[0] # Isolate the name index from buildingData
+	var newStorage = templateNode.get_node("tmpStorage").duplicate() # Create new building from template as a variable
+	newStorage.set_name("tex"+nameID) # Set correctly formated name i.e. "Quarry" -> "texQuarry2"
+	newStorage.texture = load("res://Sprites/Storage/img_"+nameID.to_lower()+".png") # Set texture based upon nameID
+	
+	# Create storage UI
+	var newResGain = templateNode.get_node("tmpResGain").duplicate()
+	newResGain.name = "grdResStorage"
+	newStorage.get_node("grdInventory").add_child(newResGain)
+	
+	newStorage.updateStorageData(storageData) # Let the new node initialse its inner variables
+	
+	add_child(newStorage) # Create the actual node as a child of FactoryFloor (Grid)
