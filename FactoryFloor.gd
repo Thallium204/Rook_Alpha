@@ -27,6 +27,8 @@ func addBuilding(buildingData):
 	newResGain.name = "grdResGain"
 	newBuilding.get_node("grdResCostList").add_child(newResGain)
 	
+	newBuilding.autoCraft = Globals.autoCraft # Set autocraft
+	
 	# Update the new building's internals
 	newBuilding.configureBuildingData(buildingData)
 	

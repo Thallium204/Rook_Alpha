@@ -73,7 +73,7 @@ radius = 134.0
 [sub_resource type="AnimatedTexture" id=9]
 flags = 4
 frames = 27
-fps = 13.5
+fps = 54.0
 frame_0/texture = ExtResource( 52 )
 frame_1/texture = ExtResource( 53 )
 frame_1/delay_sec = 0.0
@@ -303,6 +303,7 @@ __meta__ = {
 
 [node name="BackgroundMusic" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 16 )
+autoplay = true
 
 [node name="templateNode" type="Node2D" parent="."]
 position = Vector2( -799.072, -1515.17 )

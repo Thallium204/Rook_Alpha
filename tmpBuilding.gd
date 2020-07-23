@@ -15,6 +15,7 @@ var levelData = [] # List of all upgrade modifiers
 var UIPermission = true
 var checkForMovement = false
 var hasMoved = false
+var autoCraft = false
 
 var isProcessing = false
 var processTimer = 0.0 # Process timer (in seconds)
@@ -81,6 +82,15 @@ func checkIfToggleUI(): # Check if info display is active
 		get_node("labBuilding").visible = true
 		self.self_modulate = Color(1,1,1)
 
+func tryToProcess():
+	# Check if we have required resources
+	if haveEnoughResources() == true and haveEnoughStorage() == true and isProcessing == false:
+		# Deduct resource costs
+		for resCost in inputResList:
+			resCost[1] -= resCost[2]
+		# Commense Processing
+		isProcessing = true
+
 func _process(delta):
 	
 	# Prevent clicking when menu is open
@@ -97,12 +107,16 @@ func _process(delta):
 		processTimer += delta
 		if processTimer >= processTime: # If we have finished
 			outputResList[1] += outputResList[3] # Gain resources
-			updateBuildingUI()
-			isProcessing = false
 			processTimer = 0.0
+			isProcessing = false
+			updateBuildingUI()
 		else: # If we are still processing
 			progPerc = processTimer/float(processTime)
 			self.self_modulate = Color(1-progPerc,1,1-progPerc)
+	
+	if autoCraft == true:
+		tryToProcess()
+
 
 
 func _input(event):
@@ -116,15 +130,7 @@ func _on_btnProcess_released():
 	checkForMovement = false
 	if hasMoved == false:
 		if UIPermission == true and Globals.addConveyorMode == false: # Do we have no UI Windows open and no Conveyor select
-			# Check if we have required resources
-			if haveEnoughResources() == true and haveEnoughStorage() == true and isProcessing == false:
-				
-				# Deduct resource costs
-				for resCost in inputResList:
-					resCost[1] -= resCost[2]
-				
-				# Commense Processing
-				isProcessing = true
+			tryToProcess()
 				
 	hasMoved = false
 	

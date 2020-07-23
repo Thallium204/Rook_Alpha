@@ -11,6 +11,7 @@ var addConveyorMode = true # immediately toggled to false
 var conveyorPair = [null,null]
 var conveyorCrammingFactor = 3
 var numberOfBuildings = 0
+var autoCraft = true
 
 
 # [ nameID , inputRes ,outputRes , processTime ]
