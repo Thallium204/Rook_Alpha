@@ -16,15 +16,15 @@ var autoCraft = true
 
 # [ nameID , inputRes ,outputRes , processTime ]
 var buildingBank = [
-	[ "Quarry",		[],				["Cobble",1],	0.5 ],
-	[ "Furnace",	[["Cobble",1]],	["Stone",1],	1 ],
-	[ "Table",		[["Log",1]],	["Planks",4],		1 ],
-	[ "Cartography",[],				["Log",1],		0.5 ],
-	[ "Library",	[["Cobble",2],["Planks",2]],	["Power",3],		1 ],
-	[ "Loom",		[["Planks",4]],	["Power",2],		1 ],
-	[ "Portal",		[["Stone",2]],	["Water",1],		1 ],
-	[ "Spawner",	[["Cobble",2],["Water",4],["Power",9]],	["Log",64],		1 ],
-	[ "Mystery",	[["Power",2],["Water",4]],	["Power",3],		1 ]
+	[ "Quarry",		[],				["Cobble",1],	2 ],
+	[ "Furnace",	[["Cobble",1]],	["Stone",1],	4 ],
+	[ "Table",		[["Log",1]],	["Planks",4],		4 ],
+	[ "Cartography",[],				["Log",1],		2 ],
+	[ "Library",	[["Cobble",2],["Planks",2]],	["Power",3],		3 ],
+	[ "Loom",		[["Planks",4]],	["Power",2],		2 ],
+	[ "Portal",		[["Stone",2]],	["Water",1],		2 ],
+	[ "Spawner",	[["Cobble",2],["Water",4],["Power",9]],	["Log",64],		10 ],
+	[ "Mystery",	[["Power",2],["Water",4]],	["Power",3],		2 ]
 ]
 
 

@@ -109,10 +109,12 @@ func _process(delta):
 			outputResList[1] += outputResList[3] # Gain resources
 			processTimer = 0.0
 			isProcessing = false
+			get_node("texProgress").value = 0
 			updateBuildingUI()
 		else: # If we are still processing
 			progPerc = processTimer/float(processTime)
-			self.self_modulate = Color(1-progPerc,1,1-progPerc)
+			#self.self_modulate = Color(1-progPerc,1,1-progPerc)
+			get_node("texProgress").value = stepify(100*progPerc,0.1)
 	
 	if autoCraft == true:
 		tryToProcess()
