@@ -12,6 +12,9 @@ var inputBuildingIDList = [] # nameIDs of all input buildings
 var outputBuildingIDList = [] # nameIDs of all output buildings
 var levelData = [] # List of all upgrade modifiers
 
+var toList = []
+var fromList = []
+
 var UIPermission = true
 var checkForMovement = false
 var hasMoved = false
@@ -137,12 +140,84 @@ func _on_btnProcess_released():
 	hasMoved = false
 	
 	# If we're creating a conveyor
-	if Globals.addConveyorMode == true:
+	if Globals.addConveyorMode == true and UIPermission == true:
 		if Globals.conveyorPair[0] == null: # If we're the first selection (FROM)
-			Globals.conveyorPair[0] = self.name
+			Globals.conveyorPair[0] = self
 		elif Globals.conveyorPair[1] == null: # If we're the second selection (TO)
-			Globals.conveyorPair[1] = self.name
+			Globals.conveyorPair[1] = self
 			Globals.initialiseConveyorData()
 
 func _on_btnProcess_pressed():
 	checkForMovement = true
+
+
+### CONVEYOR SECTION
+
+var fromPriority = 0
+var toPriority = 0
+
+func getStorage():
+	return outputResList
+
+func getRoom(resName): # Used to check for potential receivers
+	#print("BUILDING getRoomRequest: ",inputResList)
+	for intStorage in inputResList: # Search for the relevant internal resource storage
+		if intStorage[0] == resName: # If we've found it
+			return intStorage[2] - intStorage[1] # return the current room avaliable
+	# If we've made it this far there was no relevant storage (i.e. trying to push cobble into log generator)
+	return 0 # return no room
+
+func getResAmount(resName): # Used to check for potential pushers
+	#print(self.name,": getResAmountRequest: ",resName," for ",outputResList)
+	if outputResList[0] == resName: # If we have a certain resource to pull
+		return outputResList[1] # return the current resource amount
+	elif resName == null: # If we can pull any resource
+		return outputResList[1]
+	# If we've made it this far there was no relevant storage (i.e. trying to receive resources from empty storage)
+	return 0 # return no resources
+
+func editIntStorage(resName,value,io):
+	if io == "input": # If we're editing the input list
+		for intStorage in inputResList: # Search for the relevant internal resource storage
+			if intStorage[0] == resName: # If we've found it
+				intStorage[1] += value
+	else:
+		outputResList[1] += value
+
+func advancePriority(type):
+	if type == "FROM":
+		fromPriority = (fromPriority+1)%fromList.size()
+	else:
+		toPriority = (toPriority+1)%toList.size()
+
+func pushForward():
+	
+	if outputResList[1] > 0: # if we have something to push
+		var havePushed = false
+		var stopAt = int(1*toPriority) # Create a copy of the value toPriority
+		while havePushed == false:
+			var targetEntity = toList[toPriority] # Get new target
+			# if we are the priority and there's enough room for us to push into
+			if targetEntity.findPriority(outputResList[0]) == self and targetEntity.getRoom(outputResList[0]) > 0 and outputResList[1] > 0:
+				var amountToPush = min( targetEntity.getRoom(outputResList[0]) , outputResList[1] )
+				editIntStorage(outputResList[0],-amountToPush,"output") # Take resources
+				targetEntity.editIntStorage(outputResList[0],amountToPush,"input") # Push resources
+				targetEntity.advancePriority("FROM") # Move fromRoundRobin
+				havePushed = true
+			advancePriority("TO")
+			if toPriority == stopAt: # If we've tested every option and still can't push
+				havePushed = true # Exit the loop
+
+func findPriority(resID):
+	var havePriority = false
+	var stopAt = int(1*fromPriority) # Create a copy of the value fromPriority
+	while havePriority == false:
+		var pusherEntity = fromList[fromPriority] # Get new pusher
+		# if we are the priority and there's something to push to us
+		#print(self.name,": findPriority: ",pusherEntity.toList[pusherEntity.toPriority]," == ",self," and ",pusherEntity.getResAmount(outputResList[0])," > ",0)
+		if pusherEntity.toList[pusherEntity.toPriority] == self and pusherEntity.getResAmount(resID) > 0:
+			return pusherEntity
+		else:
+			advancePriority("FROM")
+		if toPriority == stopAt: # If we've tested every option and still can't push
+			havePriority = true # Exit the loop

@@ -4,9 +4,7 @@ onready var Globals = get_tree().get_root().get_node("Game/Globals")
 onready var templateNode = get_tree().get_root().get_node("Game/templateNode")
 onready var FactoryFloor = Globals.get_node("FactoryFloor")
 
-onready var conveyorCrammingFactor = Globals.conveyorCrammingFactor
-
-func addConveyor(conveyorData,conveyorPair):
+func addConveyor2(conveyorData,conveyorPair):
 	
 	var nameID = conveyorData[0] # Isolate the name index from conveyorData
 	var newConveyor = templateNode.get_node("tmpConveyor").duplicate() # Create new conveyor from template as a variable
@@ -60,3 +58,62 @@ func addConveyor(conveyorData,conveyorPair):
 	newConveyor.configureConveyorData(conveyorData)
 	
 	add_child(newConveyor) # Create the actual node as a child of FactoryFloor (Grid)
+
+
+
+
+
+func addConveyor(conveyorData,conveyorNodePair):
+	
+	Globals.numberOfBuildings += 1
+	var nameID = conveyorData[0] # Isolate the name index from conveyorData
+	var newConveyorNode = templateNode.get_node("tmpConveyorNode").duplicate() # Create new conveyor from template as a variable
+	newConveyorNode.set_name("ConveyorNode_"+str(Globals.numberOfBuildings)) # Set correctly formated name i.e. "Standard" -> "texStandard"
+	
+	var fromEntityShape = conveyorNodePair[0].rect_size
+	var fromEntityPos = conveyorNodePair[0].rect_position + fromEntityShape/2 # Get center of entity
+	var fromEntityRadius = min( fromEntityShape[0] , fromEntityShape[1] )/2
+	
+	var toEntityShape = conveyorNodePair[1].rect_size
+	var toEntityPos = conveyorNodePair[1].rect_position + toEntityShape/2 # Get center of entity
+	var toEntityRadius = min( toEntityShape[0] , toEntityShape[1] )/2
+	
+	# Drawing the Conveyor
+	var vectorDistance = toEntityPos - fromEntityPos
+	var scalarDistance = float(vectorDistance.length())
+	var fromDistanceModifier = fromEntityRadius/scalarDistance
+	var toDistanceModifier = 1-toEntityRadius/scalarDistance
+	
+	var usableDistance = scalarDistance - fromEntityRadius - toEntityRadius
+	var floatNoOfSegments = usableDistance/Globals.conveyorSpacing
+	var noOfSegments = ceil(floatNoOfSegments)
+	var segmentDistance = usableDistance/noOfSegments
+	var segmentDistanceModifier = segmentDistance/scalarDistance
+	
+	# Initialising the variables
+	newConveyorNode.noOfSegments = noOfSegments+1
+	#print(newConveyorNode.noOfSegments)
+	newConveyorNode.connectedEntityNodes = conveyorNodePair
+	newConveyorNode.turnedOn = true
+	
+	# Creating Children Segments
+	var segRectCenter = templateNode.get_node("tmpSegment").rect_size/2 # Center of segment texture
+	var segmentPosList = []
+	for segmentPos in range(noOfSegments):
+		segmentPosList.append( fromEntityPos + vectorDistance*(fromDistanceModifier + segmentPos*segmentDistanceModifier ) - segRectCenter )
+	segmentPosList.append( fromEntityPos + vectorDistance*toDistanceModifier - segRectCenter )
+	
+	for segID in range(segmentPosList.size()):
+		
+		var newSegment = templateNode.get_node("tmpSegment").duplicate() # Create new resource UI from template as a variable
+		newSegment.set_name("texSegment_"+str(segID)) # Set correctly formated name
+		#newSegment.texture = load("res://Sprites/Conveyors/img_segment.png") # Set texture
+		newSegment.rect_position = segmentPosList[segID]
+		newSegment.rect_pivot_offset = newSegment.rect_size/2
+		#newSegment.rect_rotation -= rotationDegrees
+		newConveyorNode.add_child(newSegment)
+	
+	# Update the new building's internals
+	newConveyorNode.configureConveyorData(conveyorData)
+	
+	add_child(newConveyorNode) # Create the actual node as a child of FactoryFloor (Grid)

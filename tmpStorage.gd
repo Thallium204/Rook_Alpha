@@ -10,6 +10,9 @@ var inputBuildingIDList = [] # nameIDs of all input buildings
 var outputBuildingIDList = [] # nameIDs of all output buildings
 var levelData = [] # List of all upgrade modifiers
 
+var toList = []
+var fromList = []
+
 var UIPermission = true
 var checkForMovement = false
 var hasMoved = false
@@ -61,11 +64,11 @@ func _input(event):
 
 func _on_btnProcess_released():
 	# If we're creating a conveyor
-	if Globals.addConveyorMode == true:
+	if Globals.addConveyorMode == true and UIPermission == true:
 		if Globals.conveyorPair[0] == null: # If we're the first selection (FROM)
-			Globals.conveyorPair[0] = self.name
+			Globals.conveyorPair[0] = self
 		elif Globals.conveyorPair[1] == null: # If we're the second selection (TO)
-			Globals.conveyorPair[1] = self.name
+			Globals.conveyorPair[1] = self
 			Globals.initialiseConveyorData()
 
 
