@@ -1,4 +1,4 @@
-[gd_scene load_steps=60 format=2]
+[gd_scene load_steps=61 format=2]
 
 [ext_resource path="res://Sprites/Tileables/img_dirt_tile_128x.png" type="Texture" id=1]
 [ext_resource path="res://grdAddBuildings.gd" type="Script" id=2]
@@ -21,6 +21,7 @@
 [ext_resource path="res://tmpStorage.gd" type="Script" id=19]
 [ext_resource path="res://tmpAddStorage.gd" type="Script" id=20]
 [ext_resource path="res://Sprites/Misc/img_progress_circle.png" type="Texture" id=21]
+[ext_resource path="res://Sprites/Conveyors/img_segment.png" type="Texture" id=22]
 [ext_resource path="res://tmpSegment.gd" type="Script" id=23]
 [ext_resource path="res://tmpConveyorNode.gd" type="Script" id=24]
 [ext_resource path="res://btnConveyorToggle.gd" type="Script" id=29]
@@ -617,6 +618,7 @@ margin_top = -30.0355
 margin_right = 810.334
 margin_bottom = 49.9645
 rect_pivot_offset = Vector2( 40, 40 )
+texture = ExtResource( 22 )
 script = ExtResource( 23 )
 __meta__ = {
 "_edit_use_anchors_": false

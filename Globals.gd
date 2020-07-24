@@ -9,7 +9,7 @@ var isMenuOpen = false
 var infoIsDisplayed = true # immediately toggled to false
 var addConveyorMode = true # immediately toggled to false
 var conveyorPair = [null,null]
-var conveyorSpacing = 10
+var conveyorSpacing = 80
 var numberOfBuildings = 0
 var autoCraft = true
 
@@ -38,7 +38,7 @@ var storageBank = [
 
 # [ nameID ,  extractAmount , conveyorSpeed , segmentBuffer ]
 var conveyorBank = [
-	["Standard", 1, 0.05, 1]
+	["Standard", 1, 0.5, 1]
 ]
 
 
