@@ -3,8 +3,8 @@ extends GridContainer
 onready var Globals = get_tree().get_root().get_node("Game/Globals")
 onready var templateNode = get_tree().get_root().get_node("Game/templateNode")
 
-var buildingList = []
-var initialFloorSize = 12 # Hard-coded cap to the number of buildings allowed on FactoryFloor
+var buildingList = [null]
+var initialFloorSize = 18 # Hard-coded cap to the number of buildings allowed on FactoryFloor
 
 func _ready():
 	addBuildingSpace()
@@ -13,6 +13,7 @@ func addBuildingSpace():
 	for i in range(initialFloorSize):
 		var newBuildingSpace = templateNode.get_node("tmpBuildingSpace").duplicate()
 		newBuildingSpace.name = "space"+str(i)
+		newBuildingSpace.get_node("Label").text = str(i)
 		add_child(newBuildingSpace)
 		buildingList.append(newBuildingSpace)
 
@@ -22,15 +23,15 @@ func getBuildingIndex(node):
 			return buildingNodePos
 
 func addChildToFloor(nodeToAdd):
-	for buildingNodePos in range(buildingList.size()):
+	for buildingNodePos in range(1,buildingList.size()):
 		if "space" in buildingList[buildingNodePos].name:
 			
 			remove_child(buildingList[buildingNodePos]) # Remove the child node from FactoryFloor (Grid)
 			buildingList.erase(buildingList[buildingNodePos]) # Remove the child node from buildingList
 			
 			add_child(nodeToAdd) # Create the actual node as a child of FactoryFloor (Grid)
-			buildingList.insert(buildingNodePos,nodeToAdd) # Add the child node into the buildingList at the correct index
 			move_child(nodeToAdd,buildingNodePos) # Move the newly added child node to the correct index/grid_position
+			buildingList.insert(buildingNodePos,nodeToAdd) # Add the child node into the buildingList at the correct index
 			
 			break
 	#for buildingNode in buildingList:
@@ -54,8 +55,8 @@ func swapChildrenOnFloor(nodeSwapPair):
 	buildingList[nodeIndexPair[0]] = nodeSwapPair[1]
 	buildingList[nodeIndexPair[1]] = nodeSwapPair[0]
 	
-	for buildingNode in buildingList:
-		print(buildingNode.name)
+	#for buildingNode in buildingList:
+	#	print(buildingNode.name)
 
 
 func addBuilding(buildingData):

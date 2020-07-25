@@ -13,7 +13,7 @@ var conveyorPair = [null,null]
 var movePair = [null,null]
 var conveyorSpacing = 80
 var numberOfBuildings = 0
-var autoCraft = true
+var autoCraft = false
 
 
 # [ nameID , inputRes ,outputRes , processTime ]
