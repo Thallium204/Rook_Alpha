@@ -1,0 +1,33 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://ConveyorFloor.gd" type="Script" id=1]
+[ext_resource path="res://FactoryFloor.gd" type="Script" id=2]
+[ext_resource path="res://Sprites/Tileables/img_dirt_tile_128x.png" type="Texture" id=3]
+
+[node name="FactorySceneNode" type="Node2D"]
+
+[node name="Background" type="TextureRect" parent="."]
+margin_right = 10800.0
+margin_bottom = 9600.0
+texture = ExtResource( 3 )
+stretch_mode = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="FactoryFloor" type="GridContainer" parent="."]
+margin_left = 32.0
+margin_top = 32.0
+margin_right = 32.0
+margin_bottom = 32.0
+custom_constants/vseparation = 45
+custom_constants/hseparation = 45
+columns = 3
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ConveyorFloor" type="Node2D" parent="FactoryFloor"]
+show_behind_parent = true
+script = ExtResource( 1 )
