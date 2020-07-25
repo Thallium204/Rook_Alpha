@@ -2,7 +2,7 @@ extends Node2D
 
 onready var Globals = get_tree().get_root().get_node("Game/Globals")
 onready var templateNode = get_tree().get_root().get_node("Game/templateNode")
-onready var FactoryFloor = Globals.get_node("FactoryFloor")
+onready var FactoryFloor = Globals.get_parent()
 
 func addConveyor2(conveyorData,conveyorPair):
 	
@@ -66,7 +66,7 @@ func addConveyor2(conveyorData,conveyorPair):
 func addConveyor(conveyorData,conveyorNodePair):
 	
 	Globals.numberOfBuildings += 1
-	var nameID = conveyorData[0] # Isolate the name index from conveyorData
+	var _nameID = conveyorData[0] # Isolate the name index from conveyorData
 	var newConveyorNode = templateNode.get_node("tmpConveyorNode").duplicate() # Create new conveyor from template as a variable
 	newConveyorNode.set_name("ConveyorNode_"+str(Globals.numberOfBuildings)) # Set correctly formated name i.e. "Standard" -> "texStandard"
 	
@@ -79,37 +79,61 @@ func addConveyor(conveyorData,conveyorNodePair):
 	var toEntityRadius = min( toEntityShape[0] , toEntityShape[1] )/2
 	
 	# Drawing the Conveyor
-	var vectorDistance = toEntityPos - fromEntityPos
-	var scalarDistance = float(vectorDistance.length())
-	var fromDistanceModifier = fromEntityRadius/scalarDistance
-	var toDistanceModifier = 1-toEntityRadius/scalarDistance
+	var vectorDistance = toEntityPos - fromEntityPos # the vector from fromEntity to toEntity
+	var rotationDegrees = rad2deg(Vector2(0,1).angle_to(vectorDistance))
+	var scalarDistance = float(vectorDistance.length()) # the length of that vector
+	var fromDistanceModifier = fromEntityRadius/scalarDistance # the percentage of the way the fromEntity radius is along the line
 	
-	var usableDistance = scalarDistance - fromEntityRadius - toEntityRadius
-	var floatNoOfSegments = usableDistance/Globals.conveyorSpacing
-	var noOfSegments = ceil(floatNoOfSegments)
-	var segmentDistance = usableDistance/noOfSegments
-	var segmentDistanceModifier = segmentDistance/scalarDistance
+	var usableDistance = scalarDistance - fromEntityRadius - toEntityRadius # the distance between the radii
+	var floatNoOfSegments = usableDistance/Globals.conveyorSpacing # the float number of segments we can fit
+	var noOfSegments = floor(floatNoOfSegments) # the actual number of segments we are going to add
+	var textureScaleAmount = 1
+	if noOfSegments == 0: # If the gap is very small
+		noOfSegments = 1 # Create a single segment
+	textureScaleAmount = floatNoOfSegments/noOfSegments # Adjust the texture scale
+	var segmentDistance = usableDistance/noOfSegments # the distance between segment midpoints
+	var segmentDistanceModifier = segmentDistance/scalarDistance # the percentage of the distance segmentDistance takes up
 	
 	# Initialising the variables
-	newConveyorNode.noOfSegments = noOfSegments+1
-	#print(newConveyorNode.noOfSegments)
+	newConveyorNode.noOfSegments = noOfSegments
 	newConveyorNode.connectedEntityNodes = conveyorNodePair
 	newConveyorNode.turnedOn = true
 	
-	# Creating Children Segments
-	var segRectCenter = templateNode.get_node("tmpSegment").rect_size/2 # Center of segment texture
+	# Getting segment positions
+	var segRectCenter = templateNode.get_node("tmpSegment").get_node("texSegment").rect_size/2 # Center of segment texture
 	var segmentPosList = []
-	for segmentPos in range(noOfSegments):
-		segmentPosList.append( fromEntityPos + vectorDistance*(fromDistanceModifier + segmentPos*segmentDistanceModifier ) - segRectCenter )
-	segmentPosList.append( fromEntityPos + vectorDistance*toDistanceModifier - segRectCenter )
+	var runningModifier = fromDistanceModifier
+	for _segmentPos in range(noOfSegments):
+		runningModifier += segmentDistanceModifier/2
+		segmentPosList.append( fromEntityPos + vectorDistance*runningModifier - segRectCenter )
+		runningModifier += segmentDistanceModifier/2
 	
+	# Creating FROM texture
+	var newTexture = templateNode.get_node("tmpSegment").get_node("texSegment").duplicate()
+	newTexture.rect_position = segmentPosList[0] - vectorDistance*segmentDistanceModifier*0.95
+	newTexture.rect_pivot_offset = newTexture.rect_size/2
+	newTexture.rect_rotation = rotationDegrees
+	newTexture.rect_scale = Vector2(1,textureScaleAmount)
+	newConveyorNode.add_child(newTexture)
+	
+	# Creating TO texture
+	newTexture = newTexture.duplicate()
+	newTexture.rect_position = segmentPosList[-1] + vectorDistance*segmentDistanceModifier*0.95
+	newConveyorNode.add_child(newTexture)
+	
+	# Creating Segment children
 	for segID in range(segmentPosList.size()):
 		
 		var newSegment = templateNode.get_node("tmpSegment").duplicate() # Create new resource UI from template as a variable
 		newSegment.set_name("texSegment_"+str(segID)) # Set correctly formated name
+		newTexture = newSegment.get_node("texSegment")
+		var _newResource = newSegment.get_node("texResource")
 		#newSegment.texture = load("res://Sprites/Conveyors/img_segment.png") # Set texture
-		newSegment.rect_position = segmentPosList[segID]
-		newSegment.rect_pivot_offset = newSegment.rect_size/2
+		newSegment.position = segmentPosList[segID]
+		newTexture.rect_pivot_offset = newTexture.rect_size/2
+		newTexture.rect_rotation = rotationDegrees
+		newTexture.rect_scale = Vector2(1,textureScaleAmount)
+		#newSegment.get_node("texResource").rect_scale = Vector2(1,1/textureScaleAmount) # Cancel the scaling for the child resource texture
 		#newSegment.rect_rotation -= rotationDegrees
 		newConveyorNode.add_child(newSegment)
 	

@@ -1,4 +1,4 @@
-[gd_scene load_steps=61 format=2]
+[gd_scene load_steps=65 format=2]
 
 [ext_resource path="res://Sprites/Tileables/img_dirt_tile_128x.png" type="Texture" id=1]
 [ext_resource path="res://grdAddBuildings.gd" type="Script" id=2]
@@ -21,11 +21,12 @@
 [ext_resource path="res://tmpStorage.gd" type="Script" id=19]
 [ext_resource path="res://tmpAddStorage.gd" type="Script" id=20]
 [ext_resource path="res://Sprites/Misc/img_progress_circle.png" type="Texture" id=21]
-[ext_resource path="res://Sprites/Conveyors/img_segment.png" type="Texture" id=22]
+[ext_resource path="res://tmpBuildingSpace.gd" type="Script" id=22]
 [ext_resource path="res://tmpSegment.gd" type="Script" id=23]
-[ext_resource path="res://tmpConveyorNode.gd" type="Script" id=24]
+[ext_resource path="res://tmpConveyor.gd" type="Script" id=24]
+[ext_resource path="res://Sprites/Buildings/img_space.png" type="Texture" id=25]
+[ext_resource path="res://btnMoveToggle.gd" type="Script" id=26]
 [ext_resource path="res://btnConveyorToggle.gd" type="Script" id=29]
-[ext_resource path="res://tmpConveyor.gd" type="Script" id=30]
 [ext_resource path="res://ConveyorFloor.gd" type="Script" id=31]
 [ext_resource path="res://Sprites/Conveyors/conv_industrial/23.png" type="Texture" id=32]
 [ext_resource path="res://Sprites/Conveyors/conv_industrial/11.png" type="Texture" id=33]
@@ -55,14 +56,20 @@
 [ext_resource path="res://Sprites/Conveyors/conv_industrial/26.png" type="Texture" id=57]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 150.133, 50 )
+extents = Vector2( 130, 50 )
 
 [sub_resource type="DynamicFont" id=2]
 size = 80
 font_data = ExtResource( 10 )
 
 [sub_resource type="RectangleShape2D" id=3]
-extents = Vector2( 200, 50 )
+extents = Vector2( 120, 50 )
+
+[sub_resource type="RectangleShape2D" id=10]
+extents = Vector2( 110, 50 )
+
+[sub_resource type="CircleShape2D" id=9]
+radius = 134.0
 
 [sub_resource type="CircleShape2D" id=4]
 radius = 134.0
@@ -77,7 +84,7 @@ radius = 134.0
 [sub_resource type="AnimatedTexture" id=7]
 flags = 4
 frames = 27
-fps = 54.0
+fps = 60.0
 frame_0/texture = ExtResource( 52 )
 frame_1/texture = ExtResource( 53 )
 frame_1/delay_sec = 0.0
@@ -132,6 +139,9 @@ frame_25/delay_sec = 0.0
 frame_26/texture = ExtResource( 37 )
 frame_26/delay_sec = 0.0
 
+[sub_resource type="CircleShape2D" id=8]
+radius = 40.0
+
 [node name="Game" type="Node2D"]
 
 [node name="Globals" type="Node2D" parent="."]
@@ -146,15 +156,21 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="ConveyorFloor" type="Node2D" parent="Globals"]
-position = Vector2( 45, 205 )
-script = ExtResource( 31 )
+[node name="scrFactoryFloor" type="ScrollContainer" parent="Globals"]
+margin_left = 32.0
+margin_top = 160.0
+margin_right = 1048.0
+margin_bottom = 1760.0
+rect_min_size = Vector2( 1016, 1600 )
+rect_clip_content = false
+size_flags_horizontal = 5
+follow_focus = true
+scroll_horizontal_enabled = false
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
-[node name="FactoryFloor" type="GridContainer" parent="Globals"]
-margin_left = 45.0
-margin_top = 205.0
-margin_right = 1035.0
-margin_bottom = 1747.0
+[node name="FactoryFloor" type="GridContainer" parent="Globals/scrFactoryFloor"]
 custom_constants/vseparation = 45
 custom_constants/hseparation = 45
 columns = 3
@@ -162,6 +178,10 @@ script = ExtResource( 5 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="ConveyorFloor" type="Node2D" parent="Globals/scrFactoryFloor/FactoryFloor"]
+show_behind_parent = true
+script = ExtResource( 31 )
 
 [node name="TopBarNode" type="Node2D" parent="Globals"]
 script = ExtResource( 12 )
@@ -180,8 +200,9 @@ shape = SubResource( 1 )
 script = ExtResource( 6 )
 
 [node name="labBuildingMenu" type="Label" parent="Globals/TopBarNode/btnBuildingMenu"]
+margin_left = 16.0
 margin_top = 8.0
-margin_right = 300.0
+margin_right = 256.0
 margin_bottom = 108.0
 rect_pivot_offset = Vector2( -2813.23, -1445.46 )
 custom_fonts/font = SubResource( 2 )
@@ -248,13 +269,13 @@ __meta__ = {
 [node name="twnTopBarAdd" type="Tween" parent="Globals/TopBarNode/btnBuildingMenu"]
 
 [node name="btnConveyorToggle" type="TouchScreenButton" parent="Globals/TopBarNode"]
-position = Vector2( 340.326, -1.06623 )
+position = Vector2( 272.978, -1.06623 )
 shape = SubResource( 3 )
 script = ExtResource( 29 )
 
 [node name="labConveyorToggle" type="Label" parent="Globals/TopBarNode/btnConveyorToggle"]
 margin_top = 7.33258
-margin_right = 400.0
+margin_right = 240.0
 margin_bottom = 107.333
 rect_pivot_offset = Vector2( -2813.23, -1445.46 )
 custom_fonts/font = SubResource( 2 )
@@ -262,7 +283,7 @@ custom_colors/font_color = Color( 1, 1, 1, 1 )
 custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
 custom_constants/shadow_offset_x = 4
 custom_constants/shadow_offset_y = 3
-text = "Conveyor"
+text = "Join"
 align = 1
 valign = 1
 clip_text = true
@@ -271,13 +292,13 @@ __meta__ = {
 }
 
 [node name="btnInfoToggle" type="TouchScreenButton" parent="Globals/TopBarNode"]
-position = Vector2( 779.944, 2.11176 )
-shape = SubResource( 1 )
+position = Vector2( 856.272, 4.35669 )
+shape = SubResource( 10 )
 script = ExtResource( 18 )
 
 [node name="labInfoToggle" type="Label" parent="Globals/TopBarNode/btnInfoToggle"]
 margin_top = 7.33258
-margin_right = 300.0
+margin_right = 220.0
 margin_bottom = 107.333
 rect_pivot_offset = Vector2( -2813.23, -1445.46 )
 custom_fonts/font = SubResource( 2 )
@@ -286,6 +307,29 @@ custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
 custom_constants/shadow_offset_x = 4
 custom_constants/shadow_offset_y = 3
 text = "Info"
+align = 1
+valign = 1
+clip_text = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="btnMoveToggle" type="TouchScreenButton" parent="Globals/TopBarNode"]
+position = Vector2( 550.961, -0.133057 )
+shape = SubResource( 1 )
+script = ExtResource( 26 )
+
+[node name="labMoveToggle" type="Label" parent="Globals/TopBarNode/btnMoveToggle"]
+margin_top = 7.33258
+margin_right = 260.0
+margin_bottom = 107.333
+rect_pivot_offset = Vector2( -2813.23, -1445.46 )
+custom_fonts/font = SubResource( 2 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+custom_constants/shadow_offset_x = 4
+custom_constants/shadow_offset_y = 3
+text = "Move"
 align = 1
 valign = 1
 clip_text = true
@@ -325,6 +369,22 @@ clip_text = true
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="tmpBuildingSpace" type="TextureRect" parent="templateNode"]
+margin_left = -202.74
+margin_top = 113.567
+margin_right = 97.2599
+margin_bottom = 413.567
+rect_min_size = Vector2( 300, 300 )
+texture = ExtResource( 25 )
+script = ExtResource( 22 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="btnProcess" type="TouchScreenButton" parent="templateNode/tmpBuildingSpace"]
+position = Vector2( 16, 16 )
+shape = SubResource( 9 )
 
 [node name="tmpBuilding" type="TextureRect" parent="templateNode"]
 margin_left = 100.0
@@ -594,32 +654,21 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="tmpConveyor" type="TextureRect" parent="templateNode"]
-margin_left = 617.891
-margin_top = -33.2626
-margin_right = 697.891
-margin_bottom = 46.7374
+[node name="tmpConveyorNode" type="Node2D" parent="templateNode"]
+script = ExtResource( 24 )
+
+[node name="tmpSegment" type="Node2D" parent="templateNode"]
+position = Vector2( 877, -2 )
+script = ExtResource( 23 )
+
+[node name="texSegment" type="TextureRect" parent="templateNode/tmpSegment"]
+margin_right = 80.0
+margin_bottom = 80.0
 grow_horizontal = 2
 grow_vertical = 2
 rect_pivot_offset = Vector2( 40, 40 )
 texture = SubResource( 7 )
 stretch_mode = 2
-script = ExtResource( 30 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="tmpConveyorNode" type="Node2D" parent="templateNode"]
-script = ExtResource( 24 )
-
-[node name="tmpSegment" type="TextureRect" parent="templateNode"]
-margin_left = 730.334
-margin_top = -30.0355
-margin_right = 810.334
-margin_bottom = 49.9645
-rect_pivot_offset = Vector2( 40, 40 )
-texture = ExtResource( 22 )
-script = ExtResource( 23 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -634,21 +683,14 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Control" type="Control" parent="."]
-margin_left = 682.68
-margin_top = -1156.03
-margin_right = 682.68
-margin_bottom = -1156.03
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Node2D" type="Node2D" parent="."]
-position = Vector2( 276.126, -646.538 )
+[node name="btnProcess" type="TouchScreenButton" parent="templateNode/tmpSegment"]
+shape = SubResource( 8 )
 [connection signal="released" from="Globals/TopBarNode/btnBuildingMenu" to="Globals/TopBarNode/btnBuildingMenu" method="_on_btnBuildingMenu_released"]
 [connection signal="released" from="Globals/TopBarNode/btnBuildingMenu" to="Globals/TopBarNode" method="_on_btnBuildingMenu_released"]
 [connection signal="released" from="Globals/TopBarNode/btnConveyorToggle" to="Globals/TopBarNode/btnConveyorToggle" method="_on_btnConveyorToggle_released"]
 [connection signal="released" from="Globals/TopBarNode/btnInfoToggle" to="Globals/TopBarNode/btnInfoToggle" method="_on_btnInfoToggle_released"]
+[connection signal="released" from="Globals/TopBarNode/btnMoveToggle" to="Globals/TopBarNode/btnMoveToggle" method="_on_btnMoveToggle_released"]
+[connection signal="released" from="templateNode/tmpBuildingSpace/btnProcess" to="templateNode/tmpBuildingSpace" method="_on_btnProcess_released"]
 [connection signal="pressed" from="templateNode/tmpBuilding/btnProcess" to="templateNode/tmpBuilding" method="_on_btnProcess_pressed"]
 [connection signal="released" from="templateNode/tmpBuilding/btnProcess" to="templateNode/tmpBuilding" method="_on_btnProcess_released"]
 [connection signal="released" from="templateNode/tmpStorage/btnProcess" to="templateNode/tmpStorage" method="_on_btnProcess_released"]
@@ -656,3 +698,4 @@ position = Vector2( 276.126, -646.538 )
 [connection signal="released" from="templateNode/tmpAddBuilding/btnAddBuilding" to="templateNode/tmpAddBuilding" method="_on_btnAddBuilding_released"]
 [connection signal="pressed" from="templateNode/tmpAddStorage/btnAddStorage" to="templateNode/tmpAddStorage" method="_on_btnAddStorage_pressed"]
 [connection signal="released" from="templateNode/tmpAddStorage/btnAddStorage" to="templateNode/tmpAddStorage" method="_on_btnAddStorage_released"]
+[connection signal="released" from="templateNode/tmpSegment/btnProcess" to="templateNode/tmpSegment" method="_on_btnProcess_released"]

@@ -33,10 +33,10 @@ func configureBuildingData(buildingData):
 		inputResList.append([resCost[0],0,resCost[1]])
 	outputResList = [buildingData[2][0],0,4*buildingData[2][1],buildingData[2][1]]
 	processTime = buildingData[3]
-	updateBuildingUI()
+	updateEntityUI()
 
 
-func updateBuildingUI():
+func updateEntityUI():
 	# Update resource cost and gain UI
 	var grdResCostList = get_node("grdResCostList") # creating a reference point at the grdResCostList (list of all costs)
 	for resCost in inputResList: # For each resource cost we update the display
@@ -113,7 +113,7 @@ func _process(delta):
 			processTimer = 0.0
 			isProcessing = false
 			get_node("texProgress").value = 0
-			updateBuildingUI()
+			updateEntityUI()
 		else: # If we are still processing
 			progPerc = processTimer/float(processTime)
 			#self.self_modulate = Color(1-progPerc,1,1-progPerc)
@@ -132,29 +132,46 @@ func _input(event):
 
 # WHEN THE BUILDING IS TAPPED
 func _on_btnProcess_released():
+	
 	checkForMovement = false
 	if hasMoved == false:
-		if UIPermission == true and Globals.addConveyorMode == false: # Do we have no UI Windows open and no Conveyor select
+		
+		if UIPermission == true and Globals.addConveyorMode == false and Globals.moveBuildingsMode == false: # Do we have no UI Windows open and no Conveyor select
 			tryToProcess()
-				
-	hasMoved = false
 	
-	# If we're creating a conveyor
-	if Globals.addConveyorMode == true and UIPermission == true:
-		if Globals.conveyorPair[0] == null: # If we're the first selection (FROM)
-			Globals.conveyorPair[0] = self
-		elif Globals.conveyorPair[1] == null: # If we're the second selection (TO)
-			Globals.conveyorPair[1] = self
-			Globals.initialiseConveyorData()
+		# If we're creating a conveyor
+		if Globals.addConveyorMode == true and UIPermission == true:
+			if Globals.conveyorPair[0] == null: # If we're the first selection (FROM)
+				Globals.conveyorPair[0] = self
+			elif Globals.conveyorPair[1] == null and Globals.conveyorPair[0] != self: # If we're the second selection (TO) but not the first
+				Globals.conveyorPair[1] = self
+				Globals.initialiseConveyorData()
+		
+		# If we're moving building
+		if Globals.moveBuildingsMode == true and UIPermission == true:
+			if Globals.movePair[0] == null: # If we're the first selection (FROM)
+				Globals.movePair[0] = self
+			elif Globals.movePair[1] == null and Globals.movePair[0] != self: # If we're the second selection (TO) but not the first
+				Globals.movePair[1] = self
+				Globals.initialiseMoveData()
+	
+	hasMoved = false
 
 func _on_btnProcess_pressed():
 	checkForMovement = true
 
-
 ### CONVEYOR SECTION
 
-var fromPriority = 0
+var fromPriority = []
 var toPriority = 0
+
+func severConveyors():
+	for segmentNode in fromList+toList:
+		segmentNode.killFather()
+
+
+func animateByPercentage(_animate,_percentage):
+	pass
 
 func getStorage():
 	return outputResList
@@ -184,11 +201,18 @@ func editIntStorage(resName,value,io):
 	else:
 		outputResList[1] += value
 
-func advancePriority(type):
+func advancePriority(type,resName=null):
+	var resIndex = getResourceIndex(resName)
 	if type == "FROM":
-		fromPriority = (fromPriority+1)%fromList.size()
+		fromPriority[resIndex] = (fromPriority[resIndex]+1)%fromList.size()
 	else:
 		toPriority = (toPriority+1)%toList.size()
+
+func getResourceIndex(resName):
+	for resCostPos in range(inputResList.size()):
+		if inputResList[resCostPos][0] == resName:
+			return resCostPos
+	return null
 
 func pushForward():
 	
@@ -199,25 +223,29 @@ func pushForward():
 			var targetEntity = toList[toPriority] # Get new target
 			# if we are the priority and there's enough room for us to push into
 			if targetEntity.findPriority(outputResList[0]) == self and targetEntity.getRoom(outputResList[0]) > 0 and outputResList[1] > 0:
-				var amountToPush = min( targetEntity.getRoom(outputResList[0]) , outputResList[1] )
+				var extractAmount = targetEntity.get_parent().extractAmount
+				var amountToPush = min( min( targetEntity.getRoom(outputResList[0]) , outputResList[1] ) , extractAmount )
 				editIntStorage(outputResList[0],-amountToPush,"output") # Take resources
 				targetEntity.editIntStorage(outputResList[0],amountToPush,"input") # Push resources
-				targetEntity.advancePriority("FROM") # Move fromRoundRobin
+				targetEntity.advancePriority("FROM",outputResList[0]) # Move fromRoundRobin for given resource
 				havePushed = true
 			advancePriority("TO")
 			if toPriority == stopAt: # If we've tested every option and still can't push
 				havePushed = true # Exit the loop
 
 func findPriority(resID):
-	var havePriority = false
-	var stopAt = int(1*fromPriority) # Create a copy of the value fromPriority
-	while havePriority == false:
-		var pusherEntity = fromList[fromPriority] # Get new pusher
-		# if we are the priority and there's something to push to us
-		#print(self.name,": findPriority: ",pusherEntity.toList[pusherEntity.toPriority]," == ",self," and ",pusherEntity.getResAmount(outputResList[0])," > ",0)
-		if pusherEntity.toList[pusherEntity.toPriority] == self and pusherEntity.getResAmount(resID) > 0:
-			return pusherEntity
-		else:
-			advancePriority("FROM")
-		if toPriority == stopAt: # If we've tested every option and still can't push
-			havePriority = true # Exit the loop
+	var inputResIndex = getResourceIndex(resID) # Returns the index for that resources pointer/intStorage or null if there isn't one
+	if inputResIndex != null: # If there's storage for our resource
+		var havePriority = false
+		var stopAt = int(1*fromPriority[inputResIndex]) # Create a copy of the value fromPriority
+		while havePriority == false:
+			var pusherEntity = fromList[fromPriority[inputResIndex]] # Get new pusher
+			# if we are the priority and there's something to push to us
+			if pusherEntity.toList[pusherEntity.toPriority] == self and pusherEntity.getResAmount(resID) > 0:
+				return pusherEntity
+			else: # if we aren't the priority or there's nothing to push to us
+				advancePriority("FROM",resID) # try the next option
+			if fromPriority[inputResIndex] == stopAt: # If we've tested every option and still can't push
+				havePriority = true # Exit the loop
+				return fromList[stopAt]
+

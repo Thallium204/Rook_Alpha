@@ -12,3 +12,4 @@ func _on_btnInfoToggle_released():
 	else:
 		Globals.infoIsDisplayed = false
 		get_node("labInfoToggle").set("custom_colors/font_color",Color(1,0,0))
+		get_node("labInfoToggle").text = "Info"

@@ -1,14 +1,16 @@
 extends Node2D
 
-onready var FactoryFloor = get_node("FactoryFloor")
-onready var ConveyorFloor = get_node("ConveyorFloor")
+onready var FactoryFloor = get_node("scrFactoryFloor/FactoryFloor")
+onready var ConveyorFloor = get_node("scrFactoryFloor/FactoryFloor/ConveyorFloor")
 onready var grdAddBuildings = get_node("TopBarNode/btnBuildingMenu/texBuildingMenu/scrAddBuildings/grdAddBuildings")
 onready var grdAddStorage = get_node("TopBarNode/btnBuildingMenu/texBuildingMenu/scrAddStorage/grdAddStorage")
 
 var isMenuOpen = false
 var infoIsDisplayed = true # immediately toggled to false
 var addConveyorMode = true # immediately toggled to false
+var moveBuildingsMode = true # immediately toggled to false
 var conveyorPair = [null,null]
+var movePair = [null,null]
 var conveyorSpacing = 80
 var numberOfBuildings = 0
 var autoCraft = true
@@ -30,9 +32,9 @@ var buildingBank = [
 
 # [ nameID , internalStorage ]
 var storageBank = [
-	["Chest","Cobble",8],
-	["Tank","Water",8],
-	["Battery","Power",8]
+	["Chest",8],
+	["Tank",8],
+	["Battery",8]
 ]
 
 
@@ -80,6 +82,11 @@ func initialiseConveyorData():
 	#print(conveyorPair)
 	ConveyorFloor.addConveyor(conveyorBank[0],conveyorPair)
 	conveyorPair = [null,null]
+
+func initialiseMoveData():
+	#print(conveyorPair)
+	FactoryFloor.swapChildrenOnFloor(movePair)
+	movePair = [null,null]
 
 ### MENU BUTTONS
 
