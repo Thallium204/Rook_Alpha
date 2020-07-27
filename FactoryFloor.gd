@@ -4,18 +4,30 @@ onready var Globals = get_tree().get_root().get_node("Game/Globals")
 onready var templateNode = get_tree().get_root().get_node("Game/templateNode")
 
 var buildingList = [null]
-var initialFloorSize = 12 # Hard-coded cap to the number of buildings allowed on FactoryFloor
+var initialFloorSize = 120 # Hard-coded cap to the number of buildings allowed on FactoryFloor
 
 func _ready():
-	addBuildingSpace()
+	addBuildingSpace(initialFloorSize)
 
-func addBuildingSpace():
-	for i in range(initialFloorSize):
+func addBuildingSpace(iter):
+	for i in range(iter):
 		var newBuildingSpace = templateNode.get_node("tmpBuildingSpace").duplicate()
 		newBuildingSpace.name = "space"+str(i)
 		newBuildingSpace.get_node("Label").text = str(i)
 		add_child(newBuildingSpace)
 		buildingList.append(newBuildingSpace)
+
+func deleteBuilding(node):
+	var index = getBuildingIndex(node)
+	remove_child(node) # Remove the child node from FactoryFloor (Grid)
+	buildingList.erase(node) # Remove node from list
+	var newBuildingSpace = templateNode.get_node("tmpBuildingSpace").duplicate()
+	newBuildingSpace.name = "space"+str(buildingList.size())
+	newBuildingSpace.get_node("Label").text = str(buildingList.size())
+	
+	add_child(newBuildingSpace) # Create the actual node as a child of FactoryFloor (Grid)
+	move_child(newBuildingSpace,index) # Move the newly added child node to the correct index/grid_position
+	buildingList.insert(index,newBuildingSpace)
 
 func getBuildingIndex(node):
 	for buildingNodePos in range(buildingList.size()):

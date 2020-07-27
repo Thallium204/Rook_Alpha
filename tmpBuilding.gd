@@ -1,6 +1,7 @@
 extends TextureRect
 
 onready var Globals = get_tree().get_root().get_node("Game/Globals")
+onready var FactoryFloor = Globals.get_node("ViewportContainer/Viewport/FactorySceneNode/FactoryFloor")
 
 var nameID = null # Name of the building i.e. "Foundry3"
 var buildingID = null
@@ -23,6 +24,10 @@ var autoCraft = false
 var isProcessing = false
 var processTimer = 0.0 # Process timer (in seconds)
 var progPerc = 0
+
+func removeSelf():
+	severConveyors()
+	FactoryFloor.deleteBuilding(self)
 
 # Call every time we want to update the UI
 func configureBuildingData(buildingData):
@@ -78,11 +83,11 @@ func haveEnoughStorage():
 func checkIfToggleUI(): # Check if info display is active
 	if Globals.infoIsDisplayed == true:
 		get_node("grdResCostList").visible = true
-		get_node("labBuilding").visible = false
+		get_node("labBuilding").visible = true
 		self.self_modulate = Color(0.4,0.4,0.4)
 	else:
 		get_node("grdResCostList").visible = false
-		get_node("labBuilding").visible = true
+		get_node("labBuilding").visible = false
 		self.self_modulate = Color(1,1,1)
 
 func tryToProcess():
@@ -154,6 +159,10 @@ func _on_btnProcess_released():
 			elif Globals.movePair[1] == null and Globals.movePair[0] != self: # If we're the second selection (TO) but not the first
 				Globals.movePair[1] = self
 				Globals.initialiseMoveData()
+		
+		# If we're deleting buildings
+		if Globals.deleteBuildingsMode == true and UIPermission == true:
+			removeSelf()
 	
 	hasMoved = false
 

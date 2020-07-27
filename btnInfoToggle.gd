@@ -1,6 +1,7 @@
 extends TouchScreenButton
 
 onready var Globals = get_tree().get_root().get_node("Game/Globals")
+onready var texInfoToggle = get_node("texInfoToggle")
 
 func _ready():
 	_on_btnInfoToggle_released()
@@ -8,8 +9,7 @@ func _ready():
 func _on_btnInfoToggle_released():
 	if Globals.infoIsDisplayed == false:
 		Globals.infoIsDisplayed = true
-		get_node("labInfoToggle").set("custom_colors/font_color",Color(0,1,0))
+		texInfoToggle.texture = load("res://Sprites/Buttons/SideBar/img_info_toggle_on.png")
 	else:
 		Globals.infoIsDisplayed = false
-		get_node("labInfoToggle").set("custom_colors/font_color",Color(1,0,0))
-		get_node("labInfoToggle").text = "Info"
+		texInfoToggle.texture = load("res://Sprites/Buttons/SideBar/img_info_toggle_off.png")

@@ -1,16 +1,11 @@
 extends TouchScreenButton
 
 onready var Globals = get_tree().get_root().get_node("Game/Globals")
-onready var labBuildingMenu = get_node("labBuildingMenu")
+onready var texBuildingToggle = get_node("texBuildingToggle")
 
-var textWhenClosed = "Build"
-var textWhenOpen = "Close"
-
-func _ready():
-	labBuildingMenu.text = textWhenClosed
 
 func _on_btnBuildingMenu_released():
 	if Globals.isMenuOpen == true:
-		labBuildingMenu.text = textWhenOpen
+		texBuildingToggle.texture = load("res://Sprites/Buttons/TopBar/img_build_toggle_on.png")
 	else:
-		labBuildingMenu.text = textWhenClosed
+		texBuildingToggle.texture = load("res://Sprites/Buttons/TopBar/img_build_toggle_off.png")

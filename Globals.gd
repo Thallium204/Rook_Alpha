@@ -9,19 +9,21 @@ var isMenuOpen = false
 var infoIsDisplayed = true # immediately toggled to false
 var addConveyorMode = true # immediately toggled to false
 var moveBuildingsMode = true # immediately toggled to false
+var deleteBuildingsMode = true # immediately toggled to false
+var autoCraft = true # immediately toggled to false
+
 var conveyorPair = [null,null]
 var movePair = [null,null]
 var conveyorSpacing = 80
 var numberOfBuildings = 0
-var autoCraft = false
 
 
 # [ nameID , inputRes ,outputRes , processTime ]
 var buildingBank = [
+	[ "Tree",		[],				["Log",1],		3 ],
 	[ "Quarry",		[],				["Cobble",1],	2 ],
 	[ "Furnace",	[["Cobble",1]],	["Stone",1],	4 ],
 	[ "Table",		[["Log",1]],	["Planks",4],		4 ],
-	[ "Cartography",[],				["Log",1],		2 ],
 	[ "Library",	[["Cobble",2],["Planks",2]],	["Power",3],		3 ],
 	[ "Loom",		[["Planks",4]],	["Power",2],		2 ],
 	[ "Portal",		[["Stone",2]],	["Water",1],		2 ],
