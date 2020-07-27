@@ -167,10 +167,11 @@ render_target_update_mode = 3
 [node name="FactorySceneNode" parent="Globals/ViewportContainer/Viewport" instance=ExtResource( 1 )]
 
 [node name="Camera2D" type="Camera2D" parent="Globals/ViewportContainer/Viewport"]
-anchor_mode = 0
 current = true
 limit_left = 0
 limit_top = 0
+limit_right = 10800
+limit_bottom = 9600
 script = ExtResource( 5 )
 
 [node name="TopBarNode" type="Node2D" parent="Globals"]
@@ -685,8 +686,8 @@ __meta__ = {
 
 [node name="btnProcess" type="TouchScreenButton" parent="templateNode/tmpSegment"]
 shape = SubResource( 11 )
-[connection signal="released" from="Globals/TopBarNode/btnBuildingMenu" to="Globals/TopBarNode/btnBuildingMenu" method="_on_btnBuildingMenu_released"]
 [connection signal="released" from="Globals/TopBarNode/btnBuildingMenu" to="Globals/TopBarNode" method="_on_btnBuildingMenu_released"]
+[connection signal="released" from="Globals/TopBarNode/btnBuildingMenu" to="Globals/TopBarNode/btnBuildingMenu" method="_on_btnBuildingMenu_released"]
 [connection signal="released" from="Globals/TopBarNode/btnConveyorToggle" to="Globals/TopBarNode/btnConveyorToggle" method="_on_btnConveyorToggle_released"]
 [connection signal="released" from="Globals/TopBarNode/btnInfoToggle" to="Globals/TopBarNode/btnInfoToggle" method="_on_btnInfoToggle_released"]
 [connection signal="released" from="Globals/TopBarNode/btnMoveToggle" to="Globals/TopBarNode/btnMoveToggle" method="_on_btnMoveToggle_released"]
