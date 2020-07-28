@@ -4,7 +4,7 @@ onready var Globals = get_tree().get_root().get_node("Game/Globals")
 onready var templateNode = get_tree().get_root().get_node("Game/templateNode")
 
 var buildingList = [null]
-var initialFloorSize = 15 # Hard-coded cap to the number of buildings allowed on FactoryFloor
+var initialFloorSize = columns*5 # Hard-coded cap to the number of buildings allowed on FactoryFloor
 
 func _ready():
 	addBuildingSpace(initialFloorSize)

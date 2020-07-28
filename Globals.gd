@@ -35,9 +35,9 @@ var buildingBank = [
 
 # [ nameID , internalStorage ]
 var storageBank = [
-	["Chest",8],
-	["Tank",8],
-	["Battery",8]
+	["Chest",64],
+	["Tank",64],
+	["Battery",64]
 ]
 
 

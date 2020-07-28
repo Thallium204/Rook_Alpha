@@ -7,7 +7,7 @@
 [node name="FactorySceneNode" type="Node2D"]
 
 [node name="FactorySpace" type="TextureRect" parent="."]
-margin_right = 1320.0
+margin_right = 1620.0
 margin_bottom = 20000.0
 texture = ExtResource( 3 )
 stretch_mode = 2
@@ -22,7 +22,7 @@ margin_right = 168.0
 margin_bottom = 168.0
 custom_constants/vseparation = 45
 custom_constants/hseparation = 45
-columns = 3
+columns = 4
 script = ExtResource( 2 )
 __meta__ = {
 "_edit_use_anchors_": false
