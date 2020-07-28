@@ -49,6 +49,12 @@ func configureStorageData(storageData): # i.e storageData = [ "Chest" , 8 ]
 		printNameID = nameID
 	get_node("labStorage").text = printNameID
 
+func checkIfToggleUI(): # Check if info display is active
+	# Draw INFO
+	get_node("grdInventory").visible = Globals.infoIsDisplayed
+	get_node("labStorage").visible = not Globals.infoIsDisplayed
+	var color = Globals.infoColorModifier + (1-Globals.infoColorModifier) * int(not Globals.infoIsDisplayed)
+	self_modulate = Color(color,color,color)
 
 func _process(_delta):
 	
@@ -57,14 +63,8 @@ func _process(_delta):
 	else:
 		UIPermission = false
 	
-	if Globals.infoIsDisplayed == true:
-		get_node("grdInventory").visible = true
-		get_node("labStorage").visible = true
-		self.self_modulate = Color(0.4,0.4,0.4)
-	else:
-		get_node("labStorage").visible = false
-		get_node("grdInventory").visible = false
-		self.self_modulate = Color(1,1,1)
+	# Check if info display is active
+	checkIfToggleUI()
 
 
 func _input(event):

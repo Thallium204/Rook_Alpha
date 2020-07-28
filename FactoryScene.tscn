@@ -2,12 +2,12 @@
 
 [ext_resource path="res://ConveyorFloor.gd" type="Script" id=1]
 [ext_resource path="res://FactoryFloor.gd" type="Script" id=2]
-[ext_resource path="res://Sprites/Tileables/img_factory_grey_120x.png" type="Texture" id=3]
+[ext_resource path="res://Sprites/Tileables/img_factory_128x.png" type="Texture" id=3]
 
 [node name="FactorySceneNode" type="Node2D"]
 
 [node name="FactorySpace" type="TextureRect" parent="."]
-margin_right = 1080.0
+margin_right = 1320.0
 margin_bottom = 20000.0
 texture = ExtResource( 3 )
 stretch_mode = 2
@@ -16,10 +16,10 @@ __meta__ = {
 }
 
 [node name="FactoryFloor" type="GridContainer" parent="."]
-margin_left = 48.0
-margin_top = 64.0
-margin_right = 48.0
-margin_bottom = 64.0
+margin_left = 168.0
+margin_top = 168.0
+margin_right = 168.0
+margin_bottom = 168.0
 custom_constants/vseparation = 45
 custom_constants/hseparation = 45
 columns = 3

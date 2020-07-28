@@ -164,15 +164,16 @@ radius = 40.0
 script = ExtResource( 13 )
 
 [node name="ViewportContainer" type="ViewportContainer" parent="Globals"]
-margin_top = 96.0
+margin_top = 128.0
 margin_right = 1080.0
 margin_bottom = 1792.0
+stretch = true
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Viewport" type="Viewport" parent="Globals/ViewportContainer"]
-size = Vector2( 1080, 1696 )
+size = Vector2( 1080, 1664 )
 handle_input_locally = false
 render_target_update_mode = 3
 
@@ -275,12 +276,29 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="btnInfoToggle" type="TouchScreenButton" parent="Globals/TopBarNode"]
-position = Vector2( 952, 136 )
+[node name="btnAutocraftToggle" type="TouchScreenButton" parent="Globals/TopBarNode"]
+position = Vector2( 512, 0 )
+shape = SubResource( 3 )
+script = ExtResource( 4 )
+
+[node name="texAutocraftToggle" type="TextureRect" parent="Globals/TopBarNode/btnAutocraftToggle"]
+margin_top = -64.0
+margin_right = 64.0
+rect_scale = Vector2( 4, 4 )
+texture = ExtResource( 63 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="SideBarNode" type="Node2D" parent="Globals"]
+position = Vector2( 1080, 128 )
+
+[node name="btnInfoToggle" type="TouchScreenButton" parent="Globals/SideBarNode"]
+position = Vector2( -128, 8 )
 shape = SubResource( 13 )
 script = ExtResource( 18 )
 
-[node name="texInfoToggle" type="TextureRect" parent="Globals/TopBarNode/btnInfoToggle"]
+[node name="texInfoToggle" type="TextureRect" parent="Globals/SideBarNode/btnInfoToggle"]
 margin_right = 32.0
 margin_bottom = 32.0
 rect_scale = Vector2( 4, 4 )
@@ -289,12 +307,12 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="btnMoveToggle" type="TouchScreenButton" parent="Globals/TopBarNode"]
-position = Vector2( 952, 272 )
+[node name="btnMoveToggle" type="TouchScreenButton" parent="Globals/SideBarNode"]
+position = Vector2( -128, 144 )
 shape = SubResource( 12 )
 script = ExtResource( 26 )
 
-[node name="texMoveToggle" type="TextureRect" parent="Globals/TopBarNode/btnMoveToggle"]
+[node name="texMoveToggle" type="TextureRect" parent="Globals/SideBarNode/btnMoveToggle"]
 margin_right = 32.0
 margin_bottom = 32.0
 rect_scale = Vector2( 4, 4 )
@@ -303,12 +321,12 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="btnDeleteToggle" type="TouchScreenButton" parent="Globals/TopBarNode"]
-position = Vector2( 952, 408 )
+[node name="btnDeleteToggle" type="TouchScreenButton" parent="Globals/SideBarNode"]
+position = Vector2( -128, 280 )
 shape = SubResource( 13 )
 script = ExtResource( 62 )
 
-[node name="texDeleteToggle" type="TextureRect" parent="Globals/TopBarNode/btnDeleteToggle"]
+[node name="texDeleteToggle" type="TextureRect" parent="Globals/SideBarNode/btnDeleteToggle"]
 margin_right = 32.0
 margin_bottom = 32.0
 rect_scale = Vector2( 4, 4 )
@@ -364,20 +382,6 @@ margin_top = -64.0
 margin_right = 64.0
 rect_scale = Vector2( 4, 4 )
 texture = ExtResource( 60 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="btnAutocraftToggle" type="TouchScreenButton" parent="Globals/BottomBarNode"]
-position = Vector2( 768, 0 )
-shape = SubResource( 3 )
-script = ExtResource( 4 )
-
-[node name="texAutocraftToggle" type="TextureRect" parent="Globals/BottomBarNode/btnAutocraftToggle"]
-margin_top = -64.0
-margin_right = 64.0
-rect_scale = Vector2( 4, 4 )
-texture = ExtResource( 63 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -736,10 +740,10 @@ shape = SubResource( 11 )
 [connection signal="released" from="Globals/TopBarNode/btnBuildingMenu" to="Globals/TopBarNode" method="_on_btnBuildingMenu_released"]
 [connection signal="released" from="Globals/TopBarNode/btnBuildingMenu" to="Globals/TopBarNode/btnBuildingMenu" method="_on_btnBuildingMenu_released"]
 [connection signal="released" from="Globals/TopBarNode/btnConveyorToggle" to="Globals/TopBarNode/btnConveyorToggle" method="_on_btnConveyorToggle_released"]
-[connection signal="released" from="Globals/TopBarNode/btnInfoToggle" to="Globals/TopBarNode/btnInfoToggle" method="_on_btnInfoToggle_released"]
-[connection signal="released" from="Globals/TopBarNode/btnMoveToggle" to="Globals/TopBarNode/btnMoveToggle" method="_on_btnMoveToggle_released"]
-[connection signal="released" from="Globals/TopBarNode/btnDeleteToggle" to="Globals/TopBarNode/btnDeleteToggle" method="_on_btnDeleteToggle_released"]
-[connection signal="released" from="Globals/BottomBarNode/btnAutocraftToggle" to="Globals/BottomBarNode/btnAutocraftToggle" method="_on_btnAutocraftToggle_released"]
+[connection signal="released" from="Globals/TopBarNode/btnAutocraftToggle" to="Globals/TopBarNode/btnAutocraftToggle" method="_on_btnAutocraftToggle_released"]
+[connection signal="released" from="Globals/SideBarNode/btnInfoToggle" to="Globals/SideBarNode/btnInfoToggle" method="_on_btnInfoToggle_released"]
+[connection signal="released" from="Globals/SideBarNode/btnMoveToggle" to="Globals/SideBarNode/btnMoveToggle" method="_on_btnMoveToggle_released"]
+[connection signal="released" from="Globals/SideBarNode/btnDeleteToggle" to="Globals/SideBarNode/btnDeleteToggle" method="_on_btnDeleteToggle_released"]
 [connection signal="released" from="templateNode/tmpBuildingSpace/btnProcess" to="templateNode/tmpBuildingSpace" method="_on_btnProcess_released"]
 [connection signal="pressed" from="templateNode/tmpBuilding/btnProcess" to="templateNode/tmpBuilding" method="_on_btnProcess_pressed"]
 [connection signal="released" from="templateNode/tmpBuilding/btnProcess" to="templateNode/tmpBuilding" method="_on_btnProcess_released"]

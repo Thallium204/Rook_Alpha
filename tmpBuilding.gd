@@ -81,14 +81,11 @@ func haveEnoughStorage():
 		return true
 
 func checkIfToggleUI(): # Check if info display is active
-	if Globals.infoIsDisplayed == true:
-		get_node("grdResCostList").visible = true
-		get_node("labBuilding").visible = true
-		self.self_modulate = Color(0.4,0.4,0.4)
-	else:
-		get_node("grdResCostList").visible = false
-		get_node("labBuilding").visible = false
-		self.self_modulate = Color(1,1,1)
+	# Draw INFO
+	get_node("grdResCostList").visible = Globals.infoIsDisplayed
+	get_node("labBuilding").visible = not Globals.infoIsDisplayed
+	var color = Globals.infoColorModifier + (1-Globals.infoColorModifier) * int(not Globals.infoIsDisplayed)
+	self_modulate = Color(color,color,color)
 
 func tryToProcess():
 	# Check if we have required resources
@@ -124,7 +121,7 @@ func _process(delta):
 			#self.self_modulate = Color(1-progPerc,1,1-progPerc)
 			get_node("texProgress").value = stepify(100*progPerc,0.1)
 	
-	if autoCraft == true:
+	if Globals.autoCraft == true and get_parent() != Globals.get_node("../templateNode"):
 		tryToProcess()
 
 

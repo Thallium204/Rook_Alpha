@@ -7,6 +7,7 @@ onready var grdAddStorage = get_node("TopBarNode/btnBuildingMenu/texBuildingMenu
 
 var isMenuOpen = false
 var infoIsDisplayed = true # immediately toggled to false
+var infoColorModifier = 0.3
 var addConveyorMode = true # immediately toggled to false
 var moveBuildingsMode = true # immediately toggled to false
 var deleteBuildingsMode = true # immediately toggled to false
