@@ -3,9 +3,6 @@ extends TouchScreenButton
 onready var Globals = get_tree().get_root().get_node("Game/Globals")
 onready var texMoveToggle = get_node("texMoveToggle")
 
-func _ready():
-	_on_btnMoveToggle_released()
-
 func _process(_delta):
 	if Globals.moveBuildingsMode == true:
 		if Globals.movePair[0] == null: # If we are on our first selection

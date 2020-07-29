@@ -1,7 +1,7 @@
 extends TextureRect
 
 onready var Globals = get_tree().get_root().get_node("Game/Globals")
-onready var FactoryFloor = Globals.get_node("ViewportContainer/Viewport/FactorySceneNode/FactoryFloor")
+onready var FactoryFloor = Globals.get_node("FactoryNode/ctnFactoryViewport/vptFactoryScene/FactorySceneNode/FactoryFloor")
 
 var nameID = null # Name of the building i.e. "Foundry3"
 var buildingID = null

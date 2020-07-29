@@ -3,17 +3,17 @@ extends GridContainer
 onready var Globals = get_tree().get_root().get_node("Game/Globals")
 onready var templateNode = get_tree().get_root().get_node("Game/templateNode")
 
-var buildingList = [null]
-var initialFloorSize = columns*5 # Hard-coded cap to the number of buildings allowed on FactoryFloor
+var buildingList = []
+var initialFloorSize = columns*6 # Hard-coded cap to the number of buildings allowed on FactoryFloor
 
 func _ready():
 	addBuildingSpace(initialFloorSize)
 
 func addBuildingSpace(iter):
-	for i in range(iter):
+	for _i in range(iter):
 		var newBuildingSpace = templateNode.get_node("tmpBuildingSpace").duplicate()
-		newBuildingSpace.name = "space"+str(i)
-		newBuildingSpace.get_node("Label").text = str(i)
+		newBuildingSpace.name = "space"+str(buildingList.size())
+		newBuildingSpace.get_node("Label").text = str(buildingList.size())
 		add_child(newBuildingSpace)
 		buildingList.append(newBuildingSpace)
 
@@ -35,7 +35,7 @@ func getBuildingIndex(node):
 			return buildingNodePos
 
 func addChildToFloor(nodeToAdd):
-	for buildingNodePos in range(1,buildingList.size()):
+	for buildingNodePos in range(buildingList.size()):
 		if "space" in buildingList[buildingNodePos].name:
 			
 			remove_child(buildingList[buildingNodePos]) # Remove the child node from FactoryFloor (Grid)
@@ -61,16 +61,16 @@ func swapChildrenOnFloor(nodeSwapPair):
 		else:
 			buildingNode.severConveyors()
 	
-	#print("\n")
-	#print("Swapping: ",nodeSwapPair[0].name," with ",nodeSwapPair[1].name)
+	print("\n")
+	print("Swapping: ",nodeSwapPair[0].name," with ",nodeSwapPair[1].name)
 	move_child(nodeSwapPair[0],nodeIndexPair[1])
 	move_child(nodeSwapPair[1],nodeIndexPair[0])
 	
 	buildingList[nodeIndexPair[0]] = nodeSwapPair[1]
 	buildingList[nodeIndexPair[1]] = nodeSwapPair[0]
 	
-	#for buildingNode in buildingList:
-	#	print(buildingNode.name)
+	for buildingNode in buildingList:
+		print(buildingNode.name)
 
 
 func addBuilding(buildingData):

@@ -1,17 +1,21 @@
 extends Node2D
 
-onready var FactoryFloor = get_node("ViewportContainer/Viewport/FactorySceneNode/FactoryFloor")
-onready var ConveyorFloor = get_node("ViewportContainer/Viewport/FactorySceneNode/FactoryFloor/ConveyorFloor")
-onready var grdAddBuildings = get_node("TopBarNode/btnBuildingMenu/texBuildingMenu/scrAddBuildings/grdAddBuildings")
-onready var grdAddStorage = get_node("TopBarNode/btnBuildingMenu/texBuildingMenu/scrAddStorage/grdAddStorage")
+# Factory Node
+onready var FactoryNode = get_node("FactoryNode")
+onready var FactoryFloor = FactoryNode.get_node("ctnFactoryViewport/vptFactoryScene/FactorySceneNode/FactoryFloor")
+onready var ConveyorFloor = FactoryFloor.get_node("../ConveyorFloor")
+onready var grdAddBuildings = FactoryNode.get_node("TopBarNode/btnBuildingMenu/texBuildingMenu/scrAddBuildings/grdAddBuildings")
+onready var grdAddStorage = FactoryNode.get_node("TopBarNode/btnBuildingMenu/texBuildingMenu/scrAddStorage/grdAddStorage")
+
+var currentScreen = 0
 
 var isMenuOpen = false
-var infoIsDisplayed = true # immediately toggled to false
+var infoIsDisplayed = false
 var infoColorModifier = 0.3
-var addConveyorMode = true # immediately toggled to false
-var moveBuildingsMode = true # immediately toggled to false
-var deleteBuildingsMode = true # immediately toggled to false
-var autoCraft = true # immediately toggled to false
+var addConveyorMode = false
+var moveBuildingsMode = false
+var deleteBuildingsMode = false
+var autoCraft = false
 
 var conveyorPair = [null,null]
 var movePair = [null,null]
