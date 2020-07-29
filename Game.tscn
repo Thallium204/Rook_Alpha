@@ -814,9 +814,9 @@ __meta__ = {
 }
 
 [node name="labBuilding" type="Label" parent="templateNode/tmpBuilding"]
-margin_top = 150.0
+margin_top = 200.0
 margin_right = 300.0
-margin_bottom = 300.0
+margin_bottom = 350.0
 custom_fonts/font = SubResource( 11 )
 custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
 custom_constants/shadow_offset_x = 4
@@ -846,9 +846,9 @@ position = Vector2( 16, 16 )
 shape = SubResource( 10 )
 
 [node name="labStorage" type="Label" parent="templateNode/tmpStorage"]
-margin_top = 150.0
+margin_top = 200.0
 margin_right = 300.0
-margin_bottom = 300.0
+margin_bottom = 350.0
 custom_fonts/font = SubResource( 11 )
 custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
 custom_constants/shadow_offset_x = 4

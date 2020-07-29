@@ -26,6 +26,7 @@ var numberOfBuildings = 0
 # [ nameID , inputRes ,outputRes , processTime ]
 var buildingBank = [
 	[ "Tree",		[],				["Log",1],		3 ],
+	[ "Tree_upg1",		[],				["Log",2],		3 ],
 	[ "Quarry",		[],				["Cobble",1],	2 ],
 	[ "Furnace",	[["Cobble",1]],	["Stone",1],	4 ],
 	[ "Table",		[["Log",1]],	["Planks",4],		4 ],
