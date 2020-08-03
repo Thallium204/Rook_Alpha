@@ -5,9 +5,9 @@ onready var texInfoToggle = get_node("texInfoToggle")
 
 func _process(_delta):
 	if Globals.infoIsDisplayed == true:
-		texInfoToggle.texture = load("res://Sprites/Buttons/SideBar/img_info_toggle_on.png")
+		texInfoToggle.texture = load("res://Assets/Buttons/SideBar/img_info_toggle_on.png")
 	else:
-		texInfoToggle.texture = load("res://Sprites/Buttons/SideBar/img_info_toggle_off.png")
+		texInfoToggle.texture = load("res://Assets/Buttons/SideBar/img_info_toggle_off.png")
 
 
 

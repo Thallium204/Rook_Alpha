@@ -18,10 +18,10 @@ func move(target):
 func updateButtonUIs():
 	for screenID in range(screenNames.size()):
 		if currentScreen == screenID: # If this is the menu we're now on
-			get_node("btn"+screenNames[screenID]+"Floor/texButton").texture = load("res://Sprites/Buttons/BottomBar/img_"+screenNames[screenID].to_lower()+"_on.png")
+			get_node("btn"+screenNames[screenID]+"Floor/texButton").texture = load("res://Assets/Buttons/BottomBar/img_"+screenNames[screenID].to_lower()+"_on.png")
 		else:
 			if screenNames[screenID] != null:
-				get_node("btn"+screenNames[screenID]+"Floor/texButton").texture = load("res://Sprites/Buttons/BottomBar/img_"+screenNames[screenID].to_lower()+"_off.png")
+				get_node("btn"+screenNames[screenID]+"Floor/texButton").texture = load("res://Assets/Buttons/BottomBar/img_"+screenNames[screenID].to_lower()+"_off.png")
 
 func _on_btnFactoryFloor_released():
 	currentScreen = 0

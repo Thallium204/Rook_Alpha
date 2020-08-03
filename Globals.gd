@@ -2,8 +2,9 @@ extends Node2D
 
 # Factory Node
 onready var FactoryNode = get_node("FactoryNode")
-onready var FactoryFloor = FactoryNode.get_node("ctnFactoryViewport/vptFactoryScene/FactorySceneNode/FactoryFloor")
-onready var ConveyorFloor = FactoryFloor.get_node("../ConveyorFloor")
+onready var FactorySceneNode = FactoryNode.get_node("ctnFactoryViewport/vptFactoryScene/FactorySceneNode")
+onready var ctrlFactoryFloor = FactorySceneNode.get_node("ctrlFactoryFloor")
+onready var ConveyorFloor = FactorySceneNode.get_node("ConveyorFloor")
 onready var grdAddBuildings = FactoryNode.get_node("TopBarNode/btnBuildingMenu/texBuildingMenu/scrAddBuildings/grdAddBuildings")
 onready var grdAddStorage = FactoryNode.get_node("TopBarNode/btnBuildingMenu/texBuildingMenu/scrAddStorage/grdAddStorage")
 
@@ -13,9 +14,11 @@ var isMenuOpen = false
 var infoIsDisplayed = false
 var infoColorModifier = 0.3
 var addConveyorMode = false
-var moveBuildingsMode = false
+var moveStructureMode = false
 var deleteBuildingsMode = false
 var autoCraft = false
+
+var buildMode = false
 
 var conveyorPair = [null,null]
 var movePair = [null,null]
@@ -23,32 +26,67 @@ var conveyorSpacing = 80
 var numberOfBuildings = 0
 
 
-# [ nameID , inputRes ,outputRes , processTime ]
+# [ nameID , inputResList , outputResList , processTime , shapeData ]
 var buildingBank = [
-	[ "Tree",		[],				["Log",1],		3 ],
-	[ "Tree_upg1",		[],				["Log",2],		3 ],
-	[ "Quarry",		[],				["Cobble",1],	2 ],
-	[ "Furnace",	[["Cobble",1]],	["Stone",1],	4 ],
-	[ "Table",		[["Log",1]],	["Planks",4],		4 ],
-	[ "Library",	[["Cobble",2],["Planks",2]],	["Power",3],		3 ],
-	[ "Loom",		[["Planks",4]],	["Power",2],		2 ],
-	[ "Portal",		[["Stone",2]],	["Water",1],		2 ],
-	[ "Spawner",	[["Cobble",2],["Water",4],["Power",9]],	["Log",64],		10 ],
-	[ "Mystery",	[["Power",2],["Water",4]],	["Power",3],		2 ]
+	
+	[ "Tree",		[],								[["Log",1]],		3,		[[1,1],[1,1]]	],
+	
+	[ "Tree_upg1",	[],								[["Log",2]],		3,		[[1,1],[1,1]]	],
+	
+	[ "Quarry",		[],								[["Cobble",1]],		2,		[[1,1],[1,1]]	],
+	
+	[ "Furnace",	[["Cobble",1]],					[["Stone",1]],		4,		[[1,1],[1,null],[null,1]]	],
+	
+	[ "Table",		[["Log",1]],					[["Planks",4]],		4,		[[1,1],[1,null],[null,1]]	],
+	
+	[ "Library",	[["Cobble",2],["Planks",2]],	[["Power",3]],		3,		[[1,1],[1,null],[null,1]]	],
+	
+	[ "Loom",		[["Planks",4]],					[["Power",2]],		2,		[[1,1],[1,null],[null,1]]	],
+	
+	[ "Portal",		[["Stone",2]],					[["Water",1]],		2,		[[1,1],[1,null],[null,1]]	],
+	
+	[ "Spawner",	[["Cobble",2],["Water",4]],		[["Log",64]],		10, 	[[1,1],[1,null],[null,1]]	],
+	
+	[ "Mystery",	[["Power",2],["Water",4]],		[["Power",3]],		2,		[[1,1],[1,null],[null,1]]	]
+	
 ]
 
+
+# [ nameID , internalStorageList ]
+var storageBank = [
+	
+	["Chest",		[["Solid",64]],								[[1,1],[1,null],[null,1]]	],
+	
+	["Tank",		[["Fluid",64]],								[[1,1],[1,null],[null,1]]	],
+	
+	["Battery",		[["Power",64]],								[[1,1],[1,null],[null,1]]	]
+	
+	#["Multi",		[["Solid",64],["Fluid",64],["Power",64]]	[[1,1],[1,null],[null,1]]	],
+	
+]
 
 # [ nameID , internalStorage ]
-var storageBank = [
-	["Chest",64],
-	["Tank",64],
-	["Battery",64]
+var resourceBank = [
+	
+	["Log",			"Solid"],
+	
+	["Cobble",		"Solid"],
+	
+	["Stone",		"Solid"],
+	
+	["Planks",		"Solid"],
+	
+	["Water",		"Fluid"],
+	
+	["Power",		"Power"],
+	
 ]
-
 
 # [ nameID ,  extractAmount , conveyorSpeed , segmentBuffer ]
 var conveyorBank = [
+	
 	["Standard", 1, 0.5, 1]
+	
 ]
 
 
@@ -78,22 +116,22 @@ func getStorageDataByNameID(nameID):
 func initialseBuildingData(nameID):
 	# Get the list data for matching nameID i.e. nameID = "Quarry" -> ["Quarry",[],["Cobble",3],...]
 	var buildingData = getBuildingDataByNameID(nameID)
-	FactoryFloor.addBuilding(buildingData) # Send the buildingData off to the FactoryFloor to be made into a child node
+	ctrlFactoryFloor.addStructure(buildingData.duplicate(true),"Building") # Send the buildingData off to the FactoryFloor to be made into a child node
 
 # PASS BUILDING DATA TO FACTORY FLOOR
 func initialseStorageData(nameID):
 	# Get the list data for matching nameID i.e. nameID = "Quarry" -> ["Quarry",[],["Cobble",3],...]
 	var storageData = getStorageDataByNameID(nameID)
-	FactoryFloor.addStorage(storageData) # Send the buildingData off to the FactoryFloor to be made into a child node
+	ctrlFactoryFloor.addStructure(storageData.duplicate(true),"Storage") # Send the buildingData off to the FactoryFloor to be made into a child node
 
 func initialiseConveyorData():
 	#print(conveyorPair)
-	ConveyorFloor.addConveyor(conveyorBank[0],conveyorPair)
+	ctrlFactoryFloor.addConveyor(conveyorBank[0],conveyorPair)
 	conveyorPair = [null,null]
 
 func initialiseMoveData():
 	#print(conveyorPair)
-	FactoryFloor.swapChildrenOnFloor(movePair)
+	ctrlFactoryFloor.swapChildrenOnFloor(movePair)
 	movePair = [null,null]
 
 ### MENU BUTTONS

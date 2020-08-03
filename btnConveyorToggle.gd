@@ -6,11 +6,11 @@ onready var texConveyorToggle = get_node("texConveyorToggle")
 func _process(_delta):
 	if Globals.addConveyorMode == true:
 		if Globals.conveyorPair[0] == null: # If we are on our first selection
-			texConveyorToggle.texture = load("res://Sprites/Buttons/TopBar/img_connect_toggle_on1.png")
+			texConveyorToggle.texture = load("res://Assets/Buttons/TopBar/img_connect_toggle_on1.png")
 		else:# If we are on our second selection
-			texConveyorToggle.texture = load("res://Sprites/Buttons/TopBar/img_connect_toggle_on2.png")
+			texConveyorToggle.texture = load("res://Assets/Buttons/TopBar/img_connect_toggle_on2.png")
 	else:
-		texConveyorToggle.texture = load("res://Sprites/Buttons/TopBar/img_connect_toggle_off.png")
+		texConveyorToggle.texture = load("res://Assets/Buttons/TopBar/img_connect_toggle_off.png")
 
 func _on_btnConveyorToggle_released():
 	if Globals.addConveyorMode == false:

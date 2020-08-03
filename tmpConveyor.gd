@@ -1,7 +1,7 @@
 extends Node2D
 
 onready var Globals = get_tree().get_root().get_node("Game/Globals")
-onready var FactoryFloor = Globals.get_node("FactoryNode/ctnFactoryViewport/vptFactoryScene/FactorySceneNode/FactoryFloor")
+onready var ctrlFactoryFloor = Globals.get_node("FactoryNode/ctnFactoryViewport/vptFactoryScene/FactorySceneNode/ctrlFactoryFloor")
 
 var conveyorAnimationPoint = 0.1 # what percentage after move to animate over
 

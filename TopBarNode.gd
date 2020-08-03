@@ -16,8 +16,6 @@ func move(target):
 # TAPPING A TOPBAR OPTION (RELEASE)
 func _on_btnBuildingMenu_released():
 	if Globals.isMenuOpen == false: # If the menu is closed
-		move(Vector2(0,384)) # Open the menu
 		Globals.isMenuOpen = true
 	else:
-		move(Vector2(0,0)) # Close the menu
 		Globals.isMenuOpen = false

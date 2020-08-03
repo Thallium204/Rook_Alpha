@@ -5,9 +5,9 @@ onready var texAutocraftToggle = get_node("texAutocraftToggle")
 
 func _process(_delta):
 	if Globals.autoCraft == true:
-		texAutocraftToggle.texture = load("res://Sprites/Buttons/TopBar/img_autocraft_toggle_on.png")
+		texAutocraftToggle.texture = load("res://Assets/Buttons/TopBar/img_autocraft_toggle_on.png")
 	else:
-		texAutocraftToggle.texture = load("res://Sprites/Buttons/TopBar/img_autocraft_toggle_off.png")
+		texAutocraftToggle.texture = load("res://Assets/Buttons/TopBar/img_autocraft_toggle_off.png")
 
 func _on_btnAutocraftToggle_released():
 	if Globals.autoCraft == false and Globals.addConveyorMode == false:

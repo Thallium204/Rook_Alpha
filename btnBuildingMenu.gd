@@ -6,6 +6,6 @@ onready var texBuildingToggle = get_node("texBuildingToggle")
 
 func _on_btnBuildingMenu_released():
 	if Globals.isMenuOpen == true:
-		texBuildingToggle.texture = load("res://Sprites/Buttons/TopBar/img_build_toggle_on.png")
+		texBuildingToggle.texture = load("res://Assets/Buttons/TopBar/img_build_toggle_on.png")
 	else:
-		texBuildingToggle.texture = load("res://Sprites/Buttons/TopBar/img_build_toggle_off.png")
+		texBuildingToggle.texture = load("res://Assets/Buttons/TopBar/img_build_toggle_off.png")
