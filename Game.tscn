@@ -1,4 +1,4 @@
-[gd_scene load_steps=94 format=2]
+[gd_scene load_steps=95 format=2]
 
 [ext_resource path="res://FactoryScene.tscn" type="PackedScene" id=1]
 [ext_resource path="res://grdAddBuildings.gd" type="Script" id=2]
@@ -79,6 +79,7 @@
 [ext_resource path="res://Assets/Resources/img_empty.png" type="Texture" id=77]
 [ext_resource path="res://tmpTileDetect.gd" type="Script" id=78]
 [ext_resource path="res://tmpConfirm.gd" type="Script" id=79]
+[ext_resource path="res://classFactoryEntity.gd" type="Script" id=80]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 128, 64 )
@@ -820,6 +821,7 @@ size_flags_horizontal = 9
 texture = ExtResource( 5 )
 expand = true
 stretch_mode = 1
+script = ExtResource( 80 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -1017,8 +1019,8 @@ normal = ExtResource( 25 )
 position = Vector2( 994.836, -3.17847 )
 normal = ExtResource( 21 )
 script = ExtResource( 78 )
-[connection signal="released" from="Globals/FactoryNode/TopBarNode/btnBuildingMenu" to="Globals/FactoryNode/TopBarNode" method="_on_btnBuildingMenu_released"]
 [connection signal="released" from="Globals/FactoryNode/TopBarNode/btnBuildingMenu" to="Globals/FactoryNode/TopBarNode/btnBuildingMenu" method="_on_btnBuildingMenu_released"]
+[connection signal="released" from="Globals/FactoryNode/TopBarNode/btnBuildingMenu" to="Globals/FactoryNode/TopBarNode" method="_on_btnBuildingMenu_released"]
 [connection signal="released" from="Globals/FactoryNode/TopBarNode/btnConveyorToggle" to="Globals/FactoryNode/TopBarNode/btnConveyorToggle" method="_on_btnConveyorToggle_released"]
 [connection signal="released" from="Globals/FactoryNode/TopBarNode/btnAutocraftToggle" to="Globals/FactoryNode/TopBarNode/btnAutocraftToggle" method="_on_btnAutocraftToggle_released"]
 [connection signal="released" from="Globals/FactoryNode/SideBarNode/btnInfoToggle" to="Globals/FactoryNode/SideBarNode/btnInfoToggle" method="_on_btnInfoToggle_released"]

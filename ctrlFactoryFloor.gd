@@ -43,7 +43,7 @@ func addStructure(structureData,structType):
 	var newStructure_Info = newStructure.get_node("grdInfo")
 	
 	# We need to set the structure position ( 500 , 400 )
-	newStructure.rect_position = Vector2(0,0)
+	newStructure.rect_position = Vector2(500,entityCount*512)
 	
 	# If this is a building we need to add input storage and a process divider
 	if structType == "Building":
@@ -63,7 +63,7 @@ func addStructure(structureData,structType):
 			newStructure_Info.add_child(newStorage)
 		
 		# We need to connect the building script
-		newStructure.script = load("res://objBuilding.gd").duplicate()
+		#newStructure.script = load("res://objBuilding.gd").duplicate()
 	
 	elif structType == "Storage":
 		
@@ -73,7 +73,7 @@ func addStructure(structureData,structType):
 			newStructure_Info.add_child(newStorage)
 		
 		# We need to connect the storage script
-		newStructure.script = load("res://objStorage.gd").duplicate()
+		#newStructure.script = load("res://objStorage.gd").duplicate()
 	
 	add_child(newStructure)
 	
