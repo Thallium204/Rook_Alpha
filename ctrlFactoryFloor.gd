@@ -28,57 +28,69 @@ func _ready():
 # This process ONLY adds the node structure not specifics
 # (e.g. adds input, Divider and Output Storage nodes but doesn't update the amounts)
 # structureData = [ nameID , inputResList , outputResList , processTime , shapeData ]
+# structureData = [ nameID , internalStorageList , shapeData ]
 # structType = "Building" or "Storage"
 func addStructure(structureData,structType):
 	
 	Globals.buildMode = true
 	
-	# Get the correct template
+	# Get the structure template
 	var newStructure = templateNode.get_node("tmpStructure").duplicate()
 	newStructure.name = structureData[0]+str(entityCount)
 	entityCount += 1
 	
-	# We need to add structure name label ( Quarry )
-	newStructure.get_node("labStructure").text = structureData[0]
-	var newStructure_Info = newStructure.get_node("grdInfo")
+	# We need to correctly size the structure name label ( Quarry )
+	var newStructure_Label = newStructure.get_node("labStructure")
+	newStructure_Label.rect_position = Vector2(0,newStructure.rect_size[1]/2) # Set the label position
+	newStructure_Label.rect_size = Vector2(newStructure.rect_size[0],newStructure.rect_size[1]/2) # Set the label size
 	
 	# We need to set the structure position ( 500 , 400 )
-	newStructure.rect_position = Vector2(500,entityCount*512)
+	newStructure.rect_position = Vector2(0,0)
 	
-	# If this is a building we need to add input storage and a process divider
-	if structType == "Building":
+	# Here we add the info
+	var newStructure_Info = newStructure.get_node("grdInfo") # Get the grdInfo node
+	if structType == "Building": # If this is a building we need to add input storage, a process divider and output storage
+		
+		# Add the circle process progress bar
+		var newProgress = templateNode.get_node("tmpProgress").duplicate()
+		newProgress.rect_position = Vector2.ZERO
+		newStructure.add_child(newProgress)
 		
 		# We need to add input storage ( 0/3 img_stone )
-		for _input in structureData[1]: # For each resource cost
+		for input in structureData[1]: # For each resource cost
 			var newStorage = templateNode.get_node("tmpStorage").duplicate()
+			newStorage.name = "input"+input[0]
 			newStructure_Info.add_child(newStorage) # Add the input storage UI
 			
 		# We need to add process divider ( --[3ms]--> )
 		var newProcess = templateNode.get_node("tmpProcess").duplicate()
+		newProcess.name = "divider"
 		newStructure_Info.add_child(newProcess) # Add the process divider UI
 		
 		# We need to add output storage ( 0/2 img_log )
-		for _output in structureData[2]:
+		for output in structureData[2]:
 			var newStorage = templateNode.get_node("tmpStorage").duplicate()
+			newStorage.name = "output"+output[0]
 			newStructure_Info.add_child(newStorage)
 		
 		# We need to connect the building script
-		#newStructure.script = load("res://objBuilding.gd").duplicate()
+		newStructure.script = load("res://objBuilding.gd")
 	
-	elif structType == "Storage":
+	elif structType == "Storage": # If this is storage we need to add io storage
 		
-		# We need to add internal storage ( 0/64 img_empty_solid )
+		# We need to add io storage ( 0/64 img_empty_solid )
 		for _output in structureData[1]:
 			var newStorage = templateNode.get_node("tmpStorage").duplicate()
+			newStorage.name = "input|ouput"
 			newStructure_Info.add_child(newStorage)
 		
 		# We need to connect the storage script
-		#newStructure.script = load("res://objStorage.gd").duplicate()
+		newStructure.script = load("res://objStorage.gd")
 	
 	add_child(newStructure)
 	
 	newStructure.configure(structureData,structType)
-	newStructure.updateUI(structureData,structType)
+	newStructure.updateUI()
 	newStructure.enable_moveMode()
 
 func addConveyor(_conveyorData,_conveyorPair):

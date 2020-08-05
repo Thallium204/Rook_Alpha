@@ -79,7 +79,7 @@
 [ext_resource path="res://Assets/Resources/img_empty.png" type="Texture" id=77]
 [ext_resource path="res://tmpTileDetect.gd" type="Script" id=78]
 [ext_resource path="res://tmpConfirm.gd" type="Script" id=79]
-[ext_resource path="res://classFactoryEntity.gd" type="Script" id=80]
+[ext_resource path="res://Assets/Misc/img_progress_circle.png" type="Texture" id=80]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 128, 64 )
@@ -821,7 +821,6 @@ size_flags_horizontal = 9
 texture = ExtResource( 5 )
 expand = true
 stretch_mode = 1
-script = ExtResource( 80 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -1019,8 +1018,19 @@ normal = ExtResource( 25 )
 position = Vector2( 994.836, -3.17847 )
 normal = ExtResource( 21 )
 script = ExtResource( 78 )
-[connection signal="released" from="Globals/FactoryNode/TopBarNode/btnBuildingMenu" to="Globals/FactoryNode/TopBarNode/btnBuildingMenu" method="_on_btnBuildingMenu_released"]
+
+[node name="tmpProgress" type="TextureProgress" parent="templateNode"]
+margin_left = 747.981
+margin_top = 402.596
+margin_right = 1047.98
+margin_bottom = 702.596
+texture_progress = ExtResource( 80 )
+fill_mode = 4
+__meta__ = {
+"_edit_use_anchors_": false
+}
 [connection signal="released" from="Globals/FactoryNode/TopBarNode/btnBuildingMenu" to="Globals/FactoryNode/TopBarNode" method="_on_btnBuildingMenu_released"]
+[connection signal="released" from="Globals/FactoryNode/TopBarNode/btnBuildingMenu" to="Globals/FactoryNode/TopBarNode/btnBuildingMenu" method="_on_btnBuildingMenu_released"]
 [connection signal="released" from="Globals/FactoryNode/TopBarNode/btnConveyorToggle" to="Globals/FactoryNode/TopBarNode/btnConveyorToggle" method="_on_btnConveyorToggle_released"]
 [connection signal="released" from="Globals/FactoryNode/TopBarNode/btnAutocraftToggle" to="Globals/FactoryNode/TopBarNode/btnAutocraftToggle" method="_on_btnAutocraftToggle_released"]
 [connection signal="released" from="Globals/FactoryNode/SideBarNode/btnInfoToggle" to="Globals/FactoryNode/SideBarNode/btnInfoToggle" method="_on_btnInfoToggle_released"]

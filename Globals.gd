@@ -52,7 +52,7 @@ var buildingBank = [
 ]
 
 
-# [ nameID , internalStorageList ]
+# [ nameID , internalStorageList , shapeData ]
 var storageBank = [
 	
 	["Chest",		[["Solid",64]],								[[1,1],[1,null],[null,1]]	],
@@ -85,7 +85,7 @@ var resourceBank = [
 # [ nameID ,  extractAmount , conveyorSpeed , segmentBuffer ]
 var conveyorBank = [
 	
-	["Standard", 1, 0.5, 1]
+	["Standard", 	1, 			0.5, 		1]
 	
 ]
 

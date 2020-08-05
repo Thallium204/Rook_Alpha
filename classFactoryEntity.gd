@@ -24,6 +24,7 @@ var fromList = []			# List of pointers of all insertion conveyors
 # BOOLEANS
 var isProcessing = false	# General:   		True when building is processing | False when building is not processing
 var autoCraft = false		# General: 			True when always trying to process | False when not always trying to process
+var canBeTouched = true		# General: 			True when can be tapped | False when can't be tapped
 var moveMode = false		# Move mode: 		True when moving structure | False when not moving structure
 var canBePlaced = false		# Move mode: 		True when structure can be placed | False when structure is over other structures
 var dragDetectMode = false	# Drag Detect Mode: True when checking for finger movement whilst pressing child button
@@ -48,37 +49,11 @@ func configure(structureData,structType): # Called when we want to initialise th
 	shapeData = structureData[-1]
 	
 	rect_size = Vector2( ctrlFactoryFloor.tileSize * shapeData[0].size()  , ctrlFactoryFloor.tileSize * shapeData.size() )
-	get_node("grdInfo").rect_size = rect_size
+	get_node("tmpProgress").rect_scale = rect_size/(300*Vector2.ONE) # Scale the progress bar
+	get_node("grdInfo").rect_size = rect_size # Scale the info grid
 
-func updateUI(structureData,structType): # Called when we want to update the display nodes for the user
-	
-	# Update the structure label
-	var labStructure = get_node("labStructure")
-	labStructure.rect_position = Vector2(0,rect_size[1]/2)
-	labStructure.rect_size = Vector2(rect_size[0],rect_size[1]/2)
-	labStructure.text = structureName
-	
-	# Update the structure image
-	texture = load("res://Assets/"+structType+"/img_"+structureData[0].to_lower()+".png")
-	
-	# Update process info
-	var grdInfo = get_node("grdInfo")
-	# Iterate through the input|divider|output children
-	var grdInfoChildRefs = grdInfo.get_children() # Get a list of all children (input|divider|output)
-	for childRefsPos in range( grdInfoChildRefs.size() ): # Iterate through the children by index
-		
-		var grdInfoChild = grdInfoChildRefs[childRefsPos] # Get current child
-		print(grdInfoChild.name)
-		
-		if "Storage" in grdInfoChild.name: # Are they a tmpStorage child
-			if childRefsPos < internalStorage[0].size(): # Is this an input tmpStorage
-				grdInfoChild.get_node("labCurrent").text = str( internalStorage[0][childRefsPos][1] )
-				grdInfoChild.get_node("labCapacity").text = str( internalStorage[0][childRefsPos][2] )
-			else: # Is this an output tmpStorage
-				grdInfoChild.get_node("labCurrent").text = str( internalStorage[1][childRefsPos-internalStorage[0].size()-1][1] )
-				grdInfoChild.get_node("labCapacity").text = str( internalStorage[1][childRefsPos-internalStorage[0].size()-1][2] )
-		else: # Are they a tmpProcess child
-			grdInfoChild.get_node("labProcess").text = "-["+str(processTime)+"s]->"
+func _ready():
+	get_node("btnProcess").connect("released",self,"tryToProcess") # Connect the child button signal to tryToProcess
 
 func _process(_delta):
 	
