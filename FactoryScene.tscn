@@ -1,10 +1,15 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://ConveyorFloor.gd" type="Script" id=1]
 [ext_resource path="res://ctrlFactoryFloor.gd" type="Script" id=2]
 [ext_resource path="res://Assets/Tileables/img_factory_grey_128x.png" type="Texture" id=3]
 [ext_resource path="res://camFactory.gd" type="Script" id=4]
 [ext_resource path="res://Assets/Misc/img_cursor.png" type="Texture" id=5]
+[ext_resource path="res://Fonts/minecraft_regular.otf" type="DynamicFontData" id=6]
+
+[sub_resource type="DynamicFont" id=1]
+size = 30
+font_data = ExtResource( 6 )
 
 [node name="FactorySceneNode" type="Node2D"]
 
@@ -43,6 +48,18 @@ margin_top = -16.0
 margin_right = 16.0
 margin_bottom = 16.0
 texture = ExtResource( 5 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="camFactory"]
+visible = false
+margin_left = -250.0
+margin_top = -100.0
+margin_right = 250.0
+margin_bottom = 100.0
+custom_fonts/font = SubResource( 1 )
+text = "lmao"
 __meta__ = {
 "_edit_use_anchors_": false
 }

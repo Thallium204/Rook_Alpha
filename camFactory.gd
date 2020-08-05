@@ -11,8 +11,11 @@ var zoomMin = 0.05
 var zoomMax = 1.0
 var zoomSensitivity = 10
 var zoomSpeed = 0.05
-var dragDistance = 0
-var lastDragDistance = 0
+var dragDistance = 1.0
+var lastDragDistance = 1.0
+var zoomModifier = 1.0
+
+var zoomStart = [Vector2.ZERO,Vector2.ZERO,Vector2.ZERO]
 
 var events = {}
 
@@ -26,7 +29,7 @@ func PerformZoom(focusPoint):
 	
 	# Handle the zoom
 	# Determine the zoom modifier (i.e. >1 for zooming out OR <1 for zooming in)
-	var zoomModifier = (1 + zoomSpeed) if dragDistance < lastDragDistance else (1 - zoomSpeed)
+	zoomModifier = (1 + zoomSpeed) if dragDistance < lastDragDistance else (1 - zoomSpeed)
 	zoomModifier = clamp(zoom.x * zoomModifier, zoomMin, zoomMax) # Bound the zoomModifier
 	zoom = Vector2.ONE * zoomModifier # Apply the zoom
 	lastDragDistance = dragDistance # Update the previous dragDistance
@@ -51,7 +54,7 @@ func _ready():
 	zoom *= zoomMax
 	position = Vector2.ZERO
 	clampCameraPosition()
-	
+
 func _process(delta):
 		
 	zoom.x = lerp(zoom.x, zoom.x * ZoomFactor, ZoomSpeed * delta)
@@ -64,6 +67,8 @@ func _process(delta):
 
 func _input(event):
 	
+	get_node("Label").text = ""
+	
 	# Don't process input if the menu is open
 	if Globals.isMenuOpen == true:
 		return
@@ -72,6 +77,8 @@ func _input(event):
 	if event.position[0] < 0 or event.position[1] < 0 or event.position[0] > ctnFactoryViewport.rect_size[0] or event.position[1] > ctnFactoryViewport.rect_size[1]:
 		return
 	
+	
+	
 	if Globals.moveStructureMode == true:
 		drag_margin_h_enabled = true
 		drag_margin_v_enabled = true
@@ -79,13 +86,19 @@ func _input(event):
 		drag_margin_h_enabled = false
 		drag_margin_v_enabled = false
 	
+	
+	
 	if event is InputEventScreenTouch:
+		
 		if event.pressed:
 			events[event.index] = event
 		else:
 			events.erase(event.index)
-
-	if event is InputEventScreenDrag:
+	
+	
+	
+	elif event is InputEventScreenDrag:
+		
 		events[event.index] = event
 		
 		# The user is dragging ONE finger across the viewport (DRAG)
@@ -97,23 +110,34 @@ func _input(event):
 		
 		# The user is dragging TWO fingers across the viewport (ZOOM)
 		elif events.size() == 2:
-			var dragVector = events[1].position - events[0].position # Get the vector distance between the two fingers
-			dragDistance = dragVector.length() #Get the scalar distance between the two fingers
-			var zoomCenter = (events[1].position + events[0].position)/2 # Get the center of the zoom
-			# If the users fingers have changed their relative distance by a certain amount (zoomSensitivity)
-			if abs(dragDistance - lastDragDistance) >= zoomSensitivity:
-				PerformZoom(zoomCenter) # Perform the zoom
+			
+			if Vector2.ZERO in zoomStart: # If this is the first TWO finger event since the last event
+				zoomStart = [events[0].position,events[1].position,zoom]
+			
+			#var zoomCenter = (events[0].position + events[1].position)/2 # Get the center current finger positions
+			var startDistance = (zoomStart[0]-zoomStart[1]).length()
+			var currentDistance = (events[0].position-events[1].position).length()
+			get_node("Label").text += "\n start: " + str(startDistance) + "\n current: " + str(currentDistance) + "\n"
+			#position = zoomCenter
+			zoom = zoomStart[2] * startDistance/currentDistance
 		
-		# if we're dragging normally
-
+		if events.size() != 2: # If there aren't two fingers on the screen
+			zoomStart[0] = Vector2(0,0)
+			zoomStart[1] = Vector2(0,0)
+			zoomStart[2] = zoom
+		
+		
+	get_node("Label").text += "\nzoomStart: " + str(zoomStart) + "\n Events: \n" + str(events)
+	
+	
 	
 	
 	
 	#ScrollWhell Zoom
-	if abs(ZoomPos.x - get_global_mouse_position().x) > ZoomMargin:
-		ZoomFactor = 1.0
-	if abs(ZoomPos.y - get_global_mouse_position().y) > ZoomMargin:
-		ZoomFactor = 1.0
+#	if abs(ZoomPos.x - get_global_mouse_position().x) > ZoomMargin:
+#		ZoomFactor = 1.0
+#	if abs(ZoomPos.y - get_global_mouse_position().y) > ZoomMargin:
+#		ZoomFactor = 1.0
 	
 	if event is InputEventMouseButton:
 		if event.is_pressed():
