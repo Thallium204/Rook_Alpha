@@ -87,11 +87,24 @@ func addStructure(structureData,structType):
 		# We need to connect the storage script
 		newStructure.script = load("res://objStorage.gd")
 	
+	# Add shape node
+	var newShape = templateNode.get_node("tmpShape").duplicate() # Get the Shape template
+	# Add shape detectors
+	for row in range( structureData[-1].size() ): # For every row of our shape
+		for col in range( structureData[-1][row].size() ): # For every column in that row
+			if structureData[-1][row][col] != null: # If our shape is there
+				var newTileDetect = templateNode.get_node("tmpTileDetect").duplicate() # Get the TileDetect template
+				newTileDetect.position = Vector2( tileSize * col , tileSize * row ) # Set its position to the correct tile in our shape
+				newTileDetect.gridVector = [row,col] # Tell it what local grid position it has in our shape
+				newTileDetect.structureNode = newStructure # Tell it what it's structure is
+				newShape.add_child(newTileDetect) # Add the TileDetect as a child
+	newStructure.add_child(newShape) # Add the Shape as a child
+	
 	add_child(newStructure)
 	
 	newStructure.configure(structureData,structType)
 	newStructure.updateUI()
-	newStructure.enable_moveMode()
+	newStructure.enable_moveMode(true)
 
 func addConveyor(_conveyorData,_conveyorPair):
 	Globals.buildMode = true

@@ -40,7 +40,6 @@ func configureBuildingData(buildingData):
 	processTime = buildingData[3]
 	updateEntityUI()
 
-
 func updateEntityUI():
 	# Update resource cost and gain UI
 	var grdResCostList = get_node("grdResCostList") # creating a reference point at the grdResCostList (list of all costs)
@@ -66,13 +65,11 @@ func updateEntityUI():
 		printNameID = nameID
 	get_node("labBuilding").text = printNameID
 
-
 func haveEnoughResources():
 	for resCost in inputResList:
 		if resCost[1] < resCost[2]:
 			return false
 	return true
-
 
 func haveEnoughStorage():
 	if outputResList[2]-outputResList[1] < outputResList[3]: #If we don't have enough room in the buffer
@@ -123,8 +120,6 @@ func _process(delta):
 	
 	if Globals.autoCraft == true and get_parent() != Globals.get_node("../templateNode"):
 		tryToProcess()
-
-
 
 func _input(event):
 	if checkForMovement == true:

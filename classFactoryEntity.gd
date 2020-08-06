@@ -2,7 +2,7 @@ extends TextureRect
 
 onready var Globals = get_tree().get_root().get_node("Game/Globals")
 onready var templateNode = get_tree().get_root().get_node("Game/templateNode")
-onready var ctrlFactoryFloor = Globals.get_node("FactoryNode/ctnFactoryViewport/vptFactoryScene/FactorySceneNode/ctrlFactoryFloor")
+onready var ctrlFactoryFloor = Globals.get_node("FactoryNode/ctnFactoryViewport/vptFactoryScene/ctrlFactoryFloor")
 onready var FactorySpace = ctrlFactoryFloor.get_node("../FactorySpace")
 onready var camFactory = ctrlFactoryFloor.get_node("../camFactory")
 
@@ -11,12 +11,9 @@ onready var grey = Globals.infoColorModifier
 var structureName = "" 		# Name of the structure i.e. "Foundry"
 var structureType = "" 		# Type of structure: Building|Storage
 var internalStorage = [] 	# For Builings: [inputStorage,outputStorage] | For Storage: [ioStorage]
-var masterTile = 0			# top-right most tile [ row , col ]
+var masterTile = null			# top-right most tile [ row , col ]
 var shapeData = [] 			# 2D array of FactoryFloor grid positions in shape of structure
 var _levelData = [] 		# List of all upgrade modifiers
-
-var processTime = 0 		# Time taken to complete a single process
-var timer_processTime = 0.0 # Current timer
 
 var toList = [] 			# List of pointers of all extraction conveyors
 var fromList = []			# List of pointers of all insertion conveyors
@@ -27,43 +24,25 @@ var autoCraft = false		# General: 			True when always trying to process | False 
 var canBeTouched = true		# General: 			True when can be tapped | False when can't be tapped
 var moveMode = false		# Move mode: 		True when moving structure | False when not moving structure
 var canBePlaced = false		# Move mode: 		True when structure can be placed | False when structure is over other structures
+var hasBeenPlaced = false	# move mode:		True when the building has been placed previously
 var dragDetectMode = false	# Drag Detect Mode: True when checking for finger movement whilst pressing child button
 var hasDragged = false		# Drag Detect Mode: True is a finger has been dragged whilst pressing a chi8ld button
 
 
-# structureData = [ nameID , inputResList , outputResList , processTime , shapeData ]  OR  [ nameID , internalStorageList , shapeData ]
-# structType = "Building" or "Storage"
-func configure(structureData,structType): # Called when we want to initialise the internal structure
-	# Here we take the data provided by the Banks (structureData), in some cases edit it, and assign it to it's internal variable
-	structureName = structureData[0]
-	structureType = structType
-	if structType == "Building":
-		internalStorage = [structureData[1],structureData[2]]
-		processTime = structureData[-2]
-	elif structType == "Storage":
-		internalStorage = [structureData[1]]
-	# We edit the storage data
-	for internal in internalStorage:
-		for storage in internal:
-			storage.insert(1,0) # At index 1 add a 0 to represent current resource amount ["Cobble",2] -> ["Cobble",0,2]
-	shapeData = structureData[-1]
-	
-	rect_size = Vector2( ctrlFactoryFloor.tileSize * shapeData[0].size()  , ctrlFactoryFloor.tileSize * shapeData.size() )
-	get_node("tmpProgress").rect_scale = rect_size/(300*Vector2.ONE) # Scale the progress bar
-	get_node("grdInfo").rect_size = rect_size # Scale the info grid
-
-func _ready():
-	get_node("btnProcess").connect("released",self,"tryToProcess") # Connect the child button signal to tryToProcess
 
 func _process(_delta):
 	
 	# IF WE ARE MOVING THE STRUCTURE
 	if moveMode == true:
+		
+		# Show alpha of the TileDetects
+		get_node("tmpShape").modulate = Color(1,1,1,0.5)
+		
 		# Move the building in tile steps with the camera
 		rect_position[0] = stepify( camFactory.position[0] - ctrlFactoryFloor.rect_position[0] - rect_size[0]/2 , ctrlFactoryFloor.tileSize )
 		rect_position[0] = clamp(rect_position[0] , 0 , FactorySpace.rect_size[0] - rect_size[0])
 		rect_position[1] = stepify( camFactory.position[1] - ctrlFactoryFloor.rect_position[1] - rect_size[1]/2 , ctrlFactoryFloor.tileSize )
-		rect_position[1] = clamp(rect_position[1] , 0 , FactorySpace.rect_size[1] - rect_size[1])
+		rect_position[1] = clamp(rect_position[1] , camFactory.vertical_offset , FactorySpace.rect_size[1] - rect_size[1])
 		
 		# Get current master tile
 		# Position vector has (x,y) format, Arrays have a [row][column] format
@@ -85,12 +64,17 @@ func _process(_delta):
 		# Check if we can place the structure
 		canBePlaced = true # Assume we can place the structure
 		get_node("tmpConfirm/btnYes").modulate = Color(1,1,1) # Remove any colour tint from the YES button in the Confirm menu
-		for child in get_children(): # Check every child node
-			if "Tile" in child.name: # If the child node is a tmpTileDetect
-				if child.check_isTileFree(masterTile) == false: # If the child says it's above a structure
-					canBePlaced = false # We can't place the structure
-					get_node("tmpConfirm/btnYes").modulate = Color(grey,grey,grey) # Colour the YES button in the Confirm menu grey
-	
+		for tileNode in get_node("tmpShape").get_children(): # Check every tile child node
+			if tileNode.check_isTileFree(masterTile) == false: # If the tile says it's above a structure
+				tileNode.modulate = Color(1,grey,grey)
+				canBePlaced = false # We can't place the structure
+				get_node("tmpConfirm/btnYes").modulate = Color(grey,grey,grey) # Colour the YES button in the Confirm menu grey
+			else:
+				tileNode.modulate = Color(grey,1,grey)
+	else:
+		for tileNode in get_node("tmpShape").get_children(): # Check every tile child node
+			tileNode.modulate = Color(1,1,1)
+		get_node("tmpShape").modulate = Color(grey,grey,grey,0.2)
 	# Display Info
 	if Globals.infoIsDisplayed == true:
 		self_modulate = Color(grey,grey,grey) # Colour grey
@@ -101,12 +85,14 @@ func _process(_delta):
 		get_node("grdInfo").visible = false # Make the process info invisible
 		get_node("labStructure").visible = true # Make the structure label visible
 
-func enable_moveMode(): # Called when we want to move this structure
+func enable_moveMode(initial = false): # Called when we want to move this structure
 	
 	moveMode = true # Enable local move mode
-	Globals.moveStructureMode = true # Enable global move mode
+	Globals.moveStructureMode = "moving" # Enable global move mode
 	
-	var tileSize = ctrlFactoryFloor.tileSize # Get tilesize for movement
+	if initial == false: # If the structure has just been created
+		removePointersFromArray()
+		camFactory.position = rect_position+rect_size/2
 	
 	# Add move Confirm Menu
 	var newConfirm = templateNode.get_node("tmpConfirm").duplicate() # Get the Confirm Menu template
@@ -114,26 +100,22 @@ func enable_moveMode(): # Called when we want to move this structure
 	newConfirm.menuResultNode = self # We give the menu our node address so it can communicate the true/false result to us (see: menuResult)
 	newConfirm.menuID = "move" # We give the menu a string ID so we can interpret the true/false result (see: menuResult)
 	add_child(newConfirm) # Add the Confirm Menu as a child
-	
-	# Add shape detectors
-	for row in range( shapeData.size() ): # For every row of our shape
-		for col in range( shapeData[row].size() ): # For every column in that row
-			if shapeData[row][col] != null: # If our shape is there
-				var newTileDetect = templateNode.get_node("tmpTileDetect").duplicate() # Get the TileDetect template
-				newTileDetect.position = Vector2( tileSize * col , tileSize * row ) # Set its position to the correct tile in our shape
-				newTileDetect.modulate = Color(1,1,1,0.2) # Make it slightly transparent
-				newTileDetect.gridVector = [row,col] # Tell it what local grid position it has in our shape
-				add_child(newTileDetect) # Add the TileDetect as a child
 
-func disable_moveMode(): # Called when we have stopped moving this structure
+func disable_moveMode(placed = false): # Called when we have stopped moving this structure
 	
 	moveMode = false # Disable local move mode
-	Globals.moveStructureMode = false # Disable global move mode
 	
 	# Delete all the move-related nodes ( ConfirmMenu | TileDetect )
 	for child in get_children(): # Check every child node
 		if "Confirm" in child.name or "Tile" in child.name: # If the child is a tmpConfirm or tmpTileDetect
 			remove_child(child) # Remove the child node
+	
+	if hasBeenPlaced == true: # If the building had a previous position
+		Globals.moveStructureMode = "ready" # Return to ready move mode
+		if placed == false: # If the building has been placed somewhere new
+			rect_position = Vector2(shapeData[0][0][1] * ctrlFactoryFloor.tileSize , shapeData[0][0][0] * ctrlFactoryFloor.tileSize)
+	else:
+		Globals.moveStructureMode = "off" # Disable global move mode
 
 func addSelfToFactory(): # Called when we have placed this structure
 	# Update the shape data with the new grid positions  AND  update the pointerArray with this objects pointers
@@ -145,6 +127,7 @@ func addSelfToFactory(): # Called when we have placed this structure
 				shapeData[row][col][1] = masterTile[1] + col # Update the shapeData column reference
 				# Add our pointer to every tile we occupy in pointerArray
 				ctrlFactoryFloor.pointerArray[ shapeData[row][col][0] ][ shapeData[row][col][1] ] = self
+	hasBeenPlaced = true
 
 func menuResult(menuID,result): # Called by a menu; the menuID tells us the menu type (move|delete|etc.) | the result is the result
 	
@@ -152,17 +135,41 @@ func menuResult(menuID,result): # Called by a menu; the menuID tells us the menu
 		
 		if result == true: # If the user tapped YES
 			if canBePlaced == true: # Check if the structure can be placed
-				disable_moveMode() # Stop local and global move modes
+				disable_moveMode(true)
 				addSelfToFactory()
 			else:
 				print("can't be placed!")
 		else: # If the user tapped NO
-			disable_moveMode() # Stop local and global move modes
-			get_parent().remove_child(self) # Destroy self
+			disable_moveMode(false)
+			if hasBeenPlaced == false:
+				get_parent().remove_child(self) # Destroy self
 
+func onStructure_Pressed_General(tile): # Called when a tile button is pressed
+	
+	# If we're ready to move a building
+	if Globals.moveStructureMode == "ready":
+		enable_moveMode()
 
+func onStructure_Released_General(tile): # Called when a tile button is released
+	
+	# If we're in delete mode
+	if Globals.deleteBuildingsMode == true:
+		removeSelf()
+		Globals.deleteBuildingsMode = false
+	
+	print("\n"+str(tile.gridVector))
 
+func removeSelf():
+	removePointersFromArray()
+	ctrlFactoryFloor.remove_child(self) # Remove self
 
+func removePointersFromArray():
+	# Remove pointers from the pointerArray
+	for row in shapeData:
+		for col in row:
+			if col != null:
+				ctrlFactoryFloor.pointerArray[col[0]][col[1]] = null
+	
 
 
 

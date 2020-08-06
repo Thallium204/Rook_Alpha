@@ -2,7 +2,7 @@ extends Camera2D
 
 onready var Globals = get_tree().get_root().get_node("Game/Globals")
 onready var ctnFactoryViewport = Globals.get_node("FactoryNode/ctnFactoryViewport")
-onready var vp_dim = get_parent().get_parent().size 
+onready var vp_dim = get_parent().size
 onready var fs_dim = get_node("../FactorySpace").rect_size
 
 var target_return_enabled = false
@@ -14,6 +14,8 @@ var zoomSpeed = 0.05
 var dragDistance = 1.0
 var lastDragDistance = 1.0
 var zoomModifier = 1.0
+
+var vertical_offset = 128.0
 
 var zoomStart = [Vector2.ZERO,Vector2.ZERO,Vector2.ZERO]
 
@@ -39,15 +41,16 @@ func PerformZoom(focusPoint):
 	position += vectorToFocusPoint/zoomModifier
 
 func clampCameraPosition():
-	if Globals.moveStructureMode == false:
+	if Globals.moveStructureMode != "moving":
 		# Ensure the user can't drag the camera past the LEFT or RIGHT border
 		position.x = clamp( position.x , (vp_dim[0] / 2) * zoom.x , fs_dim[0] - ((vp_dim[0] / 2) * zoom.x) )
-		position.y = clamp( position.y , (vp_dim[1] / 2) * zoom.x , fs_dim[1] - ((vp_dim[1] / 2) * zoom.x) )
+		position.y = clamp( position.y , (vp_dim[1] / 2) * zoom.y , fs_dim[1] - ((vp_dim[1] / 2) * zoom.y) )
 	else:
 		position.x = clamp( position.x , 0 , fs_dim[0] )
-		position.x = clamp( position.x , 0 , fs_dim[1] )
+		position.y = clamp( position.y , vertical_offset , fs_dim[1] )
 
 func _ready():
+
 	limit_right = fs_dim[0] # Limit the position of the camera
 	limit_bottom = fs_dim[1]
 	zoomMax = fs_dim[0]/vp_dim[0]
@@ -79,7 +82,7 @@ func _input(event):
 	
 	
 	
-	if Globals.moveStructureMode == true:
+	if Globals.moveStructureMode == "moving":
 		drag_margin_h_enabled = true
 		drag_margin_v_enabled = true
 	else:
@@ -103,7 +106,7 @@ func _input(event):
 		
 		# The user is dragging ONE finger across the viewport (DRAG)
 		if events.size() == 1:
-			if Globals.moveStructureMode == true:
+			if Globals.moveStructureMode == "moving":
 				position += event.relative * zoom # Move the camera with the drag
 			else:
 				position -= event.relative * zoom # Move the camera away from drag
@@ -129,10 +132,6 @@ func _input(event):
 		
 	get_node("Label").text += "\nzoomStart: " + str(zoomStart) + "\n Events: \n" + str(events)
 	
-	
-	
-	
-	
 	#ScrollWhell Zoom
 #	if abs(ZoomPos.x - get_global_mouse_position().x) > ZoomMargin:
 #		ZoomFactor = 1.0
@@ -147,3 +146,5 @@ func _input(event):
 			if event.button_index == BUTTON_WHEEL_DOWN:
 				ZoomFactor += 0.02
 				ZoomPos = get_global_mouse_position()
+	
+	clampCameraPosition()

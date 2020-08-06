@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=30 format=2]
 
 [ext_resource path="res://ConveyorFloor.gd" type="Script" id=1]
 [ext_resource path="res://ctrlFactoryFloor.gd" type="Script" id=2]
@@ -6,34 +6,93 @@
 [ext_resource path="res://camFactory.gd" type="Script" id=4]
 [ext_resource path="res://Assets/Misc/img_cursor.png" type="Texture" id=5]
 [ext_resource path="res://Fonts/minecraft_regular.otf" type="DynamicFontData" id=6]
+[ext_resource path="res://btnAutocraftToggle.gd" type="Script" id=7]
+[ext_resource path="res://btnBuildingMenu.gd" type="Script" id=8]
+[ext_resource path="res://btnMoveToggle.gd" type="Script" id=9]
+[ext_resource path="res://Assets/Buttons/SideBar/img_delete_toggle_off.png" type="Texture" id=10]
+[ext_resource path="res://Assets/Tileables/img_factory_orange_120x.png" type="Texture" id=11]
+[ext_resource path="res://TopBarNode.gd" type="Script" id=12]
+[ext_resource path="res://grdAddBuildings.gd" type="Script" id=13]
+[ext_resource path="res://grdAddStorage.gd" type="Script" id=14]
+[ext_resource path="res://btnInfoToggle.gd" type="Script" id=15]
+[ext_resource path="res://Assets/Buttons/TopBar/img_autocraft_toggle_off.png" type="Texture" id=16]
+[ext_resource path="res://Assets/Buttons/TopBar/img_connect_toggle_off.png" type="Texture" id=17]
+[ext_resource path="res://Assets/Buttons/TopBar/img_build_toggle_off.png" type="Texture" id=18]
+[ext_resource path="res://Assets/Buttons/SideBar/img_move_toggle_off.png" type="Texture" id=19]
+[ext_resource path="res://Assets/Buttons/SideBar/img_info_toggle_off.png" type="Texture" id=20]
+[ext_resource path="res://btnConveyorToggle.gd" type="Script" id=21]
+[ext_resource path="res://btnDeleteToggle.gd" type="Script" id=22]
 
 [sub_resource type="DynamicFont" id=1]
 size = 30
 font_data = ExtResource( 6 )
 
-[node name="FactorySceneNode" type="Node2D"]
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 128, 64 )
 
-[node name="FactorySpace" type="TextureRect" parent="."]
+[sub_resource type="StyleBoxEmpty" id=3]
+
+[sub_resource type="Theme" id=4]
+HScrollBar/icons/decrement = null
+HScrollBar/icons/decrement_highlight = null
+HScrollBar/icons/increment = null
+HScrollBar/icons/increment_highlight = null
+HScrollBar/styles/grabber = null
+HScrollBar/styles/grabber_highlight = null
+HScrollBar/styles/grabber_pressed = null
+HScrollBar/styles/scroll = SubResource( 3 )
+HScrollBar/styles/scroll_focus = null
+
+[sub_resource type="RectangleShape2D" id=5]
+extents = Vector2( 128, 64 )
+
+[sub_resource type="CircleShape2D" id=6]
+radius = 64.0
+
+[sub_resource type="CircleShape2D" id=7]
+radius = 64.0
+
+[node name="FactoryNode" type="Control"]
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ctnFactoryViewport" type="ViewportContainer" parent="."]
+margin_right = 1080.0
+margin_bottom = 1664.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="vptFactoryScene" type="Viewport" parent="ctnFactoryViewport"]
+size = Vector2( 1080, 1664 )
+handle_input_locally = false
+msaa = 3
+usage = 0
+render_target_update_mode = 3
+
+[node name="FactorySpace" type="TextureRect" parent="ctnFactoryViewport/vptFactoryScene"]
 show_behind_parent = true
 margin_right = 1152.0
-margin_bottom = 2304.0
+margin_bottom = 2432.0
 texture = ExtResource( 3 )
 stretch_mode = 2
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="ConveyorFloor" type="Node2D" parent="."]
+[node name="ConveyorFloor" type="Node2D" parent="ctnFactoryViewport/vptFactoryScene"]
 script = ExtResource( 1 )
 
-[node name="ctrlFactoryFloor" type="Control" parent="."]
+[node name="ctrlFactoryFloor" type="Control" parent="ctnFactoryViewport/vptFactoryScene"]
 script = ExtResource( 2 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="camFactory" type="Camera2D" parent="."]
+[node name="camFactory" type="Camera2D" parent="ctnFactoryViewport/vptFactoryScene"]
 position = Vector2( 540, 960 )
+rotating = true
 current = true
 limit_left = 0
 limit_top = 0
@@ -42,7 +101,7 @@ limit_bottom = 3840
 editor_draw_drag_margin = true
 script = ExtResource( 4 )
 
-[node name="texCursor" type="TextureRect" parent="camFactory"]
+[node name="texCursor" type="TextureRect" parent="ctnFactoryViewport/vptFactoryScene/camFactory"]
 margin_left = -16.0
 margin_top = -16.0
 margin_right = 16.0
@@ -52,7 +111,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Label" type="Label" parent="camFactory"]
+[node name="Label" type="Label" parent="ctnFactoryViewport/vptFactoryScene/camFactory"]
 visible = false
 margin_left = -250.0
 margin_top = -100.0
@@ -63,3 +122,157 @@ text = "lmao"
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="TopBarNode" type="Node2D" parent="."]
+script = ExtResource( 12 )
+
+[node name="texTopBar" type="TextureRect" parent="TopBarNode"]
+margin_right = 1080.0
+margin_bottom = 120.0
+rect_scale = Vector2( 1, 1.07 )
+texture = ExtResource( 11 )
+stretch_mode = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="btnBuildingMenu" type="TouchScreenButton" parent="TopBarNode"]
+shape = SubResource( 2 )
+script = ExtResource( 8 )
+
+[node name="texBuildingMenu" type="TextureRect" parent="TopBarNode/btnBuildingMenu"]
+margin_top = -383.0
+margin_right = 1080.0
+margin_bottom = 1.0
+rect_scale = Vector2( 1, 1.07 )
+theme = SubResource( 4 )
+texture = ExtResource( 11 )
+stretch_mode = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="scrAddBuildings" type="ScrollContainer" parent="TopBarNode/btnBuildingMenu/texBuildingMenu"]
+margin_top = 21.0
+margin_right = 2160.0
+margin_bottom = 363.0
+rect_scale = Vector2( 0.5, 0.5 )
+follow_focus = true
+scroll_vertical_enabled = false
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="grdAddBuildings" type="HBoxContainer" parent="TopBarNode/btnBuildingMenu/texBuildingMenu/scrAddBuildings"]
+alignment = 1
+script = ExtResource( 13 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="scrAddStorage" type="ScrollContainer" parent="TopBarNode/btnBuildingMenu/texBuildingMenu"]
+margin_top = 192.0
+margin_right = 2160.0
+margin_bottom = 576.0
+rect_scale = Vector2( 0.5, 0.5 )
+follow_focus = true
+scroll_vertical_enabled = false
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="grdAddStorage" type="HBoxContainer" parent="TopBarNode/btnBuildingMenu/texBuildingMenu/scrAddStorage"]
+alignment = 1
+script = ExtResource( 14 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="texBuildingToggle" type="TextureRect" parent="TopBarNode/btnBuildingMenu"]
+margin_top = -64.0
+margin_right = 64.0
+texture = ExtResource( 18 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="twnTopBarAdd" type="Tween" parent="TopBarNode/btnBuildingMenu"]
+playback_speed = 1.5
+playback/speed = 1.5
+
+[node name="btnConveyorToggle" type="TouchScreenButton" parent="TopBarNode"]
+position = Vector2( 256, 0 )
+shape = SubResource( 5 )
+script = ExtResource( 21 )
+
+[node name="texConveyorToggle" type="TextureRect" parent="TopBarNode/btnConveyorToggle"]
+margin_top = -64.0
+margin_right = 64.0
+texture = ExtResource( 17 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="btnAutocraftToggle" type="TouchScreenButton" parent="TopBarNode"]
+position = Vector2( 512, 0 )
+shape = SubResource( 5 )
+script = ExtResource( 7 )
+
+[node name="texAutocraftToggle" type="TextureRect" parent="TopBarNode/btnAutocraftToggle"]
+margin_top = -64.0
+margin_right = 64.0
+texture = ExtResource( 16 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="SideBarNode" type="Node2D" parent="."]
+position = Vector2( 1080, 128 )
+
+[node name="btnInfoToggle" type="TouchScreenButton" parent="SideBarNode"]
+position = Vector2( -128, 8 )
+shape = SubResource( 6 )
+script = ExtResource( 15 )
+
+[node name="texInfoToggle" type="TextureRect" parent="SideBarNode/btnInfoToggle"]
+margin_right = 32.0
+margin_bottom = 32.0
+texture = ExtResource( 20 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="btnMoveToggle" type="TouchScreenButton" parent="SideBarNode"]
+position = Vector2( -128, 144 )
+shape = SubResource( 7 )
+script = ExtResource( 9 )
+
+[node name="texMoveToggle" type="TextureRect" parent="SideBarNode/btnMoveToggle"]
+margin_right = 32.0
+margin_bottom = 32.0
+texture = ExtResource( 19 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="btnDeleteToggle" type="TouchScreenButton" parent="SideBarNode"]
+position = Vector2( -128, 280 )
+shape = SubResource( 6 )
+script = ExtResource( 22 )
+
+[node name="texDeleteToggle" type="TextureRect" parent="SideBarNode/btnDeleteToggle"]
+margin_right = 32.0
+margin_bottom = 32.0
+texture = ExtResource( 10 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+[connection signal="pressed" from="TopBarNode/btnBuildingMenu" to="TopBarNode/btnBuildingMenu" method="_on_btnBuildingMenu_pressed"]
+[connection signal="pressed" from="TopBarNode/btnBuildingMenu" to="TopBarNode" method="_on_btnBuildingMenu_pressed"]
+[connection signal="released" from="TopBarNode/btnBuildingMenu" to="TopBarNode/btnBuildingMenu" method="_on_btnBuildingMenu_released"]
+[connection signal="released" from="TopBarNode/btnBuildingMenu" to="TopBarNode" method="_on_btnBuildingMenu_released"]
+[connection signal="released" from="TopBarNode/btnConveyorToggle" to="TopBarNode/btnConveyorToggle" method="_on_btnConveyorToggle_released"]
+[connection signal="released" from="TopBarNode/btnAutocraftToggle" to="TopBarNode/btnAutocraftToggle" method="_on_btnAutocraftToggle_released"]
+[connection signal="released" from="SideBarNode/btnInfoToggle" to="SideBarNode/btnInfoToggle" method="_on_btnInfoToggle_released"]
+[connection signal="released" from="SideBarNode/btnMoveToggle" to="SideBarNode/btnMoveToggle" method="_on_btnMoveToggle_released"]
+[connection signal="released" from="SideBarNode/btnDeleteToggle" to="SideBarNode/btnDeleteToggle" method="_on_btnDeleteToggle_released"]

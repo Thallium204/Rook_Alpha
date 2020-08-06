@@ -2,9 +2,9 @@ extends Node2D
 
 # Factory Node
 onready var FactoryNode = get_node("FactoryNode")
-onready var FactorySceneNode = FactoryNode.get_node("ctnFactoryViewport/vptFactoryScene/FactorySceneNode")
-onready var ctrlFactoryFloor = FactorySceneNode.get_node("ctrlFactoryFloor")
-onready var ConveyorFloor = FactorySceneNode.get_node("ConveyorFloor")
+onready var vptFactoryScene = FactoryNode.get_node("ctnFactoryViewport/vptFactoryScene")
+onready var ctrlFactoryFloor = vptFactoryScene.get_node("ctrlFactoryFloor")
+onready var ConveyorFloor = vptFactoryScene.get_node("ConveyorFloor")
 onready var grdAddBuildings = FactoryNode.get_node("TopBarNode/btnBuildingMenu/texBuildingMenu/scrAddBuildings/grdAddBuildings")
 onready var grdAddStorage = FactoryNode.get_node("TopBarNode/btnBuildingMenu/texBuildingMenu/scrAddStorage/grdAddStorage")
 
@@ -14,7 +14,7 @@ var isMenuOpen = false
 var infoIsDisplayed = false
 var infoColorModifier = 0.3
 var addConveyorMode = false
-var moveStructureMode = false
+var moveStructureMode = "off"		# "off" | "ready" | "moving" 
 var deleteBuildingsMode = false
 var autoCraft = false
 
@@ -96,6 +96,7 @@ func _ready():
 	
 func _process(_delta):
 	#print(Vector2(300,300)/2)
+	#print(moveStructureMode)
 	pass
 
 func getBuildingDataByNameID(nameID):

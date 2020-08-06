@@ -1,7 +1,26 @@
 extends "res://classFactoryEntity.gd"
 
 # Variables unique to Buildings
-var processTimer = 0.0
+var processTime = 0 		# Time taken to complete a single process
+var timer_processTime = 0.0 # Current timer
+
+# structureData = [ nameID , inputResList , outputResList , processTime , shapeData ]  OR  [ nameID , internalStorageList , shapeData ]
+# structType = "Building" or "Storage"
+func configure(structureData,structType): # Called when we want to initialise the internal structure
+	# Here we take the data provided by the Banks (structureData), in some cases edit it, and assign it to it's internal variable
+	structureName = structureData[0]
+	structureType = structType
+	internalStorage = [structureData[1],structureData[2]]
+	processTime = structureData[-2]
+	# We edit the storage data
+	for internal in internalStorage:
+		for storage in internal:
+			storage.insert(1,0) # At index 1 add a 0 to represent current resource amount ["Cobble",2] -> ["Cobble",0,2]
+	shapeData = structureData[-1]
+	# Set the image size
+	rect_size = Vector2( ctrlFactoryFloor.tileSize * shapeData[0].size()  , ctrlFactoryFloor.tileSize * shapeData.size() )
+	get_node("tmpProgress").rect_scale = rect_size/(300*Vector2.ONE) # Scale the progress bar
+	get_node("grdInfo").rect_size = rect_size # Scale the info grid
 
 func updateUI(): # Called when we want to update the display nodes for the user
 	
@@ -20,13 +39,17 @@ func updateUI(): # Called when we want to update the display nodes for the user
 		var grdInfoChild = grdInfoChildRefs[childRefsPos] # Get current child
 		
 		if "input" in grdInfoChild.name: # Are they a tmpStorage child
-			grdInfoChild.get_node("labCurrent").text = str( internalStorage[0][childRefsPos][1] )
-			grdInfoChild.get_node("labCapacity").text = str( internalStorage[0][childRefsPos][2] )
+			var storage = internalStorage[0][childRefsPos]
+			grdInfoChild.get_node("texResource").texture = load("res://Assets/Resources/img_"+storage[0].to_lower()+".png")
+			grdInfoChild.get_node("labCurrent").text = str( storage[1] )
+			grdInfoChild.get_node("labCapacity").text = str( storage[2] )
 		elif "divider" in grdInfoChild.name: # Is this an output tmpStorage
 			grdInfoChild.get_node("labProcess").text = "-["+str(processTime)+"s]->"
 		elif "output" in grdInfoChild.name: # Are they a tmpProcess child
-			grdInfoChild.get_node("labCurrent").text = str( internalStorage[1][childRefsPos-internalStorage[0].size()-1][1] )
-			grdInfoChild.get_node("labCapacity").text = str( internalStorage[1][childRefsPos-internalStorage[0].size()-1][2] )
+			var storage = internalStorage[1][childRefsPos-internalStorage[0].size()-1]
+			grdInfoChild.get_node("texResource").texture = load("res://Assets/Resources/img_"+storage[0].to_lower()+".png")
+			grdInfoChild.get_node("labCurrent").text = str( storage[1] )
+			grdInfoChild.get_node("labCapacity").text = str( storage[2] )
 
 func _process(delta):
 	
@@ -38,21 +61,31 @@ func _process(delta):
 	
 	# IF WE ARE PROCESSING
 	if isProcessing == true:
-		processTimer += delta
-		if processTimer >= processTime: # If we have finished
+		timer_processTime += delta
+		if timer_processTime >= processTime: # If we have finished
 			for output in internalStorage[1]:
 				output[1] += output[2] # Gain resources
-			processTimer = 0.0
+			timer_processTime = 0.0
 			isProcessing = false
 			get_node("tmpProgress").value = 0
 			updateUI()
 		else: # If we are still processing
-			var progPerc = processTimer/float(processTime)
+			var progPerc = timer_processTime/float(processTime)
 			#self.self_modulate = Color(1-progPerc,1,1-progPerc)
 			get_node("tmpProgress").value = stepify(100*progPerc,0.1)
 	
 	if Globals.autoCraft == true and get_parent() != Globals.get_node("../templateNode"):
 		tryToProcess()
+	
+		# Prevent interaction under certain conditions
+	if Globals.moveStructureMode != "off" or Globals.addConveyorMode == true or Globals.deleteBuildingsMode == true or Globals.isMenuOpen == true:
+		canBeTouched = false
+	else:
+		canBeTouched = true
+
+func _ready():
+	#get_node("btnProcess").connect("released",self,"onStructureTapped") # Connect the child button signal to tryToProcess
+	pass
 
 func tryToProcess():
 	# Check if we have required resources
@@ -75,6 +108,16 @@ func haveEnoughStorage():
 			return false
 	return true
 
+func onStructure_Pressed(tile): # Called when our structure is tapped
+	
+	# Handle general
+	onStructure_Pressed_General(tile)
 
-
+func onStructure_Released(tile): # Called when our structure is tapped
+	
+	# Handle general
+	onStructure_Released_General(tile)
+	
+	if Globals.moveStructureMode == "off" and canBeTouched == true:
+		tryToProcess()
 
