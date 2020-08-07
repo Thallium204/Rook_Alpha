@@ -23,34 +23,30 @@ var infoColorModifier = 0.3
 # [ nameID , inputResList , outputResList , processTime , shapeData ]
 var buildingBank = [
 	
-	[ "Tree",		[],								[["Log",1]],		3,		[[1,1],[1,1]]	],
+	[ "Tree",		[],								[["Log",1]],		3,		[[1,1],[1,1]]				],
 	
-	[ "Tree_upg1",	[],								[["Log",2]],		3,		[[1,1],[1,1]]	],
+	[ "Tree_upg1",	[],								[["Log",2]],		3,		[[1,1],[1,1]]				],
 	
-	[ "Quarry",		[],								[["Cobble",1]],		2,		[[1,1],[1,1]]	],
+	[ "Quarry",		[],								[["Cobble",1]],		2,		[[1,1],[1,1]]				],
 	
-	[ "Furnace",	[["Cobble",1]],					[["Stone",1]],		4,		[[1,1],[1,1]]	],
+	[ "River",		[],								[["Clay",3]],		3,		[[1,1,1],[1,1,1],[1,1,1]]	],
 	
-	[ "Table",		[["Log",1]],					[["Planks",4]],		4,		[[1,1],[1,1]]	],
+	[ "Furnace",	[["Clay",1]],					[["Brick",1]],		4,		[[1,1],[1,1]]				],
 	
-	[ "Library",	[["Cobble",2],["Planks",2]],	[["Power",3]],		3,		[[1,1],[1,1]]	],
+	[ "Workbench",	[["Log",1]],					[["Plank",2]],		4,		[[1,1],[1,1]]				],
 	
-	[ "Loom",		[["Planks",4]],					[["Power",2]],		2,		[[1,1],[1,1]]	],
+	[ "Kiln",		[["Ore",1],["Coal",1]],			[["Cluster",1]],	3,		[[1],[1]]	],
 	
-	[ "Portal",		[["Stone",2]],					[["Water",1]],		2,		[[1,1],[1,1]]	],
+	[ "Smeltery",	[["Cluster",1]],				[["Ingot",1]],		3,		[[1],[1]]	]
 	
-	[ "Spawner",	[["Cobble",2],["Water",4]],		[["Log",64]],		10, 	[[1,1],[1,1]]	],
-	
-	[ "Mystery",	[["Power",2],["Water",4]],		[["Power",3]],		2,		[[1,1],[1,1]]	]]
+	]
 
 # [ nameID , internalStorageList , shapeData ]
 var storageBank = [
 	
-	["Chest",		[["Solid",64]],								[[1,1],[1,1]]	],
+	["Hole",		[["Solid",4]],								[[1,1]]	],
 	
-	["Tank",		[["Fluid",64]],								[[1,1],[1,1]]	],
-	
-	["Battery",		[["Power",64]],								[[1,1],[1,1]]	]]
+	["Hole2",		[["Solid",8]],								[[1,1],[1,1]]	]]
 
 # [ nameID , internalStorage ]
 var resourceBank = [
@@ -61,7 +57,9 @@ var resourceBank = [
 	
 	["Stone",		"Solid"],
 	
-	["Planks",		"Solid"],
+	["Plank",		"Solid"],
+	
+	["Brick",		"Solid"],
 	
 	["Water",		"Fluid"],
 	
@@ -97,7 +95,6 @@ func getStorageDataByNameID(nameID):
 
 # PASS BUILDING DATA TO FACTORY FLOOR
 func initialseStructureData(nameID,structureType):
-	print(nameID," ",structureType)
 	# Get the list data for matching nameID i.e. nameID = "Quarry" -> ["Quarry",[],["Cobble",3],...]
 	var structureData = null
 	if structureType == "building":
@@ -106,8 +103,4 @@ func initialseStructureData(nameID,structureType):
 		structureData = getStorageDataByNameID(nameID)
 	# Send the buildingData off to the FactoryFloor to be made into a child node
 	ctrlFactoryFloor.addStructure(structureData.duplicate(true),structureType)
-
-func initialiseConveyorData():
-	#print(conveyorPair)
-	pass
 

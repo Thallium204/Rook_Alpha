@@ -1,8 +1,8 @@
-[gd_scene load_steps=73 format=2]
+[gd_scene load_steps=49 format=2]
 
 [ext_resource path="res://FactoryScene.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Assets/Buttons/BottomBarSquare/img_events_off.png" type="Texture" id=2]
-[ext_resource path="res://Assets/Conveyors/conv_industrial/25.png" type="Texture" id=3]
+[ext_resource path="res://Assets/Conveyors/conv_quadrants/QuadU_none.png" type="Texture" id=3]
 [ext_resource path="res://Assets/Tileables/img_factory_red_120x.png" type="Texture" id=4]
 [ext_resource path="res://Assets/Building/img_tree.png" type="Texture" id=5]
 [ext_resource path="res://Assets/Tileables/img_factory_lime_120x.png" type="Texture" id=6]
@@ -13,12 +13,13 @@
 [ext_resource path="res://tmpAddStructure.gd" type="Script" id=11]
 [ext_resource path="res://Assets/Tileables/img_factory_grey_120x.png" type="Texture" id=12]
 [ext_resource path="res://BottomBarNode.gd" type="Script" id=13]
+[ext_resource path="res://Assets/Tileables/img_factory_128x.png" type="Texture" id=14]
 [ext_resource path="res://Assets/Tileables/img_factory_brown_120x.png" type="Texture" id=15]
 [ext_resource path="res://BeepBox-Song.wav" type="AudioStream" id=16]
+[ext_resource path="res://Assets/Resources/img_empty_solid.png" type="Texture" id=17]
 [ext_resource path="res://Assets/Tileables/img_factory_blue_120x.png" type="Texture" id=18]
 [ext_resource path="res://Assets/Menu/img_menu_yes.png" type="Texture" id=21]
 [ext_resource path="res://Assets/Tileables/img_factory_green_120x.png" type="Texture" id=22]
-[ext_resource path="res://oldSegment.gd" type="Script" id=23]
 [ext_resource path="res://oldConveyor.gd" type="Script" id=24]
 [ext_resource path="res://Assets/Menu/img_menu_no.png" type="Texture" id=25]
 [ext_resource path="res://Assets/Buttons/BottomBarSquare/img_populace_off.png" type="Texture" id=26]
@@ -26,36 +27,9 @@
 [ext_resource path="res://Assets/Buttons/BottomBarSquare/img_quests_off.png" type="Texture" id=29]
 [ext_resource path="res://Assets/Buttons/BottomBarSquare/img_factory_on.png" type="Texture" id=30]
 [ext_resource path="res://Assets/Buttons/BottomBarSquare/img_crafting_off.png" type="Texture" id=31]
-[ext_resource path="res://Assets/Conveyors/conv_industrial/23.png" type="Texture" id=32]
-[ext_resource path="res://Assets/Conveyors/conv_industrial/11.png" type="Texture" id=33]
-[ext_resource path="res://Assets/Conveyors/conv_industrial/22.png" type="Texture" id=34]
-[ext_resource path="res://Assets/Conveyors/conv_industrial/19.png" type="Texture" id=35]
-[ext_resource path="res://Assets/Conveyors/conv_industrial/15.png" type="Texture" id=36]
-[ext_resource path="res://Assets/Conveyors/conv_industrial/27.png" type="Texture" id=37]
-[ext_resource path="res://Assets/Conveyors/conv_industrial/12.png" type="Texture" id=38]
-[ext_resource path="res://Assets/Conveyors/conv_industrial/10.png" type="Texture" id=39]
-[ext_resource path="res://Assets/Conveyors/conv_industrial/9.png" type="Texture" id=40]
-[ext_resource path="res://Assets/Conveyors/conv_industrial/16.png" type="Texture" id=41]
-[ext_resource path="res://Assets/Conveyors/conv_industrial/21.png" type="Texture" id=42]
-[ext_resource path="res://Assets/Conveyors/conv_industrial/20.png" type="Texture" id=43]
-[ext_resource path="res://Assets/Conveyors/conv_industrial/13.png" type="Texture" id=44]
-[ext_resource path="res://Assets/Conveyors/conv_industrial/18.png" type="Texture" id=45]
-[ext_resource path="res://Assets/Conveyors/conv_industrial/14.png" type="Texture" id=46]
-[ext_resource path="res://Assets/Conveyors/conv_industrial/17.png" type="Texture" id=47]
-[ext_resource path="res://Assets/Conveyors/conv_industrial/24.png" type="Texture" id=48]
-[ext_resource path="res://Assets/Conveyors/conv_industrial/8.png" type="Texture" id=49]
-[ext_resource path="res://Assets/Conveyors/conv_industrial/4.png" type="Texture" id=50]
-[ext_resource path="res://Assets/Conveyors/conv_industrial/3.png" type="Texture" id=51]
-[ext_resource path="res://Assets/Conveyors/conv_industrial/1.png" type="Texture" id=52]
-[ext_resource path="res://Assets/Conveyors/conv_industrial/2.png" type="Texture" id=53]
-[ext_resource path="res://Assets/Conveyors/conv_industrial/7.png" type="Texture" id=54]
-[ext_resource path="res://Assets/Conveyors/conv_industrial/6.png" type="Texture" id=55]
-[ext_resource path="res://Assets/Conveyors/conv_industrial/5.png" type="Texture" id=56]
-[ext_resource path="res://Assets/Conveyors/conv_industrial/26.png" type="Texture" id=57]
 [ext_resource path="res://Assets/Buttons/BottomBarSquare/img_settings_off.png" type="Texture" id=58]
 [ext_resource path="res://Assets/Buttons/BottomBarSquare/img_research_off.png" type="Texture" id=59]
 [ext_resource path="res://Assets/Menu/img_menu_black_36x.png" type="Texture" id=68]
-[ext_resource path="res://Assets/Resources/img_empty.png" type="Texture" id=77]
 [ext_resource path="res://tmpTileDetect.gd" type="Script" id=78]
 [ext_resource path="res://tmpConfirm.gd" type="Script" id=79]
 [ext_resource path="res://Assets/Misc/img_progress_circle.png" type="Texture" id=80]
@@ -78,7 +52,7 @@ size = 80
 font_data = ExtResource( 10 )
 
 [sub_resource type="CircleShape2D" id=6]
-radius = 128.0
+radius = 110.0
 
 [sub_resource type="DynamicFont" id=7]
 size = 56
@@ -88,66 +62,17 @@ font_data = ExtResource( 10 )
 size = 56
 font_data = ExtResource( 10 )
 
-[sub_resource type="AnimatedTexture" id=9]
-flags = 4
-frames = 27
-fps = 60.0
-frame_0/texture = ExtResource( 52 )
-frame_1/texture = ExtResource( 53 )
-frame_1/delay_sec = 0.0
-frame_2/texture = ExtResource( 51 )
-frame_2/delay_sec = 0.0
-frame_3/texture = ExtResource( 50 )
-frame_3/delay_sec = 0.0
-frame_4/texture = ExtResource( 56 )
-frame_4/delay_sec = 0.0
-frame_5/texture = ExtResource( 55 )
-frame_5/delay_sec = 0.0
-frame_6/texture = ExtResource( 54 )
-frame_6/delay_sec = 0.0
-frame_7/texture = ExtResource( 49 )
-frame_7/delay_sec = 0.0
-frame_8/texture = ExtResource( 40 )
-frame_8/delay_sec = 0.0
-frame_9/texture = ExtResource( 39 )
-frame_9/delay_sec = 0.0
-frame_10/texture = ExtResource( 33 )
-frame_10/delay_sec = 0.0
-frame_11/texture = ExtResource( 38 )
-frame_11/delay_sec = 0.0
-frame_12/texture = ExtResource( 44 )
-frame_12/delay_sec = 0.0
-frame_13/texture = ExtResource( 46 )
-frame_13/delay_sec = 0.0
-frame_14/texture = ExtResource( 36 )
-frame_14/delay_sec = 0.0
-frame_15/texture = ExtResource( 41 )
-frame_15/delay_sec = 0.0
-frame_16/texture = ExtResource( 47 )
-frame_16/delay_sec = 0.0
-frame_17/texture = ExtResource( 45 )
-frame_17/delay_sec = 0.0
-frame_18/texture = ExtResource( 35 )
-frame_18/delay_sec = 0.0
-frame_19/texture = ExtResource( 43 )
-frame_19/delay_sec = 0.0
-frame_20/texture = ExtResource( 42 )
-frame_20/delay_sec = 0.0
-frame_21/texture = ExtResource( 34 )
-frame_21/delay_sec = 0.0
-frame_22/texture = ExtResource( 32 )
-frame_22/delay_sec = 0.0
-frame_23/texture = ExtResource( 48 )
-frame_23/delay_sec = 0.0
-frame_24/texture = ExtResource( 3 )
-frame_24/delay_sec = 0.0
-frame_25/texture = ExtResource( 57 )
-frame_25/delay_sec = 0.0
-frame_26/texture = ExtResource( 37 )
-frame_26/delay_sec = 0.0
+[sub_resource type="ConvexPolygonShape2D" id=13]
+points = PoolVector2Array( 0, 0, 128, 0, 64, 64 )
 
-[sub_resource type="CircleShape2D" id=10]
-radius = 40.0
+[sub_resource type="ConvexPolygonShape2D" id=14]
+points = PoolVector2Array( 128, 0, 128, 128, 64, 64 )
+
+[sub_resource type="ConvexPolygonShape2D" id=15]
+points = PoolVector2Array( 128, 128, 0, 128, 64, 64 )
+
+[sub_resource type="ConvexPolygonShape2D" id=16]
+points = PoolVector2Array( 0, 128, 0, 0, 64, 64 )
 
 [sub_resource type="DynamicFont" id=11]
 size = 32
@@ -377,7 +302,6 @@ margin_bottom = 356.0
 size_flags_horizontal = 9
 texture = ExtResource( 5 )
 expand = true
-stretch_mode = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -458,7 +382,7 @@ __meta__ = {
 margin_left = 175.0
 margin_right = 239.0
 margin_bottom = 64.0
-texture = ExtResource( 77 )
+texture = ExtResource( 17 )
 stretch_mode = 6
 __meta__ = {
 "_edit_use_anchors_": false
@@ -494,7 +418,7 @@ margin_right = 573.555
 margin_bottom = 41.0322
 rect_scale = Vector2( 2, 2 )
 rect_pivot_offset = Vector2( 32, 32 )
-texture = ExtResource( 77 )
+texture = ExtResource( 17 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -506,33 +430,73 @@ script = ExtResource( 24 )
 position = Vector2( 877, -2 )
 z_index = 1
 z_as_relative = false
-script = ExtResource( 23 )
 
 [node name="texSegment" type="TextureRect" parent="templateNode/tmpSegment"]
-margin_right = 80.0
-margin_bottom = 80.0
+margin_right = 128.0
+margin_bottom = 128.0
 grow_horizontal = 2
 grow_vertical = 2
 rect_pivot_offset = Vector2( 40, 40 )
-texture = SubResource( 9 )
+texture = ExtResource( 14 )
 stretch_mode = 2
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="texResource" type="TextureRect" parent="templateNode/tmpSegment"]
-margin_left = 8.0
-margin_top = 8.0
-margin_right = 72.0
-margin_bottom = 72.0
-rect_pivot_offset = Vector2( 32, 32 )
+[node name="btnQuadU" type="TouchScreenButton" parent="templateNode/tmpSegment"]
+shape = SubResource( 13 )
+shape_centered = false
+
+[node name="texQuad" type="TextureRect" parent="templateNode/tmpSegment/btnQuadU"]
+margin_right = 40.0
+margin_bottom = 40.0
+rect_pivot_offset = Vector2( 64, 64 )
+texture = ExtResource( 3 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="btnProcess" type="TouchScreenButton" parent="templateNode/tmpSegment"]
-position = Vector2( 0, -2.66968 )
-shape = SubResource( 10 )
+[node name="btnQuadR" type="TouchScreenButton" parent="templateNode/tmpSegment"]
+shape = SubResource( 14 )
+shape_centered = false
+
+[node name="texQuad" type="TextureRect" parent="templateNode/tmpSegment/btnQuadR"]
+margin_right = 128.0
+margin_bottom = 128.0
+rect_rotation = 90.0
+rect_pivot_offset = Vector2( 64, 64 )
+texture = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="btnQuadD" type="TouchScreenButton" parent="templateNode/tmpSegment"]
+shape = SubResource( 15 )
+shape_centered = false
+
+[node name="texQuad" type="TextureRect" parent="templateNode/tmpSegment/btnQuadD"]
+margin_right = 128.0
+margin_bottom = 128.0
+rect_rotation = 180.0
+rect_pivot_offset = Vector2( 64, 64 )
+texture = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="btnQuadL" type="TouchScreenButton" parent="templateNode/tmpSegment"]
+shape = SubResource( 16 )
+shape_centered = false
+
+[node name="texQuad" type="TextureRect" parent="templateNode/tmpSegment/btnQuadL"]
+margin_right = 128.0
+margin_bottom = 128.0
+rect_rotation = 270.0
+rect_pivot_offset = Vector2( 64, 64 )
+texture = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="tmpConfirm" type="NinePatchRect" parent="templateNode"]
 margin_left = 442.0
@@ -569,10 +533,10 @@ position = Vector2( 128, 128 )
 normal = ExtResource( 25 )
 
 [node name="tmpProgress" type="TextureProgress" parent="templateNode"]
-margin_left = 747.981
-margin_top = 402.596
-margin_right = 1047.98
-margin_bottom = 702.596
+margin_left = 726.624
+margin_top = 203.705
+margin_right = 1026.62
+margin_bottom = 503.705
 texture_progress = ExtResource( 80 )
 fill_mode = 4
 __meta__ = {
@@ -588,7 +552,7 @@ __meta__ = {
 }
 
 [node name="tmpTileDetect" type="TouchScreenButton" parent="templateNode"]
-position = Vector2( 994.836, -3.17847 )
+position = Vector2( 1106.69, -1.29077 )
 normal = ExtResource( 81 )
 shape = SubResource( 12 )
 script = ExtResource( 78 )
@@ -606,7 +570,6 @@ playback/speed = 1.5
 [connection signal="released" from="BottomBarNode/btnSettingsFloor" to="BottomBarNode" method="_on_btnSettingsFloor_released"]
 [connection signal="pressed" from="templateNode/tmpAddStructure/btnAdd" to="templateNode/tmpAddStructure" method="_on_btnAdd_pressed"]
 [connection signal="released" from="templateNode/tmpAddStructure/btnAdd" to="templateNode/tmpAddStructure" method="_on_btnAdd_released"]
-[connection signal="released" from="templateNode/tmpSegment/btnProcess" to="templateNode/tmpSegment" method="_on_btnProcess_released"]
 [connection signal="released" from="templateNode/tmpConfirm/btnYes" to="templateNode/tmpConfirm" method="_on_btnYes_released"]
 [connection signal="released" from="templateNode/tmpConfirm/btnNo" to="templateNode/tmpConfirm" method="_on_btnNo_released"]
 [connection signal="pressed" from="templateNode/tmpTileDetect" to="templateNode/tmpTileDetect" method="_on_tmpTileDetect_pressed"]

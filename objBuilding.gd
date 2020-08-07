@@ -17,12 +17,13 @@ func configure(structureData,structType): # Called when we want to initialise th
 		for storage in internal:
 			storage.insert(1,0) # At index 1 add a 0 to represent current resource amount ["Cobble",2] -> ["Cobble",0,2]
 			storage.append(Globals.getResourceType(storage[0]))
-	print(internalStorage)
 	shapeData = structureData[-1]
 	# Set the image size
 	rect_size = Vector2( ctrlFactoryFloor.tileSize * shapeData[0].size()  , ctrlFactoryFloor.tileSize * shapeData.size() )
-	get_node("tmpProgress").rect_scale = rect_size/(300*Vector2.ONE) # Scale the progress bar
-	get_node("grdInfo").rect_size = rect_size # Scale the info grid
+	$labStructure.rect_position = Vector2(0,rect_size[1]/2) # Set the label position
+	$labStructure.rect_size = Vector2(rect_size[0],rect_size[1]/2) # Set the label size
+	$tmpProgress.rect_scale = rect_size/(300*Vector2.ONE) # Scale the progress bar
+	$grdInfo.rect_size = rect_size # Scale the info grid
 
 func updateUI(): # Called when we want to update the display nodes for the user
 	

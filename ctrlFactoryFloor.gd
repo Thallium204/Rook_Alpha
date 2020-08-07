@@ -31,17 +31,10 @@ func addStructure(structureData,structType):
 	# structureData = [ nameID , internalStorageList , shapeData ]
 	# structType = "Building" or "Storage"
 	
-	print(structureData)
-	
 	# Get the structure template
 	var newStructure = templateNode.get_node("tmpStructure").duplicate()
 	newStructure.name = structureData[0]+str(entityCount)
 	entityCount += 1
-	
-	# We need to correctly size the structure name label ( Quarry )
-	var newStructure_Label = newStructure.get_node("labStructure")
-	newStructure_Label.rect_position = Vector2(0,newStructure.rect_size[1]/2) # Set the label position
-	newStructure_Label.rect_size = Vector2(newStructure.rect_size[0],newStructure.rect_size[1]/2) # Set the label size
 	
 	# We need to set the structure position ( 500 , 400 )
 	newStructure.rect_position = Vector2(0,0)

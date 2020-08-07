@@ -19,7 +19,9 @@ func configure(structureData,structType): # Called when we want to initialise th
 	shapeData = structureData[-1]
 	# Set the image size
 	rect_size = Vector2( ctrlFactoryFloor.tileSize * shapeData[0].size()  , ctrlFactoryFloor.tileSize * shapeData.size() )
-	get_node("grdInfo").rect_size = rect_size # Scale the info grid
+	$labStructure.rect_position = Vector2(0,rect_size[1]/2) # Set the label position
+	$labStructure.rect_size = Vector2(rect_size[0],rect_size[1]/2) # Set the label size
+	$grdInfo.rect_size = rect_size # Scale the info grid
 
 func updateUI(): # Called when we want to update the display nodes for the user
 	
