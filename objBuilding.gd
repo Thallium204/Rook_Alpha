@@ -16,6 +16,8 @@ func configure(structureData,structType): # Called when we want to initialise th
 	for internal in internalStorage:
 		for storage in internal:
 			storage.insert(1,0) # At index 1 add a 0 to represent current resource amount ["Cobble",2] -> ["Cobble",0,2]
+			storage.append(Globals.getResourceType(storage[0]))
+	print(internalStorage)
 	shapeData = structureData[-1]
 	# Set the image size
 	rect_size = Vector2( ctrlFactoryFloor.tileSize * shapeData[0].size()  , ctrlFactoryFloor.tileSize * shapeData.size() )
@@ -78,7 +80,7 @@ func _process(delta):
 		tryToProcess()
 	
 		# Prevent interaction under certain conditions
-	if Globals.moveStructureMode != "off" or Globals.addConveyorMode == true or Globals.deleteBuildingsMode == true or Globals.isMenuOpen == true:
+	if Globals.moveStructureMode != "off" or Globals.addConveyorMode == true or Globals.deleteStructureMode == true or Globals.isMenuOpen == true:
 		canBeTouched = false
 	else:
 		canBeTouched = true

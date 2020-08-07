@@ -1,85 +1,77 @@
-extends TextureRect
+extends Node2D
 
 onready var Globals = get_tree().get_root().get_node("Game/Globals")
-onready var FactoryFloor = Globals.get_node("FactoryFloor")
+onready var ctrlFactoryFloor = Globals.get_node("FactoryNode/ctnFactoryViewport/vptFactoryScene/ctrlFactoryFloor")
+
+var conveyorAnimationPoint = 0.1 # what percentage after move to animate over
 
 # Deemed by building connection
-var resNameID = null # i.e. Cobble
-var connectedBuildingNames = null # [ name (from) , name (to) ]
 var noOfSegments = 0
+var connectedEntityNodes = [] # [ node (from) , node (to) ]
+var entityNodeIDs = []
 
 # Deemed by conveyor type
 var nameID = null
-var extractAmount = null # Amount extracted out of fromBuilding
+var extractAmount = 0
 var conveyorSpeed = 0 # Time taken to roll forward
-var segmentBuffer = null # Resource capacity for each segment
-
-# Dynamic Conveyor Inventory
-var segmentResList = []
-var segmentPosList = []
-var extractTimer = 0.0
 var conveyorTimer = 0.0
+var progressPercent = 0
 var turnedOn = false
 
 func configureConveyorData(conveyorData):
 	nameID = conveyorData[0]
 	extractAmount = conveyorData[1]
 	conveyorSpeed = conveyorData[2]
-	segmentBuffer = conveyorData[3]
 	
-	for _i in range(noOfSegments):
-		segmentResList.append(0)
+	# Add all buildings/segments to the reference list
+	entityNodeIDs = []
+	entityNodeIDs.append( connectedEntityNodes[0] )
+	for segID in range(noOfSegments):
+		entityNodeIDs.append( get_node("texSegment_"+str(segID)) )
+		entityNodeIDs[-1].intStorage[2] = conveyorData[3]
+	entityNodeIDs.append( connectedEntityNodes[1] )
+	#print(entityNodeIDs)
 	
-	updateConveyorUI()
+	# Configure all to/fromLists
+	for entityPos in range(noOfSegments+1):
+		entityNodeIDs[entityPos  ].toList.append(   entityNodeIDs[entityPos+1] )
+		entityNodeIDs[entityPos+1].fromList.append( entityNodeIDs[entityPos  ] )
+		
 
-func updateConveyorUI():
-	for segmentID in range(segmentResList.size()):
-		if segmentResList[segmentID] != 0: # If there are resources in the segment
-			get_node("texResUI_"+str(segmentID)).visible = true # draw them
-		else:
-			get_node("texResUI_"+str(segmentID)).visible = false # draw them
+func removeSelf():
+	connectedEntityNodes[0].toList.erase(entityNodeIDs[1])
+	connectedEntityNodes[1].fromList.erase(entityNodeIDs[-2])
+	get_parent().remove_child(self)
+
+func moveConveyor():
+	
+	#print("\nEntities\n")
+	for segmentNodePos in range(2,entityNodeIDs.size()+1):
+		#print(entityNodeIDs[-segmentNodePos].name,' - ',entityNodeIDs[-segmentNodePos].toList)
+		entityNodeIDs[-segmentNodePos].pushForward()
+	
+	conveyorTimer = 0.0
+	
+	# Draw segment UI
+	for segmentNodePos in range(1,entityNodeIDs.size()-1):
+		#print(entityNodeIDs[-segmentNodePos].name,' - ',entityNodeIDs[-segmentNodePos].toList)
+		entityNodeIDs[segmentNodePos].updateEntityUI()
+
 
 func _process(delta):
 	
 	if turnedOn == true: # If the conveyor is active
-		
 		# Progress Timers
 		conveyorTimer += delta
-		
-		var fromBuilding = FactoryFloor.get_node(connectedBuildingNames[0])
-		var toBuilding = FactoryFloor.get_node(connectedBuildingNames[1])
-		
+		progressPercent = conveyorTimer/conveyorSpeed
 		# If its time to push the conveyor
 		if conveyorTimer >= conveyorSpeed: # If its time to push the conveyor
-			
-			# Push in toBuilding
-			for resCost in toBuilding.inputResList: # Go through all the toBuilding's resource costs
-				if resCost[0] == resNameID: # If we find our resource
-					if resCost[1] < resCost[2]: # If there is room to input
-						var insertAmount = min( resCost[2]-resCost[1] , segmentResList[-1] ) # Compute how much to insert
-						segmentResList[-1] -= insertAmount # Take resources in final segment
-						resCost[1] += insertAmount # Place them in the toBuilding
-			
-			# Pull along segments
-			for segmentPos in range(noOfSegments-1,0,-1):
-				# Check if we have room
-				var segRoom = segmentBuffer - segmentResList[segmentPos]
-				if segRoom > 0: # If we have room in our segment
-					var transferAmount = min( segRoom , segmentResList[segmentPos-1] )
-					segmentResList[segmentPos-1] -= transferAmount # Take resources in adjacent segment
-					segmentResList[segmentPos] += transferAmount # Place them in this segment
-			
-			# Pull out of fromBuilding
-			var segRoom = segmentBuffer - segmentResList[0]
-			var pullAmount = min( min( fromBuilding.outputResList[1] , segRoom ) , extractAmount )
-			if pullAmount > 0: # If we can extract something
-				fromBuilding.outputResList[1] -= pullAmount
-				segmentResList[0] += pullAmount
-			conveyorTimer = 0.0
-			
-			updateConveyorUI()
-			fromBuilding.updateBuildingUI()
-			toBuilding.updateBuildingUI()
-
-
-
+			moveConveyor()
+			#print("\nInventories\n")
+			#for entity in entityNodeIDs:
+			#	print(entity.name)
+			#	print(entity.getStorage())
+			connectedEntityNodes[0].updateEntityUI()
+			connectedEntityNodes[1].updateEntityUI()
+		#for entityNode in entityNodeIDs:
+		#	entityNode.animateByPercentage( progressPercent < conveyorAnimationPoint , progressPercent/conveyorAnimationPoint )

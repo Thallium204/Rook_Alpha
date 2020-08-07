@@ -14,6 +14,8 @@ func configure(structureData,structType): # Called when we want to initialise th
 	# We edit the storage data
 	for storage in internalStorage[0]:
 		storage.insert(1,0) # At index 1 add a 0 to represent current resource amount ["Cobble",2] -> ["Cobble",0,2]
+		storage.append(storage[0])
+		storage[0] = ""
 	shapeData = structureData[-1]
 	# Set the image size
 	rect_size = Vector2( ctrlFactoryFloor.tileSize * shapeData[0].size()  , ctrlFactoryFloor.tileSize * shapeData.size() )
@@ -36,9 +38,18 @@ func updateUI(): # Called when we want to update the display nodes for the user
 		
 		var grdInfoChild = grdInfoChildRefs[childRefsPos] # Get current child
 		var storage = internalStorage[0][childRefsPos]
-		grdInfoChild.get_node("texResource").texture = load("res://Assets/Resources/img_"+storage[0].to_lower()+".png")
+		if isStorageEmpty() == true:
+			grdInfoChild.get_node("texResource").texture = load("res://Assets/Resources/img_empty_"+storage[3].to_lower()+".png")
+		else:
+			grdInfoChild.get_node("texResource").texture = load("res://Assets/Resources/img_"+storage[0].to_lower()+".png")
 		grdInfoChild.get_node("labCurrent").text = str( storage[1] )
 		grdInfoChild.get_node("labCapacity").text = str( storage[2] )
+
+func isStorageEmpty():
+	for storage in internalStorage[0]:
+		if storage[1] > 0:
+			return false
+	return true
 
 func onStructure_Pressed(tile): # Called when our structure is pressed
 	

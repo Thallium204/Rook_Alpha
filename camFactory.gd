@@ -70,11 +70,11 @@ func _process(delta):
 
 func _input(event):
 	
-	get_node("Label").text = ""
-	
 	# Don't process input if the menu is open
 	if Globals.isMenuOpen == true:
 		return
+	
+	get_node("Label").text = ""
 	
 	# Don't process input if the input was outside of the viewport
 	if event.position[0] < 0 or event.position[1] < 0 or event.position[0] > ctnFactoryViewport.rect_size[0] or event.position[1] > ctnFactoryViewport.rect_size[1]:

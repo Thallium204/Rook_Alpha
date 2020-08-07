@@ -1,38 +1,28 @@
-[gd_scene load_steps=30 format=2]
+[gd_scene load_steps=21 format=2]
 
-[ext_resource path="res://ConveyorFloor.gd" type="Script" id=1]
+[ext_resource path="res://Assets/Buttons/TopBar/img_storage_off.png" type="Texture" id=1]
 [ext_resource path="res://ctrlFactoryFloor.gd" type="Script" id=2]
 [ext_resource path="res://Assets/Tileables/img_factory_grey_128x.png" type="Texture" id=3]
 [ext_resource path="res://camFactory.gd" type="Script" id=4]
 [ext_resource path="res://Assets/Misc/img_cursor.png" type="Texture" id=5]
 [ext_resource path="res://Fonts/minecraft_regular.otf" type="DynamicFontData" id=6]
-[ext_resource path="res://btnAutocraftToggle.gd" type="Script" id=7]
-[ext_resource path="res://btnBuildingMenu.gd" type="Script" id=8]
-[ext_resource path="res://btnMoveToggle.gd" type="Script" id=9]
+[ext_resource path="res://SideBarNode.gd" type="Script" id=7]
+[ext_resource path="res://Assets/Buttons/TopBar/img_conveyors_off.png" type="Texture" id=8]
 [ext_resource path="res://Assets/Buttons/SideBar/img_delete_toggle_off.png" type="Texture" id=10]
 [ext_resource path="res://Assets/Tileables/img_factory_orange_120x.png" type="Texture" id=11]
 [ext_resource path="res://TopBarNode.gd" type="Script" id=12]
-[ext_resource path="res://grdAddBuildings.gd" type="Script" id=13]
-[ext_resource path="res://grdAddStorage.gd" type="Script" id=14]
-[ext_resource path="res://btnInfoToggle.gd" type="Script" id=15]
 [ext_resource path="res://Assets/Buttons/TopBar/img_autocraft_toggle_off.png" type="Texture" id=16]
-[ext_resource path="res://Assets/Buttons/TopBar/img_connect_toggle_off.png" type="Texture" id=17]
-[ext_resource path="res://Assets/Buttons/TopBar/img_build_toggle_off.png" type="Texture" id=18]
+[ext_resource path="res://Assets/Buttons/TopBar/img_buildings_off.png" type="Texture" id=18]
 [ext_resource path="res://Assets/Buttons/SideBar/img_move_toggle_off.png" type="Texture" id=19]
 [ext_resource path="res://Assets/Buttons/SideBar/img_info_toggle_off.png" type="Texture" id=20]
-[ext_resource path="res://btnConveyorToggle.gd" type="Script" id=21]
-[ext_resource path="res://btnDeleteToggle.gd" type="Script" id=22]
 
 [sub_resource type="DynamicFont" id=1]
 size = 30
 font_data = ExtResource( 6 )
 
-[sub_resource type="RectangleShape2D" id=2]
-extents = Vector2( 128, 64 )
+[sub_resource type="StyleBoxEmpty" id=2]
 
-[sub_resource type="StyleBoxEmpty" id=3]
-
-[sub_resource type="Theme" id=4]
+[sub_resource type="Theme" id=3]
 HScrollBar/icons/decrement = null
 HScrollBar/icons/decrement_highlight = null
 HScrollBar/icons/increment = null
@@ -40,19 +30,25 @@ HScrollBar/icons/increment_highlight = null
 HScrollBar/styles/grabber = null
 HScrollBar/styles/grabber_highlight = null
 HScrollBar/styles/grabber_pressed = null
-HScrollBar/styles/scroll = SubResource( 3 )
+HScrollBar/styles/scroll = SubResource( 2 )
 HScrollBar/styles/scroll_focus = null
 
-[sub_resource type="RectangleShape2D" id=5]
-extents = Vector2( 128, 64 )
-
-[sub_resource type="CircleShape2D" id=6]
+[sub_resource type="CircleShape2D" id=4]
 radius = 64.0
 
-[sub_resource type="CircleShape2D" id=7]
+[sub_resource type="CircleShape2D" id=5]
 radius = 64.0
 
 [node name="FactoryNode" type="Control"]
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="texBackground" type="TextureRect" parent="."]
+margin_right = 1080.0
+margin_bottom = 1920.0
+texture = ExtResource( 11 )
+stretch_mode = 2
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -65,7 +61,7 @@ __meta__ = {
 }
 
 [node name="vptFactoryScene" type="Viewport" parent="ctnFactoryViewport"]
-size = Vector2( 1080, 1664 )
+size = Vector2( 1080, 1632 )
 handle_input_locally = false
 msaa = 3
 usage = 0
@@ -80,9 +76,6 @@ stretch_mode = 2
 __meta__ = {
 "_edit_use_anchors_": false
 }
-
-[node name="ConveyorFloor" type="Node2D" parent="ctnFactoryViewport/vptFactoryScene"]
-script = ExtResource( 1 )
 
 [node name="ctrlFactoryFloor" type="Control" parent="ctnFactoryViewport/vptFactoryScene"]
 script = ExtResource( 2 )
@@ -123,10 +116,13 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="TopBarNode" type="Node2D" parent="."]
+[node name="TopBarNode" type="Control" parent="."]
 script = ExtResource( 12 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
-[node name="texTopBar" type="TextureRect" parent="TopBarNode"]
+[node name="texBar" type="TextureRect" parent="TopBarNode"]
 margin_right = 1080.0
 margin_bottom = 120.0
 rect_scale = Vector2( 1, 1.07 )
@@ -136,26 +132,25 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="btnBuildingMenu" type="TouchScreenButton" parent="TopBarNode"]
-shape = SubResource( 2 )
-script = ExtResource( 8 )
-
-[node name="texBuildingMenu" type="TextureRect" parent="TopBarNode/btnBuildingMenu"]
+[node name="texMenu" type="TextureRect" parent="TopBarNode"]
 margin_top = -383.0
 margin_right = 1080.0
-margin_bottom = 1.0
+margin_bottom = -23.0
 rect_scale = Vector2( 1, 1.07 )
-theme = SubResource( 4 )
+theme = SubResource( 3 )
 texture = ExtResource( 11 )
 stretch_mode = 2
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="scrAddBuildings" type="ScrollContainer" parent="TopBarNode/btnBuildingMenu/texBuildingMenu"]
-margin_top = 21.0
+[node name="btnBuildingMenu" type="TouchScreenButton" parent="TopBarNode"]
+normal = ExtResource( 18 )
+
+[node name="scrBuilding" type="ScrollContainer" parent="TopBarNode"]
+margin_top = -360.0
 margin_right = 2160.0
-margin_bottom = 363.0
+margin_bottom = 276.0
 rect_scale = Vector2( 0.5, 0.5 )
 follow_focus = true
 scroll_vertical_enabled = false
@@ -163,17 +158,20 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="grdAddBuildings" type="HBoxContainer" parent="TopBarNode/btnBuildingMenu/texBuildingMenu/scrAddBuildings"]
+[node name="grdStructure" type="HBoxContainer" parent="TopBarNode/scrBuilding"]
 alignment = 1
-script = ExtResource( 13 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="scrAddStorage" type="ScrollContainer" parent="TopBarNode/btnBuildingMenu/texBuildingMenu"]
-margin_top = 192.0
+[node name="btnStorageMenu" type="TouchScreenButton" parent="TopBarNode"]
+position = Vector2( 260, 0 )
+normal = ExtResource( 1 )
+
+[node name="scrStorage" type="ScrollContainer" parent="TopBarNode"]
+margin_top = -360.53
 margin_right = 2160.0
-margin_bottom = 576.0
+margin_bottom = 275.47
 rect_scale = Vector2( 0.5, 0.5 )
 follow_focus = true
 scroll_vertical_enabled = false
@@ -181,98 +179,65 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="grdAddStorage" type="HBoxContainer" parent="TopBarNode/btnBuildingMenu/texBuildingMenu/scrAddStorage"]
+[node name="grdStructure" type="HBoxContainer" parent="TopBarNode/scrStorage"]
 alignment = 1
-script = ExtResource( 14 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="texBuildingToggle" type="TextureRect" parent="TopBarNode/btnBuildingMenu"]
-margin_top = -64.0
-margin_right = 64.0
-texture = ExtResource( 18 )
+[node name="btnConveyorMenu" type="TouchScreenButton" parent="TopBarNode"]
+position = Vector2( 520, 0 )
+normal = ExtResource( 8 )
+
+[node name="scrConveyor" type="ScrollContainer" parent="TopBarNode"]
+margin_top = -360.53
+margin_right = 2160.0
+margin_bottom = 275.47
+rect_scale = Vector2( 0.5, 0.5 )
+follow_focus = true
+scroll_vertical_enabled = false
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="twnTopBarAdd" type="Tween" parent="TopBarNode/btnBuildingMenu"]
-playback_speed = 1.5
-playback/speed = 1.5
-
-[node name="btnConveyorToggle" type="TouchScreenButton" parent="TopBarNode"]
-position = Vector2( 256, 0 )
-shape = SubResource( 5 )
-script = ExtResource( 21 )
-
-[node name="texConveyorToggle" type="TextureRect" parent="TopBarNode/btnConveyorToggle"]
-margin_top = -64.0
-margin_right = 64.0
-texture = ExtResource( 17 )
+[node name="grdStructure" type="HBoxContainer" parent="TopBarNode/scrConveyor"]
+alignment = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="btnAutocraftToggle" type="TouchScreenButton" parent="TopBarNode"]
-position = Vector2( 512, 0 )
-shape = SubResource( 5 )
-script = ExtResource( 7 )
+position = Vector2( 780, 0 )
+normal = ExtResource( 16 )
 
-[node name="texAutocraftToggle" type="TextureRect" parent="TopBarNode/btnAutocraftToggle"]
-margin_top = -64.0
-margin_right = 64.0
-texture = ExtResource( 16 )
+[node name="SideBarNode" type="Control" parent="."]
+margin_left = 1080.0
+margin_top = 128.0
+margin_right = 1080.0
+margin_bottom = 128.0
+script = ExtResource( 7 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
-
-[node name="SideBarNode" type="Node2D" parent="."]
-position = Vector2( 1080, 128 )
 
 [node name="btnInfoToggle" type="TouchScreenButton" parent="SideBarNode"]
 position = Vector2( -128, 8 )
-shape = SubResource( 6 )
-script = ExtResource( 15 )
-
-[node name="texInfoToggle" type="TextureRect" parent="SideBarNode/btnInfoToggle"]
-margin_right = 32.0
-margin_bottom = 32.0
-texture = ExtResource( 20 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
+normal = ExtResource( 20 )
+shape = SubResource( 4 )
 
 [node name="btnMoveToggle" type="TouchScreenButton" parent="SideBarNode"]
 position = Vector2( -128, 144 )
-shape = SubResource( 7 )
-script = ExtResource( 9 )
-
-[node name="texMoveToggle" type="TextureRect" parent="SideBarNode/btnMoveToggle"]
-margin_right = 32.0
-margin_bottom = 32.0
-texture = ExtResource( 19 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
+normal = ExtResource( 19 )
+shape = SubResource( 5 )
 
 [node name="btnDeleteToggle" type="TouchScreenButton" parent="SideBarNode"]
 position = Vector2( -128, 280 )
-shape = SubResource( 6 )
-script = ExtResource( 22 )
-
-[node name="texDeleteToggle" type="TextureRect" parent="SideBarNode/btnDeleteToggle"]
-margin_right = 32.0
-margin_bottom = 32.0
-texture = ExtResource( 10 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-[connection signal="pressed" from="TopBarNode/btnBuildingMenu" to="TopBarNode/btnBuildingMenu" method="_on_btnBuildingMenu_pressed"]
+normal = ExtResource( 10 )
+shape = SubResource( 4 )
 [connection signal="pressed" from="TopBarNode/btnBuildingMenu" to="TopBarNode" method="_on_btnBuildingMenu_pressed"]
-[connection signal="released" from="TopBarNode/btnBuildingMenu" to="TopBarNode/btnBuildingMenu" method="_on_btnBuildingMenu_released"]
-[connection signal="released" from="TopBarNode/btnBuildingMenu" to="TopBarNode" method="_on_btnBuildingMenu_released"]
-[connection signal="released" from="TopBarNode/btnConveyorToggle" to="TopBarNode/btnConveyorToggle" method="_on_btnConveyorToggle_released"]
-[connection signal="released" from="TopBarNode/btnAutocraftToggle" to="TopBarNode/btnAutocraftToggle" method="_on_btnAutocraftToggle_released"]
-[connection signal="released" from="SideBarNode/btnInfoToggle" to="SideBarNode/btnInfoToggle" method="_on_btnInfoToggle_released"]
-[connection signal="released" from="SideBarNode/btnMoveToggle" to="SideBarNode/btnMoveToggle" method="_on_btnMoveToggle_released"]
-[connection signal="released" from="SideBarNode/btnDeleteToggle" to="SideBarNode/btnDeleteToggle" method="_on_btnDeleteToggle_released"]
+[connection signal="pressed" from="TopBarNode/btnStorageMenu" to="TopBarNode" method="_on_btnStorageMenu_pressed"]
+[connection signal="pressed" from="TopBarNode/btnConveyorMenu" to="TopBarNode" method="_on_btnConveyorMenu_pressed"]
+[connection signal="pressed" from="TopBarNode/btnAutocraftToggle" to="TopBarNode" method="_on_btnAutocraftToggle_pressed"]
+[connection signal="pressed" from="SideBarNode/btnInfoToggle" to="SideBarNode" method="_on_btnInfoToggle_pressed"]
+[connection signal="pressed" from="SideBarNode/btnMoveToggle" to="SideBarNode" method="_on_btnMoveToggle_pressed"]
+[connection signal="pressed" from="SideBarNode/btnDeleteToggle" to="SideBarNode" method="_on_btnDeleteToggle_pressed"]

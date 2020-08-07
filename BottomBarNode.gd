@@ -1,6 +1,7 @@
 extends Node2D
 
 onready var Globals = get_tree().get_root().get_node("Game/Globals")
+onready var templateNode = get_tree().get_root().get_node("Game/templateNode")
 
 var screenNames = ["Factory","Crafting","Upgrades","Research","Events","Quests","Populace","Settings"]
 var currentScreen = 0
@@ -11,17 +12,17 @@ func _process(_delta):
 	move(Vector2(-screenCol*1080,-screenRow*1920))
 
 func move(target):
-	var nodeTween = get_node("twnBottomBar")
+	var nodeTween = templateNode.get_node("tmpMenu")
 	nodeTween.interpolate_property(Globals, "position", Globals.position,  target, 1, Tween.TRANS_BACK, Tween.EASE_OUT)
 	nodeTween.start()
 
 func updateButtonUIs():
 	for screenID in range(screenNames.size()):
 		if currentScreen == screenID: # If this is the menu we're now on
-			get_node("btn"+screenNames[screenID]+"Floor/texButton").texture = load("res://Assets/Buttons/BottomBar/img_"+screenNames[screenID].to_lower()+"_on.png")
+			get_node("btn"+screenNames[screenID]+"Floor").normal = load("res://Assets/Buttons/BottomBarSquare/img_"+screenNames[screenID].to_lower()+"_on.png")
 		else:
 			if screenNames[screenID] != null:
-				get_node("btn"+screenNames[screenID]+"Floor/texButton").texture = load("res://Assets/Buttons/BottomBar/img_"+screenNames[screenID].to_lower()+"_off.png")
+				get_node("btn"+screenNames[screenID]+"Floor").normal = load("res://Assets/Buttons/BottomBarSquare/img_"+screenNames[screenID].to_lower()+"_off.png")
 
 func _on_btnFactoryFloor_released():
 	currentScreen = 0

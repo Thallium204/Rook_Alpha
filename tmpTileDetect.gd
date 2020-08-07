@@ -16,7 +16,6 @@ func check_isTileFree(masterTile):
 	else: # Are we above a taken tile
 		return false
 
-
 # If the user just pressed our tile
 func _on_tmpTileDetect_pressed():
 	structureNode.onStructure_Pressed(self)

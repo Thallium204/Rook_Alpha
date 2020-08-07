@@ -25,14 +25,13 @@ func _ready():
 	# Initialise the background size
 	FactorySpace.rect_size = tileSize * Vector2(gridCols,gridRows)
 
-# This process ONLY adds the node structure not specifics
-# (e.g. adds input, Divider and Output Storage nodes but doesn't update the amounts)
-# structureData = [ nameID , inputResList , outputResList , processTime , shapeData ]
-# structureData = [ nameID , internalStorageList , shapeData ]
-# structType = "Building" or "Storage"
 func addStructure(structureData,structType):
 	
-	Globals.buildMode = true
+	# structureData = [ nameID , inputResList , outputResList , processTime , shapeData ]
+	# structureData = [ nameID , internalStorageList , shapeData ]
+	# structType = "Building" or "Storage"
+	
+	print(structureData)
 	
 	# Get the structure template
 	var newStructure = templateNode.get_node("tmpStructure").duplicate()
@@ -49,7 +48,7 @@ func addStructure(structureData,structType):
 	
 	# Here we add the info
 	var newStructure_Info = newStructure.get_node("grdInfo") # Get the grdInfo node
-	if structType == "Building": # If this is a building we need to add input storage, a process divider and output storage
+	if structType == "building": # If this is a building we need to add input storage, a process divider and output storage
 		
 		# Add the circle process progress bar
 		var newProgress = templateNode.get_node("tmpProgress").duplicate()
@@ -76,7 +75,7 @@ func addStructure(structureData,structType):
 		# We need to connect the building script
 		newStructure.script = load("res://objBuilding.gd")
 	
-	elif structType == "Storage": # If this is storage we need to add io storage
+	elif structType == "storage": # If this is storage we need to add io storage
 		
 		# We need to add io storage ( 0/64 img_empty_solid )
 		for _output in structureData[1]:
@@ -86,6 +85,10 @@ func addStructure(structureData,structType):
 		
 		# We need to connect the storage script
 		newStructure.script = load("res://objStorage.gd")
+	
+	elif structType == "conveyor": # If this is a conveyor we need to add ...
+		
+		pass
 	
 	# Add shape node
 	var newShape = templateNode.get_node("tmpShape").duplicate() # Get the Shape template
@@ -105,14 +108,4 @@ func addStructure(structureData,structType):
 	newStructure.configure(structureData,structType)
 	newStructure.updateUI()
 	newStructure.enable_moveMode(true)
-
-func addConveyor(_conveyorData,_conveyorPair):
-	Globals.buildMode = true
-	
-
-
-
-
-
-
 

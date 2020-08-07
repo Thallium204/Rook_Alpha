@@ -11,7 +11,7 @@ onready var grey = Globals.infoColorModifier
 var structureName = "" 		# Name of the structure i.e. "Foundry"
 var structureType = "" 		# Type of structure: Building|Storage
 var internalStorage = [] 	# For Builings: [inputStorage,outputStorage] | For Storage: [ioStorage]
-var masterTile = null			# top-right most tile [ row , col ]
+var masterTile = null		# top-left most tile [ row , col ]
 var shapeData = [] 			# 2D array of FactoryFloor grid positions in shape of structure
 var _levelData = [] 		# List of all upgrade modifiers
 
@@ -144,20 +144,18 @@ func menuResult(menuID,result): # Called by a menu; the menuID tells us the menu
 			if hasBeenPlaced == false:
 				get_parent().remove_child(self) # Destroy self
 
-func onStructure_Pressed_General(tile): # Called when a tile button is pressed
+func onStructure_Pressed_General(_tile): # Called when a tile button is pressed
 	
 	# If we're ready to move a building
 	if Globals.moveStructureMode == "ready":
 		enable_moveMode()
 
-func onStructure_Released_General(tile): # Called when a tile button is released
+func onStructure_Released_General(_tile): # Called when a tile button is released
 	
 	# If we're in delete mode
-	if Globals.deleteBuildingsMode == true:
+	if Globals.deleteStructureMode == true:
 		removeSelf()
-		Globals.deleteBuildingsMode = false
-	
-	print("\n"+str(tile.gridVector))
+		Globals.deleteStructureMode = false
 
 func removeSelf():
 	removePointersFromArray()
