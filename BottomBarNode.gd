@@ -12,7 +12,7 @@ func _process(_delta):
 	move(Vector2(-screenCol*1080,-screenRow*1920))
 
 func move(target):
-	var nodeTween = templateNode.get_node("tmpMenu")
+	var nodeTween = get_node("twnBottomBar")
 	nodeTween.interpolate_property(Globals, "position", Globals.position,  target, 1, Tween.TRANS_BACK, Tween.EASE_OUT)
 	nodeTween.start()
 

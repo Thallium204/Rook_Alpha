@@ -1,7 +1,7 @@
 extends TextureRect
 
 onready var Globals = get_tree().get_root().get_node("Game/Globals")
-onready var TopBarNode = get_parent().get_parent().get_parent()
+onready var TopBarNode = get_parent().get_parent()
 
 var hasMoved = false
 var checkForMovement = false

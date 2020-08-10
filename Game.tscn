@@ -1,8 +1,8 @@
-[gd_scene load_steps=49 format=2]
+[gd_scene load_steps=46 format=2]
 
 [ext_resource path="res://FactoryScene.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Assets/Buttons/BottomBarSquare/img_events_off.png" type="Texture" id=2]
-[ext_resource path="res://Assets/Conveyors/conv_quadrants/QuadU_none.png" type="Texture" id=3]
+[ext_resource path="res://Assets/Conveyor/conv_quadrants/QuadU_none.png" type="Texture" id=3]
 [ext_resource path="res://Assets/Tileables/img_factory_red_120x.png" type="Texture" id=4]
 [ext_resource path="res://Assets/Building/img_tree.png" type="Texture" id=5]
 [ext_resource path="res://Assets/Tileables/img_factory_lime_120x.png" type="Texture" id=6]
@@ -13,7 +13,7 @@
 [ext_resource path="res://tmpAddStructure.gd" type="Script" id=11]
 [ext_resource path="res://Assets/Tileables/img_factory_grey_120x.png" type="Texture" id=12]
 [ext_resource path="res://BottomBarNode.gd" type="Script" id=13]
-[ext_resource path="res://Assets/Tileables/img_factory_128x.png" type="Texture" id=14]
+[ext_resource path="res://bodyQuad.gd" type="Script" id=14]
 [ext_resource path="res://Assets/Tileables/img_factory_brown_120x.png" type="Texture" id=15]
 [ext_resource path="res://BeepBox-Song.wav" type="AudioStream" id=16]
 [ext_resource path="res://Assets/Resources/img_empty_solid.png" type="Texture" id=17]
@@ -54,25 +54,13 @@ font_data = ExtResource( 10 )
 [sub_resource type="CircleShape2D" id=6]
 radius = 110.0
 
-[sub_resource type="DynamicFont" id=7]
-size = 56
-font_data = ExtResource( 10 )
-
-[sub_resource type="DynamicFont" id=8]
-size = 56
-font_data = ExtResource( 10 )
+[sub_resource type="PhysicsMaterial" id=15]
 
 [sub_resource type="ConvexPolygonShape2D" id=13]
-points = PoolVector2Array( 0, 0, 128, 0, 64, 64 )
+points = PoolVector2Array( 0, 0, 128, 0, 96, 32, 32, 32 )
 
 [sub_resource type="ConvexPolygonShape2D" id=14]
-points = PoolVector2Array( 128, 0, 128, 128, 64, 64 )
-
-[sub_resource type="ConvexPolygonShape2D" id=15]
-points = PoolVector2Array( 128, 128, 0, 128, 64, 64 )
-
-[sub_resource type="ConvexPolygonShape2D" id=16]
-points = PoolVector2Array( 0, 128, 0, 0, 64, 64 )
+points = PoolVector2Array( -32, -32, 32, -32, 32, 32, -32, 32 )
 
 [sub_resource type="DynamicFont" id=11]
 size = 32
@@ -257,6 +245,8 @@ normal = ExtResource( 26 )
 position = Vector2( 798, 128 )
 normal = ExtResource( 58 )
 
+[node name="twnBottomBar" type="Tween" parent="BottomBarNode"]
+
 [node name="BackgroundMusic" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 16 )
 
@@ -284,7 +274,8 @@ margin_top = 400.0
 margin_right = 656.0
 margin_bottom = 656.0
 texture = ExtResource( 5 )
-stretch_mode = 4
+expand = true
+stretch_mode = 6
 script = ExtResource( 11 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -306,111 +297,6 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="labStructure" type="Label" parent="templateNode/tmpStructure"]
-margin_top = 128.0
-margin_right = 256.0
-margin_bottom = 256.0
-custom_fonts/font = SubResource( 7 )
-custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
-custom_constants/shadow_offset_x = 4
-custom_constants/shadow_offset_y = -3
-text = "structure"
-align = 1
-valign = 2
-clip_text = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="grdInfo" type="VBoxContainer" parent="templateNode/tmpStructure"]
-margin_right = 256.0
-margin_bottom = 256.0
-alignment = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="tmpStorage" type="HBoxContainer" parent="templateNode"]
-margin_left = 113.782
-margin_top = -300.0
-margin_right = 413.782
-margin_bottom = -236.0
-size_flags_vertical = 0
-alignment = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="labCurrent" type="Label" parent="templateNode/tmpStorage"]
-margin_left = 61.0
-margin_right = 95.0
-margin_bottom = 64.0
-size_flags_vertical = 1
-custom_fonts/font = SubResource( 7 )
-custom_colors/font_color = Color( 1, 0, 0, 1 )
-text = "0"
-valign = 2
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="labSlash" type="Label" parent="templateNode/tmpStorage"]
-margin_left = 99.0
-margin_right = 133.0
-margin_bottom = 64.0
-size_flags_vertical = 1
-custom_fonts/font = SubResource( 7 )
-text = "/"
-valign = 2
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="labCapacity" type="Label" parent="templateNode/tmpStorage"]
-margin_left = 137.0
-margin_right = 171.0
-margin_bottom = 64.0
-size_flags_vertical = 1
-custom_fonts/font = SubResource( 7 )
-text = "3"
-valign = 2
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="texResource" type="TextureRect" parent="templateNode/tmpStorage"]
-margin_left = 175.0
-margin_right = 239.0
-margin_bottom = 64.0
-texture = ExtResource( 17 )
-stretch_mode = 6
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="tmpProcess" type="HBoxContainer" parent="templateNode"]
-margin_left = 113.782
-margin_top = -200.0
-margin_right = 413.782
-margin_bottom = -136.0
-size_flags_vertical = 0
-alignment = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="labProcess" type="Label" parent="templateNode/tmpProcess"]
-margin_left = 29.0
-margin_right = 271.0
-margin_bottom = 57.0
-size_flags_vertical = 0
-custom_fonts/font = SubResource( 8 )
-text = "-[Xms]->"
-valign = 2
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
 [node name="tmpResource" type="TextureRect" parent="templateNode"]
 margin_left = 541.555
 margin_top = 9.03217
@@ -426,28 +312,17 @@ __meta__ = {
 [node name="tmpConveyorNode" type="Node2D" parent="templateNode"]
 script = ExtResource( 24 )
 
-[node name="tmpSegment" type="Node2D" parent="templateNode"]
-position = Vector2( 877, -2 )
-z_index = 1
-z_as_relative = false
+[node name="tmpQuad" type="Node2D" parent="templateNode"]
 
-[node name="texSegment" type="TextureRect" parent="templateNode/tmpSegment"]
-margin_right = 128.0
-margin_bottom = 128.0
-grow_horizontal = 2
-grow_vertical = 2
-rect_pivot_offset = Vector2( 40, 40 )
-texture = ExtResource( 14 )
-stretch_mode = 2
-__meta__ = {
-"_edit_use_anchors_": false
-}
+[node name="bodyQuadU" type="StaticBody2D" parent="templateNode/tmpQuad"]
+input_pickable = true
+physics_material_override = SubResource( 15 )
+script = ExtResource( 14 )
 
-[node name="btnQuadU" type="TouchScreenButton" parent="templateNode/tmpSegment"]
+[node name="quadShape" type="CollisionShape2D" parent="templateNode/tmpQuad/bodyQuadU"]
 shape = SubResource( 13 )
-shape_centered = false
 
-[node name="texQuad" type="TextureRect" parent="templateNode/tmpSegment/btnQuadU"]
+[node name="texQuad" type="TextureRect" parent="templateNode/tmpQuad/bodyQuadU/quadShape"]
 margin_right = 40.0
 margin_bottom = 40.0
 rect_pivot_offset = Vector2( 64, 64 )
@@ -456,47 +331,63 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="btnQuadR" type="TouchScreenButton" parent="templateNode/tmpSegment"]
+[node name="bodyQuadR" type="StaticBody2D" parent="templateNode/tmpQuad"]
+position = Vector2( 128, 0 )
+rotation = 1.5708
+input_pickable = true
+
+[node name="quadShape" type="CollisionShape2D" parent="templateNode/tmpQuad/bodyQuadR"]
+shape = SubResource( 13 )
+
+[node name="texQuad" type="TextureRect" parent="templateNode/tmpQuad/bodyQuadR/quadShape"]
+margin_right = 40.0
+margin_bottom = 40.0
+rect_pivot_offset = Vector2( 64, 64 )
+texture = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="bodyQuadD" type="StaticBody2D" parent="templateNode/tmpQuad"]
+position = Vector2( 128, 128 )
+rotation = -3.14159
+input_pickable = true
+
+[node name="quadShape" type="CollisionShape2D" parent="templateNode/tmpQuad/bodyQuadD"]
+shape = SubResource( 13 )
+
+[node name="texQuad" type="TextureRect" parent="templateNode/tmpQuad/bodyQuadD/quadShape"]
+margin_right = 40.0
+margin_bottom = 40.0
+rect_pivot_offset = Vector2( 64, 64 )
+texture = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="bodyQuadL" type="StaticBody2D" parent="templateNode/tmpQuad"]
+position = Vector2( 0, 128 )
+rotation = -1.5708
+input_pickable = true
+
+[node name="quadShape" type="CollisionShape2D" parent="templateNode/tmpQuad/bodyQuadL"]
+shape = SubResource( 13 )
+
+[node name="texQuad" type="TextureRect" parent="templateNode/tmpQuad/bodyQuadL/quadShape"]
+margin_right = 40.0
+margin_bottom = 40.0
+rect_pivot_offset = Vector2( 64, 64 )
+texture = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="bodyCenter" type="StaticBody2D" parent="templateNode/tmpQuad"]
+input_pickable = true
+
+[node name="quadShape" type="CollisionShape2D" parent="templateNode/tmpQuad/bodyCenter"]
+position = Vector2( 64, 64 )
 shape = SubResource( 14 )
-shape_centered = false
-
-[node name="texQuad" type="TextureRect" parent="templateNode/tmpSegment/btnQuadR"]
-margin_right = 128.0
-margin_bottom = 128.0
-rect_rotation = 90.0
-rect_pivot_offset = Vector2( 64, 64 )
-texture = ExtResource( 3 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="btnQuadD" type="TouchScreenButton" parent="templateNode/tmpSegment"]
-shape = SubResource( 15 )
-shape_centered = false
-
-[node name="texQuad" type="TextureRect" parent="templateNode/tmpSegment/btnQuadD"]
-margin_right = 128.0
-margin_bottom = 128.0
-rect_rotation = 180.0
-rect_pivot_offset = Vector2( 64, 64 )
-texture = ExtResource( 3 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="btnQuadL" type="TouchScreenButton" parent="templateNode/tmpSegment"]
-shape = SubResource( 16 )
-shape_centered = false
-
-[node name="texQuad" type="TextureRect" parent="templateNode/tmpSegment/btnQuadL"]
-margin_right = 128.0
-margin_bottom = 128.0
-rect_rotation = 270.0
-rect_pivot_offset = Vector2( 64, 64 )
-texture = ExtResource( 3 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="tmpConfirm" type="NinePatchRect" parent="templateNode"]
 margin_left = 442.0
@@ -556,10 +447,6 @@ position = Vector2( 1106.69, -1.29077 )
 normal = ExtResource( 81 )
 shape = SubResource( 12 )
 script = ExtResource( 78 )
-
-[node name="tmpMenu" type="Tween" parent="templateNode"]
-playback_speed = 1.5
-playback/speed = 1.5
 [connection signal="released" from="BottomBarNode/btnFactoryFloor" to="BottomBarNode" method="_on_btnFactoryFloor_released"]
 [connection signal="released" from="BottomBarNode/btnCraftingFloor" to="BottomBarNode" method="_on_btnCraftingFloor_released"]
 [connection signal="released" from="BottomBarNode/btnUpgradesFloor" to="BottomBarNode" method="_on_btnUpgradesFloor_released"]
@@ -570,6 +457,9 @@ playback/speed = 1.5
 [connection signal="released" from="BottomBarNode/btnSettingsFloor" to="BottomBarNode" method="_on_btnSettingsFloor_released"]
 [connection signal="pressed" from="templateNode/tmpAddStructure/btnAdd" to="templateNode/tmpAddStructure" method="_on_btnAdd_pressed"]
 [connection signal="released" from="templateNode/tmpAddStructure/btnAdd" to="templateNode/tmpAddStructure" method="_on_btnAdd_released"]
+[connection signal="input_event" from="templateNode/tmpQuad/bodyQuadU" to="templateNode/tmpQuad/bodyQuadU" method="_on_bodyQuad_input_event"]
+[connection signal="mouse_entered" from="templateNode/tmpQuad/bodyQuadU" to="templateNode/tmpQuad/bodyQuadU" method="_on_bodyQuadU_mouse_entered"]
+[connection signal="mouse_exited" from="templateNode/tmpQuad/bodyQuadU" to="templateNode/tmpQuad/bodyQuadU" method="_on_bodyQuadU_mouse_exited"]
 [connection signal="released" from="templateNode/tmpConfirm/btnYes" to="templateNode/tmpConfirm" method="_on_btnYes_released"]
 [connection signal="released" from="templateNode/tmpConfirm/btnNo" to="templateNode/tmpConfirm" method="_on_btnNo_released"]
 [connection signal="pressed" from="templateNode/tmpTileDetect" to="templateNode/tmpTileDetect" method="_on_tmpTileDetect_pressed"]

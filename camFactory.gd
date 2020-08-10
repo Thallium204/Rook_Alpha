@@ -70,8 +70,8 @@ func _process(delta):
 
 func _input(event):
 	
-	# Don't process input if the menu is open
-	if Globals.isMenuOpen == true:
+	# Don't process input if the menu is open  OR  if we are drawing conveyors
+	if Globals.isMenuOpen == true or Globals.drawConveyorMode != "off":
 		return
 	
 	get_node("Label").text = ""

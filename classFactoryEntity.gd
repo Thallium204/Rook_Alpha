@@ -2,7 +2,9 @@ extends TextureRect
 
 onready var Globals = get_tree().get_root().get_node("Game/Globals")
 onready var templateNode = get_tree().get_root().get_node("Game/templateNode")
-onready var ctrlFactoryFloor = Globals.get_node("FactoryNode/ctnFactoryViewport/vptFactoryScene/ctrlFactoryFloor")
+onready var FactoryNode = Globals.get_node("FactoryNode")
+onready var ctrlFactoryFloor = FactoryNode.get_node("ctnFactoryViewport/vptFactoryScene/ctrlFactoryFloor")
+onready var texInfoBar = FactoryNode.get_node("SideBarNode/texInfoBar")
 onready var FactorySpace = ctrlFactoryFloor.get_node("../FactorySpace")
 onready var camFactory = ctrlFactoryFloor.get_node("../camFactory")
 
@@ -75,15 +77,6 @@ func _process(_delta):
 		for tileNode in get_node("tmpShape").get_children(): # Check every tile child node
 			tileNode.modulate = Color(1,1,1)
 		get_node("tmpShape").modulate = Color(grey,grey,grey,0.2)
-	# Display Info
-	if Globals.infoIsDisplayed == true:
-		self_modulate = Color(grey,grey,grey) # Colour grey
-		get_node("grdInfo").visible = true # Make the process info visible
-		get_node("labStructure").visible = false # Make the structure label invisible
-	else:
-		self_modulate = Color(1,1,1) # Removing any colouring
-		get_node("grdInfo").visible = false # Make the process info invisible
-		get_node("labStructure").visible = true # Make the structure label visible
 
 func enable_moveMode(initial = false): # Called when we want to move this structure
 	
@@ -156,6 +149,12 @@ func onStructure_Released_General(_tile): # Called when a tile button is release
 	if Globals.deleteStructureMode == true:
 		removeSelf()
 		Globals.deleteStructureMode = false
+	
+	if Globals.moveStructureMode == "off":
+		if Globals.displayInfoMode == true:
+			if texInfoBar.infoNode != self:
+				texInfoBar.infoNode = self
+			texInfoBar.updateInfo()
 
 func removeSelf():
 	removePointersFromArray()

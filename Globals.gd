@@ -7,16 +7,17 @@ onready var ctrlFactoryFloor = vptFactoryScene.get_node("ctrlFactoryFloor")
 
 var currentScreen = 0
 
-var addBuildingMode = false
-var addStorageMode = false
-var addConveyorMode = false
+var addBuildingMenu = false
+var addStorageMenu = false
+var addConveyorMenu = false
 var autoCraft = false
 
 var isMenuOpen = false
 
-var infoIsDisplayed = false
+var displayInfoMode = false
 var moveStructureMode = "off"		# "off" | "ready" | "moving" 
 var deleteStructureMode = false
+var drawConveyorMode = "off"		# "off" | "ready" | "touching"
 
 var infoColorModifier = 0.3
 
@@ -33,11 +34,11 @@ var buildingBank = [
 	
 	[ "Furnace",	[["Clay",1]],					[["Brick",1]],		4,		[[1,1],[1,1]]				],
 	
-	[ "Workbench",	[["Log",1]],					[["Plank",2]],		4,		[[1,1],[1,1]]				],
+	[ "Workbench",	[["Log",1]],					[["Plank",2]],		4,		[[1]]						],
 	
-	[ "Kiln",		[["Ore",1],["Coal",1]],			[["Cluster",1]],	3,		[[1],[1]]	],
+	[ "Kiln",		[["Ironore",1],["Coal",1]],	[["Ironclump",1]],	3,		[[1],[1]]					],
 	
-	[ "Smeltery",	[["Cluster",1]],				[["Ingot",1]],		3,		[[1],[1]]	]
+	[ "Smeltery",	[["Ironclump",1]],				[["Ironingot",1]],	3,		[[1,1],[1,1]]				]
 	
 	]
 
@@ -61,14 +62,22 @@ var resourceBank = [
 	
 	["Brick",		"Solid"],
 	
+	["Ironore",		"Solid"],
+	
+	["Ironclump",	"Solid"],
+	
+	["Coal",		"Solid"],
+	
 	["Water",		"Fluid"],
 	
-	["Power",		"Power"]]
+	["Power",		"Power"]
+	
+	]
 
-# [ nameID ,  extractAmount , conveyorSpeed , segmentBuffer ]
+# [ nameID , conveyorSpeed ]
 var conveyorBank = [
 	
-	["Standard", 	1, 			0.5, 		1]]
+	["Standard",	0.5]]
 	
 func _process(_delta):
 	pass
@@ -79,16 +88,16 @@ func getResourceType(nameID):
 			return resource[1]
 	return "none"
 
-func getBuildingDataByNameID(nameID):
+func getStructureDataByNameID(nameID):
 	for buildingData in buildingBank:
 		if buildingData[0] == nameID:
 			return buildingData
-	return null
-
-func getStorageDataByNameID(nameID):
 	for storageData in storageBank:
 		if storageData[0] == nameID:
 			return storageData
+	for conveyorData in conveyorBank:
+		if conveyorData[0] == nameID:
+			return conveyorData
 	return null
 
 ### INITIALISE FACTORY NODES
@@ -96,11 +105,7 @@ func getStorageDataByNameID(nameID):
 # PASS BUILDING DATA TO FACTORY FLOOR
 func initialseStructureData(nameID,structureType):
 	# Get the list data for matching nameID i.e. nameID = "Quarry" -> ["Quarry",[],["Cobble",3],...]
-	var structureData = null
-	if structureType == "building":
-		structureData = getBuildingDataByNameID(nameID)
-	elif structureType == "storage":
-		structureData = getStorageDataByNameID(nameID)
+	var structureData = getStructureDataByNameID(nameID)
 	# Send the buildingData off to the FactoryFloor to be made into a child node
 	ctrlFactoryFloor.addStructure(structureData.duplicate(true),structureType)
 

@@ -40,7 +40,6 @@ func addStructure(structureData,structType):
 	newStructure.rect_position = Vector2(0,0)
 	
 	# Here we add the info
-	var newStructure_Info = newStructure.get_node("grdInfo") # Get the grdInfo node
 	if structType == "building": # If this is a building we need to add input storage, a process divider and output storage
 		
 		# Add the circle process progress bar
@@ -48,38 +47,25 @@ func addStructure(structureData,structType):
 		newProgress.rect_position = Vector2.ZERO
 		newStructure.add_child(newProgress)
 		
-		# We need to add input storage ( 0/3 img_stone )
-		for input in structureData[1]: # For each resource cost
-			var newStorage = templateNode.get_node("tmpStorage").duplicate()
-			newStorage.name = "input"+input[0]
-			newStructure_Info.add_child(newStorage) # Add the input storage UI
-			
-		# We need to add process divider ( --[3ms]--> )
-		var newProcess = templateNode.get_node("tmpProcess").duplicate()
-		newProcess.name = "divider"
-		newStructure_Info.add_child(newProcess) # Add the process divider UI
-		
-		# We need to add output storage ( 0/2 img_log )
-		for output in structureData[2]:
-			var newStorage = templateNode.get_node("tmpStorage").duplicate()
-			newStorage.name = "output"+output[0]
-			newStructure_Info.add_child(newStorage)
-		
 		# We need to connect the building script
 		newStructure.script = load("res://objBuilding.gd")
 	
 	elif structType == "storage": # If this is storage we need to add io storage
 		
-		# We need to add io storage ( 0/64 img_empty_solid )
-		for _output in structureData[1]:
-			var newStorage = templateNode.get_node("tmpStorage").duplicate()
-			newStorage.name = "input|ouput"
-			newStructure_Info.add_child(newStorage)
-		
 		# We need to connect the storage script
 		newStructure.script = load("res://objStorage.gd")
 	
 	elif structType == "conveyor": # If this is a conveyor we need to add ...
+		
+		# Add it's shape data
+		structureData.append([[1]])
+		
+		var newQuad = templateNode.get_node("tmpQuad").duplicate()
+		newQuad.position = Vector2.ZERO
+		newStructure.add_child(newQuad)
+		
+		# We need to connect the storage script
+		newStructure.script = load("res://objConveyor.gd")
 		
 		pass
 	

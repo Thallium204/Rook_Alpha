@@ -19,33 +19,11 @@ func configure(structureData,structType): # Called when we want to initialise th
 	shapeData = structureData[-1]
 	# Set the image size
 	rect_size = Vector2( ctrlFactoryFloor.tileSize * shapeData[0].size()  , ctrlFactoryFloor.tileSize * shapeData.size() )
-	$labStructure.rect_position = Vector2(0,rect_size[1]/2) # Set the label position
-	$labStructure.rect_size = Vector2(rect_size[0],rect_size[1]/2) # Set the label size
-	$grdInfo.rect_size = rect_size # Scale the info grid
 
 func updateUI(): # Called when we want to update the display nodes for the user
 	
-	# Update the structure label
-	get_node("labStructure").text = structureName
-	
 	# Update the structure image
 	texture = load("res://Assets/Storage/img_"+structureName.to_lower()+".png")
-	
-	# Update process info
-	var grdInfo = get_node("grdInfo")
-	# Iterate through the input|divider|output children
-	var grdInfoChildRefs = grdInfo.get_children() # Get a list of all children (input|divider|output)
-	print(internalStorage)
-	for childRefsPos in range( grdInfoChildRefs.size() ): # Iterate through the children by index
-		
-		var grdInfoChild = grdInfoChildRefs[childRefsPos] # Get current child
-		var storage = internalStorage[0][childRefsPos]
-		if isStorageEmpty() == true:
-			grdInfoChild.get_node("texResource").texture = load("res://Assets/Resources/img_empty_"+storage[3].to_lower()+".png")
-		else:
-			grdInfoChild.get_node("texResource").texture = load("res://Assets/Resources/img_"+storage[0].to_lower()+".png")
-		grdInfoChild.get_node("labCurrent").text = str( storage[1] )
-		grdInfoChild.get_node("labCapacity").text = str( storage[2] )
 
 func isStorageEmpty():
 	for storage in internalStorage[0]:
@@ -60,5 +38,7 @@ func onStructure_Pressed(tile): # Called when our structure is pressed
 
 func onStructure_Released(tile): # Called when our structure is pressed
 	
-	# Handle general
-	onStructure_Released_General(tile)
+	if hasDragged == false:
+		
+		# Handle general
+		onStructure_Released_General(tile)
