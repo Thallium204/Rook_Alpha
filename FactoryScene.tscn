@@ -37,21 +37,22 @@ HScrollBar/styles/grabber_pressed = null
 HScrollBar/styles/scroll = SubResource( 2 )
 HScrollBar/styles/scroll_focus = null
 
-[sub_resource type="DynamicFont" id=7]
+[sub_resource type="DynamicFont" id=4]
 size = 56
 font_data = ExtResource( 6 )
 
-[sub_resource type="DynamicFont" id=8]
+[sub_resource type="DynamicFont" id=5]
 size = 56
 font_data = ExtResource( 6 )
 
-[sub_resource type="CircleShape2D" id=4]
+[sub_resource type="CircleShape2D" id=6]
 radius = 64.0
 
-[sub_resource type="CircleShape2D" id=5]
+[sub_resource type="CircleShape2D" id=7]
 radius = 64.0
 
 [node name="FactoryNode" type="Control"]
+mouse_filter = 2
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -59,6 +60,7 @@ __meta__ = {
 [node name="texBackground" type="TextureRect" parent="."]
 margin_right = 1080.0
 margin_bottom = 1920.0
+mouse_filter = 2
 texture = ExtResource( 11 )
 stretch_mode = 2
 __meta__ = {
@@ -68,6 +70,7 @@ __meta__ = {
 [node name="ctnFactoryViewport" type="ViewportContainer" parent="."]
 margin_right = 1080.0
 margin_bottom = 1664.0
+mouse_filter = 2
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -78,11 +81,13 @@ handle_input_locally = false
 msaa = 3
 usage = 0
 render_target_update_mode = 3
+physics_object_picking = true
 
 [node name="FactorySpace" type="TextureRect" parent="ctnFactoryViewport/vptFactoryScene"]
 show_behind_parent = true
 margin_right = 1152.0
 margin_bottom = 2432.0
+mouse_filter = 2
 texture = ExtResource( 3 )
 stretch_mode = 2
 __meta__ = {
@@ -90,6 +95,7 @@ __meta__ = {
 }
 
 [node name="ctrlFactoryFloor" type="Control" parent="ctnFactoryViewport/vptFactoryScene"]
+mouse_filter = 2
 script = ExtResource( 2 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -111,6 +117,7 @@ margin_left = -16.0
 margin_top = -16.0
 margin_right = 16.0
 margin_bottom = 16.0
+mouse_filter = 2
 texture = ExtResource( 5 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -129,6 +136,7 @@ __meta__ = {
 }
 
 [node name="TopBarNode" type="Control" parent="."]
+mouse_filter = 2
 script = ExtResource( 12 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -138,6 +146,7 @@ __meta__ = {
 margin_right = 1080.0
 margin_bottom = 120.0
 rect_scale = Vector2( 1, 1.07 )
+mouse_filter = 2
 texture = ExtResource( 11 )
 stretch_mode = 2
 __meta__ = {
@@ -149,6 +158,7 @@ margin_top = -383.0
 margin_right = 1080.0
 margin_bottom = -23.0
 rect_scale = Vector2( 1, 1.07 )
+mouse_filter = 2
 theme = SubResource( 3 )
 texture = ExtResource( 11 )
 stretch_mode = 2
@@ -163,6 +173,7 @@ normal = ExtResource( 18 )
 margin_top = -384.0
 margin_right = 1080.0
 rect_scale = Vector2( 0.67, 0.67 )
+mouse_filter = 2
 columns = 6
 __meta__ = {
 "_edit_use_anchors_": false
@@ -176,6 +187,7 @@ normal = ExtResource( 1 )
 margin_top = -384.0
 margin_right = 1080.0
 rect_scale = Vector2( 0.67, 0.67 )
+mouse_filter = 2
 columns = 6
 __meta__ = {
 "_edit_use_anchors_": false
@@ -189,6 +201,7 @@ normal = ExtResource( 8 )
 margin_top = -384.0
 margin_right = 1080.0
 rect_scale = Vector2( 0.67, 0.67 )
+mouse_filter = 2
 columns = 6
 __meta__ = {
 "_edit_use_anchors_": false
@@ -205,6 +218,7 @@ margin_left = 1080.0
 margin_top = 128.0
 margin_right = 1080.0
 margin_bottom = 128.0
+mouse_filter = 2
 script = ExtResource( 7 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -229,6 +243,7 @@ __meta__ = {
 [node name="hgrdName" type="HBoxContainer" parent="SideBarNode/texInfoBar"]
 margin_right = 1080.0
 margin_bottom = 64.0
+mouse_filter = 2
 size_flags_vertical = 0
 alignment = 1
 __meta__ = {
@@ -241,7 +256,7 @@ margin_right = 538.0
 margin_bottom = 64.0
 rect_min_size = Vector2( 520, 0 )
 size_flags_vertical = 1
-custom_fonts/font = SubResource( 7 )
+custom_fonts/font = SubResource( 4 )
 custom_colors/font_color = Color( 1, 1, 1, 1 )
 custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
 custom_constants/shadow_offset_x = 4
@@ -259,7 +274,7 @@ margin_right = 1062.0
 margin_bottom = 64.0
 rect_min_size = Vector2( 520, 0 )
 size_flags_vertical = 1
-custom_fonts/font = SubResource( 7 )
+custom_fonts/font = SubResource( 4 )
 custom_colors/font_color = Color( 0.890196, 0.470588, 0.25098, 1 )
 custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
 custom_constants/shadow_offset_x = 4
@@ -276,6 +291,7 @@ __meta__ = {
 margin_top = 48.0
 margin_right = 1080.0
 margin_bottom = 288.0
+mouse_filter = 2
 alignment = 2
 __meta__ = {
 "_edit_use_anchors_": false
@@ -285,12 +301,14 @@ __meta__ = {
 margin_right = 270.0
 margin_bottom = 240.0
 rect_min_size = Vector2( 270, 0 )
+mouse_filter = 2
 alignment = 1
 
 [node name="hgrdInput1" type="HBoxContainer" parent="SideBarNode/texInfoBar/hgrdPanels/vgrdInputList"]
 margin_top = 20.0
 margin_right = 270.0
 margin_bottom = 84.0
+mouse_filter = 2
 size_flags_vertical = 0
 alignment = 1
 __meta__ = {
@@ -302,7 +320,7 @@ margin_left = 46.0
 margin_right = 80.0
 margin_bottom = 64.0
 size_flags_vertical = 1
-custom_fonts/font = SubResource( 7 )
+custom_fonts/font = SubResource( 4 )
 custom_colors/font_color = Color( 1, 0, 0, 1 )
 text = "0"
 valign = 2
@@ -315,7 +333,7 @@ margin_left = 84.0
 margin_right = 118.0
 margin_bottom = 64.0
 size_flags_vertical = 1
-custom_fonts/font = SubResource( 7 )
+custom_fonts/font = SubResource( 4 )
 text = "/"
 valign = 2
 __meta__ = {
@@ -327,7 +345,7 @@ margin_left = 122.0
 margin_right = 156.0
 margin_bottom = 64.0
 size_flags_vertical = 1
-custom_fonts/font = SubResource( 7 )
+custom_fonts/font = SubResource( 4 )
 text = "3"
 valign = 2
 __meta__ = {
@@ -348,6 +366,7 @@ __meta__ = {
 margin_top = 88.0
 margin_right = 270.0
 margin_bottom = 152.0
+mouse_filter = 2
 size_flags_vertical = 0
 alignment = 1
 __meta__ = {
@@ -359,7 +378,7 @@ margin_left = 46.0
 margin_right = 80.0
 margin_bottom = 64.0
 size_flags_vertical = 1
-custom_fonts/font = SubResource( 7 )
+custom_fonts/font = SubResource( 4 )
 custom_colors/font_color = Color( 1, 0, 0, 1 )
 text = "0"
 valign = 2
@@ -372,7 +391,7 @@ margin_left = 84.0
 margin_right = 118.0
 margin_bottom = 64.0
 size_flags_vertical = 1
-custom_fonts/font = SubResource( 7 )
+custom_fonts/font = SubResource( 4 )
 text = "/"
 valign = 2
 __meta__ = {
@@ -384,7 +403,7 @@ margin_left = 122.0
 margin_right = 156.0
 margin_bottom = 64.0
 size_flags_vertical = 1
-custom_fonts/font = SubResource( 7 )
+custom_fonts/font = SubResource( 4 )
 text = "3"
 valign = 2
 __meta__ = {
@@ -405,6 +424,7 @@ __meta__ = {
 margin_top = 156.0
 margin_right = 270.0
 margin_bottom = 220.0
+mouse_filter = 2
 size_flags_vertical = 0
 alignment = 1
 __meta__ = {
@@ -416,7 +436,7 @@ margin_left = 46.0
 margin_right = 80.0
 margin_bottom = 64.0
 size_flags_vertical = 1
-custom_fonts/font = SubResource( 7 )
+custom_fonts/font = SubResource( 4 )
 custom_colors/font_color = Color( 1, 0, 0, 1 )
 text = "0"
 valign = 2
@@ -429,7 +449,7 @@ margin_left = 84.0
 margin_right = 118.0
 margin_bottom = 64.0
 size_flags_vertical = 1
-custom_fonts/font = SubResource( 7 )
+custom_fonts/font = SubResource( 4 )
 text = "/"
 valign = 2
 __meta__ = {
@@ -441,7 +461,7 @@ margin_left = 122.0
 margin_right = 156.0
 margin_bottom = 64.0
 size_flags_vertical = 1
-custom_fonts/font = SubResource( 7 )
+custom_fonts/font = SubResource( 4 )
 text = "3"
 valign = 2
 __meta__ = {
@@ -463,12 +483,14 @@ margin_left = 274.0
 margin_right = 544.0
 margin_bottom = 240.0
 rect_min_size = Vector2( 270, 0 )
+mouse_filter = 2
 alignment = 1
 
 [node name="tmpProcess" type="HBoxContainer" parent="SideBarNode/texInfoBar/hgrdPanels/vgrdProcess"]
 margin_top = 91.0
 margin_right = 270.0
 margin_bottom = 148.0
+mouse_filter = 2
 size_flags_vertical = 0
 alignment = 1
 __meta__ = {
@@ -480,7 +502,7 @@ margin_left = 48.0
 margin_right = 222.0
 margin_bottom = 57.0
 size_flags_vertical = 0
-custom_fonts/font = SubResource( 8 )
+custom_fonts/font = SubResource( 5 )
 custom_colors/font_color = Color( 0.141176, 0.682353, 0.839216, 1 )
 custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
 custom_constants/shadow_offset_x = 4
@@ -498,12 +520,14 @@ margin_left = 548.0
 margin_right = 818.0
 margin_bottom = 240.0
 rect_min_size = Vector2( 270, 0 )
+mouse_filter = 2
 alignment = 1
 
 [node name="hgrdOutput1" type="HBoxContainer" parent="SideBarNode/texInfoBar/hgrdPanels/vgrdOutputList"]
 margin_top = 20.0
 margin_right = 270.0
 margin_bottom = 84.0
+mouse_filter = 2
 size_flags_vertical = 0
 alignment = 1
 __meta__ = {
@@ -515,7 +539,7 @@ margin_left = 46.0
 margin_right = 80.0
 margin_bottom = 64.0
 size_flags_vertical = 1
-custom_fonts/font = SubResource( 7 )
+custom_fonts/font = SubResource( 4 )
 custom_colors/font_color = Color( 1, 0, 0, 1 )
 text = "0"
 valign = 2
@@ -528,7 +552,7 @@ margin_left = 84.0
 margin_right = 118.0
 margin_bottom = 64.0
 size_flags_vertical = 1
-custom_fonts/font = SubResource( 7 )
+custom_fonts/font = SubResource( 4 )
 text = "/"
 valign = 2
 __meta__ = {
@@ -540,7 +564,7 @@ margin_left = 122.0
 margin_right = 156.0
 margin_bottom = 64.0
 size_flags_vertical = 1
-custom_fonts/font = SubResource( 7 )
+custom_fonts/font = SubResource( 4 )
 text = "3"
 valign = 2
 __meta__ = {
@@ -551,6 +575,7 @@ __meta__ = {
 margin_left = 160.0
 margin_right = 224.0
 margin_bottom = 64.0
+mouse_filter = 2
 texture = ExtResource( 14 )
 stretch_mode = 6
 __meta__ = {
@@ -561,6 +586,7 @@ __meta__ = {
 margin_top = 88.0
 margin_right = 270.0
 margin_bottom = 152.0
+mouse_filter = 2
 size_flags_vertical = 0
 alignment = 1
 __meta__ = {
@@ -572,7 +598,7 @@ margin_left = 46.0
 margin_right = 80.0
 margin_bottom = 64.0
 size_flags_vertical = 1
-custom_fonts/font = SubResource( 7 )
+custom_fonts/font = SubResource( 4 )
 custom_colors/font_color = Color( 1, 0, 0, 1 )
 text = "0"
 valign = 2
@@ -585,7 +611,7 @@ margin_left = 84.0
 margin_right = 118.0
 margin_bottom = 64.0
 size_flags_vertical = 1
-custom_fonts/font = SubResource( 7 )
+custom_fonts/font = SubResource( 4 )
 text = "/"
 valign = 2
 __meta__ = {
@@ -597,7 +623,7 @@ margin_left = 122.0
 margin_right = 156.0
 margin_bottom = 64.0
 size_flags_vertical = 1
-custom_fonts/font = SubResource( 7 )
+custom_fonts/font = SubResource( 4 )
 text = "3"
 valign = 2
 __meta__ = {
@@ -608,6 +634,7 @@ __meta__ = {
 margin_left = 160.0
 margin_right = 224.0
 margin_bottom = 64.0
+mouse_filter = 2
 texture = ExtResource( 14 )
 stretch_mode = 6
 __meta__ = {
@@ -618,6 +645,7 @@ __meta__ = {
 margin_top = 156.0
 margin_right = 270.0
 margin_bottom = 220.0
+mouse_filter = 2
 size_flags_vertical = 0
 alignment = 1
 __meta__ = {
@@ -629,7 +657,7 @@ margin_left = 46.0
 margin_right = 80.0
 margin_bottom = 64.0
 size_flags_vertical = 1
-custom_fonts/font = SubResource( 7 )
+custom_fonts/font = SubResource( 4 )
 custom_colors/font_color = Color( 1, 0, 0, 1 )
 text = "0"
 valign = 2
@@ -642,7 +670,7 @@ margin_left = 84.0
 margin_right = 118.0
 margin_bottom = 64.0
 size_flags_vertical = 1
-custom_fonts/font = SubResource( 7 )
+custom_fonts/font = SubResource( 4 )
 text = "/"
 valign = 2
 __meta__ = {
@@ -654,7 +682,7 @@ margin_left = 122.0
 margin_right = 156.0
 margin_bottom = 64.0
 size_flags_vertical = 1
-custom_fonts/font = SubResource( 7 )
+custom_fonts/font = SubResource( 4 )
 text = "3"
 valign = 2
 __meta__ = {
@@ -665,6 +693,7 @@ __meta__ = {
 margin_left = 160.0
 margin_right = 224.0
 margin_bottom = 64.0
+mouse_filter = 2
 texture = ExtResource( 14 )
 stretch_mode = 6
 __meta__ = {
@@ -677,28 +706,29 @@ margin_right = 1080.0
 margin_bottom = 240.0
 rect_min_size = Vector2( 258, 0 )
 rect_clip_content = true
+mouse_filter = 2
 expand = true
 stretch_mode = 6
 
 [node name="btnInfoToggle" type="TouchScreenButton" parent="SideBarNode"]
 position = Vector2( -128, 8 )
 normal = ExtResource( 17 )
-shape = SubResource( 4 )
+shape = SubResource( 6 )
 
 [node name="btnMoveToggle" type="TouchScreenButton" parent="SideBarNode"]
 position = Vector2( -128, 144 )
 normal = ExtResource( 15 )
-shape = SubResource( 5 )
+shape = SubResource( 7 )
 
 [node name="btnConnectToggle" type="TouchScreenButton" parent="SideBarNode"]
 position = Vector2( -128, 280 )
 normal = ExtResource( 19 )
-shape = SubResource( 5 )
+shape = SubResource( 7 )
 
 [node name="btnDeleteToggle" type="TouchScreenButton" parent="SideBarNode"]
 position = Vector2( -128, 416 )
 normal = ExtResource( 10 )
-shape = SubResource( 4 )
+shape = SubResource( 6 )
 
 [node name="twnSideBar" type="Tween" parent="SideBarNode"]
 [connection signal="pressed" from="TopBarNode/btnBuildingMenu" to="TopBarNode" method="_on_btnBuildingMenu_pressed"]

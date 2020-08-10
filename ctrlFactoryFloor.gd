@@ -25,7 +25,7 @@ func _ready():
 	# Initialise the background size
 	FactorySpace.rect_size = tileSize * Vector2(gridCols,gridRows)
 
-func addStructure(structureData,structType):
+func addStructure(structureData,structType,quickAdd=false):
 	
 	# structureData = [ nameID , inputResList , outputResList , processTime , shapeData ]
 	# structureData = [ nameID , internalStorageList , shapeData ]
@@ -64,7 +64,7 @@ func addStructure(structureData,structType):
 		newQuad.position = Vector2.ZERO
 		newStructure.add_child(newQuad)
 		
-		# We need to connect the storage script
+		# We need to connect the conveyor script
 		newStructure.script = load("res://objConveyor.gd")
 		
 		pass
@@ -86,5 +86,63 @@ func addStructure(structureData,structType):
 	
 	newStructure.configure(structureData,structType)
 	newStructure.updateUI()
-	newStructure.enable_moveMode(true)
+	if quickAdd == false:
+		newStructure.enable_moveMode(true)
+	else:
+		return newStructure
+
+
+func addConveyor(originalTile,lastQuadrant="bodyQuadU"):
+	
+	# Get the new tile position
+	var tile = originalTile
+	if lastQuadrant[-1] == "U":
+		tile[0] -= 1
+	elif lastQuadrant[-1] == "R":
+		tile[1] += 1
+	elif lastQuadrant[-1] == "D":
+		tile[0] += 1
+	elif lastQuadrant[-1] == "L":
+		tile[1] -= 1
+	
+	# Get the quadrant we're coming into
+	var startingQuadrant = "bodyQuad?"
+	if lastQuadrant == "bodyQuadU":
+		startingQuadrant = "bodyQuadD"
+	elif lastQuadrant == "bodyQuadR":
+		startingQuadrant = "bodyQuadL"
+	elif lastQuadrant == "bodyQuadD":
+		startingQuadrant = "bodyQuadU"
+	elif lastQuadrant == "bodyQuadL":
+		startingQuadrant = "bodyQuadR"
+	
+	if pointerArray[tile[0]][tile[1]] == null: # If we have moved into null space
+		
+		# Add a new conveyor
+		var newConveyor = addStructure(["standard",0.5],"conveyor",true)
+		newConveyor.shapeData = [[tile]]
+		pointerArray[tile[0]][tile[1]] = newConveyor
+		newConveyor.rect_position = Vector2( tile[1]*tileSize , tile[0]* tileSize )
+		newConveyor.get_node("tmpQuad").inputs.append(startingQuadrant)
+	
+	elif pointerArray[tile[0]][tile[1]].structureType == "conveyor": # If we have moved into a conveyor
+		
+		# Update it's inputs
+		pointerArray[tile[0]][tile[1]].get_node("tmpQuad").addInput(startingQuadrant)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

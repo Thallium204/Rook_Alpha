@@ -30,7 +30,13 @@ var hasBeenPlaced = false	# move mode:		True when the building has been placed p
 var dragDetectMode = false	# Drag Detect Mode: True when checking for finger movement whilst pressing child button
 var hasDragged = false		# Drag Detect Mode: True is a finger has been dragged whilst pressing a chi8ld button
 
+func _ready():
+	connect("mouse_exited",self,"on_mouse_exited")
 
+func on_mouse_exited():
+	
+	if Globals.drawConveyorMode == "moving":
+		ctrlFactoryFloor.addConveyor(shapeData[0][0].duplicate())
 
 func _process(_delta):
 	
@@ -142,19 +148,27 @@ func onStructure_Pressed_General(_tile): # Called when a tile button is pressed
 	# If we're ready to move a building
 	if Globals.moveStructureMode == "ready":
 		enable_moveMode()
+	
+	elif Globals.drawConveyorMode == "ready":
+		# Begin the conveyor drawing
+		Globals.drawConveyorMode = "moving"
 
 func onStructure_Released_General(_tile): # Called when a tile button is released
 	
 	# If we're in delete mode
 	if Globals.deleteStructureMode == true:
 		removeSelf()
-		Globals.deleteStructureMode = false
+		#Globals.deleteStructureMode = false
 	
 	if Globals.moveStructureMode == "off":
 		if Globals.displayInfoMode == true:
 			if texInfoBar.infoNode != self:
 				texInfoBar.infoNode = self
 			texInfoBar.updateInfo()
+	
+	if Globals.drawConveyorMode == "moving":
+		# End the conveyor drawing
+		Globals.drawConveyorMode = "ready"
 
 func removeSelf():
 	removePointersFromArray()

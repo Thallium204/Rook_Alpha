@@ -69,75 +69,75 @@ func _process(delta):
 	clampCameraPosition()
 
 func _input(event):
-	
+
 	# Don't process input if the menu is open  OR  if we are drawing conveyors
 	if Globals.isMenuOpen == true or Globals.drawConveyorMode != "off":
 		return
-	
+
 	get_node("Label").text = ""
-	
+
 	# Don't process input if the input was outside of the viewport
 	if event.position[0] < 0 or event.position[1] < 0 or event.position[0] > ctnFactoryViewport.rect_size[0] or event.position[1] > ctnFactoryViewport.rect_size[1]:
 		return
-	
-	
-	
+
+
+
 	if Globals.moveStructureMode == "moving":
 		drag_margin_h_enabled = true
 		drag_margin_v_enabled = true
 	else:
 		drag_margin_h_enabled = false
 		drag_margin_v_enabled = false
-	
-	
-	
+
+
+
 	if event is InputEventScreenTouch:
-		
+
 		if event.pressed:
 			events[event.index] = event
 		else:
 			events.erase(event.index)
-	
-	
-	
+
+
+
 	elif event is InputEventScreenDrag:
-		
+
 		events[event.index] = event
-		
+
 		# The user is dragging ONE finger across the viewport (DRAG)
 		if events.size() == 1:
 			if Globals.moveStructureMode == "moving":
 				position += event.relative * zoom # Move the camera with the drag
 			else:
 				position -= event.relative * zoom # Move the camera away from drag
-		
+
 		# The user is dragging TWO fingers across the viewport (ZOOM)
 		elif events.size() == 2:
-			
+
 			if Vector2.ZERO in zoomStart: # If this is the first TWO finger event since the last event
 				zoomStart = [events[0].position,events[1].position,zoom]
-			
+
 			#var zoomCenter = (events[0].position + events[1].position)/2 # Get the center current finger positions
 			var startDistance = (zoomStart[0]-zoomStart[1]).length()
 			var currentDistance = (events[0].position-events[1].position).length()
 			get_node("Label").text += "\n start: " + str(startDistance) + "\n current: " + str(currentDistance) + "\n"
 			#position = zoomCenter
 			zoom = zoomStart[2] * startDistance/currentDistance
-		
+
 		if events.size() != 2: # If there aren't two fingers on the screen
 			zoomStart[0] = Vector2(0,0)
 			zoomStart[1] = Vector2(0,0)
 			zoomStart[2] = zoom
-		
-		
+
+
 	get_node("Label").text += "\nzoomStart: " + str(zoomStart) + "\n Events: \n" + str(events)
-	
+
 	#ScrollWhell Zoom
 #	if abs(ZoomPos.x - get_global_mouse_position().x) > ZoomMargin:
 #		ZoomFactor = 1.0
 #	if abs(ZoomPos.y - get_global_mouse_position().y) > ZoomMargin:
 #		ZoomFactor = 1.0
-	
+
 	if event is InputEventMouseButton:
 		if event.is_pressed():
 			if event.button_index == BUTTON_WHEEL_UP:
@@ -146,5 +146,5 @@ func _input(event):
 			if event.button_index == BUTTON_WHEEL_DOWN:
 				ZoomFactor += 0.02
 				ZoomPos = get_global_mouse_position()
-	
+
 	clampCameraPosition()

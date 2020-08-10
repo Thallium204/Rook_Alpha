@@ -14,6 +14,7 @@ func configure(structureData,structType): # Called when we want to initialise th
 	conveyorSpeed = structureData[1]
 	# Set the image size
 	rect_size = Vector2( ctrlFactoryFloor.tileSize * shapeData[0].size()  , ctrlFactoryFloor.tileSize * shapeData.size() )
+	mouse_filter = Control.MOUSE_FILTER_IGNORE
 
 func updateUI(): # Called when we want to update the display nodes for the user
 	
@@ -25,10 +26,6 @@ func _process(_delta):
 	pass
 
 func onStructure_Pressed(tile): # Called when our structure is pressed
-	
-	if Globals.drawConveyorMode == "ready":
-		# Begin the conveyor drawing
-		Globals.drawConveyorMode = "moving"
 	
 	# Handle general
 	onStructure_Pressed_General(tile)

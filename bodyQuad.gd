@@ -1,15 +1,24 @@
-extends StaticBody2D
+extends Area2D
 
-var active = false
+onready var Globals = get_tree().get_root().get_node("Game/Globals")
 
-func _on_bodyQuadU_mouse_entered():
-	active = true
-	print(active)
+var quadrant = ""	# QuadU|QuadR|QuadD|QuadL|QuadC|Whole
+var state = "none"	# input|output|none
 
-func _on_bodyQuadU_mouse_exited():
-	active = false
-	print(active)
+func _ready():
+	connect("mouse_entered",self,"_on_bodyQuad_mouse_entered")
+	connect("mouse_exited",self,"_on_bodyQuad_mouse_exited")
+	#quadrant = name.substr(4,8)
+	quadrant = name
 
+func _on_bodyQuad_mouse_entered():
+	if Globals.drawConveyorMode == "moving":
+		#modulate = Color(0,0,1)
+		if quadrant != "bodyQuadC":
+			get_parent().entered(quadrant)
 
-func _on_bodyQuad_input_event(viewport, event, shape_idx):
-	print(active)
+func _on_bodyQuad_mouse_exited():
+	if Globals.drawConveyorMode == "moving":
+		#modulate = Color(1,1,1)
+		if quadrant != "bodyQuadC":
+			get_parent().exited(quadrant)

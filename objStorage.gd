@@ -19,6 +19,7 @@ func configure(structureData,structType): # Called when we want to initialise th
 	shapeData = structureData[-1]
 	# Set the image size
 	rect_size = Vector2( ctrlFactoryFloor.tileSize * shapeData[0].size()  , ctrlFactoryFloor.tileSize * shapeData.size() )
+	mouse_filter = Control.MOUSE_FILTER_PASS
 
 func updateUI(): # Called when we want to update the display nodes for the user
 	

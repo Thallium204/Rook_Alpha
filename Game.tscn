@@ -1,4 +1,4 @@
-[gd_scene load_steps=46 format=2]
+[gd_scene load_steps=49 format=2]
 
 [ext_resource path="res://FactoryScene.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Assets/Buttons/BottomBarSquare/img_events_off.png" type="Texture" id=2]
@@ -13,13 +13,16 @@
 [ext_resource path="res://tmpAddStructure.gd" type="Script" id=11]
 [ext_resource path="res://Assets/Tileables/img_factory_grey_120x.png" type="Texture" id=12]
 [ext_resource path="res://BottomBarNode.gd" type="Script" id=13]
-[ext_resource path="res://bodyQuad.gd" type="Script" id=14]
+[ext_resource path="res://tmpQuad.gd" type="Script" id=14]
 [ext_resource path="res://Assets/Tileables/img_factory_brown_120x.png" type="Texture" id=15]
 [ext_resource path="res://BeepBox-Song.wav" type="AudioStream" id=16]
 [ext_resource path="res://Assets/Resources/img_empty_solid.png" type="Texture" id=17]
 [ext_resource path="res://Assets/Tileables/img_factory_blue_120x.png" type="Texture" id=18]
+[ext_resource path="res://bodyQuad.gd" type="Script" id=19]
+[ext_resource path="res://Assets/Conveyor/conv_quadrants/Center.png" type="Texture" id=20]
 [ext_resource path="res://Assets/Menu/img_menu_yes.png" type="Texture" id=21]
 [ext_resource path="res://Assets/Tileables/img_factory_green_120x.png" type="Texture" id=22]
+[ext_resource path="res://bodyWhole.gd" type="Script" id=23]
 [ext_resource path="res://oldConveyor.gd" type="Script" id=24]
 [ext_resource path="res://Assets/Menu/img_menu_no.png" type="Texture" id=25]
 [ext_resource path="res://Assets/Buttons/BottomBarSquare/img_populace_off.png" type="Texture" id=26]
@@ -47,6 +50,15 @@ extents = Vector2( 135, 52 )
 [sub_resource type="RectangleShape2D" id=4]
 extents = Vector2( 135, 52 )
 
+[sub_resource type="ConvexPolygonShape2D" id=9]
+points = PoolVector2Array( 0, 0, 128, 0, 96, 32, 32, 32 )
+
+[sub_resource type="ConvexPolygonShape2D" id=8]
+points = PoolVector2Array( -32, -32, 32, -32, 32, 32, -32, 32 )
+
+[sub_resource type="ConvexPolygonShape2D" id=12]
+points = PoolVector2Array( -64, -64, 64, -64, 64, 64, -64, 64 )
+
 [sub_resource type="DynamicFont" id=5]
 size = 80
 font_data = ExtResource( 10 )
@@ -54,19 +66,11 @@ font_data = ExtResource( 10 )
 [sub_resource type="CircleShape2D" id=6]
 radius = 110.0
 
-[sub_resource type="PhysicsMaterial" id=15]
-
-[sub_resource type="ConvexPolygonShape2D" id=13]
-points = PoolVector2Array( 0, 0, 128, 0, 96, 32, 32, 32 )
-
-[sub_resource type="ConvexPolygonShape2D" id=14]
-points = PoolVector2Array( -32, -32, 32, -32, 32, 32, -32, 32 )
-
 [sub_resource type="DynamicFont" id=11]
 size = 32
 font_data = ExtResource( 10 )
 
-[sub_resource type="RectangleShape2D" id=12]
+[sub_resource type="RectangleShape2D" id=10]
 extents = Vector2( 64, 64 )
 
 [node name="Game" type="Node2D"]
@@ -79,6 +83,7 @@ script = ExtResource( 9 )
 [node name="CraftingNode" type="Control" parent="Globals"]
 margin_left = 1080.0
 margin_right = 1080.0
+mouse_filter = 2
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -86,6 +91,7 @@ __meta__ = {
 [node name="texBackground" type="TextureRect" parent="Globals/CraftingNode"]
 margin_right = 1080.0
 margin_bottom = 1920.0
+mouse_filter = 2
 texture = ExtResource( 4 )
 stretch_mode = 2
 __meta__ = {
@@ -95,6 +101,7 @@ __meta__ = {
 [node name="UpgradesNode" type="Control" parent="Globals"]
 margin_left = 2160.0
 margin_right = 2160.0
+mouse_filter = 2
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -102,6 +109,7 @@ __meta__ = {
 [node name="texBackground" type="TextureRect" parent="Globals/UpgradesNode"]
 margin_right = 1080.0
 margin_bottom = 1920.0
+mouse_filter = 2
 texture = ExtResource( 22 )
 stretch_mode = 2
 __meta__ = {
@@ -111,6 +119,7 @@ __meta__ = {
 [node name="ResearchNode" type="Control" parent="Globals"]
 margin_left = 3240.0
 margin_right = 3240.0
+mouse_filter = 2
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -118,6 +127,7 @@ __meta__ = {
 [node name="texBackground" type="TextureRect" parent="Globals/ResearchNode"]
 margin_right = 1080.0
 margin_bottom = 1920.0
+mouse_filter = 2
 texture = ExtResource( 18 )
 stretch_mode = 2
 __meta__ = {
@@ -127,6 +137,7 @@ __meta__ = {
 [node name="EventsNode" type="Control" parent="Globals"]
 margin_top = 1920.0
 margin_bottom = 1920.0
+mouse_filter = 2
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -134,6 +145,7 @@ __meta__ = {
 [node name="texBackground" type="TextureRect" parent="Globals/EventsNode"]
 margin_right = 1080.0
 margin_bottom = 1920.0
+mouse_filter = 2
 texture = ExtResource( 15 )
 stretch_mode = 2
 __meta__ = {
@@ -145,6 +157,7 @@ margin_left = 1080.0
 margin_top = 1920.0
 margin_right = 1080.0
 margin_bottom = 1920.0
+mouse_filter = 2
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -152,6 +165,7 @@ __meta__ = {
 [node name="texBackground" type="TextureRect" parent="Globals/QuestsNode"]
 margin_right = 1080.0
 margin_bottom = 1920.0
+mouse_filter = 2
 texture = ExtResource( 8 )
 stretch_mode = 2
 __meta__ = {
@@ -163,6 +177,7 @@ margin_left = 2160.0
 margin_top = 1920.0
 margin_right = 2160.0
 margin_bottom = 1920.0
+mouse_filter = 2
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -170,6 +185,7 @@ __meta__ = {
 [node name="texBackground" type="TextureRect" parent="Globals/PopulaceNode"]
 margin_right = 1080.0
 margin_bottom = 1920.0
+mouse_filter = 2
 texture = ExtResource( 6 )
 stretch_mode = 2
 __meta__ = {
@@ -181,6 +197,7 @@ margin_left = 3240.0
 margin_top = 1920.0
 margin_right = 3240.0
 margin_bottom = 1920.0
+mouse_filter = 2
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -188,6 +205,7 @@ __meta__ = {
 [node name="texBackground" type="TextureRect" parent="Globals/SettingsNode"]
 margin_right = 1080.0
 margin_bottom = 1920.0
+mouse_filter = 2
 texture = ExtResource( 12 )
 stretch_mode = 2
 __meta__ = {
@@ -203,6 +221,7 @@ script = ExtResource( 13 )
 margin_right = 1080.0
 margin_bottom = 272.0
 rect_scale = Vector2( 0.985, 1.07 )
+mouse_filter = 2
 texture = ExtResource( 7 )
 stretch_mode = 2
 __meta__ = {
@@ -253,6 +272,120 @@ stream = ExtResource( 16 )
 [node name="templateNode" type="Node2D" parent="."]
 position = Vector2( -799.072, -1515.17 )
 
+[node name="tmpStructure" type="TextureRect" parent="templateNode"]
+margin_left = -37.8275
+margin_top = 142.715
+margin_right = 218.173
+margin_bottom = 398.715
+mouse_filter = 2
+size_flags_horizontal = 9
+texture = ExtResource( 5 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="tmpQuad" type="Node2D" parent="templateNode"]
+position = Vector2( 1000, 0 )
+script = ExtResource( 14 )
+
+[node name="bodyQuadU" type="Area2D" parent="templateNode/tmpQuad"]
+script = ExtResource( 19 )
+
+[node name="quadShape" type="CollisionShape2D" parent="templateNode/tmpQuad/bodyQuadU"]
+shape = SubResource( 9 )
+
+[node name="texQuad" type="TextureRect" parent="templateNode/tmpQuad/bodyQuadU/quadShape"]
+margin_right = 128.0
+margin_bottom = 128.0
+rect_pivot_offset = Vector2( 64, 64 )
+mouse_filter = 2
+texture = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="bodyQuadR" type="Area2D" parent="templateNode/tmpQuad"]
+position = Vector2( 128, 0 )
+rotation = 1.5708
+script = ExtResource( 19 )
+
+[node name="quadShape" type="CollisionShape2D" parent="templateNode/tmpQuad/bodyQuadR"]
+shape = SubResource( 9 )
+
+[node name="texQuad" type="TextureRect" parent="templateNode/tmpQuad/bodyQuadR/quadShape"]
+margin_right = 128.0
+margin_bottom = 128.0
+rect_pivot_offset = Vector2( 64, 64 )
+mouse_filter = 2
+texture = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="bodyQuadD" type="Area2D" parent="templateNode/tmpQuad"]
+position = Vector2( 128, 128 )
+rotation = 3.14159
+script = ExtResource( 19 )
+
+[node name="quadShape" type="CollisionShape2D" parent="templateNode/tmpQuad/bodyQuadD"]
+shape = SubResource( 9 )
+
+[node name="texQuad" type="TextureRect" parent="templateNode/tmpQuad/bodyQuadD/quadShape"]
+margin_right = 128.0
+margin_bottom = 128.0
+rect_pivot_offset = Vector2( 64, 64 )
+mouse_filter = 2
+texture = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="bodyQuadL" type="Area2D" parent="templateNode/tmpQuad"]
+position = Vector2( 0, 128 )
+rotation = 4.71239
+script = ExtResource( 19 )
+
+[node name="quadShape" type="CollisionShape2D" parent="templateNode/tmpQuad/bodyQuadL"]
+shape = SubResource( 9 )
+
+[node name="texQuad" type="TextureRect" parent="templateNode/tmpQuad/bodyQuadL/quadShape"]
+margin_right = 128.0
+margin_bottom = 128.0
+rect_pivot_offset = Vector2( 64, 64 )
+mouse_filter = 2
+texture = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="bodyQuadC" type="Area2D" parent="templateNode/tmpQuad"]
+script = ExtResource( 19 )
+
+[node name="quadShape" type="CollisionShape2D" parent="templateNode/tmpQuad/bodyQuadC"]
+position = Vector2( 64, 64 )
+shape = SubResource( 8 )
+
+[node name="texQuad" type="TextureRect" parent="templateNode/tmpQuad/bodyQuadC/quadShape"]
+visible = false
+margin_left = -64.0
+margin_top = -64.0
+margin_right = 64.0
+margin_bottom = 64.0
+rect_pivot_offset = Vector2( 64, 64 )
+mouse_filter = 2
+texture = ExtResource( 20 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="bodyWhole" type="Area2D" parent="templateNode/tmpQuad"]
+position = Vector2( 64, 64 )
+script = ExtResource( 23 )
+
+[node name="quadShape" type="CollisionShape2D" parent="templateNode/tmpQuad/bodyWhole"]
+shape = SubResource( 12 )
+
 [node name="tmpText" type="Label" parent="templateNode"]
 margin_left = 80.7938
 margin_top = -40.005
@@ -269,10 +402,11 @@ __meta__ = {
 }
 
 [node name="tmpAddStructure" type="TextureRect" parent="templateNode"]
-margin_left = 400.0
-margin_top = 400.0
-margin_right = 656.0
-margin_bottom = 656.0
+margin_left = 239.819
+margin_top = 159.729
+margin_right = 495.819
+margin_bottom = 415.729
+mouse_filter = 2
 texture = ExtResource( 5 )
 expand = true
 stretch_mode = 6
@@ -285,18 +419,6 @@ __meta__ = {
 position = Vector2( 16, 16 )
 shape = SubResource( 6 )
 
-[node name="tmpStructure" type="TextureRect" parent="templateNode"]
-margin_left = 400.0
-margin_top = 100.0
-margin_right = 656.0
-margin_bottom = 356.0
-size_flags_horizontal = 9
-texture = ExtResource( 5 )
-expand = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
 [node name="tmpResource" type="TextureRect" parent="templateNode"]
 margin_left = 541.555
 margin_top = 9.03217
@@ -304,6 +426,7 @@ margin_right = 573.555
 margin_bottom = 41.0322
 rect_scale = Vector2( 2, 2 )
 rect_pivot_offset = Vector2( 32, 32 )
+mouse_filter = 2
 texture = ExtResource( 17 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -311,83 +434,6 @@ __meta__ = {
 
 [node name="tmpConveyorNode" type="Node2D" parent="templateNode"]
 script = ExtResource( 24 )
-
-[node name="tmpQuad" type="Node2D" parent="templateNode"]
-
-[node name="bodyQuadU" type="StaticBody2D" parent="templateNode/tmpQuad"]
-input_pickable = true
-physics_material_override = SubResource( 15 )
-script = ExtResource( 14 )
-
-[node name="quadShape" type="CollisionShape2D" parent="templateNode/tmpQuad/bodyQuadU"]
-shape = SubResource( 13 )
-
-[node name="texQuad" type="TextureRect" parent="templateNode/tmpQuad/bodyQuadU/quadShape"]
-margin_right = 40.0
-margin_bottom = 40.0
-rect_pivot_offset = Vector2( 64, 64 )
-texture = ExtResource( 3 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="bodyQuadR" type="StaticBody2D" parent="templateNode/tmpQuad"]
-position = Vector2( 128, 0 )
-rotation = 1.5708
-input_pickable = true
-
-[node name="quadShape" type="CollisionShape2D" parent="templateNode/tmpQuad/bodyQuadR"]
-shape = SubResource( 13 )
-
-[node name="texQuad" type="TextureRect" parent="templateNode/tmpQuad/bodyQuadR/quadShape"]
-margin_right = 40.0
-margin_bottom = 40.0
-rect_pivot_offset = Vector2( 64, 64 )
-texture = ExtResource( 3 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="bodyQuadD" type="StaticBody2D" parent="templateNode/tmpQuad"]
-position = Vector2( 128, 128 )
-rotation = -3.14159
-input_pickable = true
-
-[node name="quadShape" type="CollisionShape2D" parent="templateNode/tmpQuad/bodyQuadD"]
-shape = SubResource( 13 )
-
-[node name="texQuad" type="TextureRect" parent="templateNode/tmpQuad/bodyQuadD/quadShape"]
-margin_right = 40.0
-margin_bottom = 40.0
-rect_pivot_offset = Vector2( 64, 64 )
-texture = ExtResource( 3 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="bodyQuadL" type="StaticBody2D" parent="templateNode/tmpQuad"]
-position = Vector2( 0, 128 )
-rotation = -1.5708
-input_pickable = true
-
-[node name="quadShape" type="CollisionShape2D" parent="templateNode/tmpQuad/bodyQuadL"]
-shape = SubResource( 13 )
-
-[node name="texQuad" type="TextureRect" parent="templateNode/tmpQuad/bodyQuadL/quadShape"]
-margin_right = 40.0
-margin_bottom = 40.0
-rect_pivot_offset = Vector2( 64, 64 )
-texture = ExtResource( 3 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="bodyCenter" type="StaticBody2D" parent="templateNode/tmpQuad"]
-input_pickable = true
-
-[node name="quadShape" type="CollisionShape2D" parent="templateNode/tmpQuad/bodyCenter"]
-position = Vector2( 64, 64 )
-shape = SubResource( 14 )
 
 [node name="tmpConfirm" type="NinePatchRect" parent="templateNode"]
 margin_left = 442.0
@@ -424,10 +470,11 @@ position = Vector2( 128, 128 )
 normal = ExtResource( 25 )
 
 [node name="tmpProgress" type="TextureProgress" parent="templateNode"]
-margin_left = 726.624
-margin_top = 203.705
-margin_right = 1026.62
-margin_bottom = 503.705
+margin_left = 523.728
+margin_top = 139.633
+margin_right = 823.728
+margin_bottom = 439.633
+mouse_filter = 2
 texture_progress = ExtResource( 80 )
 fill_mode = 4
 __meta__ = {
@@ -438,14 +485,15 @@ __meta__ = {
 show_behind_parent = true
 margin_right = 40.0
 margin_bottom = 40.0
+mouse_filter = 2
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="tmpTileDetect" type="TouchScreenButton" parent="templateNode"]
-position = Vector2( 1106.69, -1.29077 )
+position = Vector2( 754.292, -180.159 )
 normal = ExtResource( 81 )
-shape = SubResource( 12 )
+shape = SubResource( 10 )
 script = ExtResource( 78 )
 [connection signal="released" from="BottomBarNode/btnFactoryFloor" to="BottomBarNode" method="_on_btnFactoryFloor_released"]
 [connection signal="released" from="BottomBarNode/btnCraftingFloor" to="BottomBarNode" method="_on_btnCraftingFloor_released"]
@@ -457,9 +505,6 @@ script = ExtResource( 78 )
 [connection signal="released" from="BottomBarNode/btnSettingsFloor" to="BottomBarNode" method="_on_btnSettingsFloor_released"]
 [connection signal="pressed" from="templateNode/tmpAddStructure/btnAdd" to="templateNode/tmpAddStructure" method="_on_btnAdd_pressed"]
 [connection signal="released" from="templateNode/tmpAddStructure/btnAdd" to="templateNode/tmpAddStructure" method="_on_btnAdd_released"]
-[connection signal="input_event" from="templateNode/tmpQuad/bodyQuadU" to="templateNode/tmpQuad/bodyQuadU" method="_on_bodyQuad_input_event"]
-[connection signal="mouse_entered" from="templateNode/tmpQuad/bodyQuadU" to="templateNode/tmpQuad/bodyQuadU" method="_on_bodyQuadU_mouse_entered"]
-[connection signal="mouse_exited" from="templateNode/tmpQuad/bodyQuadU" to="templateNode/tmpQuad/bodyQuadU" method="_on_bodyQuadU_mouse_exited"]
 [connection signal="released" from="templateNode/tmpConfirm/btnYes" to="templateNode/tmpConfirm" method="_on_btnYes_released"]
 [connection signal="released" from="templateNode/tmpConfirm/btnNo" to="templateNode/tmpConfirm" method="_on_btnNo_released"]
 [connection signal="pressed" from="templateNode/tmpTileDetect" to="templateNode/tmpTileDetect" method="_on_tmpTileDetect_pressed"]

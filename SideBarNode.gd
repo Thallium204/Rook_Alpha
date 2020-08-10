@@ -88,7 +88,6 @@ func _on_btnConnectToggle_pressed():
 		elif Globals.drawConveyorMode == "ready":  # If move mode is "ready"
 			Globals.drawConveyorMode = "off" # Set move mode to "off"
 
-
 func _on_btnDeleteToggle_pressed():
 	if Globals.isMenuOpen == false: # If the menu isn't open
 		if Globals.moveStructureMode != "moving" and Globals.drawConveyorMode != "moving": # Don't allow deleting in "moving" mode

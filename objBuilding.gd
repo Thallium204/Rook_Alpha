@@ -22,6 +22,7 @@ func configure(structureData,structType): # Called when we want to initialise th
 	# Set the image size
 	rect_size = Vector2( ctrlFactoryFloor.tileSize * shapeData[0].size()  , ctrlFactoryFloor.tileSize * shapeData.size() )
 	$tmpProgress.rect_scale = rect_size/(300*Vector2.ONE) # Scale the progress bar
+	mouse_filter = Control.MOUSE_FILTER_PASS
 
 func updateUI(): # Called when we want to update the display nodes for the user
 	
