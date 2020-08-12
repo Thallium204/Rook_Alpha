@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=2]
+[gd_scene load_steps=29 format=2]
 
 [ext_resource path="res://Assets/Buttons/TopBar/img_storage_off.png" type="Texture" id=1]
 [ext_resource path="res://ctrlFactoryFloor.gd" type="Script" id=2]
@@ -19,6 +19,7 @@
 [ext_resource path="res://Assets/Buttons/SideBar/img_info_off.png" type="Texture" id=17]
 [ext_resource path="res://Assets/Buttons/TopBar/img_buildings_off.png" type="Texture" id=18]
 [ext_resource path="res://Assets/Buttons/SideBar/img_connect_off.png" type="Texture" id=19]
+[ext_resource path="res://Assets/Buttons/SideBar/img_add_res_off.png" type="Texture" id=20]
 
 [sub_resource type="DynamicFont" id=1]
 size = 30
@@ -49,6 +50,9 @@ font_data = ExtResource( 6 )
 radius = 64.0
 
 [sub_resource type="CircleShape2D" id=7]
+radius = 64.0
+
+[sub_resource type="CircleShape2D" id=8]
 radius = 64.0
 
 [node name="FactoryNode" type="Control"]
@@ -730,6 +734,11 @@ position = Vector2( -128, 416 )
 normal = ExtResource( 10 )
 shape = SubResource( 6 )
 
+[node name="btnSpawnResToggle" type="TouchScreenButton" parent="SideBarNode"]
+position = Vector2( -128, 552 )
+normal = ExtResource( 20 )
+shape = SubResource( 8 )
+
 [node name="twnSideBar" type="Tween" parent="SideBarNode"]
 [connection signal="pressed" from="TopBarNode/btnBuildingMenu" to="TopBarNode" method="_on_btnBuildingMenu_pressed"]
 [connection signal="pressed" from="TopBarNode/btnStorageMenu" to="TopBarNode" method="_on_btnStorageMenu_pressed"]
@@ -739,3 +748,4 @@ shape = SubResource( 6 )
 [connection signal="pressed" from="SideBarNode/btnMoveToggle" to="SideBarNode" method="_on_btnMoveToggle_pressed"]
 [connection signal="pressed" from="SideBarNode/btnConnectToggle" to="SideBarNode" method="_on_btnConnectToggle_pressed"]
 [connection signal="pressed" from="SideBarNode/btnDeleteToggle" to="SideBarNode" method="_on_btnDeleteToggle_pressed"]
+[connection signal="pressed" from="SideBarNode/btnSpawnResToggle" to="SideBarNode" method="_on_btnSpawnResToggle_pressed"]

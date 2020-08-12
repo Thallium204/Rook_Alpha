@@ -30,7 +30,6 @@ func updateUI(): # Called when we want to update the display nodes for the user
 	texture = load("res://Assets/Building/img_"+structureName.to_lower()+".png")
 
 func _process(delta):
-	
 	# Prevent clicking when menu is open
 	if Globals.isMenuOpen == false:
 		canBeTouched = true

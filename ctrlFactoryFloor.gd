@@ -5,6 +5,8 @@ onready var templateNode = get_tree().get_root().get_node("Game/templateNode")
 onready var FactorySpace = get_node("../FactorySpace")
 onready var camFactory = get_node("../camFactory")
 
+var resource = preload("res://ResourceScene.tscn")
+
 var gridCols = 9
 var gridRows = 18
 var pointerArray = []
@@ -25,10 +27,20 @@ func _ready():
 	# Initialise the background size
 	FactorySpace.rect_size = tileSize * Vector2(gridCols,gridRows)
 
+func spawnResource(structureData, spawnPosition):
+	var newResource = resource.instance()
+	newResource.name = structureData[0]+str(entityCount)
+	entityCount += 1
+	
+	newResource.position = spawnPosition
+	
+	add_child(newResource)
+
 func addStructure(structureData,structType,quickAdd=false):
 	
-	# structureData = [ nameID , inputResList , outputResList , processTime , shapeData ]
-	# structureData = [ nameID , internalStorageList , shapeData ]
+	# structureData = [ nameID , inputResList , outputResList , processTime , shapeData ] for buildings
+	# structureData = [ nameID , inputResList = outputResList (is dumped at _process) , outputResList , shapeData ] for storage
+	# structureData = [ nameID , inputResList = outputResList (is dumped at _process) , outputResList , extractionSpeed , shapeData ]
 	# structType = "Building" or "Storage"
 	
 	# Get the structure template
@@ -56,9 +68,6 @@ func addStructure(structureData,structType,quickAdd=false):
 		newStructure.script = load("res://objStorage.gd")
 	
 	elif structType == "conveyor": # If this is a conveyor we need to add ...
-		
-		# Add it's shape data
-		structureData.append([[1]])
 		
 		var newQuad = templateNode.get_node("tmpQuad").duplicate()
 		newQuad.position = Vector2.ZERO
@@ -119,7 +128,7 @@ func addConveyor(originalTile,lastQuadrant="bodyQuadU"):
 	if pointerArray[tile[0]][tile[1]] == null: # If we have moved into null space
 		
 		# Add a new conveyor
-		var newConveyor = addStructure(["standard",0.5],"conveyor",true)
+		var newConveyor = addStructure(["Standard",		[["Solid",1]],		[["Solid",1]], 		0.5,		[[1]]],"conveyor",true)
 		newConveyor.shapeData = [[tile]]
 		pointerArray[tile[0]][tile[1]] = newConveyor
 		newConveyor.rect_position = Vector2( tile[1]*tileSize , tile[0]* tileSize )
