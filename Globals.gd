@@ -46,9 +46,9 @@ var buildingBank = [
 # [ nameID , inputResList , outputResList , shapeData ]
 var storageBank = [
 	
-	["Hole",		[["Solid",4]],					[["Solid",4]],			[[1,1]]	],
+	["Hole",		[["Solid",4]],			[[1,1]]	],
 	
-	["Hole2",		[["Solid",8]],					[["Solid",8]],			[[1,1],[1,1]]	]]
+	["Hole2",		[["Solid",8]],			[[1,1],[1,1]]	]]
 
 # [ nameID , internalStorage ]
 var resourceBank = [

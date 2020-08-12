@@ -4,13 +4,23 @@ onready var Globals = get_tree().get_root().get_node("Game/Globals")
 onready var FactoryNode = Globals.get_node("FactoryNode")
 onready var ctrlFactoryFloor = FactoryNode.get_node("ctnFactoryViewport/vptFactoryScene/ctrlFactoryFloor")
 
+var dict = {
+	"U":Vector2( 0,-1),
+	"R":Vector2( 1, 0),
+	"D":Vector2( 0, 1),
+	"L":Vector2(-1, 0)
+}
+
 var isFingerHere = true
 var inputs = []
 var outputs = []
 var firstQuadrant = ""
 var lastQuadrant = ""
 
-func _process(_delta):
+var extractTimer = 1.0
+var timer = 0.0
+
+func _process(delta):
 	
 	# Draw the textures
 	for child in get_children():
@@ -21,7 +31,17 @@ func _process(_delta):
 #		else:
 #			child.get_node("quadShape/texQuad").texture = load("res://Assets/Conveyor/conv_quadrants/QuadU_none.png")
 	
-	# Handle extraction and insertion
+	# Handle extraction
+	if timer >= extractTimer:
+		for input in inputs:
+			var vectorDir = dict[input[-1]]
+			var shapeArray = get_parent().shapeData[0][0]
+			var inputNode = ctrlFactoryFloor.pointerArray[shapeArray[0]+vectorDir[1]][shapeArray[1]+vectorDir[0]]
+			if inputNode.structureType != "conveyor":
+				inputNode.pullResource(self.get_parent())
+		timer = 0
+	else:
+		timer += delta
 	
 
 func addInput(input):
@@ -33,14 +53,12 @@ func addOutput(output):
 		outputs.append(output)
 
 func begin():
-	print(self," BEGIN")
 	isFingerHere = true
 	firstQuadrant = lastQuadrant
 	if firstQuadrant != "":
 		addInput(firstQuadrant)
 
 func end():
-	print(self," END")
 	isFingerHere = false
 	addOutput(lastQuadrant)
 	# Add new Conveyor
@@ -63,10 +81,9 @@ func entered(quadrant):
 	
 	if isFingerHere == true:
 		lastQuadrant = quadrant
-		print(self," Entering: ",lastQuadrant)
 
 func exited(_quadrant):
 	
-	print(self," Leaving: ",lastQuadrant)
+	pass
 	
 	

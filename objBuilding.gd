@@ -21,13 +21,36 @@ func configure(structureData,structType): # Called when we want to initialise th
 	shapeData = structureData[-1]
 	# Set the image size
 	rect_size = Vector2( ctrlFactoryFloor.tileSize * shapeData[0].size()  , ctrlFactoryFloor.tileSize * shapeData.size() )
-	$tmpProgress.rect_scale = rect_size/(300*Vector2.ONE) # Scale the progress bar
+	$tmpProgress.rect_scale = Vector2.ONE*(rect_size[0]/64) # Scale the progress bar
 	mouse_filter = Control.MOUSE_FILTER_PASS
 
 func updateUI(): # Called when we want to update the display nodes for the user
 	
 	# Update the structure image
 	texture = load("res://Assets/Building/img_"+structureName.to_lower()+".png")
+
+func inputResource(resourceName):
+	for inputData in internalStorage[0]: # Scan through input resource options
+		if resourceName == inputData[0]: #  If we have found the corresponding resource option
+			if inputData[1] < inputData[2]: # If there's room
+				inputData[1] += 1
+				return true
+	return false # We could not add the resource for whatever reason
+
+func pullResource(conveyorNode):
+	
+	# Add the conveyor node to the toList if it's not already there
+	if not(conveyorNode in toList):
+		toList.append(conveyorNode)
+	
+	# If it's our turn to be output to
+	#if toList[toPointer] == self:
+	if true:
+		if internalStorage[-1][0][1] != 0:
+			internalStorage[-1][0][1] -= 1
+			ctrlFactoryFloor.spawnResource(["Resource"], conveyorNode.rect_position+Vector2(16,16), internalStorage[-1][0][0])
+			return true
+	return false
 
 func _process(delta):
 	# Prevent clicking when menu is open

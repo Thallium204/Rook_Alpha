@@ -34,9 +34,7 @@ func updateUI(): # Called when we want to update the display nodes for the user
 
 func _process(delta):
 	testtimer += delta
-	if testtimer > 10:
-		snapConnection()
-		testtimer = 0
+#	snapConnection()
 	# Dump resources from input buffer into main/output storage
 #	internalStorage[1][1] += internalStorage[0][1]
 #	internalStorage[0][1] = 0
@@ -44,71 +42,71 @@ func _process(delta):
 #		internalStorage[1][1] = internalStorage[1][2]
 	# snapConnection()
 	pass
-
-func snapConnection(): # called every process tick to update snap connections
-
-	if !Quad.inputs.empty():
-		for i in Quad.inputs:
-			if i == "bodyQuadU":
-				if ctrlFactoryFloor.pointerArray[shapeData[0][0][0] - 1][shapeData[0][0][1]] != null:
-					var snapEntity = ctrlFactoryFloor.pointerArray[shapeData[0][0][0] - 1][shapeData[0][0][1]] # entity being snapped to
-					
-					# add from and to connections in both entities
-					fromList.append(snapEntity)
-					snapEntity.toList.append(self)
-			if i == "bodyQuadD":
-				if ctrlFactoryFloor.pointerArray[shapeData[0][0][0] + 1][shapeData[0][0][1]] != null:
-					var snapEntity = ctrlFactoryFloor.pointerArray[shapeData[0][0][0] + 1][shapeData[0][0][1]] # entity being snapped to
-					
-					# add from and to connections in both entities
-					fromList.append(snapEntity)
-					snapEntity.toList.append(self)
-			if i == "bodyQuadR":
-				if ctrlFactoryFloor.pointerArray[shapeData[0][0][0]][shapeData[0][0][1] + 1] != null:
-					var snapEntity = ctrlFactoryFloor.pointerArray[shapeData[0][0][0]][shapeData[0][0][1] + 1] # entity being snapped to
-					
-					# add from and to connections in both entities
-					fromList.append(snapEntity)
-					snapEntity.toList.append(self)
-			if i == "bodyQuadL":
-				if ctrlFactoryFloor.pointerArray[shapeData[0][0][0]][shapeData[0][0][1] - 1] != null:
-					var snapEntity = ctrlFactoryFloor.pointerArray[shapeData[0][0][0]][shapeData[0][0][1] - 1] # entity being snapped to
-					
-					# add from and to connections in both entities
-					fromList.append(snapEntity)
-					snapEntity.toList.append(self)
-					
-	if !Quad.outputs.empty():
-		for i in Quad.outputs:
-			if i == "bodyQuadU":
-				if ctrlFactoryFloor.pointerArray[shapeData[0][0][0] - 1][shapeData[0][0][1]] != null:
-					var snapEntity = ctrlFactoryFloor.pointerArray[shapeData[0][0][0] - 1][shapeData[0][0][1]] # entity being snapped to
-					
-					# add from and to connections in both entities
-					toList.append(snapEntity)
-					snapEntity.fromList.append(self)
-			if i == "bodyQuadD":
-				if ctrlFactoryFloor.pointerArray[shapeData[0][0][0] + 1][shapeData[0][0][1]] != null:
-					var snapEntity = ctrlFactoryFloor.pointerArray[shapeData[0][0][0] + 1][shapeData[0][0][1]] # entity being snapped to
-					
-					# add from and to connections in both entities
-					toList.append(snapEntity)
-					snapEntity.fromList.append(self)
-			if i == "bodyQuadR":
-				if ctrlFactoryFloor.pointerArray[shapeData[0][0][0]][shapeData[0][0][1] + 1] != null:
-					var snapEntity = ctrlFactoryFloor.pointerArray[shapeData[0][0][0]][shapeData[0][0][1] + 1] # entity being snapped to
-					
-					# add from and to connections in both entities
-					toList.append(snapEntity)
-					snapEntity.fromList.append(self)
-			if i == "bodyQuadL":
-				if ctrlFactoryFloor.pointerArray[shapeData[0][0][0]][shapeData[0][0][1] - 1] != null:
-					var snapEntity = ctrlFactoryFloor.pointerArray[shapeData[0][0][0]][shapeData[0][0][1] - 1] # entity being snapped to
-					
-					# add from and to connections in both entities
-					toList.append(snapEntity)
-					snapEntity.fromList.append(self)
-
+#
+#func snapConnection(): # called every process tick to update snap connections
+#
+#	if !Quad.inputs.empty():
+#		for i in Quad.inputs:
+#			if i == "bodyQuadU":
+#				if ctrlFactoryFloor.pointerArray[shapeData[0][0][0] - 1][shapeData[0][0][1]] != null:
+#					var snapEntity = ctrlFactoryFloor.pointerArray[shapeData[0][0][0] - 1][shapeData[0][0][1]] # entity being snapped to
+#
+#					# add from and to connections in both entities
+#					fromList.append(snapEntity)
+#					snapEntity.toList.append(self)
+#			if i == "bodyQuadD":
+#				if ctrlFactoryFloor.pointerArray[shapeData[0][0][0] + 1][shapeData[0][0][1]] != null:
+#					var snapEntity = ctrlFactoryFloor.pointerArray[shapeData[0][0][0] + 1][shapeData[0][0][1]] # entity being snapped to
+#
+#					# add from and to connections in both entities
+#					fromList.append(snapEntity)
+#					snapEntity.toList.append(self)
+#			if i == "bodyQuadR":
+#				if ctrlFactoryFloor.pointerArray[shapeData[0][0][0]][shapeData[0][0][1] + 1] != null:
+#					var snapEntity = ctrlFactoryFloor.pointerArray[shapeData[0][0][0]][shapeData[0][0][1] + 1] # entity being snapped to
+#
+#					# add from and to connections in both entities
+#					fromList.append(snapEntity)
+#					snapEntity.toList.append(self)
+#			if i == "bodyQuadL":
+#				if ctrlFactoryFloor.pointerArray[shapeData[0][0][0]][shapeData[0][0][1] - 1] != null:
+#					var snapEntity = ctrlFactoryFloor.pointerArray[shapeData[0][0][0]][shapeData[0][0][1] - 1] # entity being snapped to
+#
+#					# add from and to connections in both entities
+#					fromList.append(snapEntity)
+#					snapEntity.toList.append(self)
+#
+#	if !Quad.outputs.empty():
+#		for i in Quad.outputs:
+#			if i == "bodyQuadU":
+#				if ctrlFactoryFloor.pointerArray[shapeData[0][0][0] - 1][shapeData[0][0][1]] != null:
+#					var snapEntity = ctrlFactoryFloor.pointerArray[shapeData[0][0][0] - 1][shapeData[0][0][1]] # entity being snapped to
+#
+#					# add from and to connections in both entities
+#					toList.append(snapEntity)
+#					snapEntity.fromList.append(self)
+#			if i == "bodyQuadD":
+#				if ctrlFactoryFloor.pointerArray[shapeData[0][0][0] + 1][shapeData[0][0][1]] != null:
+#					var snapEntity = ctrlFactoryFloor.pointerArray[shapeData[0][0][0] + 1][shapeData[0][0][1]] # entity being snapped to
+#
+#					# add from and to connections in both entities
+#					toList.append(snapEntity)
+#					snapEntity.fromList.append(self)
+#			if i == "bodyQuadR":
+#				if ctrlFactoryFloor.pointerArray[shapeData[0][0][0]][shapeData[0][0][1] + 1] != null:
+#					var snapEntity = ctrlFactoryFloor.pointerArray[shapeData[0][0][0]][shapeData[0][0][1] + 1] # entity being snapped to
+#
+#					# add from and to connections in both entities
+#					toList.append(snapEntity)
+#					snapEntity.fromList.append(self)
+#			if i == "bodyQuadL":
+#				if ctrlFactoryFloor.pointerArray[shapeData[0][0][0]][shapeData[0][0][1] - 1] != null:
+#					var snapEntity = ctrlFactoryFloor.pointerArray[shapeData[0][0][0]][shapeData[0][0][1] - 1] # entity being snapped to
+#
+#					# add from and to connections in both entities
+#					toList.append(snapEntity)
+#					snapEntity.fromList.append(self)
+#
 
 func onStructure_Pressed(tile): # Called when our structure is pressed
 	

@@ -16,7 +16,7 @@ var dragDistance = 1.0
 var lastDragDistance = 1.0
 var zoomModifier = 1.0
 
-var vertical_offset = 128.0
+var vertical_offset = 32.0
 
 var zoomStart = [Vector2.ZERO,Vector2.ZERO,Vector2.ZERO]
 
@@ -86,7 +86,7 @@ func _input(event):
 		if event is InputEventMouseButton:
 			if event.is_pressed():
 				if event.button_index == BUTTON_LEFT:
-					ctrlFactoryFloor.spawnResource(["Resource"], event.position)
+					ctrlFactoryFloor.spawnResource(["Resource"], position,"Coal")
 		return
 
 

@@ -2,13 +2,13 @@
 
 [ext_resource path="res://Assets/Buttons/TopBar/img_storage_off.png" type="Texture" id=1]
 [ext_resource path="res://ctrlFactoryFloor.gd" type="Script" id=2]
-[ext_resource path="res://Assets/Tileables/img_factory_grass_128x.png" type="Texture" id=3]
+[ext_resource path="res://Assets/Tileables/img_factory_grass_32x.png" type="Texture" id=3]
 [ext_resource path="res://camFactory.gd" type="Script" id=4]
 [ext_resource path="res://Assets/Misc/img_cursor.png" type="Texture" id=5]
 [ext_resource path="res://Fonts/minecraft_regular.otf" type="DynamicFontData" id=6]
 [ext_resource path="res://SideBarNode.gd" type="Script" id=7]
 [ext_resource path="res://Assets/Buttons/TopBar/img_conveyors_off.png" type="Texture" id=8]
-[ext_resource path="res://Assets/Menu/img_menu_black_36x.png" type="Texture" id=9]
+[ext_resource path="res://Assets/Menu/img_menu_black_9x.png" type="Texture" id=9]
 [ext_resource path="res://Assets/Buttons/SideBar/img_delete_off.png" type="Texture" id=10]
 [ext_resource path="res://Assets/Tileables/img_factory_orange_120x.png" type="Texture" id=11]
 [ext_resource path="res://TopBarNode.gd" type="Script" id=12]
@@ -119,8 +119,7 @@ script = ExtResource( 4 )
 [node name="texCursor" type="TextureRect" parent="ctnFactoryViewport/vptFactoryScene/camFactory"]
 margin_left = -16.0
 margin_top = -16.0
-margin_right = 16.0
-margin_bottom = 16.0
+rect_scale = Vector2( 2, 2 )
 mouse_filter = 2
 texture = ExtResource( 5 )
 __meta__ = {
@@ -234,11 +233,11 @@ margin_top = 1202.0
 margin_bottom = 1490.0
 rect_scale = Vector2( 1, 1.07 )
 texture = ExtResource( 9 )
-region_rect = Rect2( 0, 0, 36, 36 )
-patch_margin_left = 18
-patch_margin_top = 18
-patch_margin_right = 18
-patch_margin_bottom = 18
+region_rect = Rect2( 0, 0, 9, 9 )
+patch_margin_left = 4
+patch_margin_top = 4
+patch_margin_right = 4
+patch_margin_bottom = 4
 script = ExtResource( 13 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -309,9 +308,9 @@ mouse_filter = 2
 alignment = 1
 
 [node name="hgrdInput1" type="HBoxContainer" parent="SideBarNode/texInfoBar/hgrdPanels/vgrdInputList"]
-margin_top = 20.0
+margin_top = 30.0
 margin_right = 270.0
-margin_bottom = 84.0
+margin_bottom = 87.0
 mouse_filter = 2
 size_flags_vertical = 0
 alignment = 1
@@ -320,9 +319,9 @@ __meta__ = {
 }
 
 [node name="labCurrent" type="Label" parent="SideBarNode/texInfoBar/hgrdPanels/vgrdInputList/hgrdInput1"]
-margin_left = 46.0
-margin_right = 80.0
-margin_bottom = 64.0
+margin_left = 49.0
+margin_right = 83.0
+margin_bottom = 57.0
 size_flags_vertical = 1
 custom_fonts/font = SubResource( 4 )
 custom_colors/font_color = Color( 1, 0, 0, 1 )
@@ -333,9 +332,9 @@ __meta__ = {
 }
 
 [node name="labSlash" type="Label" parent="SideBarNode/texInfoBar/hgrdPanels/vgrdInputList/hgrdInput1"]
-margin_left = 84.0
-margin_right = 118.0
-margin_bottom = 64.0
+margin_left = 87.0
+margin_right = 121.0
+margin_bottom = 57.0
 size_flags_vertical = 1
 custom_fonts/font = SubResource( 4 )
 text = "/"
@@ -345,9 +344,9 @@ __meta__ = {
 }
 
 [node name="labCapacity" type="Label" parent="SideBarNode/texInfoBar/hgrdPanels/vgrdInputList/hgrdInput1"]
-margin_left = 122.0
-margin_right = 156.0
-margin_bottom = 64.0
+margin_left = 125.0
+margin_right = 159.0
+margin_bottom = 57.0
 size_flags_vertical = 1
 custom_fonts/font = SubResource( 4 )
 text = "3"
@@ -357,19 +356,20 @@ __meta__ = {
 }
 
 [node name="texResource" type="TextureRect" parent="SideBarNode/texInfoBar/hgrdPanels/vgrdInputList/hgrdInput1"]
-margin_left = 160.0
-margin_right = 224.0
-margin_bottom = 64.0
+margin_left = 163.0
+margin_right = 220.0
+margin_bottom = 57.0
+rect_min_size = Vector2( 57, 57 )
 texture = ExtResource( 14 )
-stretch_mode = 6
+expand = true
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="hgrdInput2" type="HBoxContainer" parent="SideBarNode/texInfoBar/hgrdPanels/vgrdInputList"]
-margin_top = 88.0
+margin_top = 91.0
 margin_right = 270.0
-margin_bottom = 152.0
+margin_bottom = 148.0
 mouse_filter = 2
 size_flags_vertical = 0
 alignment = 1
@@ -378,9 +378,9 @@ __meta__ = {
 }
 
 [node name="labCurrent" type="Label" parent="SideBarNode/texInfoBar/hgrdPanels/vgrdInputList/hgrdInput2"]
-margin_left = 46.0
-margin_right = 80.0
-margin_bottom = 64.0
+margin_left = 49.0
+margin_right = 83.0
+margin_bottom = 57.0
 size_flags_vertical = 1
 custom_fonts/font = SubResource( 4 )
 custom_colors/font_color = Color( 1, 0, 0, 1 )
@@ -391,9 +391,9 @@ __meta__ = {
 }
 
 [node name="labSlash" type="Label" parent="SideBarNode/texInfoBar/hgrdPanels/vgrdInputList/hgrdInput2"]
-margin_left = 84.0
-margin_right = 118.0
-margin_bottom = 64.0
+margin_left = 87.0
+margin_right = 121.0
+margin_bottom = 57.0
 size_flags_vertical = 1
 custom_fonts/font = SubResource( 4 )
 text = "/"
@@ -403,9 +403,9 @@ __meta__ = {
 }
 
 [node name="labCapacity" type="Label" parent="SideBarNode/texInfoBar/hgrdPanels/vgrdInputList/hgrdInput2"]
-margin_left = 122.0
-margin_right = 156.0
-margin_bottom = 64.0
+margin_left = 125.0
+margin_right = 159.0
+margin_bottom = 57.0
 size_flags_vertical = 1
 custom_fonts/font = SubResource( 4 )
 text = "3"
@@ -415,19 +415,20 @@ __meta__ = {
 }
 
 [node name="texResource" type="TextureRect" parent="SideBarNode/texInfoBar/hgrdPanels/vgrdInputList/hgrdInput2"]
-margin_left = 160.0
-margin_right = 224.0
-margin_bottom = 64.0
+margin_left = 163.0
+margin_right = 220.0
+margin_bottom = 57.0
+rect_min_size = Vector2( 57, 57 )
 texture = ExtResource( 14 )
-stretch_mode = 6
+expand = true
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="hgrdInput3" type="HBoxContainer" parent="SideBarNode/texInfoBar/hgrdPanels/vgrdInputList"]
-margin_top = 156.0
+margin_top = 152.0
 margin_right = 270.0
-margin_bottom = 220.0
+margin_bottom = 209.0
 mouse_filter = 2
 size_flags_vertical = 0
 alignment = 1
@@ -436,9 +437,9 @@ __meta__ = {
 }
 
 [node name="labCurrent" type="Label" parent="SideBarNode/texInfoBar/hgrdPanels/vgrdInputList/hgrdInput3"]
-margin_left = 46.0
-margin_right = 80.0
-margin_bottom = 64.0
+margin_left = 49.0
+margin_right = 83.0
+margin_bottom = 57.0
 size_flags_vertical = 1
 custom_fonts/font = SubResource( 4 )
 custom_colors/font_color = Color( 1, 0, 0, 1 )
@@ -449,9 +450,9 @@ __meta__ = {
 }
 
 [node name="labSlash" type="Label" parent="SideBarNode/texInfoBar/hgrdPanels/vgrdInputList/hgrdInput3"]
-margin_left = 84.0
-margin_right = 118.0
-margin_bottom = 64.0
+margin_left = 87.0
+margin_right = 121.0
+margin_bottom = 57.0
 size_flags_vertical = 1
 custom_fonts/font = SubResource( 4 )
 text = "/"
@@ -461,9 +462,9 @@ __meta__ = {
 }
 
 [node name="labCapacity" type="Label" parent="SideBarNode/texInfoBar/hgrdPanels/vgrdInputList/hgrdInput3"]
-margin_left = 122.0
-margin_right = 156.0
-margin_bottom = 64.0
+margin_left = 125.0
+margin_right = 159.0
+margin_bottom = 57.0
 size_flags_vertical = 1
 custom_fonts/font = SubResource( 4 )
 text = "3"
@@ -473,11 +474,12 @@ __meta__ = {
 }
 
 [node name="texResource" type="TextureRect" parent="SideBarNode/texInfoBar/hgrdPanels/vgrdInputList/hgrdInput3"]
-margin_left = 160.0
-margin_right = 224.0
-margin_bottom = 64.0
+margin_left = 163.0
+margin_right = 220.0
+margin_bottom = 57.0
+rect_min_size = Vector2( 57, 57 )
 texture = ExtResource( 14 )
-stretch_mode = 6
+expand = true
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -528,9 +530,9 @@ mouse_filter = 2
 alignment = 1
 
 [node name="hgrdOutput1" type="HBoxContainer" parent="SideBarNode/texInfoBar/hgrdPanels/vgrdOutputList"]
-margin_top = 20.0
+margin_top = 30.0
 margin_right = 270.0
-margin_bottom = 84.0
+margin_bottom = 87.0
 mouse_filter = 2
 size_flags_vertical = 0
 alignment = 1
@@ -539,9 +541,9 @@ __meta__ = {
 }
 
 [node name="labCurrent" type="Label" parent="SideBarNode/texInfoBar/hgrdPanels/vgrdOutputList/hgrdOutput1"]
-margin_left = 46.0
-margin_right = 80.0
-margin_bottom = 64.0
+margin_left = 49.0
+margin_right = 83.0
+margin_bottom = 57.0
 size_flags_vertical = 1
 custom_fonts/font = SubResource( 4 )
 custom_colors/font_color = Color( 1, 0, 0, 1 )
@@ -552,9 +554,9 @@ __meta__ = {
 }
 
 [node name="labSlash" type="Label" parent="SideBarNode/texInfoBar/hgrdPanels/vgrdOutputList/hgrdOutput1"]
-margin_left = 84.0
-margin_right = 118.0
-margin_bottom = 64.0
+margin_left = 87.0
+margin_right = 121.0
+margin_bottom = 57.0
 size_flags_vertical = 1
 custom_fonts/font = SubResource( 4 )
 text = "/"
@@ -564,9 +566,9 @@ __meta__ = {
 }
 
 [node name="labCapacity" type="Label" parent="SideBarNode/texInfoBar/hgrdPanels/vgrdOutputList/hgrdOutput1"]
-margin_left = 122.0
-margin_right = 156.0
-margin_bottom = 64.0
+margin_left = 125.0
+margin_right = 159.0
+margin_bottom = 57.0
 size_flags_vertical = 1
 custom_fonts/font = SubResource( 4 )
 text = "3"
@@ -576,20 +578,20 @@ __meta__ = {
 }
 
 [node name="texResource" type="TextureRect" parent="SideBarNode/texInfoBar/hgrdPanels/vgrdOutputList/hgrdOutput1"]
-margin_left = 160.0
-margin_right = 224.0
-margin_bottom = 64.0
-mouse_filter = 2
+margin_left = 163.0
+margin_right = 220.0
+margin_bottom = 57.0
+rect_min_size = Vector2( 57, 57 )
 texture = ExtResource( 14 )
-stretch_mode = 6
+expand = true
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="hgrdOutput2" type="HBoxContainer" parent="SideBarNode/texInfoBar/hgrdPanels/vgrdOutputList"]
-margin_top = 88.0
+margin_top = 91.0
 margin_right = 270.0
-margin_bottom = 152.0
+margin_bottom = 148.0
 mouse_filter = 2
 size_flags_vertical = 0
 alignment = 1
@@ -598,9 +600,9 @@ __meta__ = {
 }
 
 [node name="labCurrent" type="Label" parent="SideBarNode/texInfoBar/hgrdPanels/vgrdOutputList/hgrdOutput2"]
-margin_left = 46.0
-margin_right = 80.0
-margin_bottom = 64.0
+margin_left = 49.0
+margin_right = 83.0
+margin_bottom = 57.0
 size_flags_vertical = 1
 custom_fonts/font = SubResource( 4 )
 custom_colors/font_color = Color( 1, 0, 0, 1 )
@@ -611,9 +613,9 @@ __meta__ = {
 }
 
 [node name="labSlash" type="Label" parent="SideBarNode/texInfoBar/hgrdPanels/vgrdOutputList/hgrdOutput2"]
-margin_left = 84.0
-margin_right = 118.0
-margin_bottom = 64.0
+margin_left = 87.0
+margin_right = 121.0
+margin_bottom = 57.0
 size_flags_vertical = 1
 custom_fonts/font = SubResource( 4 )
 text = "/"
@@ -623,9 +625,9 @@ __meta__ = {
 }
 
 [node name="labCapacity" type="Label" parent="SideBarNode/texInfoBar/hgrdPanels/vgrdOutputList/hgrdOutput2"]
-margin_left = 122.0
-margin_right = 156.0
-margin_bottom = 64.0
+margin_left = 125.0
+margin_right = 159.0
+margin_bottom = 57.0
 size_flags_vertical = 1
 custom_fonts/font = SubResource( 4 )
 text = "3"
@@ -635,20 +637,20 @@ __meta__ = {
 }
 
 [node name="texResource" type="TextureRect" parent="SideBarNode/texInfoBar/hgrdPanels/vgrdOutputList/hgrdOutput2"]
-margin_left = 160.0
-margin_right = 224.0
-margin_bottom = 64.0
-mouse_filter = 2
+margin_left = 163.0
+margin_right = 220.0
+margin_bottom = 57.0
+rect_min_size = Vector2( 57, 57 )
 texture = ExtResource( 14 )
-stretch_mode = 6
+expand = true
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="hgrdOutput3" type="HBoxContainer" parent="SideBarNode/texInfoBar/hgrdPanels/vgrdOutputList"]
-margin_top = 156.0
+margin_top = 152.0
 margin_right = 270.0
-margin_bottom = 220.0
+margin_bottom = 209.0
 mouse_filter = 2
 size_flags_vertical = 0
 alignment = 1
@@ -657,9 +659,9 @@ __meta__ = {
 }
 
 [node name="labCurrent" type="Label" parent="SideBarNode/texInfoBar/hgrdPanels/vgrdOutputList/hgrdOutput3"]
-margin_left = 46.0
-margin_right = 80.0
-margin_bottom = 64.0
+margin_left = 49.0
+margin_right = 83.0
+margin_bottom = 57.0
 size_flags_vertical = 1
 custom_fonts/font = SubResource( 4 )
 custom_colors/font_color = Color( 1, 0, 0, 1 )
@@ -670,9 +672,9 @@ __meta__ = {
 }
 
 [node name="labSlash" type="Label" parent="SideBarNode/texInfoBar/hgrdPanels/vgrdOutputList/hgrdOutput3"]
-margin_left = 84.0
-margin_right = 118.0
-margin_bottom = 64.0
+margin_left = 87.0
+margin_right = 121.0
+margin_bottom = 57.0
 size_flags_vertical = 1
 custom_fonts/font = SubResource( 4 )
 text = "/"
@@ -682,9 +684,9 @@ __meta__ = {
 }
 
 [node name="labCapacity" type="Label" parent="SideBarNode/texInfoBar/hgrdPanels/vgrdOutputList/hgrdOutput3"]
-margin_left = 122.0
-margin_right = 156.0
-margin_bottom = 64.0
+margin_left = 125.0
+margin_right = 159.0
+margin_bottom = 57.0
 size_flags_vertical = 1
 custom_fonts/font = SubResource( 4 )
 text = "3"
@@ -694,12 +696,12 @@ __meta__ = {
 }
 
 [node name="texResource" type="TextureRect" parent="SideBarNode/texInfoBar/hgrdPanels/vgrdOutputList/hgrdOutput3"]
-margin_left = 160.0
-margin_right = 224.0
-margin_bottom = 64.0
-mouse_filter = 2
+margin_left = 163.0
+margin_right = 220.0
+margin_bottom = 57.0
+rect_min_size = Vector2( 57, 57 )
 texture = ExtResource( 14 )
-stretch_mode = 6
+expand = true
 __meta__ = {
 "_edit_use_anchors_": false
 }

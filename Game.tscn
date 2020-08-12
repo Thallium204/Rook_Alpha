@@ -26,13 +26,13 @@
 [ext_resource path="res://oldConveyor.gd" type="Script" id=24]
 [ext_resource path="res://Assets/Menu/img_menu_no.png" type="Texture" id=25]
 [ext_resource path="res://Assets/Buttons/BottomBarSquare/img_populace_off.png" type="Texture" id=26]
+[ext_resource path="res://Assets/Menu/img_menu_black_9x.png" type="Texture" id=27]
 [ext_resource path="res://Assets/Buttons/BottomBarSquare/img_upgrades_off.png" type="Texture" id=28]
 [ext_resource path="res://Assets/Buttons/BottomBarSquare/img_quests_off.png" type="Texture" id=29]
 [ext_resource path="res://Assets/Buttons/BottomBarSquare/img_factory_on.png" type="Texture" id=30]
 [ext_resource path="res://Assets/Buttons/BottomBarSquare/img_crafting_off.png" type="Texture" id=31]
 [ext_resource path="res://Assets/Buttons/BottomBarSquare/img_settings_off.png" type="Texture" id=58]
 [ext_resource path="res://Assets/Buttons/BottomBarSquare/img_research_off.png" type="Texture" id=59]
-[ext_resource path="res://Assets/Menu/img_menu_black_36x.png" type="Texture" id=68]
 [ext_resource path="res://tmpTileDetect.gd" type="Script" id=78]
 [ext_resource path="res://tmpConfirm.gd" type="Script" id=79]
 [ext_resource path="res://Assets/Misc/img_progress_circle.png" type="Texture" id=80]
@@ -51,13 +51,13 @@ extents = Vector2( 135, 52 )
 extents = Vector2( 135, 52 )
 
 [sub_resource type="ConvexPolygonShape2D" id=5]
-points = PoolVector2Array( 0, 0, 128, 0, 96, 32, 32, 32 )
+points = PoolVector2Array( 0, 0, 32, 0, 24, 8, 8, 8 )
 
 [sub_resource type="ConvexPolygonShape2D" id=6]
-points = PoolVector2Array( -32, -32, 32, -32, 32, 32, -32, 32 )
+points = PoolVector2Array( -8, -8, 8, -8, 8, 8, -8, 8 )
 
 [sub_resource type="ConvexPolygonShape2D" id=7]
-points = PoolVector2Array( -64, -64, 64, -64, 64, 64, -64, 64 )
+points = PoolVector2Array( -16, -16, 16, -16, 16, 16, -16, 16 )
 
 [sub_resource type="DynamicFont" id=8]
 size = 80
@@ -71,7 +71,7 @@ size = 32
 font_data = ExtResource( 10 )
 
 [sub_resource type="RectangleShape2D" id=11]
-extents = Vector2( 64, 64 )
+extents = Vector2( 16, 16 )
 
 [node name="Game" type="Node2D"]
 
@@ -273,10 +273,10 @@ stream = ExtResource( 16 )
 position = Vector2( -799.072, -1515.17 )
 
 [node name="tmpStructure" type="TextureRect" parent="templateNode"]
-margin_left = -37.8275
-margin_top = 142.715
-margin_right = 218.173
-margin_bottom = 398.715
+margin_left = 112.734
+margin_top = 61.6431
+margin_right = 176.734
+margin_bottom = 125.643
 mouse_filter = 2
 size_flags_horizontal = 9
 texture = ExtResource( 5 )
@@ -286,7 +286,7 @@ __meta__ = {
 }
 
 [node name="tmpQuad" type="Node2D" parent="templateNode"]
-position = Vector2( 1000, 0 )
+position = Vector2( 599.096, -3.5636 )
 script = ExtResource( 14 )
 
 [node name="bodyQuadU" type="Area2D" parent="templateNode/tmpQuad"]
@@ -296,8 +296,8 @@ script = ExtResource( 19 )
 shape = SubResource( 5 )
 
 [node name="texQuad" type="TextureRect" parent="templateNode/tmpQuad/bodyQuadU/quadShape"]
-margin_right = 128.0
-margin_bottom = 128.0
+margin_right = 32.0
+margin_bottom = 32.0
 rect_pivot_offset = Vector2( 64, 64 )
 mouse_filter = 2
 texture = ExtResource( 3 )
@@ -306,7 +306,7 @@ __meta__ = {
 }
 
 [node name="bodyQuadR" type="Area2D" parent="templateNode/tmpQuad"]
-position = Vector2( 128, 0 )
+position = Vector2( 32, 0 )
 rotation = 1.5708
 script = ExtResource( 19 )
 
@@ -314,8 +314,8 @@ script = ExtResource( 19 )
 shape = SubResource( 5 )
 
 [node name="texQuad" type="TextureRect" parent="templateNode/tmpQuad/bodyQuadR/quadShape"]
-margin_right = 128.0
-margin_bottom = 128.0
+margin_right = 32.0
+margin_bottom = 32.0
 rect_pivot_offset = Vector2( 64, 64 )
 mouse_filter = 2
 texture = ExtResource( 3 )
@@ -324,7 +324,7 @@ __meta__ = {
 }
 
 [node name="bodyQuadD" type="Area2D" parent="templateNode/tmpQuad"]
-position = Vector2( 128, 128 )
+position = Vector2( 32, 32 )
 rotation = 3.14159
 script = ExtResource( 19 )
 
@@ -332,8 +332,8 @@ script = ExtResource( 19 )
 shape = SubResource( 5 )
 
 [node name="texQuad" type="TextureRect" parent="templateNode/tmpQuad/bodyQuadD/quadShape"]
-margin_right = 128.0
-margin_bottom = 128.0
+margin_right = 32.0
+margin_bottom = 32.0
 rect_pivot_offset = Vector2( 64, 64 )
 mouse_filter = 2
 texture = ExtResource( 3 )
@@ -342,7 +342,7 @@ __meta__ = {
 }
 
 [node name="bodyQuadL" type="Area2D" parent="templateNode/tmpQuad"]
-position = Vector2( 0, 128 )
+position = Vector2( 0, 32 )
 rotation = 4.71239
 script = ExtResource( 19 )
 
@@ -350,8 +350,8 @@ script = ExtResource( 19 )
 shape = SubResource( 5 )
 
 [node name="texQuad" type="TextureRect" parent="templateNode/tmpQuad/bodyQuadL/quadShape"]
-margin_right = 128.0
-margin_bottom = 128.0
+margin_right = 32.0
+margin_bottom = 32.0
 rect_pivot_offset = Vector2( 64, 64 )
 mouse_filter = 2
 texture = ExtResource( 3 )
@@ -363,15 +363,14 @@ __meta__ = {
 script = ExtResource( 19 )
 
 [node name="quadShape" type="CollisionShape2D" parent="templateNode/tmpQuad/bodyQuadC"]
-position = Vector2( 64, 64 )
+position = Vector2( 16, 16 )
 shape = SubResource( 6 )
 
 [node name="texQuad" type="TextureRect" parent="templateNode/tmpQuad/bodyQuadC/quadShape"]
-visible = false
-margin_left = -64.0
-margin_top = -64.0
-margin_right = 64.0
-margin_bottom = 64.0
+margin_left = -16.0
+margin_top = -16.0
+margin_right = 16.0
+margin_bottom = 16.0
 rect_pivot_offset = Vector2( 64, 64 )
 mouse_filter = 2
 texture = ExtResource( 20 )
@@ -380,7 +379,7 @@ __meta__ = {
 }
 
 [node name="bodyWhole" type="Area2D" parent="templateNode/tmpQuad"]
-position = Vector2( 64, 64 )
+position = Vector2( 16, 16 )
 script = ExtResource( 23 )
 
 [node name="quadShape" type="CollisionShape2D" parent="templateNode/tmpQuad/bodyWhole"]
@@ -402,10 +401,10 @@ __meta__ = {
 }
 
 [node name="tmpAddStructure" type="TextureRect" parent="templateNode"]
-margin_left = 239.819
-margin_top = 159.729
-margin_right = 495.819
-margin_bottom = 415.729
+margin_left = 287.037
+margin_top = 66.1846
+margin_right = 543.037
+margin_bottom = 322.185
 mouse_filter = 2
 texture = ExtResource( 5 )
 expand = true
@@ -436,15 +435,16 @@ __meta__ = {
 script = ExtResource( 24 )
 
 [node name="tmpConfirm" type="NinePatchRect" parent="templateNode"]
-margin_left = 442.0
-margin_top = -313.0
-margin_right = 698.0
-margin_bottom = -185.0
-texture = ExtResource( 68 )
-patch_margin_left = 18
-patch_margin_top = 18
-patch_margin_right = 18
-patch_margin_bottom = 18
+margin_left = 111.259
+margin_top = -300.21
+margin_right = 367.259
+margin_bottom = -172.21
+texture = ExtResource( 27 )
+region_rect = Rect2( 0, 0, 9, 9 )
+patch_margin_left = 4
+patch_margin_top = 4
+patch_margin_right = 4
+patch_margin_bottom = 4
 script = ExtResource( 79 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -463,17 +463,19 @@ __meta__ = {
 
 [node name="btnYes" type="TouchScreenButton" parent="templateNode/tmpConfirm"]
 position = Vector2( 0, 128 )
+scale = Vector2( 4, 4 )
 normal = ExtResource( 21 )
 
 [node name="btnNo" type="TouchScreenButton" parent="templateNode/tmpConfirm"]
 position = Vector2( 128, 128 )
+scale = Vector2( 4, 4 )
 normal = ExtResource( 25 )
 
 [node name="tmpProgress" type="TextureProgress" parent="templateNode"]
-margin_left = 523.728
-margin_top = 139.633
-margin_right = 823.728
-margin_bottom = 439.633
+margin_left = 180.732
+margin_top = 63.9064
+margin_right = 244.732
+margin_bottom = 127.906
 mouse_filter = 2
 texture_progress = ExtResource( 80 )
 fill_mode = 4
@@ -491,10 +493,15 @@ __meta__ = {
 }
 
 [node name="tmpTileDetect" type="TouchScreenButton" parent="templateNode"]
-position = Vector2( 754.292, -180.159 )
+position = Vector2( 389.914, -165.905 )
 normal = ExtResource( 81 )
-shape = SubResource( 11 )
 script = ExtResource( 78 )
+
+[node name="bodyTile" type="Area2D" parent="templateNode/tmpTileDetect"]
+
+[node name="shapeTile" type="CollisionShape2D" parent="templateNode/tmpTileDetect/bodyTile"]
+position = Vector2( 16, 16 )
+shape = SubResource( 11 )
 [connection signal="released" from="BottomBarNode/btnFactoryFloor" to="BottomBarNode" method="_on_btnFactoryFloor_released"]
 [connection signal="released" from="BottomBarNode/btnCraftingFloor" to="BottomBarNode" method="_on_btnCraftingFloor_released"]
 [connection signal="released" from="BottomBarNode/btnUpgradesFloor" to="BottomBarNode" method="_on_btnUpgradesFloor_released"]

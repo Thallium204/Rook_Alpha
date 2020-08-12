@@ -18,7 +18,7 @@ var shapeData = [] 			# 2D array of FactoryFloor grid positions in shape of stru
 var _levelData = [] 		# List of all upgrade modifiers
 
 var toList = [] 			# List of pointers of all extraction conveyors
-var fromList = []			# List of pointers of all insertion conveyors
+var toPointer = 0
 
 # BOOLEANS
 var isProcessing = false	# General:   		True when building is processing | False when building is not processing
@@ -84,23 +84,7 @@ func _process(_delta):
 			tileNode.modulate = Color(1,1,1)
 		get_node("tmpShape").modulate = Color(grey,grey,grey,0.2)
 
-func inputresource():
-	if internalStorage[0] != 0: # check if entity accepts input (it doesn't in the case of resource generators)
-		for conveyorinput in fromList:
-			print("attempt input")
-			passres(1, self, conveyorinput)
-			# To Do: add imput delay of sorts
-	
-func outputresource():
-	
-	if internalStorage[1] > 0: # check if entity can output (always)
-		for conveyoroutput in toList:
-			print("attempt output")
-			passres(1, conveyoroutput, self)
-			# To Do: add extraction delay of sorts
-	
-
-func passres(amount : int, entityTo, entityFrom):
+func passres(_amount : int, _entityTo, _entityFrom):
 	
 	pass
 

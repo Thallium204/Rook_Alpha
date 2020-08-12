@@ -13,7 +13,7 @@ var pointerArray = []
 
 var entityCount = 0
 
-var tileSize = 4*( 32 )
+var tileSize = 1*( 32 )
 
 func _ready():
 	
@@ -27,12 +27,14 @@ func _ready():
 	# Initialise the background size
 	FactorySpace.rect_size = tileSize * Vector2(gridCols,gridRows)
 
-func spawnResource(structureData, spawnPosition):
+func spawnResource(structureData, spawnPosition, resourceName):
 	var newResource = resource.instance()
 	newResource.name = structureData[0]+str(entityCount)
 	entityCount += 1
 	
 	newResource.position = spawnPosition
+	newResource.resourceName = resourceName
+	newResource.get_node("sprResource").texture = load("res://Assets/Resources/img_"+resourceName.to_lower()+".png")
 	
 	add_child(newResource)
 
@@ -99,7 +101,6 @@ func addStructure(structureData,structType,quickAdd=false):
 		newStructure.enable_moveMode(true)
 	else:
 		return newStructure
-
 
 func addConveyor(originalTile,lastQuadrant="bodyQuadU"):
 	
