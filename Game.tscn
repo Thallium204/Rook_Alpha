@@ -1,4 +1,4 @@
-[gd_scene load_steps=49 format=2]
+[gd_scene load_steps=50 format=2]
 
 [ext_resource path="res://FactoryScene.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Assets/Buttons/BottomBarSquare/img_events_off.png" type="Texture" id=2]
@@ -26,6 +26,7 @@
 [ext_resource path="res://oldConveyor.gd" type="Script" id=24]
 [ext_resource path="res://Assets/Menu/img_menu_no.png" type="Texture" id=25]
 [ext_resource path="res://Assets/Buttons/BottomBarSquare/img_populace_off.png" type="Texture" id=26]
+[ext_resource path="res://ResourceScene.tscn" type="PackedScene" id=27]
 [ext_resource path="res://Assets/Buttons/BottomBarSquare/img_upgrades_off.png" type="Texture" id=28]
 [ext_resource path="res://Assets/Buttons/BottomBarSquare/img_quests_off.png" type="Texture" id=29]
 [ext_resource path="res://Assets/Buttons/BottomBarSquare/img_factory_on.png" type="Texture" id=30]
@@ -50,27 +51,27 @@ extents = Vector2( 135, 52 )
 [sub_resource type="RectangleShape2D" id=4]
 extents = Vector2( 135, 52 )
 
-[sub_resource type="ConvexPolygonShape2D" id=9]
+[sub_resource type="ConvexPolygonShape2D" id=7]
 points = PoolVector2Array( 0, 0, 128, 0, 96, 32, 32, 32 )
 
 [sub_resource type="ConvexPolygonShape2D" id=8]
 points = PoolVector2Array( -32, -32, 32, -32, 32, 32, -32, 32 )
 
-[sub_resource type="ConvexPolygonShape2D" id=12]
+[sub_resource type="ConvexPolygonShape2D" id=9]
 points = PoolVector2Array( -64, -64, 64, -64, 64, 64, -64, 64 )
 
-[sub_resource type="DynamicFont" id=5]
+[sub_resource type="DynamicFont" id=10]
 size = 80
 font_data = ExtResource( 10 )
 
-[sub_resource type="CircleShape2D" id=6]
+[sub_resource type="CircleShape2D" id=11]
 radius = 110.0
 
-[sub_resource type="DynamicFont" id=11]
+[sub_resource type="DynamicFont" id=12]
 size = 32
 font_data = ExtResource( 10 )
 
-[sub_resource type="RectangleShape2D" id=10]
+[sub_resource type="RectangleShape2D" id=13]
 extents = Vector2( 64, 64 )
 
 [node name="Game" type="Node2D"]
@@ -285,6 +286,8 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="tmpResourceNode" parent="templateNode" instance=ExtResource( 27 )]
+
 [node name="tmpQuad" type="Node2D" parent="templateNode"]
 position = Vector2( 1000, 0 )
 script = ExtResource( 14 )
@@ -293,7 +296,7 @@ script = ExtResource( 14 )
 script = ExtResource( 19 )
 
 [node name="quadShape" type="CollisionShape2D" parent="templateNode/tmpQuad/bodyQuadU"]
-shape = SubResource( 9 )
+shape = SubResource( 7 )
 
 [node name="texQuad" type="TextureRect" parent="templateNode/tmpQuad/bodyQuadU/quadShape"]
 margin_right = 128.0
@@ -311,7 +314,7 @@ rotation = 1.5708
 script = ExtResource( 19 )
 
 [node name="quadShape" type="CollisionShape2D" parent="templateNode/tmpQuad/bodyQuadR"]
-shape = SubResource( 9 )
+shape = SubResource( 7 )
 
 [node name="texQuad" type="TextureRect" parent="templateNode/tmpQuad/bodyQuadR/quadShape"]
 margin_right = 128.0
@@ -329,7 +332,7 @@ rotation = 3.14159
 script = ExtResource( 19 )
 
 [node name="quadShape" type="CollisionShape2D" parent="templateNode/tmpQuad/bodyQuadD"]
-shape = SubResource( 9 )
+shape = SubResource( 7 )
 
 [node name="texQuad" type="TextureRect" parent="templateNode/tmpQuad/bodyQuadD/quadShape"]
 margin_right = 128.0
@@ -347,7 +350,7 @@ rotation = 4.71239
 script = ExtResource( 19 )
 
 [node name="quadShape" type="CollisionShape2D" parent="templateNode/tmpQuad/bodyQuadL"]
-shape = SubResource( 9 )
+shape = SubResource( 7 )
 
 [node name="texQuad" type="TextureRect" parent="templateNode/tmpQuad/bodyQuadL/quadShape"]
 margin_right = 128.0
@@ -384,7 +387,7 @@ position = Vector2( 64, 64 )
 script = ExtResource( 23 )
 
 [node name="quadShape" type="CollisionShape2D" parent="templateNode/tmpQuad/bodyWhole"]
-shape = SubResource( 12 )
+shape = SubResource( 9 )
 
 [node name="tmpText" type="Label" parent="templateNode"]
 margin_left = 80.7938
@@ -392,7 +395,7 @@ margin_top = -40.005
 margin_right = 516.794
 margin_bottom = 59.995
 rect_pivot_offset = Vector2( -2813.23, -1445.46 )
-custom_fonts/font = SubResource( 5 )
+custom_fonts/font = SubResource( 10 )
 text = "Templates"
 align = 1
 valign = 1
@@ -417,7 +420,7 @@ __meta__ = {
 
 [node name="btnAdd" type="TouchScreenButton" parent="templateNode/tmpAddStructure"]
 position = Vector2( 16, 16 )
-shape = SubResource( 6 )
+shape = SubResource( 11 )
 
 [node name="tmpResource" type="TextureRect" parent="templateNode"]
 margin_left = 541.555
@@ -453,7 +456,7 @@ __meta__ = {
 [node name="labMenu" type="Label" parent="templateNode/tmpConfirm"]
 margin_right = 256.0
 margin_bottom = 128.0
-custom_fonts/font = SubResource( 11 )
+custom_fonts/font = SubResource( 12 )
 text = "Choice?"
 align = 1
 valign = 1
@@ -493,7 +496,7 @@ __meta__ = {
 [node name="tmpTileDetect" type="TouchScreenButton" parent="templateNode"]
 position = Vector2( 754.292, -180.159 )
 normal = ExtResource( 81 )
-shape = SubResource( 10 )
+shape = SubResource( 13 )
 script = ExtResource( 78 )
 [connection signal="released" from="BottomBarNode/btnFactoryFloor" to="BottomBarNode" method="_on_btnFactoryFloor_released"]
 [connection signal="released" from="BottomBarNode/btnCraftingFloor" to="BottomBarNode" method="_on_btnCraftingFloor_released"]

@@ -10,16 +10,25 @@ func configure(structureData,structType): # Called when we want to initialise th
 	# Here we take the data provided by the Banks (structureData), in some cases edit it, and assign it to it's internal variable
 	structureName = structureData[0]
 	structureType = structType
-	internalStorage = [structureData[1]]
+	internalStorage = [structureData[1],structureData[2]]
 	# We edit the storage data
-	for storage in internalStorage[0]:
-		storage.insert(1,0) # At index 1 add a 0 to represent current resource amount ["Cobble",2] -> ["Cobble",0,2]
-		storage.append(storage[0])
-		storage[0] = ""
+	for internal in internalStorage:
+		for storage in internal:
+			storage.insert(1,0) # At index 1 add a 0 to represent current resource amount ["Cobble",2] -> ["Cobble",0,2]
+			storage.append(storage[0])
+			storage[0] = ""
+		
 	shapeData = structureData[-1]
 	# Set the image size
 	rect_size = Vector2( ctrlFactoryFloor.tileSize * shapeData[0].size()  , ctrlFactoryFloor.tileSize * shapeData.size() )
 	mouse_filter = Control.MOUSE_FILTER_PASS
+
+func _process(_delta):
+	# Dump resources from input buffer into main/output storage
+	internalStorage[1][1] += internalStorage[0][1]
+	internalStorage[0][1] = 0
+	if internalStorage[1][1] > internalStorage[1][2]:
+		internalStorage[1][1] = internalStorage[1][2]
 
 func updateUI(): # Called when we want to update the display nodes for the user
 	

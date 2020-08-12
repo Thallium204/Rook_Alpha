@@ -8,6 +8,7 @@ onready var texInfoBar = get_node("texInfoBar")
 onready var btnMove = get_node("btnMoveToggle")
 onready var btnDelete = get_node("btnDeleteToggle")
 onready var btnConnect = get_node("btnConnectToggle")
+onready var btnSpawnRes = get_node("btnSpawnResToggle")
 
 onready var texInfoRef = texInfoBar.duplicate()
 
@@ -44,7 +45,13 @@ func _process(_delta):
 	if Globals.deleteStructureMode == false:
 		btnDelete.normal = load("res://Assets/Buttons/"+barType+"/img_delete_off.png")
 	else:
-		btnDelete.normal = load("res://Assets/Buttons/"+barType+"/img_delete_on.png")
+		btnDelete.normal = load("res://Assets/Buttons/"+barType+"/img_delete_on.png")#
+	
+	# Handle Add Resource (developer)
+	if Globals.spawnResourceMode == false:
+		btnSpawnRes.normal = load("res://Assets/Buttons/"+barType+"/img_add_res_off.png")
+	else:
+		btnSpawnRes.normal = load("res://Assets/Buttons/"+barType+"/img_add_res_on.png")
 
 func move(mode):
 	var nodeTween = get_node("twnSideBar")
@@ -63,6 +70,7 @@ func untoggleButtons():
 	Globals.moveStructureMode = "off"
 	Globals.drawConveyorMode = "off"
 	Globals.deleteStructureMode = false
+	Globals.spawnResourceMode = false
 
 func _on_btnInfoToggle_pressed():
 	if Globals.displayInfoMode == false: # Toggle info mode
@@ -97,3 +105,13 @@ func _on_btnDeleteToggle_pressed():
 				Globals.deleteStructureMode = true
 			else:
 				Globals.deleteStructureMode = false
+
+func _on_btnSpawnResToggle_pressed():
+	if Globals.isMenuOpen == false:
+		if Globals.moveStructureMode != "moving" and Globals.drawConveyorMode != "moving": # Don't allow spawning resources in "moving" mode
+			Globals.moveStructureMode = "off" # Deactivate move mode
+			Globals.drawConveyorMode = "off" # Deactivate conveyor mode
+			if Globals.spawnResourceMode == false: # Toggle delete mode
+				Globals.spawnResourceMode = true
+			else:
+				Globals.spawnResourceMode = false

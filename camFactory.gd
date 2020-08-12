@@ -4,6 +4,7 @@ onready var Globals = get_tree().get_root().get_node("Game/Globals")
 onready var ctnFactoryViewport = Globals.get_node("FactoryNode/ctnFactoryViewport")
 onready var vp_dim = get_parent().size
 onready var fs_dim = get_node("../FactorySpace").rect_size
+onready var ctrlFactoryFloor = get_parent().get_node("ctrlFactoryFloor")
 
 var target_return_enabled = false
 var target_return_rate = 0.02
@@ -70,6 +71,7 @@ func _process(delta):
 
 func _input(event):
 
+
 	# Don't process input if the menu is open  OR  if we are drawing conveyors
 	if Globals.isMenuOpen == true or Globals.drawConveyorMode != "off":
 		return
@@ -80,6 +82,12 @@ func _input(event):
 	if event.position[0] < 0 or event.position[1] < 0 or event.position[0] > ctnFactoryViewport.rect_size[0] or event.position[1] > ctnFactoryViewport.rect_size[1]:
 		return
 
+	if Globals.spawnResourceMode == true:
+		if event is InputEventMouseButton:
+			if event.is_pressed():
+				if event.button_index == BUTTON_LEFT:
+					ctrlFactoryFloor.spawnResource(["Resource"], event.position)
+		return
 
 
 	if Globals.moveStructureMode == "moving":

@@ -18,6 +18,7 @@ var displayInfoMode = false
 var moveStructureMode = "off"		# "off" | "ready" | "moving" 
 var deleteStructureMode = false
 var drawConveyorMode = "off"		# "off" | "ready" | "touching"
+var spawnResourceMode = false
 
 var infoColorModifier = 0.3
 
@@ -42,12 +43,12 @@ var buildingBank = [
 	
 	]
 
-# [ nameID , internalStorageList , shapeData ]
+# [ nameID , inputResList , outputResList , shapeData ]
 var storageBank = [
 	
-	["Hole",		[["Solid",4]],								[[1,1]]	],
+	["Hole",		[["Solid",4]],					[["Solid",4]],			[[1,1]]	],
 	
-	["Hole2",		[["Solid",8]],								[[1,1],[1,1]]	]]
+	["Hole2",		[["Solid",8]],					[["Solid",8]],			[[1,1],[1,1]]	]]
 
 # [ nameID , internalStorage ]
 var resourceBank = [
@@ -74,10 +75,10 @@ var resourceBank = [
 	
 	]
 
-# [ nameID , conveyorSpeed ]
+# [ nameID , inputResList , outputResList , conveyorSpeed , shapeData]
 var conveyorBank = [
 	
-	["Standard",	0.5]]
+	["Standard",		[["Solid",1]],		[["Solid",1]], 		0.5,		[[1]]]]
 	
 func _process(_delta):
 	pass

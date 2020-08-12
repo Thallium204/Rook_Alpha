@@ -12,7 +12,7 @@ onready var grey = Globals.infoColorModifier
 
 var structureName = "" 		# Name of the structure i.e. "Foundry"
 var structureType = "" 		# Type of structure: Building|Storage
-var internalStorage = [] 	# For Builings: [inputStorage,outputStorage] | For Storage: [ioStorage]
+var internalStorage = [] 	# For Buildings: [inputStorage,outputStorage] | For Storage: [inputStorage,outputStorage] | For Conveyors: [inputStorage,outputStorage]
 var masterTile = null		# top-left most tile [ row , col ]
 var shapeData = [] 			# 2D array of FactoryFloor grid positions in shape of structure
 var _levelData = [] 		# List of all upgrade modifiers
@@ -83,6 +83,26 @@ func _process(_delta):
 		for tileNode in get_node("tmpShape").get_children(): # Check every tile child node
 			tileNode.modulate = Color(1,1,1)
 		get_node("tmpShape").modulate = Color(grey,grey,grey,0.2)
+
+func inputresource():
+	if internalStorage[0] != 0: # check if entity accepts input (it doesn't in the case of resource generators)
+		for conveyorinput in fromList:
+			print("attempt input")
+			passres(1, self, conveyorinput)
+			# To Do: add imput delay of sorts
+	
+func outputresource():
+	
+	if internalStorage[1] > 0: # check if entity can output (always)
+		for conveyoroutput in toList:
+			print("attempt output")
+			passres(1, conveyoroutput, self)
+			# To Do: add extraction delay of sorts
+	
+
+func passres(amount : int, entityTo, entityFrom):
+	
+	pass
 
 func enable_moveMode(initial = false): # Called when we want to move this structure
 	
