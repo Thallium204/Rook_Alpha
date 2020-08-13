@@ -510,6 +510,8 @@ shape = SubResource( 11 )
 [connection signal="released" from="BottomBarNode/btnQuestsFloor" to="BottomBarNode" method="_on_btnQuestsFloor_released"]
 [connection signal="released" from="BottomBarNode/btnPopulaceFloor" to="BottomBarNode" method="_on_btnPopulaceFloor_released"]
 [connection signal="released" from="BottomBarNode/btnSettingsFloor" to="BottomBarNode" method="_on_btnSettingsFloor_released"]
+[connection signal="area_shape_entered" from="templateNode/tmpQuad/bodyWhole" to="templateNode/tmpQuad" method="_on_bodyWhole_area_shape_entered"]
+[connection signal="area_shape_exited" from="templateNode/tmpQuad/bodyWhole" to="templateNode/tmpQuad" method="_on_bodyWhole_area_shape_exited"]
 [connection signal="pressed" from="templateNode/tmpAddStructure/btnAdd" to="templateNode/tmpAddStructure" method="_on_btnAdd_pressed"]
 [connection signal="released" from="templateNode/tmpAddStructure/btnAdd" to="templateNode/tmpAddStructure" method="_on_btnAdd_released"]
 [connection signal="released" from="templateNode/tmpConfirm/btnYes" to="templateNode/tmpConfirm" method="_on_btnYes_released"]

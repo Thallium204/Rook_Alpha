@@ -29,10 +29,11 @@ func _ready():
 
 func spawnResource(structureData, spawnPosition, resourceName):
 	var newResource = resource.instance()
+	newResource.position = spawnPosition
+	
 	newResource.name = structureData[0]+str(entityCount)
 	entityCount += 1
 	
-	newResource.position = spawnPosition
 	newResource.resourceName = resourceName
 	newResource.get_node("sprResource").texture = load("res://Assets/Resources/img_"+resourceName.to_lower()+".png")
 	

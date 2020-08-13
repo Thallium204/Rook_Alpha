@@ -7,10 +7,10 @@
 [sub_resource type="CircleShape2D" id=1]
 radius = 0.5
 
-[sub_resource type="CircleShape2D" id=3]
+[sub_resource type="CircleShape2D" id=2]
 radius = 1.0
 
-[sub_resource type="CircleShape2D" id=2]
+[sub_resource type="CircleShape2D" id=3]
 radius = 8.0
 
 [node name="tmpResourceNode" type="Node2D"]
@@ -31,7 +31,7 @@ shape = SubResource( 1 )
 position = Vector2( 9, 0 )
 
 [node name="shapeInner" type="CollisionShape2D" parent="bodyDetect"]
-shape = SubResource( 3 )
+shape = SubResource( 2 )
 
 [node name="TextureRect" type="TextureRect" parent="bodyDetect/shapeInner"]
 visible = false
@@ -47,7 +47,7 @@ __meta__ = {
 [node name="bodyOuter" type="Area2D" parent="."]
 
 [node name="shapeOuter" type="CollisionShape2D" parent="bodyOuter"]
-shape = SubResource( 2 )
+shape = SubResource( 3 )
 
 [node name="Particles2D" type="CPUParticles2D" parent="."]
 visible = false
@@ -58,3 +58,4 @@ gravity = Vector2( 0, 0 )
 color = Color( 0, 0, 0, 1 )
 [connection signal="area_shape_entered" from="bodyDetect" to="." method="_on_bodyDetect_area_shape_entered"]
 [connection signal="area_shape_exited" from="bodyDetect" to="." method="_on_bodyDetect_area_shape_exited"]
+[connection signal="area_shape_entered" from="bodyOuter" to="." method="_on_bodyOuter_area_shape_entered"]

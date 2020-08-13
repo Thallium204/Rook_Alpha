@@ -3,6 +3,7 @@ extends Node2D
 onready var Globals = get_tree().get_root().get_node("Game/Globals")
 onready var FactoryNode = Globals.get_node("FactoryNode")
 onready var ctrlFactoryFloor = FactoryNode.get_node("ctnFactoryViewport/vptFactoryScene/ctrlFactoryFloor")
+onready var bodyWhole = get_node("bodyWhole")
 
 var dict = {
 	"U":Vector2( 0,-1),
@@ -16,6 +17,8 @@ var inputs = []
 var outputs = []
 var firstQuadrant = ""
 var lastQuadrant = ""
+
+var pullTraffic = false
 
 var extractTimer = 1.0
 var timer = 0.0
@@ -32,7 +35,7 @@ func _process(delta):
 #			child.get_node("quadShape/texQuad").texture = load("res://Assets/Conveyor/conv_quadrants/QuadU_none.png")
 	
 	# Handle extraction
-	if timer >= extractTimer:
+	if timer >= extractTimer and pullTraffic == false:
 		for input in inputs:
 			var vectorDir = dict[input[-1]]
 			var shapeArray = get_parent().shapeData[0][0]
@@ -83,7 +86,15 @@ func entered(quadrant):
 		lastQuadrant = quadrant
 
 func exited(_quadrant):
-	
 	pass
-	
-	
+
+func _on_bodyWhole_area_shape_entered(area_id, area, area_shape, self_shape):
+	if area != null:
+		if "Outer" in area.name:
+			pullTraffic = true
+
+
+func _on_bodyWhole_area_shape_exited(area_id, area, area_shape, self_shape):
+	if area != null:
+		if "Outer" in area.name:
+			pullTraffic = false
