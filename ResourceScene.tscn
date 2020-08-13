@@ -56,6 +56,6 @@ emission_shape = 1
 emission_sphere_radius = 8.0
 gravity = Vector2( 0, 0 )
 color = Color( 0, 0, 0, 1 )
+[connection signal="area_shape_entered" from="bodyInner" to="." method="_on_bodyInner_area_shape_entered"]
 [connection signal="area_shape_entered" from="bodyDetect" to="." method="_on_bodyDetect_area_shape_entered"]
 [connection signal="area_shape_exited" from="bodyDetect" to="." method="_on_bodyDetect_area_shape_exited"]
-[connection signal="area_shape_entered" from="bodyOuter" to="." method="_on_bodyOuter_area_shape_entered"]

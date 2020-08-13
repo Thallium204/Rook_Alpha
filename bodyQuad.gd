@@ -20,6 +20,7 @@ func _ready():
 	connect("mouse_entered",self,"_on_bodyQuad_mouse_entered")
 	connect("mouse_exited",self,"_on_bodyQuad_mouse_exited")
 	connect("area_shape_entered",self,"shapeEntered")
+	connect("area_shape_exited",self,"shapeExited")
 	#quadrant = name.substr(4,8)
 	quadrant = name
 
@@ -32,6 +33,7 @@ func shapeEntered( _area_id , area , _area_shape , _self_shape ):
 		if "Inner" in area.name:
 			var nodeAbove = area.get_parent()
 			#print(self.name," is touching ",nodeAbove.name)
+			nodeAbove.addConveyor(self)
 			if self.name == "bodyQuadC": # If we're in the center
 				if not(get_parent().outputs.empty()):
 					var vectorDir = dict[ get_parent().outputs[robin][-1] ]
@@ -40,6 +42,17 @@ func shapeEntered( _area_id , area , _area_shape , _self_shape ):
 					robin %= get_parent().outputs.size()
 				else:
 					nodeAbove.toPosition = nodeAbove.position
+
+func shapeExited( _area_id , area , _area_shape , _self_shape ):
+	
+	var objConveyor = get_parent().get_parent()
+	if area != null:
+		if not("Quad" in area.name) and not("Whole" in area.name): # Ignore ourself
+			#print(area_id," ",area," ",area_shape," ",self_shape)
+			if "Inner" in area.name:
+				var nodeAbove = area.get_parent()
+				#print(self.name," is touching ",nodeAbove.name)
+				nodeAbove.removeConveyor(self)
 
 func _on_bodyQuad_mouse_entered():
 	if Globals.drawConveyorMode == "moving":

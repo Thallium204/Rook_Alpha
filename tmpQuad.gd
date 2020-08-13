@@ -20,7 +20,7 @@ var lastQuadrant = ""
 
 var pullTraffic = false
 
-var extractTimer = 1.0
+var extractTimer = 0.3
 var timer = 0.0
 
 func _process(delta):
@@ -40,12 +40,12 @@ func _process(delta):
 			var vectorDir = dict[input[-1]]
 			var shapeArray = get_parent().shapeData[0][0]
 			var inputNode = ctrlFactoryFloor.pointerArray[shapeArray[0]+vectorDir[1]][shapeArray[1]+vectorDir[0]]
-			if inputNode.structureType != "conveyor":
-				inputNode.pullResource(self.get_parent())
+			if inputNode != null:
+				if inputNode.structureType != "conveyor":
+					inputNode.pullResource(self.get_parent())
 		timer = 0
 	else:
 		timer += delta
-	
 
 func addInput(input):
 	if not(input in inputs+outputs):
