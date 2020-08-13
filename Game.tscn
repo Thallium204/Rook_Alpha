@@ -54,10 +54,10 @@ extents = Vector2( 135, 52 )
 points = PoolVector2Array( 0, 0, 32, 0, 24, 8, 8, 8 )
 
 [sub_resource type="ConvexPolygonShape2D" id=6]
-points = PoolVector2Array( -8, -8, 8, -8, 8, 8, -8, 8 )
+points = PoolVector2Array( -1, -1, 1, -1, 1, 1, -1, 1 )
 
 [sub_resource type="ConvexPolygonShape2D" id=7]
-points = PoolVector2Array( -16, -16, 16, -16, 16, 16, -16, 16 )
+points = PoolVector2Array( -15, -15, 15, -15, 15, 15, -15, 15 )
 
 [sub_resource type="DynamicFont" id=8]
 size = 80
@@ -367,6 +367,7 @@ position = Vector2( 16, 16 )
 shape = SubResource( 6 )
 
 [node name="texQuad" type="TextureRect" parent="templateNode/tmpQuad/bodyQuadC/quadShape"]
+visible = false
 margin_left = -16.0
 margin_top = -16.0
 margin_right = 16.0

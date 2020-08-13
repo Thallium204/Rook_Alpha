@@ -36,6 +36,7 @@ func updateUI(): # Called when we want to update the display nodes for the user
 	texture = load("res://Assets/Storage/img_"+structureName.to_lower()+".png")
 
 func inputResource(resourceName):
+	print(self.name)
 	for inputData in internalStorage[0]: # Scan through input resource options
 		if resourceName == inputData[0] or inputData[0] == "": #  If we have found the corresponding resource option
 			if inputData[1] < inputData[2]: # If there's room

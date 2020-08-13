@@ -25,21 +25,25 @@ var infoColorModifier = 0.3
 # [ nameID , inputResList , outputResList , processTime , shapeData ]
 var buildingBank = [
 	
-	[ "Tree",		[],								[["Log",1]],		3,		[[1,1],[1,1]]				],
+	[ "Tree",		[],								[["Log",1]],		2,		[[1,1],[1,1]]				],
 	
-	[ "Tree_upg1",	[],								[["Log",2]],		3,		[[1,1],[1,1]]				],
+	[ "Tree_upg1",	[],								[["Log",2]],		2,		[[1,1],[1,1]]				],
 	
 	[ "Quarry",		[],								[["Cobble",1]],		2,		[[1,1],[1,1]]				],
 	
-	[ "River",		[],								[["Clay",3]],		3,		[[1,1,1],[1,1,1],[1,1,1]]	],
+	[ "River",		[],								[["Clay",3]],		5,		[[1,1,1],[1,1,1],[1,1,1]]	],
+	
+	[ "Plant",		[],								[["Hemp",2]],		3,		[[1]]						],
 	
 	[ "Furnace",	[["Clay",1]],					[["Brick",1]],		4,		[[1,1],[1,1]]				],
 	
-	[ "Workbench",	[["Log",1]],					[["Plank",2]],		4,		[[1]]						],
+	[ "Workbench",	[["Log",1]],					[["Plank",2]],		3,		[[1]]						],
 	
-	[ "Kiln",		[["Ironore",1],["Coal",1]],	[["Ironclump",1]],	3,		[[1],[1]]					],
+	[ "Workbench",	[["Plank",1]],					[["Gear",2]],		3,		[[1]]						],
 	
-	[ "Smeltery",	[["Ironclump",1]],				[["Ironingot",1]],	3,		[[1,1],[1,1]]				]
+	[ "Kiln",		[["Ironore",1],["Coal",1]],		[["Ironclump",1]],	8,		[[1],[1]]					],
+	
+	[ "Smeltery",	[["Ironclump",1]],				[["Ironingot",1]],	8,		[[1,1],[1,1]]				]
 	
 	]
 
@@ -62,6 +66,8 @@ var resourceBank = [
 	["Plank",		"Solid"],
 	
 	["Brick",		"Solid"],
+	
+	["Hemp",		"Solid"],
 	
 	["Ironore",		"Solid"],
 	

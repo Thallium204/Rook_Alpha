@@ -8,6 +8,7 @@ var quadrant = ""	# QuadU|QuadR|QuadD|QuadL|QuadC|Whole
 var state = "none"	# input|output|none
 var robin = 0
 var speed = 0
+var waiting = null
 
 var dict = {
 	"U":Vector2( 0,-1),
@@ -16,11 +17,15 @@ var dict = {
 	"L":Vector2(-1, 0)
 }
 
+func _process(_delta):
+	if waiting != null:
+		shapeEntered(null,waiting,null,null)
+
 func _ready():
-	connect("mouse_entered",self,"_on_bodyQuad_mouse_entered")
-	connect("mouse_exited",self,"_on_bodyQuad_mouse_exited")
-	connect("area_shape_entered",self,"shapeEntered")
-	connect("area_shape_exited",self,"shapeExited")
+	var _mouse_entered = connect("mouse_entered",self,"_on_bodyQuad_mouse_entered")
+	var _mouse_exited = connect("mouse_exited",self,"_on_bodyQuad_mouse_exited")
+	var _area_shape_entered = connect("area_shape_entered",self,"shapeEntered")
+	var _area_shape_exited = connect("area_shape_exited",self,"shapeExited")
 	#quadrant = name.substr(4,8)
 	quadrant = name
 
@@ -40,12 +45,13 @@ func shapeEntered( _area_id , area , _area_shape , _self_shape ):
 					nodeAbove.toPosition = objConveyor.rect_position + 32*vectorDir + Vector2(16,16)
 					robin += 1
 					robin %= get_parent().outputs.size()
+					waiting = null
 				else:
 					nodeAbove.toPosition = nodeAbove.position
+					waiting = area
 
 func shapeExited( _area_id , area , _area_shape , _self_shape ):
 	
-	var objConveyor = get_parent().get_parent()
 	if area != null:
 		if not("Quad" in area.name) and not("Whole" in area.name): # Ignore ourself
 			#print(area_id," ",area," ",area_shape," ",self_shape)

@@ -31,7 +31,7 @@ var dragDetectMode = false	# Drag Detect Mode: True when checking for finger mov
 var hasDragged = false		# Drag Detect Mode: True is a finger has been dragged whilst pressing a chi8ld button
 
 func _ready():
-	connect("mouse_exited",self,"on_mouse_exited")
+	var _mouse_exited = connect("mouse_exited",self,"on_mouse_exited")
 
 func on_mouse_exited():
 	
@@ -176,7 +176,7 @@ func onStructure_Released_General(_tile): # Called when a tile button is release
 
 func removeSelf():
 	removePointersFromArray()
-	ctrlFactoryFloor.remove_child(self) # Remove self
+	queue_free() # Remove self
 
 func removePointersFromArray():
 	# Remove pointers from the pointerArray

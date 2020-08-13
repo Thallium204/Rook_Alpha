@@ -105,6 +105,9 @@ func addStructure(structureData,structType,quickAdd=false):
 
 func addConveyor(originalTile,lastQuadrant="bodyQuadU"):
 	
+	if lastQuadrant == "":
+		return
+	
 	# Get the new tile position
 	var tile = originalTile
 	if lastQuadrant[-1] == "U":

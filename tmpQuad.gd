@@ -20,7 +20,7 @@ var lastQuadrant = ""
 
 var pullTraffic = false
 
-var extractTimer = 0.3
+var extractTimer = 0.05
 var timer = 0.0
 
 func _process(delta):
@@ -88,13 +88,13 @@ func entered(quadrant):
 func exited(_quadrant):
 	pass
 
-func _on_bodyWhole_area_shape_entered(area_id, area, area_shape, self_shape):
+func _on_bodyWhole_area_shape_entered(_area_id, area, _area_shape, _self_shape):
 	if area != null:
 		if "Outer" in area.name:
 			pullTraffic = true
 
 
-func _on_bodyWhole_area_shape_exited(area_id, area, area_shape, self_shape):
+func _on_bodyWhole_area_shape_exited(_area_id, area, _area_shape, _self_shape):
 	if area != null:
 		if "Outer" in area.name:
 			pullTraffic = false
