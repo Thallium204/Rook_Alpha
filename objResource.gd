@@ -20,7 +20,7 @@ func removeConveyor(node):
 	print(node.name)
 	if node in conveyorList:
 		conveyorList.erase(node)
-	if "Whole" in node.name:
+	if null in conveyorList:
 		conveyorList.erase(null)
 
 func _process(_delta):
