@@ -57,7 +57,7 @@ points = PoolVector2Array( 0, 0, 32, 0, 24, 8, 8, 8 )
 points = PoolVector2Array( -1, -1, 1, -1, 1, 1, -1, 1 )
 
 [sub_resource type="ConvexPolygonShape2D" id=7]
-points = PoolVector2Array( -15, -15, 15, -15, 15, 15, -15, 15 )
+points = PoolVector2Array( -16, -16, 16, -16, 16, 16, -16, 16 )
 
 [sub_resource type="DynamicFont" id=8]
 size = 80

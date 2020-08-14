@@ -17,6 +17,7 @@ func addConveyor(node):
 		conveyorList.append(node)
 
 func removeConveyor(node):
+	print(node.name)
 	if node in conveyorList:
 		conveyorList.erase(node)
 	if "Whole" in node.name:
