@@ -1,0 +1,27 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://Assets/Menu/img_tile_white.png" type="Texture" id=1]
+[ext_resource path="res://objFactoryTile.gd" type="Script" id=2]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 16, 16 )
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 16, 16 )
+
+[node name="objFactoryTile" type="TouchScreenButton"]
+normal = ExtResource( 1 )
+shape = SubResource( 1 )
+script = ExtResource( 2 )
+
+[node name="areaTile" type="Area2D" parent="."]
+
+[node name="shapeTile" type="CollisionShape2D" parent="areaTile"]
+position = Vector2( 16, 16 )
+shape = SubResource( 2 )
+[connection signal="pressed" from="." to="." method="_on_objFactoryTile_pressed"]
+[connection signal="released" from="." to="." method="_on_objFactoryTile_released"]
+[connection signal="area_entered" from="areaTile" to="." method="_on_areaTile_area_entered"]
+[connection signal="area_exited" from="areaTile" to="." method="_on_areaTile_area_exited"]
+[connection signal="mouse_entered" from="areaTile" to="." method="_on_areaTile_mouse_entered"]
+[connection signal="mouse_exited" from="areaTile" to="." method="_on_areaTile_mouse_exited"]

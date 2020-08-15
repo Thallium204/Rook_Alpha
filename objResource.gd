@@ -5,7 +5,7 @@ onready var bodyInner = get_node("bodyInner")
 onready var sprResource = get_node("sprResource")
 
 
-var toPosition = self.position
+var toPosition = Vector2.ZERO
 var speed = 0.5
 var waiting = null
 var stop = false
@@ -25,7 +25,7 @@ func removeConveyor(node):
 
 func _process(_delta):
 	
-	if stop == false and waiting == null:
+	if stop == false and waiting == null and toPosition != Vector2.ZERO:
 		position += (toPosition-position).normalized()*speed
 		$bodyDetect.position = (toPosition-position).normalized()*9
 	elif waiting != null:
@@ -49,7 +49,7 @@ func _on_bodyDetect_area_shape_entered(_area_id, area, _area_shape, _self_shape)
 				return
 		var structureNode = area.get_parent().get_parent().get_parent()
 		
-		if structureNode.structureType != "conveyor":
+		if structureNode.structureType != "Conveyor":
 			if structureNode.inputResource(resourceName) == false:
 				waiting = area
 			else:

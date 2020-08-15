@@ -15,6 +15,7 @@ func updateInfo():
 	
 	if infoNode != null:
 		
+		
 		$hgrdName.visible = true
 		$hgrdPanels.visible = true
 		
@@ -31,12 +32,15 @@ func updateInfo():
 				hgrdInput.visible = true
 				hgrdInput.get_node("labCurrent").text = str(storageInfo[1])
 				hgrdInput.get_node("labCapacity").text = str(storageInfo[2])
-				hgrdInput.get_node("texResource").texture = load("res://Assets/Resources/img_"+storageInfo[0].to_lower()+".png")
+				if storageInfo[0] == "":
+					hgrdInput.get_node("texResource").texture = load("res://Assets/Resources/img_empty_"+storageInfo[-1].to_lower()+".png")
+				else:
+					hgrdInput.get_node("texResource").texture = load("res://Assets/Resources/img_"+storageInfo[0].to_lower()+".png")
 			else:
 				hgrdInput.visible = false
 		
 		# If the structure is a building
-		if infoNode.structureType == "building":
+		if infoNode.structureType == "Processor":
 			# Handle Process
 			var vgrdProcess = $hgrdPanels/vgrdProcess
 			vgrdProcess.visible = true
@@ -60,11 +64,11 @@ func updateInfo():
 					hgrdOutput.get_node("texResource").texture = load("res://Assets/Resources/img_"+storageInfo[0].to_lower()+".png")
 				else:
 					hgrdOutput.visible = false
-		elif infoNode.structureType == "storage":
+		elif infoNode.structureType == "Holder":
 			$hgrdPanels/vgrdProcess.visible = false
 			$hgrdPanels/vgrdOutputList.visible = false
 		
-		$hgrdPanels/texStructure.texture = infoNode.texture
+		$hgrdPanels/texStructure.texture = infoNode.get_node("sprStructure").texture
 		
 	else:
 		$hgrdName.visible = false

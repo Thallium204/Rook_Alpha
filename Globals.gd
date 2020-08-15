@@ -7,9 +7,6 @@ onready var ctrlFactoryFloor = vptFactoryScene.get_node("ctrlFactoryFloor")
 
 var currentScreen = 0
 
-var addBuildingMenu = false
-var addStorageMenu = false
-var addConveyorMenu = false
 var autoCraft = false
 
 var isMenuOpen = false
@@ -18,12 +15,13 @@ var displayInfoMode = false
 var moveStructureMode = "off"		# "off" | "ready" | "moving" 
 var deleteStructureMode = false
 var drawConveyorMode = "off"		# "off" | "ready" | "touching"
+var drawConveyor = null
 var spawnResourceMode = false
 
 var infoColorModifier = 0.3
 
 # [ nameID , inputResList , outputResList , processTime , shapeData ]
-var buildingBank = [
+var processorBank = [
 	
 	[ "Tree",			[],								[["Log",1]],		2,		[[1,1],[1,1]]				],
 	
@@ -50,11 +48,13 @@ var buildingBank = [
 	]
 
 # [ nameID , inputResList , outputResList , shapeData ]
-var storageBank = [
+var holderBank = [
 	
 	["Hole",		[["Solid",4]],			[[1,1]]	],
 	
 	["Hole2",		[["Solid",8]],			[[1,1],[1,1]]	]]
+
+var enhancerBank = []
 
 # [ nameID , internalStorage ]
 var resourceBank = [
@@ -102,15 +102,15 @@ func getResourceType(nameID):
 	return "none"
 
 func getStructureDataByNameID(nameID):
-	for buildingData in buildingBank:
-		if buildingData[0] == nameID:
-			return buildingData
-	for storageData in storageBank:
-		if storageData[0] == nameID:
-			return storageData
-	for conveyorData in conveyorBank:
-		if conveyorData[0] == nameID:
-			return conveyorData
+	for processorData in processorBank:
+		if processorData[0] == nameID:
+			return processorData
+	for holderData in holderBank:
+		if holderData[0] == nameID:
+			return holderData
+	for enhancerData in enhancerBank:
+		if enhancerData[0] == nameID:
+			return enhancerData
 	return null
 
 ### INITIALISE FACTORY NODES

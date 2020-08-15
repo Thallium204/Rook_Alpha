@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://objProcessor.gd" type="Script" id=1]
+[ext_resource path="res://Assets/FactoryEntity/Structure/Processor/img_huntingtent.png" type="Texture" id=2]
+[ext_resource path="res://Assets/Misc/img_progress_circle.png" type="Texture" id=3]
+
+[node name="objEnhancer" type="Node2D"]
+script = ExtResource( 1 )
+
+[node name="sprStructure" type="Sprite" parent="."]
+texture = ExtResource( 2 )
+centered = false
+
+[node name="prgProcess" type="TextureProgress" parent="."]
+margin_right = 64.0
+margin_bottom = 64.0
+mouse_filter = 2
+texture_progress = ExtResource( 3 )
+fill_mode = 4
+__meta__ = {
+"_edit_use_anchors_": false
+}
