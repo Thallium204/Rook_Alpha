@@ -26,33 +26,57 @@ func updateButtonUIs():
 
 func _on_btnFactoryFloor_released():
 	currentScreen = 0
+	
+	Globals.get_node("FactoryNode").get_node("ctnFactoryViewport").get_node("vptFactoryScene").get_node("camFactory").make_current()
+	
 	updateButtonUIs()
 
 func _on_btnCraftingFloor_released():
 	currentScreen = 1
+	
+	Globals.get_node("CraftingNode").get_node("ctnCraftingViewport").get_node("vptCraftingScene").get_node("camCrafting").make_current()
+	
 	updateButtonUIs()
 
 func _on_btnUpgradesFloor_released():
 	currentScreen = 2
+	
+	Globals.get_node("UpgradesNode").get_node("ctnUpgradesViewport").get_node("vptUpgradesScene").get_node("camUpgrades").make_current()
+	
 	updateButtonUIs()
 
 func _on_btnResearchFloor_released():
 	currentScreen = 3
+	
+	Globals.get_node("ResearchNode").get_node("ctnResearchViewport").get_node("vptResearchScene").get_node("camResearch").make_current()
+	
 	updateButtonUIs()
 
 func _on_btnEventsFloor_released():
 	currentScreen = 4
+	
+	Globals.get_node("EventsNode").get_node("ctnEventsViewport").get_node("vptEventsScene").get_node("camEvents").make_current()
+	
 	updateButtonUIs()
 
 func _on_btnQuestsFloor_released():
 	currentScreen = 5
+	
+	Globals.get_node("QuestsNode").get_node("ctnQuestsViewport").get_node("vptQuestsScene").get_node("camQuests").make_current()
+	
 	updateButtonUIs()
 
 func _on_btnPopulaceFloor_released():
 	currentScreen = 6
+	
+	
+	Globals.get_node("PopulaceNode").get_node("ctnPopulaceViewport").get_node("vptPopulaceScene").get_node("camPopulace").make_current()
 	updateButtonUIs()
 
 func _on_btnSettingsFloor_released():
 	currentScreen = 7
+	
+	Globals.get_node("SettingsNode").get_node("ctnSettingsViewport").get_node("vptSettingsScene").get_node("camSettings").make_current()
+	
 	updateButtonUIs()
 

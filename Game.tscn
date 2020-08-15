@@ -7,11 +7,11 @@
 [ext_resource path="res://Assets/FactoryEntity/Structure/Processor/img_quarry.png" type="Texture" id=5]
 [ext_resource path="res://Assets/Tileables/img_factory_lime_120x.png" type="Texture" id=6]
 [ext_resource path="res://Assets/Tileables/img_factory_orange_120x.png" type="Texture" id=7]
-[ext_resource path="res://Assets/Tileables/img_factory_purple_120x.png" type="Texture" id=8]
+[ext_resource path="res://EventsScene.tscn" type="PackedScene" id=8]
 [ext_resource path="res://Globals.gd" type="Script" id=9]
 [ext_resource path="res://Fonts/minecraft_regular.otf" type="DynamicFontData" id=10]
 [ext_resource path="res://tmpAddStructure.gd" type="Script" id=11]
-[ext_resource path="res://Assets/Tileables/img_factory_grey_120x.png" type="Texture" id=12]
+[ext_resource path="res://QuestsScene.tscn" type="PackedScene" id=12]
 [ext_resource path="res://BottomBarNode.gd" type="Script" id=13]
 [ext_resource path="res://old_Quad.gd" type="Script" id=14]
 [ext_resource path="res://Assets/Tileables/img_factory_brown_120x.png" type="Texture" id=15]
@@ -73,137 +73,19 @@ script = ExtResource( 9 )
 
 [node name="FactoryNode" parent="Globals" instance=ExtResource( 1 )]
 
-[node name="CraftingNode" type="Control" parent="Globals"]
-margin_left = 1080.0
-margin_right = 1080.0
-mouse_filter = 2
-__meta__ = {
-"_edit_use_anchors_": false
-}
+[node name="CraftingNode" parent="Globals" instance=ExtResource( 4 )]
 
-[node name="texBackground" type="TextureRect" parent="Globals/CraftingNode"]
-margin_right = 1080.0
-margin_bottom = 1920.0
-mouse_filter = 2
-texture = ExtResource( 4 )
-stretch_mode = 2
-__meta__ = {
-"_edit_use_anchors_": false
-}
+[node name="UpgradesNode" parent="Globals" instance=ExtResource( 6 )]
 
-[node name="UpgradesNode" type="Control" parent="Globals"]
-margin_left = 2160.0
-margin_right = 2160.0
-mouse_filter = 2
-__meta__ = {
-"_edit_use_anchors_": false
-}
+[node name="ResearchNode" parent="Globals" instance=ExtResource( 22 )]
 
-[node name="texBackground" type="TextureRect" parent="Globals/UpgradesNode"]
-margin_right = 1080.0
-margin_bottom = 1920.0
-mouse_filter = 2
-texture = ExtResource( 22 )
-stretch_mode = 2
-__meta__ = {
-"_edit_use_anchors_": false
-}
+[node name="EventsNode" parent="Globals" instance=ExtResource( 8 )]
 
-[node name="ResearchNode" type="Control" parent="Globals"]
-margin_left = 3240.0
-margin_right = 3240.0
-mouse_filter = 2
-__meta__ = {
-"_edit_use_anchors_": false
-}
+[node name="QuestsNode" parent="Globals" instance=ExtResource( 12 )]
 
-[node name="texBackground" type="TextureRect" parent="Globals/ResearchNode"]
-margin_right = 1080.0
-margin_bottom = 1920.0
-mouse_filter = 2
-texture = ExtResource( 18 )
-stretch_mode = 2
-__meta__ = {
-"_edit_use_anchors_": false
-}
+[node name="PopulaceNode" parent="Globals" instance=ExtResource( 15 )]
 
-[node name="EventsNode" type="Control" parent="Globals"]
-margin_top = 1920.0
-margin_bottom = 1920.0
-mouse_filter = 2
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="texBackground" type="TextureRect" parent="Globals/EventsNode"]
-margin_right = 1080.0
-margin_bottom = 1920.0
-mouse_filter = 2
-texture = ExtResource( 15 )
-stretch_mode = 2
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="QuestsNode" type="Control" parent="Globals"]
-margin_left = 1080.0
-margin_top = 1920.0
-margin_right = 1080.0
-margin_bottom = 1920.0
-mouse_filter = 2
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="texBackground" type="TextureRect" parent="Globals/QuestsNode"]
-margin_right = 1080.0
-margin_bottom = 1920.0
-mouse_filter = 2
-texture = ExtResource( 8 )
-stretch_mode = 2
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="PopulaceNode" type="Control" parent="Globals"]
-margin_left = 2160.0
-margin_top = 1920.0
-margin_right = 2160.0
-margin_bottom = 1920.0
-mouse_filter = 2
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="texBackground" type="TextureRect" parent="Globals/PopulaceNode"]
-margin_right = 1080.0
-margin_bottom = 1920.0
-mouse_filter = 2
-texture = ExtResource( 6 )
-stretch_mode = 2
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="SettingsNode" type="Control" parent="Globals"]
-margin_left = 3240.0
-margin_top = 1920.0
-margin_right = 3240.0
-margin_bottom = 1920.0
-mouse_filter = 2
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="texBackground" type="TextureRect" parent="Globals/SettingsNode"]
-margin_right = 1080.0
-margin_bottom = 1920.0
-mouse_filter = 2
-texture = ExtResource( 12 )
-stretch_mode = 2
-__meta__ = {
-"_edit_use_anchors_": false
-}
+[node name="SettingsNode" parent="Globals" instance=ExtResource( 18 )]
 
 [node name="BottomBarNode" type="Node2D" parent="."]
 position = Vector2( 0, 1632 )
