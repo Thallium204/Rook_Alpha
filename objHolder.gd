@@ -47,9 +47,9 @@ func outputResource(resourceNode):
 				if internalBuffer["bufferCurrent"] > 0: # If there's any resources to export
 					internalBuffer["bufferCurrent"] -= 1
 					ctrlFactoryFloor.spawnResource(resourceNode.resourceName,internalBuffer["resourceType"], entityOutputList[indexOutputList])
-					internalBuffer["resourceName"] = resourceNode.resourceName
-					return true
-	return false # We could not add the resource for whatever reason
+					if internalBuffer["bufferCurrent"] == 0:
+						print("lol")
+						internalBuffer["resourceName"] = ""
 
 func isStorageEmpty():
 	for storage in internalStorage[0]:
