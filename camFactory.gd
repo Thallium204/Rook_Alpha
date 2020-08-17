@@ -73,7 +73,7 @@ func _input(event):
 
 
 	# Don't process input if the menu is open  OR  if we are drawing conveyors
-	if Globals.isMenuOpen == true or Globals.drawConveyorMode != "off":
+	if Globals.isMenuOpen == true or Globals.drawConnectorMode != "off":
 		return
 
 	get_node("Label").text = ""

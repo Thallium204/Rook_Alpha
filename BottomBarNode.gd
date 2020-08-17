@@ -1,7 +1,6 @@
 extends Node2D
 
 onready var Globals = get_tree().get_root().get_node("Game/Globals")
-onready var templateNode = get_tree().get_root().get_node("Game/templateNode")
 
 var screenNames = ["Factory","Crafting","Upgrades","Research","Events","Quests","Populace","Settings"]
 var currentScreen = 0

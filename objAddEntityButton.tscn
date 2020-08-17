@@ -1,0 +1,27 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://objAddEntityButton.gd" type="Script" id=1]
+[ext_resource path="res://Assets/FactoryEntity/Structure/Processor/img_quarry.png" type="Texture" id=2]
+
+[sub_resource type="CircleShape2D" id=1]
+radius = 110.0
+
+[node name="objAddEntityButton" type="TextureRect"]
+margin_left = 287.037
+margin_top = 66.1846
+margin_right = 543.037
+margin_bottom = 322.185
+mouse_filter = 2
+texture = ExtResource( 2 )
+expand = true
+stretch_mode = 6
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="btnAdd" type="TouchScreenButton" parent="."]
+position = Vector2( 16, 16 )
+shape = SubResource( 1 )
+[connection signal="pressed" from="btnAdd" to="." method="_on_btnAdd_pressed"]
+[connection signal="released" from="btnAdd" to="." method="_on_btnAdd_released"]

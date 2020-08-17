@@ -1,38 +1,26 @@
-[gd_scene load_steps=44 format=2]
+[gd_scene load_steps=26 format=2]
 
 [ext_resource path="res://FactoryScene.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Assets/Buttons/BottomBarSquare/img_events_off.png" type="Texture" id=2]
-[ext_resource path="res://Assets/FactoryEntity/Connector/Conveyor/conv_quadrants/QuadU_none.png" type="Texture" id=3]
 [ext_resource path="res://EventsScene.tscn" type="PackedScene" id=4]
-[ext_resource path="res://Assets/FactoryEntity/Structure/Processor/img_quarry.png" type="Texture" id=5]
 [ext_resource path="res://QuestsScene.tscn" type="PackedScene" id=6]
 [ext_resource path="res://Assets/Tileables/img_factory_orange_120x.png" type="Texture" id=7]
 [ext_resource path="res://PopulaceScene.tscn" type="PackedScene" id=8]
 [ext_resource path="res://Globals.gd" type="Script" id=9]
-[ext_resource path="res://Fonts/minecraft_regular.otf" type="DynamicFontData" id=10]
-[ext_resource path="res://tmpAddStructure.gd" type="Script" id=11]
 [ext_resource path="res://CraftingScene.tscn" type="PackedScene" id=12]
 [ext_resource path="res://BottomBarNode.gd" type="Script" id=13]
-[ext_resource path="res://old_Quad.gd" type="Script" id=14]
 [ext_resource path="res://UpgradesScene.tscn" type="PackedScene" id=15]
 [ext_resource path="res://BeepBox-Song.wav" type="AudioStream" id=16]
 [ext_resource path="res://ResearchScene.tscn" type="PackedScene" id=17]
 [ext_resource path="res://SettingsScene.tscn" type="PackedScene" id=18]
-[ext_resource path="res://old_bodyQuad.gd" type="Script" id=19]
-[ext_resource path="res://Assets/FactoryEntity/Connector/Conveyor/conv_quadrants/Center.png" type="Texture" id=20]
-[ext_resource path="res://Assets/Menu/img_menu_yes.png" type="Texture" id=21]
-[ext_resource path="res://old_bodyWhole.gd" type="Script" id=23]
-[ext_resource path="res://old_Conveyor.gd" type="Script" id=24]
-[ext_resource path="res://Assets/Menu/img_menu_no.png" type="Texture" id=25]
+[ext_resource path="res://metaData.gd" type="Script" id=22]
 [ext_resource path="res://Assets/Buttons/BottomBarSquare/img_populace_off.png" type="Texture" id=26]
-[ext_resource path="res://Assets/Menu/img_menu_black_9x.png" type="Texture" id=27]
 [ext_resource path="res://Assets/Buttons/BottomBarSquare/img_upgrades_off.png" type="Texture" id=28]
 [ext_resource path="res://Assets/Buttons/BottomBarSquare/img_quests_off.png" type="Texture" id=29]
 [ext_resource path="res://Assets/Buttons/BottomBarSquare/img_factory_on.png" type="Texture" id=30]
 [ext_resource path="res://Assets/Buttons/BottomBarSquare/img_crafting_off.png" type="Texture" id=31]
 [ext_resource path="res://Assets/Buttons/BottomBarSquare/img_settings_off.png" type="Texture" id=58]
 [ext_resource path="res://Assets/Buttons/BottomBarSquare/img_research_off.png" type="Texture" id=59]
-[ext_resource path="res://tmpConfirm.gd" type="Script" id=79]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 135, 52 )
@@ -46,27 +34,8 @@ extents = Vector2( 135, 52 )
 [sub_resource type="RectangleShape2D" id=4]
 extents = Vector2( 135, 52 )
 
-[sub_resource type="ConvexPolygonShape2D" id=5]
-points = PoolVector2Array( 0, 0, 32, 0, 24, 8, 8, 8 )
-
-[sub_resource type="ConvexPolygonShape2D" id=6]
-points = PoolVector2Array( -8, -8, 8, -8, 8, 8, -8, 8 )
-
-[sub_resource type="ConvexPolygonShape2D" id=7]
-points = PoolVector2Array( -16, -16, 16, -16, 16, 16, -16, 16 )
-
-[sub_resource type="DynamicFont" id=8]
-size = 80
-font_data = ExtResource( 10 )
-
-[sub_resource type="CircleShape2D" id=9]
-radius = 110.0
-
-[sub_resource type="DynamicFont" id=10]
-size = 32
-font_data = ExtResource( 10 )
-
 [node name="Game" type="Node2D"]
+script = ExtResource( 22 )
 
 [node name="Globals" type="Node2D" parent="."]
 script = ExtResource( 9 )
@@ -143,183 +112,6 @@ normal = ExtResource( 58 )
 
 [node name="BackgroundMusic" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 16 )
-
-[node name="templateNode" type="Node2D" parent="."]
-position = Vector2( -799.072, -1515.17 )
-
-[node name="tmpQuad" type="Node2D" parent="templateNode"]
-position = Vector2( 599.096, -3.5636 )
-script = ExtResource( 14 )
-
-[node name="bodyQuadU" type="Area2D" parent="templateNode/tmpQuad"]
-script = ExtResource( 19 )
-
-[node name="quadShape" type="CollisionShape2D" parent="templateNode/tmpQuad/bodyQuadU"]
-shape = SubResource( 5 )
-
-[node name="texQuad" type="TextureRect" parent="templateNode/tmpQuad/bodyQuadU/quadShape"]
-margin_right = 32.0
-margin_bottom = 32.0
-rect_pivot_offset = Vector2( 64, 64 )
-mouse_filter = 2
-texture = ExtResource( 3 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="bodyQuadR" type="Area2D" parent="templateNode/tmpQuad"]
-position = Vector2( 32, 0 )
-rotation = 1.5708
-script = ExtResource( 19 )
-
-[node name="quadShape" type="CollisionShape2D" parent="templateNode/tmpQuad/bodyQuadR"]
-shape = SubResource( 5 )
-
-[node name="texQuad" type="TextureRect" parent="templateNode/tmpQuad/bodyQuadR/quadShape"]
-margin_right = 32.0
-margin_bottom = 32.0
-rect_pivot_offset = Vector2( 64, 64 )
-mouse_filter = 2
-texture = ExtResource( 3 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="bodyQuadD" type="Area2D" parent="templateNode/tmpQuad"]
-position = Vector2( 32, 32 )
-rotation = 3.14159
-script = ExtResource( 19 )
-
-[node name="quadShape" type="CollisionShape2D" parent="templateNode/tmpQuad/bodyQuadD"]
-shape = SubResource( 5 )
-
-[node name="texQuad" type="TextureRect" parent="templateNode/tmpQuad/bodyQuadD/quadShape"]
-margin_right = 32.0
-margin_bottom = 32.0
-rect_pivot_offset = Vector2( 64, 64 )
-mouse_filter = 2
-texture = ExtResource( 3 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="bodyQuadL" type="Area2D" parent="templateNode/tmpQuad"]
-position = Vector2( 0, 32 )
-rotation = 4.71239
-script = ExtResource( 19 )
-
-[node name="quadShape" type="CollisionShape2D" parent="templateNode/tmpQuad/bodyQuadL"]
-shape = SubResource( 5 )
-
-[node name="texQuad" type="TextureRect" parent="templateNode/tmpQuad/bodyQuadL/quadShape"]
-margin_right = 32.0
-margin_bottom = 32.0
-rect_pivot_offset = Vector2( 64, 64 )
-mouse_filter = 2
-texture = ExtResource( 3 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="bodyQuadC" type="Area2D" parent="templateNode/tmpQuad"]
-script = ExtResource( 19 )
-
-[node name="quadShape" type="CollisionShape2D" parent="templateNode/tmpQuad/bodyQuadC"]
-position = Vector2( 16, 16 )
-shape = SubResource( 6 )
-
-[node name="texQuad" type="TextureRect" parent="templateNode/tmpQuad/bodyQuadC/quadShape"]
-visible = false
-margin_left = -16.0
-margin_top = -16.0
-margin_right = 16.0
-margin_bottom = 16.0
-rect_pivot_offset = Vector2( 64, 64 )
-mouse_filter = 2
-texture = ExtResource( 20 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="bodyWhole" type="Area2D" parent="templateNode/tmpQuad"]
-position = Vector2( 16, 16 )
-script = ExtResource( 23 )
-
-[node name="quadShape" type="CollisionShape2D" parent="templateNode/tmpQuad/bodyWhole"]
-shape = SubResource( 7 )
-
-[node name="tmpText" type="Label" parent="templateNode"]
-margin_left = 80.7938
-margin_top = -40.005
-margin_right = 516.794
-margin_bottom = 59.995
-rect_pivot_offset = Vector2( -2813.23, -1445.46 )
-custom_fonts/font = SubResource( 8 )
-text = "Templates"
-align = 1
-valign = 1
-clip_text = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="tmpAddStructure" type="TextureRect" parent="templateNode"]
-margin_left = 287.037
-margin_top = 66.1846
-margin_right = 543.037
-margin_bottom = 322.185
-mouse_filter = 2
-texture = ExtResource( 5 )
-expand = true
-stretch_mode = 6
-script = ExtResource( 11 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="btnAdd" type="TouchScreenButton" parent="templateNode/tmpAddStructure"]
-position = Vector2( 16, 16 )
-shape = SubResource( 9 )
-
-[node name="tmpConveyorNode" type="Node2D" parent="templateNode"]
-script = ExtResource( 24 )
-
-[node name="tmpConfirm" type="NinePatchRect" parent="templateNode"]
-margin_left = 111.259
-margin_top = -300.21
-margin_right = 367.259
-margin_bottom = -172.21
-texture = ExtResource( 27 )
-region_rect = Rect2( 0, 0, 9, 9 )
-patch_margin_left = 4
-patch_margin_top = 4
-patch_margin_right = 4
-patch_margin_bottom = 4
-script = ExtResource( 79 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="labMenu" type="Label" parent="templateNode/tmpConfirm"]
-margin_right = 256.0
-margin_bottom = 128.0
-custom_fonts/font = SubResource( 10 )
-text = "Choice?"
-align = 1
-valign = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="btnYes" type="TouchScreenButton" parent="templateNode/tmpConfirm"]
-position = Vector2( 0, 128 )
-scale = Vector2( 4, 4 )
-normal = ExtResource( 21 )
-
-[node name="btnNo" type="TouchScreenButton" parent="templateNode/tmpConfirm"]
-position = Vector2( 128, 128 )
-scale = Vector2( 4, 4 )
-normal = ExtResource( 25 )
 [connection signal="released" from="BottomBarNode/btnFactoryFloor" to="BottomBarNode" method="_on_btnFactoryFloor_released"]
 [connection signal="released" from="BottomBarNode/btnCraftingFloor" to="BottomBarNode" method="_on_btnCraftingFloor_released"]
 [connection signal="released" from="BottomBarNode/btnUpgradesFloor" to="BottomBarNode" method="_on_btnUpgradesFloor_released"]
@@ -328,9 +120,3 @@ normal = ExtResource( 25 )
 [connection signal="released" from="BottomBarNode/btnQuestsFloor" to="BottomBarNode" method="_on_btnQuestsFloor_released"]
 [connection signal="released" from="BottomBarNode/btnPopulaceFloor" to="BottomBarNode" method="_on_btnPopulaceFloor_released"]
 [connection signal="released" from="BottomBarNode/btnSettingsFloor" to="BottomBarNode" method="_on_btnSettingsFloor_released"]
-[connection signal="area_shape_entered" from="templateNode/tmpQuad/bodyWhole" to="templateNode/tmpQuad" method="_on_bodyWhole_area_shape_entered"]
-[connection signal="area_shape_exited" from="templateNode/tmpQuad/bodyWhole" to="templateNode/tmpQuad" method="_on_bodyWhole_area_shape_exited"]
-[connection signal="pressed" from="templateNode/tmpAddStructure/btnAdd" to="templateNode/tmpAddStructure" method="_on_btnAdd_pressed"]
-[connection signal="released" from="templateNode/tmpAddStructure/btnAdd" to="templateNode/tmpAddStructure" method="_on_btnAdd_released"]
-[connection signal="released" from="templateNode/tmpConfirm/btnYes" to="templateNode/tmpConfirm" method="_on_btnYes_released"]
-[connection signal="released" from="templateNode/tmpConfirm/btnNo" to="templateNode/tmpConfirm" method="_on_btnNo_released"]

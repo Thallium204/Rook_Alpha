@@ -1,7 +1,6 @@
 extends Control
 
 onready var Globals = get_tree().get_root().get_node("Game/Globals")
-onready var templateNode = get_tree().get_root().get_node("Game/templateNode")
 
 onready var btnInfo = get_node("btnInfoToggle")
 onready var texInfoBar = get_node("texInfoBar")
@@ -36,8 +35,13 @@ func _process(_delta):
 		btnDelete.modulate = Color(0.3,0.3,0.3) # Grey out delete button
 	
 	# Handle Connect
-	btnConnect.normal = load("res://Assets/Buttons/"+barType+"/img_connect_"+Globals.drawConveyorMode+".png")
-	if Globals.drawConveyorMode == "moving":
+	if Globals.drawConnector["nameID"] == "":
+		btnConnect.get_node("texConnector").modulate = Color(1,1,1,0)
+	else:
+		btnConnect.get_node("texConnector").modulate = Color(1,1,1,1)
+		btnConnect.get_node("texConnector").texture = load("res://Assets/FactoryEntity/Connector/"+Globals.drawConnector["connectorType"]+"/"+Globals.drawConnector["nameID"]+"/img_normal.png")
+	btnConnect.normal = load("res://Assets/Buttons/"+barType+"/img_connect_"+Globals.drawConnectorMode+".png")
+	if Globals.drawConnectorMode == "moving":
 		btnMove.modulate = Color(0.3,0.3,0.3) # Grey out move button
 		btnDelete.modulate = Color(0.3,0.3,0.3) # Grey out delete button
 	
@@ -68,9 +72,10 @@ func move(mode):
 
 func untoggleButtons():
 	Globals.moveStructureMode = "off"
-	Globals.drawConveyorMode = "off"
+	Globals.drawConnectorMode = "off"
 	Globals.deleteStructureMode = false
 	Globals.spawnResourceMode = false
+
 
 func _on_btnInfoToggle_pressed():
 	if Globals.displayInfoMode == false: # Toggle info mode
@@ -78,40 +83,57 @@ func _on_btnInfoToggle_pressed():
 	else:
 		Globals.displayInfoMode = false
 
+
 func _on_btnMoveToggle_pressed():
+	get_node("../ctnFactoryViewport/vptFactoryScene").gui_disable_input = true
 	if Globals.isMenuOpen == false: # If the menu isn't open
-		if Globals.moveStructureMode == "off" and Globals.drawConveyorMode != "moving": # If move mode is "off"
+		if Globals.moveStructureMode == "off" and Globals.drawConnectorMode != "moving": # If move mode is "off"
 			Globals.deleteStructureMode = false # Deactivate Delete mode
-			Globals.drawConveyorMode = "off" # Deactivate conveyor mode
+			Globals.drawConnectorMode = "off" # Deactivate conveyor mode
 			Globals.moveStructureMode = "ready" # Set move mode to "ready"
 		elif Globals.moveStructureMode == "ready":  # If move mode is "ready"
 			Globals.moveStructureMode = "off" # Set move mode to "off"
 
+func _on_btnMoveToggle_released():
+	get_node("../ctnFactoryViewport/vptFactoryScene").gui_disable_input = false
+
 func _on_btnConnectToggle_pressed():
+	get_node("../ctnFactoryViewport/vptFactoryScene").gui_disable_input = true
 	if Globals.isMenuOpen == false: # If the menu isn't open
-		if Globals.drawConveyorMode == "off" and Globals.moveStructureMode != "moving":
+		if Globals.drawConnectorMode == "off" and Globals.moveStructureMode != "moving":
 			Globals.moveStructureMode = "off" # Deactivate move mode
 			Globals.deleteStructureMode = false # Deactivate Delete mode
-			Globals.drawConveyorMode = "ready" # Set move mode to "ready"
-		elif Globals.drawConveyorMode == "ready":  # If move mode is "ready"
-			Globals.drawConveyorMode = "off" # Set move mode to "off"
+			Globals.drawConnectorMode = "ready" # Set move mode to "ready"
+		elif Globals.drawConnectorMode == "ready":  # If move mode is "ready"
+			Globals.drawConnectorMode = "off" # Set move mode to "off"
+
+func _on_btnConnectToggle_released():
+	get_node("../ctnFactoryViewport/vptFactoryScene").gui_disable_input = false
+
 
 func _on_btnDeleteToggle_pressed():
+	get_node("../ctnFactoryViewport/vptFactoryScene").gui_disable_input = true
 	if Globals.isMenuOpen == false: # If the menu isn't open
-		if Globals.moveStructureMode != "moving" and Globals.drawConveyorMode != "moving": # Don't allow deleting in "moving" mode
+		if Globals.moveStructureMode != "moving" and Globals.drawConnectorMode != "moving": # Don't allow deleting in "moving" mode
 			Globals.moveStructureMode = "off" # Deactivate move mode
-			Globals.drawConveyorMode = "off" # Deactivate conveyor mode
+			Globals.drawConnectorMode = "off" # Deactivate conveyor mode
 			if Globals.deleteStructureMode == false: # Toggle delete mode
 				Globals.deleteStructureMode = true
 			else:
 				Globals.deleteStructureMode = false
 
+func _on_btnDeleteToggle_released():
+	get_node("../ctnFactoryViewport/vptFactoryScene").gui_disable_input = false
+
+
 func _on_btnSpawnResToggle_pressed():
 	if Globals.isMenuOpen == false:
-		if Globals.moveStructureMode != "moving" and Globals.drawConveyorMode != "moving": # Don't allow spawning resources in "moving" mode
+		if Globals.moveStructureMode != "moving" and Globals.drawConnectorMode != "moving": # Don't allow spawning resources in "moving" mode
 			Globals.moveStructureMode = "off" # Deactivate move mode
-			Globals.drawConveyorMode = "off" # Deactivate conveyor mode
+			Globals.drawConnectorMode = "off" # Deactivate conveyor mode
 			if Globals.spawnResourceMode == false: # Toggle delete mode
 				Globals.spawnResourceMode = true
 			else:
 				Globals.spawnResourceMode = false
+
+

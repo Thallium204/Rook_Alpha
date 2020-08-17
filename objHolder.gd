@@ -1,60 +1,55 @@
 extends "res://classFactoryStructure.gd"
  
 # Variables unique to Storage
-
-
+var internalStorage = []
 
 func _ready():
 	imageDirectory += "/Holder"
+	structureType = "Holder"
 
-# structureData = [ nameID , inputResList , outputResList , processTime , shapeData ]  OR  [ nameID , internalStorageList , shapeData ]
-# structType = "Building" or "Storage"
-func configure(structureData,structType): # Called when we want to initialise the internal structure
+func _process(delta):
+	if deltaOutput >= outputRate:
+		outputResource(internalStorage[0])
+		deltaOutput = 0.0
+	else:
+		deltaOutput += delta
+
+func configure(structData): # Called when we want to initialise the internal structure
 	# Here we take the data provided by the Banks (structureData), in some cases edit it, and assign it to it's internal variable
-	structureName = structureData[0]
-	structureType = structType
-	internalStorage = [structureData[1]]
-	# We edit the storage data
-	for internal in internalStorage:
-		for storage in internal:
-			storage.insert(1,0) # At index 1 add a 0 to represent current resource amount ["Cobble",2] -> ["Cobble",0,2]
-			storage.append(storage[0])
-			storage[0] = ""
-		
-	entityShape = structureData[-1]
-	#mouse_filter = Control.MOUSE_FILTER_PASS
-	
+	entityName = structData["nameID"]
+	internalStorage = structData["internalStorage"]
+	entityShape = structData["shapeData"]
 	setEntitySize([entityShape[0].size(),entityShape.size()])
 
 func updateUI(): # Called when we want to update the display nodes for the user
 	
 	# Update the structure image
-	$sprStructure.texture = load(imageDirectory+"/img_"+structureName.to_lower()+".png")
+	$sprStructure.texture = load(imageDirectory+"/img_"+entityName.to_lower()+".png")
 
-func inputResource(resourceName):
-	print(self.name)
-	for inputData in internalStorage[0]: # Scan through input resource options
-		if resourceName == inputData[0] or inputData[0] == "": #  If we have found the corresponding resource option
-			if inputData[1] < inputData[2]: # If there's room
-				inputData[1] += 1
-				inputData[0] = resourceName
-				return true
+func inputResource(resourceNode):
+	for internalBuffer in internalStorage: # Scan through input resource options
+		if internalBuffer["resourceType"] == resourceNode.resourceType:
+			#  If we have found the corresponding resource option
+			if internalBuffer["resourceName"] == resourceNode.resourceName or internalBuffer["resourceName"] == "":
+				if internalBuffer["bufferCurrent"] < internalBuffer["bufferMax"]: # If there's room
+					internalBuffer["bufferCurrent"] += 1
+					internalBuffer["resourceName"] = resourceNode.resourceName
+					resourceNode.queue_free()
+	resourceNode.waiting = self
+
+func outputResource(resourceNode):
+	if entityOutputList.empty():
+		return
+	for internalBuffer in internalStorage: # Scan through input resource options
+		if internalBuffer["resourceType"] == resourceNode.resourceType:
+			#  If we have found the corresponding resource option
+			if internalBuffer["resourceName"] == resourceNode.resourceName or internalBuffer["resourceName"] == "":
+				if internalBuffer["bufferCurrent"] > 0: # If there's any resources to export
+					internalBuffer["bufferCurrent"] -= 1
+					ctrlFactoryFloor.spawnResource(resourceNode.resourceName,internalBuffer["resourceType"], entityOutputList[indexOutputList])
+					internalBuffer["resourceName"] = resourceNode.resourceName
+					return true
 	return false # We could not add the resource for whatever reason
-
-func pullResource(conveyorNode):
-	
-	# Add the conveyor node to the toList if it's not already there
-	if not(conveyorNode in exportList):
-		exportList.append(conveyorNode)
-	
-	# If it's our turn to be output to
-	#if toList[toPointer] == self:
-	if true:
-		if internalStorage[-1][0][1] != 0:
-			internalStorage[-1][0][1] -= 1
-			ctrlFactoryFloor.spawnResource(["Resource"], conveyorNode.rect_position+Vector2(16,16), internalStorage[-1][0][0])
-			return true
-	return false
 
 func isStorageEmpty():
 	for storage in internalStorage[0]:

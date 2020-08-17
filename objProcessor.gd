@@ -1,112 +1,97 @@
 extends "res://classFactoryStructure.gd"
 
 # Variables unique to Buildings
-var processTime = 0 		# Time taken to complete a single process
+var processData = []
+var processIndex = 0
 var timer_processTime = 0.0 # Current timer
 var progPerc = 0
 
 var isProcessing = false	# General:   		True when building is processing | False when building is not processing
 var autoCraft = false		# General: 			True when always trying to process | False when not always trying to process
 
-
 func _ready():
 	imageDirectory += "/Processor"
+	structureType = "Processor"
 
-# structureData = [ nameID , inputResList , outputResList , processTime , shapeData ]  OR  [ nameID , internalStorageList , shapeData ]
-# structType = "Building" or "Storage"
-func configure(structureData,structType): # Called when we want to initialise the internal structure
+func configure(structData): # Called when we want to initialise the internal structure
 	# Here we take the data provided by the Banks (structureData), in some cases edit it, and assign it to it's internal variable
-	structureName = structureData[0]
-	structureType = structType
-	internalStorage = [structureData[1],structureData[2]]
-	processTime = structureData[-2]
-	# We edit the storage data
-	for internal in internalStorage:
-		for storage in internal:
-			storage.insert(1,0) # At index 1 add a 0 to represent current resource amount ["Cobble",2] -> ["Cobble",0,2]
-			storage.append(Globals.getResourceType(storage[0]))
-	entityShape = structureData[-1]
+	entityName = structData["nameID"]
+	processData = structData["processesData"]
+	entityShape = structData["shapeData"]
 	setEntitySize([entityShape[0].size(),entityShape.size()])
 	$prgProcess.rect_scale = Vector2.ONE*(entitySize[0]/64) # Scale the progress bar
-	#mouse_filter = Control.MOUSE_FILTER_PASS
 
 func updateUI(): # Called when we want to update the display nodes for the user
 	
 	# Update the structure image
-	$sprStructure.texture = load(imageDirectory+"/img_"+structureName.to_lower()+".png")
+	$sprStructure.texture = load(imageDirectory+"/img_"+entityName.to_lower()+".png")
 
-func inputResource(resourceName):
-	for inputData in internalStorage[0]: # Scan through input resource options
-		if resourceName == inputData[0]: #  If we have found the corresponding resource option
-			if inputData[1] < inputData[2]: # If there's room
-				inputData[1] += 1
+func inputResource(resourceNode):
+	for inputBuffer in processData[processIndex]["inputBuffers"]: # Scan through input resource options (for current process)
+		if inputBuffer["resourceName"] == resourceNode.resourceName: #  If we have found the corresponding resource option
+			if inputBuffer["bufferCurrent"] < inputBuffer["bufferMax"]: # If there's room
+				inputBuffer["bufferCurrent"] += 1
+				resourceNode.queue_free()
 				return true
+	resourceNode.waiting = self
 	return false # We could not add the resource for whatever reason
 
-func pullResource(conveyorNode):
-	
-	# Add the conveyor node to the toList if it's not already there
-	if not(conveyorNode in exportList):
-		exportList.append(conveyorNode)
-	
-	# If it's our turn to be output to
-	#if toList[toPointer] == self:
-	if true:
-		if internalStorage[-1][0][1] != 0:
-			internalStorage[-1][0][1] -= 1
-			ctrlFactoryFloor.spawnResource(["Resource"], conveyorNode.rect_position+Vector2(16,16), internalStorage[-1][0][0])
-			return true
-	return false
+func outputResource(resourceName):
+	if entityOutputList.empty():
+		return
+	for outputBuffer in processData[processIndex]["outputBuffers"]: # Scan through output resource options (for current process)
+		if outputBuffer["resourceName"] == resourceName: #  If we have found the corresponding resource option
+			if outputBuffer["bufferCurrent"] > 0: # If there's resources to export
+				outputBuffer["bufferCurrent"] -= 1
+				ctrlFactoryFloor.spawnResource(resourceName,outputBuffer["resourceType"], entityOutputList[indexOutputList])
+				indexOutputList = (indexOutputList+1)%entityOutputList.size() # Iterate the index
+				return true
+	return false # We could not export the resource for whatever reason
 
 func _process(delta):
-	# Prevent clicking when menu is open
-	if Globals.isMenuOpen == false:
-		canBeTouched = true
-	else:
-		canBeTouched = false
 	
 	# IF WE ARE PROCESSING
 	if isProcessing == true:
 		timer_processTime += delta
-		if timer_processTime >= processTime: # If we have finished
-			for output in internalStorage[1]:
-				output[1] += output[2] # Gain resources
+		if timer_processTime >= processData[processIndex]["processTime"]: # If we have finished
+			for outputBuffer in processData[processIndex]["outputBuffers"]:
+				outputBuffer["bufferCurrent"] += outputBuffer["bufferMax"] # Gain resources
 			timer_processTime = 0.0
 			isProcessing = false
 			get_node("prgProcess").value = 0
 			updateUI()
 		else: # If we are still processing
-			progPerc = timer_processTime/float(processTime)
+			progPerc = timer_processTime/float(processData[processIndex]["processTime"])
 			#self.self_modulate = Color(1-progPerc,1,1-progPerc)
 			get_node("prgProcess").value = stepify(100*progPerc,0.1)
 	
-	if Globals.autoCraft == true and get_parent() != Globals.get_node("../templateNode"):
+	if Globals.autoCraft == true and get_parent():
 		tryToProcess()
 	
-	# Prevent interaction under certain conditions
-	if Globals.moveStructureMode != "off" or Globals.isMenuOpen == true:
-		canBeTouched = false
+	if deltaOutput >= outputRate:
+		outputResource(processData[processIndex]["outputBuffers"][0]["resourceName"])
+		deltaOutput = 0.0
 	else:
-		canBeTouched = true
+		deltaOutput += delta
 
 func tryToProcess():
 	# Check if we have required resources
 	if haveEnoughResources() == true and haveEnoughStorage() == true and isProcessing == false and moveMode == false:
 		# Deduct resource costs
-		for input in internalStorage[0]:
-			input[1] -= input[2]
+		for inputBuffer in processData[processIndex]["inputBuffers"]:
+			inputBuffer["bufferCurrent"] -= inputBuffer["bufferMax"]
 		# Commense Processing
 		isProcessing = true
 
 func haveEnoughResources():
-	for input in internalStorage[0]:
-		if input[1] < input[2]:
+	for inputBuffer in processData[processIndex]["inputBuffers"]:
+		if inputBuffer["bufferCurrent"] < inputBuffer["bufferMax"]:
 			return false
 	return true
 
 func haveEnoughStorage():
-	for output in internalStorage[1]:
-		if output[1] > 0:
+	for outputBuffer in processData[processIndex]["outputBuffers"]:
+		if outputBuffer["bufferCurrent"] > 0:
 			return false
 	return true
 
@@ -125,10 +110,13 @@ func onReleased(tile): # Released Processes for all Processors
 		return
 		
 	# Handle Processing
-	if Globals.moveStructureMode == "off" and canBeTouched == true:
-		if Globals.displayInfoMode == false:
-			tryToProcess()
+	if Globals.moveStructureMode == "off":
+		if Globals.displayInfoMode == false: # If we're not in info mode
+			tryToProcess() # Process as normal
 		else:
-			if texInfoBar.infoNode == self:
-				tryToProcess()
+			if texInfoBar.infoNode == self: # If we are in info mode
+				if texInfoBar.functionYet == true: # Have we already tapped to gain info
+					tryToProcess() # Process as normal
+				else: # Is this is our first tap to gain info
+					texInfoBar.functionYet = true
 

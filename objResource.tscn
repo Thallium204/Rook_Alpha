@@ -34,7 +34,6 @@ position = Vector2( 9, 0 )
 shape = SubResource( 2 )
 
 [node name="TextureRect" type="TextureRect" parent="bodyDetect/shapeInner"]
-visible = false
 margin_left = -1.0
 margin_top = -1.0
 margin_right = 1.0
@@ -48,5 +47,5 @@ __meta__ = {
 
 [node name="shapeOuter" type="CollisionShape2D" parent="bodyOuter"]
 shape = SubResource( 3 )
-[connection signal="area_shape_entered" from="bodyDetect" to="." method="_on_bodyDetect_area_shape_entered"]
-[connection signal="area_shape_exited" from="bodyDetect" to="." method="_on_bodyDetect_area_shape_exited"]
+[connection signal="area_entered" from="bodyDetect" to="." method="_on_bodyDetect_area_entered"]
+[connection signal="area_exited" from="bodyDetect" to="." method="_on_bodyDetect_area_exited"]

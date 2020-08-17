@@ -1,4 +1,4 @@
-extends Node2D
+extends "res://metaData.gd"
 
 # Factory Node
 onready var FactoryNode = get_node("FactoryNode")
@@ -14,47 +14,12 @@ var isMenuOpen = false
 var displayInfoMode = false
 var moveStructureMode = "off"		# "off" | "ready" | "moving" 
 var deleteStructureMode = false
-var drawConveyorMode = "off"		# "off" | "ready" | "touching"
-var drawConveyor = null
+var drawConnectorMode = "off"		# "off" | "ready" | "touching"
+var drawConnector = {"nameID":"","connectorType":""}
+var lastTileArea = null
 var spawnResourceMode = false
 
 var infoColorModifier = 0.3
-
-# [ nameID , inputResList , outputResList , processTime , shapeData ]
-var processorBank = [
-	
-	[ "Tree",			[],								[["Log",1]],		2,		[[1,1],[1,1]]				],
-	
-	[ "Tree_upg1",		[],								[["Log",2]],		2,		[[1,1],[1,1]]				],
-	
-	[ "Quarry",			[],								[["Cobble",1]],		2,		[[1,1],[1,1]]				],
-	
-	[ "River",			[],								[["Clay",3]],		5,		[[1,1,1],[1,1,1],[1,1,1]]	],
-	
-	[ "Plant",			[],								[["Hemp",2]],		3,		[[1]]						],
-	
-	[ "Furnace",		[["Clay",1]],					[["Brick",1]],		4,		[[1,1],[1,1]]				],
-	
-	[ "PotteryTable",	[["Clay",1]],					[["Ceramic",1]],	4,		[[1,1],[1,1]]				],
-	
-	[ "Workbench",		[["Log",1]],					[["Plank",2]],		3,		[[1]]						],
-	
-	[ "Workbench",		[["Plank",1]],					[["Gear",2]],		3,		[[1]]						],
-	
-	[ "Kiln",			[["Ironore",1],["Coal",1]],		[["Ironclump",1]],	8,		[[1],[1]]					],
-	
-	[ "Smeltery",		[["Ironclump",1]],				[["Ironingot",1]],	8,		[[1,1],[1,1]]				]
-	
-	]
-
-# [ nameID , inputResList , outputResList , shapeData ]
-var holderBank = [
-	
-	["Hole",		[["Solid",4]],			[[1,1]]	],
-	
-	["Hole2",		[["Solid",8]],			[[1,1],[1,1]]	]]
-
-var enhancerBank = []
 
 # [ nameID , internalStorage ]
 var resourceBank = [
@@ -87,11 +52,7 @@ var resourceBank = [
 	
 	]
 
-# [ nameID , inputResList , outputResList , conveyorSpeed , shapeData]
-var conveyorBank = [
-	
-	["Standard",		[["Solid",1]],		[["Solid",1]], 		0.5,		[[1]]]]
-	
+
 func _process(_delta):
 	pass
 
@@ -101,24 +62,42 @@ func getResourceType(nameID):
 			return resource[1]
 	return "none"
 
-func getStructureDataByNameID(nameID):
-	for processorData in processorBank:
-		if processorData[0] == nameID:
-			return processorData
-	for holderData in holderBank:
-		if holderData[0] == nameID:
-			return holderData
-	for enhancerData in enhancerBank:
-		if enhancerData[0] == nameID:
-			return enhancerData
-	return null
+func getStructureMeta(nameID,structureType):
+	if structureType == "Processor":
+		return processorBank["meta"+nameID].duplicate(true)
+	elif structureType == "Holder":
+		return holderBank["meta"+nameID].duplicate(true)
+	elif structureType == "Enhancer":
+		return enhancerBank["meta"+nameID].duplicate(true)
 
-### INITIALISE FACTORY NODES
+func getConnectorMeta(nameID,connectorType):
+	if connectorType == "Conveyor":
+		return conveyorBank["meta"+nameID].duplicate(true)
+	if connectorType == "Pipe":
+		return pipeBank["meta"+nameID].duplicate(true)
+	if connectorType == "Cable":
+		return cableBank["meta"+nameID].duplicate(true)
 
-# PASS BUILDING DATA TO FACTORY FLOOR
 func initialseStructureData(nameID,structureType):
-	# Get the list data for matching nameID i.e. nameID = "Quarry" -> ["Quarry",[],["Cobble",3],...]
-	var structureData = getStructureDataByNameID(nameID)
+	var structureData = getStructureMeta(nameID,structureType)
 	# Send the buildingData off to the FactoryFloor to be made into a child node
-	ctrlFactoryFloor.addStructure(structureData.duplicate(true),structureType)
+	ctrlFactoryFloor.addStructure(structureData,structureType)
+
+
+
+func initialseConnectorData(entityTile):
+	if drawConnector["nameID"] == "":
+		return
+	var connectorData = getConnectorMeta(drawConnector["nameID"],drawConnector["connectorType"])
+	# Send the buildingData off to the FactoryFloor to be made into a child node
+	ctrlFactoryFloor.addConnector(connectorData,drawConnector["connectorType"],entityTile)
+
+
+
+
+
+
+
+
+
 

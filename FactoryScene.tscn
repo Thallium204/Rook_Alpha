@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=2]
+[gd_scene load_steps=31 format=2]
 
 [ext_resource path="res://Assets/Buttons/TopBar/img_enhancer_off.png" type="Texture" id=1]
 [ext_resource path="res://ctrlFactoryFloor.gd" type="Script" id=2]
@@ -20,6 +20,8 @@
 [ext_resource path="res://Assets/Buttons/TopBar/img_connector_off.png" type="Texture" id=18]
 [ext_resource path="res://Assets/Buttons/SideBar/img_connect_off.png" type="Texture" id=19]
 [ext_resource path="res://Assets/Buttons/SideBar/img_add_res_off.png" type="Texture" id=20]
+[ext_resource path="res://Assets/Menu/img_right.png" type="Texture" id=21]
+[ext_resource path="res://Assets/Menu/img_left.png" type="Texture" id=22]
 
 [sub_resource type="DynamicFont" id=1]
 size = 30
@@ -225,7 +227,7 @@ __meta__ = {
 }
 
 [node name="btnAutocraftToggle" type="TouchScreenButton" parent="TopBarNode"]
-position = Vector2( 1124.61, -2.99658 )
+position = Vector2( 811.892, 1192.32 )
 normal = ExtResource( 16 )
 
 [node name="twnTopBar" type="Tween" parent="TopBarNode"]
@@ -304,9 +306,9 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="hgrdPanels" type="HBoxContainer" parent="SideBarNode/texInfoBar"]
-margin_top = 48.0
-margin_right = 1080.0
+[node name="hgrdProcess" type="HBoxContainer" parent="SideBarNode/texInfoBar"]
+margin_top = 65.0
+margin_right = 1088.0
 margin_bottom = 288.0
 mouse_filter = 2
 alignment = 2
@@ -314,17 +316,27 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="vgrdInputList" type="VBoxContainer" parent="SideBarNode/texInfoBar/hgrdPanels"]
-margin_right = 270.0
-margin_bottom = 240.0
+[node name="ctrlLeftProcess" type="Control" parent="SideBarNode/texInfoBar/hgrdProcess"]
+margin_right = 64.0
+margin_bottom = 223.0
+rect_min_size = Vector2( 64, 0 )
+
+[node name="btnLeft" type="TouchScreenButton" parent="SideBarNode/texInfoBar/hgrdProcess/ctrlLeftProcess"]
+scale = Vector2( 3.4, 3.4 )
+normal = ExtResource( 22 )
+
+[node name="vgrdInputList" type="VBoxContainer" parent="SideBarNode/texInfoBar/hgrdProcess"]
+margin_left = 68.0
+margin_right = 338.0
+margin_bottom = 223.0
 rect_min_size = Vector2( 270, 0 )
 mouse_filter = 2
 alignment = 1
 
-[node name="hgrdInput1" type="HBoxContainer" parent="SideBarNode/texInfoBar/hgrdPanels/vgrdInputList"]
-margin_top = 30.0
+[node name="hgrdInput1" type="HBoxContainer" parent="SideBarNode/texInfoBar/hgrdProcess/vgrdInputList"]
+margin_top = 22.0
 margin_right = 270.0
-margin_bottom = 87.0
+margin_bottom = 79.0
 mouse_filter = 2
 size_flags_vertical = 0
 alignment = 1
@@ -332,7 +344,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="labCurrent" type="Label" parent="SideBarNode/texInfoBar/hgrdPanels/vgrdInputList/hgrdInput1"]
+[node name="labCurrent" type="Label" parent="SideBarNode/texInfoBar/hgrdProcess/vgrdInputList/hgrdInput1"]
 margin_left = 49.0
 margin_right = 83.0
 margin_bottom = 57.0
@@ -345,7 +357,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="labSlash" type="Label" parent="SideBarNode/texInfoBar/hgrdPanels/vgrdInputList/hgrdInput1"]
+[node name="labSlash" type="Label" parent="SideBarNode/texInfoBar/hgrdProcess/vgrdInputList/hgrdInput1"]
 margin_left = 87.0
 margin_right = 121.0
 margin_bottom = 57.0
@@ -357,7 +369,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="labCapacity" type="Label" parent="SideBarNode/texInfoBar/hgrdPanels/vgrdInputList/hgrdInput1"]
+[node name="labCapacity" type="Label" parent="SideBarNode/texInfoBar/hgrdProcess/vgrdInputList/hgrdInput1"]
 margin_left = 125.0
 margin_right = 159.0
 margin_bottom = 57.0
@@ -369,7 +381,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="texResource" type="TextureRect" parent="SideBarNode/texInfoBar/hgrdPanels/vgrdInputList/hgrdInput1"]
+[node name="texResource" type="TextureRect" parent="SideBarNode/texInfoBar/hgrdProcess/vgrdInputList/hgrdInput1"]
 margin_left = 163.0
 margin_right = 220.0
 margin_bottom = 57.0
@@ -380,10 +392,10 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="hgrdInput2" type="HBoxContainer" parent="SideBarNode/texInfoBar/hgrdPanels/vgrdInputList"]
-margin_top = 91.0
+[node name="hgrdInput2" type="HBoxContainer" parent="SideBarNode/texInfoBar/hgrdProcess/vgrdInputList"]
+margin_top = 83.0
 margin_right = 270.0
-margin_bottom = 148.0
+margin_bottom = 140.0
 mouse_filter = 2
 size_flags_vertical = 0
 alignment = 1
@@ -391,7 +403,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="labCurrent" type="Label" parent="SideBarNode/texInfoBar/hgrdPanels/vgrdInputList/hgrdInput2"]
+[node name="labCurrent" type="Label" parent="SideBarNode/texInfoBar/hgrdProcess/vgrdInputList/hgrdInput2"]
 margin_left = 49.0
 margin_right = 83.0
 margin_bottom = 57.0
@@ -404,7 +416,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="labSlash" type="Label" parent="SideBarNode/texInfoBar/hgrdPanels/vgrdInputList/hgrdInput2"]
+[node name="labSlash" type="Label" parent="SideBarNode/texInfoBar/hgrdProcess/vgrdInputList/hgrdInput2"]
 margin_left = 87.0
 margin_right = 121.0
 margin_bottom = 57.0
@@ -416,7 +428,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="labCapacity" type="Label" parent="SideBarNode/texInfoBar/hgrdPanels/vgrdInputList/hgrdInput2"]
+[node name="labCapacity" type="Label" parent="SideBarNode/texInfoBar/hgrdProcess/vgrdInputList/hgrdInput2"]
 margin_left = 125.0
 margin_right = 159.0
 margin_bottom = 57.0
@@ -428,7 +440,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="texResource" type="TextureRect" parent="SideBarNode/texInfoBar/hgrdPanels/vgrdInputList/hgrdInput2"]
+[node name="texResource" type="TextureRect" parent="SideBarNode/texInfoBar/hgrdProcess/vgrdInputList/hgrdInput2"]
 margin_left = 163.0
 margin_right = 220.0
 margin_bottom = 57.0
@@ -439,10 +451,10 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="hgrdInput3" type="HBoxContainer" parent="SideBarNode/texInfoBar/hgrdPanels/vgrdInputList"]
-margin_top = 152.0
+[node name="hgrdInput3" type="HBoxContainer" parent="SideBarNode/texInfoBar/hgrdProcess/vgrdInputList"]
+margin_top = 144.0
 margin_right = 270.0
-margin_bottom = 209.0
+margin_bottom = 201.0
 mouse_filter = 2
 size_flags_vertical = 0
 alignment = 1
@@ -450,7 +462,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="labCurrent" type="Label" parent="SideBarNode/texInfoBar/hgrdPanels/vgrdInputList/hgrdInput3"]
+[node name="labCurrent" type="Label" parent="SideBarNode/texInfoBar/hgrdProcess/vgrdInputList/hgrdInput3"]
 margin_left = 49.0
 margin_right = 83.0
 margin_bottom = 57.0
@@ -463,7 +475,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="labSlash" type="Label" parent="SideBarNode/texInfoBar/hgrdPanels/vgrdInputList/hgrdInput3"]
+[node name="labSlash" type="Label" parent="SideBarNode/texInfoBar/hgrdProcess/vgrdInputList/hgrdInput3"]
 margin_left = 87.0
 margin_right = 121.0
 margin_bottom = 57.0
@@ -475,7 +487,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="labCapacity" type="Label" parent="SideBarNode/texInfoBar/hgrdPanels/vgrdInputList/hgrdInput3"]
+[node name="labCapacity" type="Label" parent="SideBarNode/texInfoBar/hgrdProcess/vgrdInputList/hgrdInput3"]
 margin_left = 125.0
 margin_right = 159.0
 margin_bottom = 57.0
@@ -487,7 +499,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="texResource" type="TextureRect" parent="SideBarNode/texInfoBar/hgrdPanels/vgrdInputList/hgrdInput3"]
+[node name="texResource" type="TextureRect" parent="SideBarNode/texInfoBar/hgrdProcess/vgrdInputList/hgrdInput3"]
 margin_left = 163.0
 margin_right = 220.0
 margin_bottom = 57.0
@@ -498,18 +510,18 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="vgrdProcess" type="VBoxContainer" parent="SideBarNode/texInfoBar/hgrdPanels"]
-margin_left = 274.0
-margin_right = 544.0
-margin_bottom = 240.0
-rect_min_size = Vector2( 270, 0 )
+[node name="vgrdProcess" type="VBoxContainer" parent="SideBarNode/texInfoBar/hgrdProcess"]
+margin_left = 342.0
+margin_right = 542.0
+margin_bottom = 223.0
+rect_min_size = Vector2( 200, 0 )
 mouse_filter = 2
 alignment = 1
 
-[node name="tmpProcess" type="HBoxContainer" parent="SideBarNode/texInfoBar/hgrdPanels/vgrdProcess"]
-margin_top = 91.0
-margin_right = 270.0
-margin_bottom = 148.0
+[node name="tmpProcess" type="HBoxContainer" parent="SideBarNode/texInfoBar/hgrdProcess/vgrdProcess"]
+margin_top = 83.0
+margin_right = 200.0
+margin_bottom = 140.0
 mouse_filter = 2
 size_flags_vertical = 0
 alignment = 1
@@ -517,9 +529,9 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="labProcess" type="Label" parent="SideBarNode/texInfoBar/hgrdPanels/vgrdProcess/tmpProcess"]
-margin_left = 48.0
-margin_right = 222.0
+[node name="labProcess" type="Label" parent="SideBarNode/texInfoBar/hgrdProcess/vgrdProcess/tmpProcess"]
+margin_left = 13.0
+margin_right = 187.0
 margin_bottom = 57.0
 size_flags_vertical = 0
 custom_fonts/font = SubResource( 5 )
@@ -535,18 +547,18 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="vgrdOutputList" type="VBoxContainer" parent="SideBarNode/texInfoBar/hgrdPanels"]
-margin_left = 548.0
-margin_right = 818.0
-margin_bottom = 240.0
+[node name="vgrdOutputList" type="VBoxContainer" parent="SideBarNode/texInfoBar/hgrdProcess"]
+margin_left = 546.0
+margin_right = 816.0
+margin_bottom = 223.0
 rect_min_size = Vector2( 270, 0 )
 mouse_filter = 2
 alignment = 1
 
-[node name="hgrdOutput1" type="HBoxContainer" parent="SideBarNode/texInfoBar/hgrdPanels/vgrdOutputList"]
-margin_top = 30.0
+[node name="hgrdOutput1" type="HBoxContainer" parent="SideBarNode/texInfoBar/hgrdProcess/vgrdOutputList"]
+margin_top = 22.0
 margin_right = 270.0
-margin_bottom = 87.0
+margin_bottom = 79.0
 mouse_filter = 2
 size_flags_vertical = 0
 alignment = 1
@@ -554,7 +566,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="labCurrent" type="Label" parent="SideBarNode/texInfoBar/hgrdPanels/vgrdOutputList/hgrdOutput1"]
+[node name="labCurrent" type="Label" parent="SideBarNode/texInfoBar/hgrdProcess/vgrdOutputList/hgrdOutput1"]
 margin_left = 49.0
 margin_right = 83.0
 margin_bottom = 57.0
@@ -567,7 +579,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="labSlash" type="Label" parent="SideBarNode/texInfoBar/hgrdPanels/vgrdOutputList/hgrdOutput1"]
+[node name="labSlash" type="Label" parent="SideBarNode/texInfoBar/hgrdProcess/vgrdOutputList/hgrdOutput1"]
 margin_left = 87.0
 margin_right = 121.0
 margin_bottom = 57.0
@@ -579,7 +591,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="labCapacity" type="Label" parent="SideBarNode/texInfoBar/hgrdPanels/vgrdOutputList/hgrdOutput1"]
+[node name="labCapacity" type="Label" parent="SideBarNode/texInfoBar/hgrdProcess/vgrdOutputList/hgrdOutput1"]
 margin_left = 125.0
 margin_right = 159.0
 margin_bottom = 57.0
@@ -591,7 +603,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="texResource" type="TextureRect" parent="SideBarNode/texInfoBar/hgrdPanels/vgrdOutputList/hgrdOutput1"]
+[node name="texResource" type="TextureRect" parent="SideBarNode/texInfoBar/hgrdProcess/vgrdOutputList/hgrdOutput1"]
 margin_left = 163.0
 margin_right = 220.0
 margin_bottom = 57.0
@@ -602,10 +614,10 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="hgrdOutput2" type="HBoxContainer" parent="SideBarNode/texInfoBar/hgrdPanels/vgrdOutputList"]
-margin_top = 91.0
+[node name="hgrdOutput2" type="HBoxContainer" parent="SideBarNode/texInfoBar/hgrdProcess/vgrdOutputList"]
+margin_top = 83.0
 margin_right = 270.0
-margin_bottom = 148.0
+margin_bottom = 140.0
 mouse_filter = 2
 size_flags_vertical = 0
 alignment = 1
@@ -613,7 +625,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="labCurrent" type="Label" parent="SideBarNode/texInfoBar/hgrdPanels/vgrdOutputList/hgrdOutput2"]
+[node name="labCurrent" type="Label" parent="SideBarNode/texInfoBar/hgrdProcess/vgrdOutputList/hgrdOutput2"]
 margin_left = 49.0
 margin_right = 83.0
 margin_bottom = 57.0
@@ -626,7 +638,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="labSlash" type="Label" parent="SideBarNode/texInfoBar/hgrdPanels/vgrdOutputList/hgrdOutput2"]
+[node name="labSlash" type="Label" parent="SideBarNode/texInfoBar/hgrdProcess/vgrdOutputList/hgrdOutput2"]
 margin_left = 87.0
 margin_right = 121.0
 margin_bottom = 57.0
@@ -638,7 +650,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="labCapacity" type="Label" parent="SideBarNode/texInfoBar/hgrdPanels/vgrdOutputList/hgrdOutput2"]
+[node name="labCapacity" type="Label" parent="SideBarNode/texInfoBar/hgrdProcess/vgrdOutputList/hgrdOutput2"]
 margin_left = 125.0
 margin_right = 159.0
 margin_bottom = 57.0
@@ -650,7 +662,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="texResource" type="TextureRect" parent="SideBarNode/texInfoBar/hgrdPanels/vgrdOutputList/hgrdOutput2"]
+[node name="texResource" type="TextureRect" parent="SideBarNode/texInfoBar/hgrdProcess/vgrdOutputList/hgrdOutput2"]
 margin_left = 163.0
 margin_right = 220.0
 margin_bottom = 57.0
@@ -661,10 +673,10 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="hgrdOutput3" type="HBoxContainer" parent="SideBarNode/texInfoBar/hgrdPanels/vgrdOutputList"]
-margin_top = 152.0
+[node name="hgrdOutput3" type="HBoxContainer" parent="SideBarNode/texInfoBar/hgrdProcess/vgrdOutputList"]
+margin_top = 144.0
 margin_right = 270.0
-margin_bottom = 209.0
+margin_bottom = 201.0
 mouse_filter = 2
 size_flags_vertical = 0
 alignment = 1
@@ -672,7 +684,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="labCurrent" type="Label" parent="SideBarNode/texInfoBar/hgrdPanels/vgrdOutputList/hgrdOutput3"]
+[node name="labCurrent" type="Label" parent="SideBarNode/texInfoBar/hgrdProcess/vgrdOutputList/hgrdOutput3"]
 margin_left = 49.0
 margin_right = 83.0
 margin_bottom = 57.0
@@ -685,7 +697,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="labSlash" type="Label" parent="SideBarNode/texInfoBar/hgrdPanels/vgrdOutputList/hgrdOutput3"]
+[node name="labSlash" type="Label" parent="SideBarNode/texInfoBar/hgrdProcess/vgrdOutputList/hgrdOutput3"]
 margin_left = 87.0
 margin_right = 121.0
 margin_bottom = 57.0
@@ -697,7 +709,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="labCapacity" type="Label" parent="SideBarNode/texInfoBar/hgrdPanels/vgrdOutputList/hgrdOutput3"]
+[node name="labCapacity" type="Label" parent="SideBarNode/texInfoBar/hgrdProcess/vgrdOutputList/hgrdOutput3"]
 margin_left = 125.0
 margin_right = 159.0
 margin_bottom = 57.0
@@ -709,7 +721,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="texResource" type="TextureRect" parent="SideBarNode/texInfoBar/hgrdPanels/vgrdOutputList/hgrdOutput3"]
+[node name="texResource" type="TextureRect" parent="SideBarNode/texInfoBar/hgrdProcess/vgrdOutputList/hgrdOutput3"]
 margin_left = 163.0
 margin_right = 220.0
 margin_bottom = 57.0
@@ -720,11 +732,21 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="texStructure" type="TextureRect" parent="SideBarNode/texInfoBar/hgrdPanels"]
-margin_left = 822.0
-margin_right = 1080.0
-margin_bottom = 240.0
-rect_min_size = Vector2( 258, 0 )
+[node name="ctrlRightProcess" type="Control" parent="SideBarNode/texInfoBar/hgrdProcess"]
+margin_left = 820.0
+margin_right = 884.0
+margin_bottom = 223.0
+rect_min_size = Vector2( 64, 0 )
+
+[node name="btnRight" type="TouchScreenButton" parent="SideBarNode/texInfoBar/hgrdProcess/ctrlRightProcess"]
+scale = Vector2( 3.4, 3.4 )
+normal = ExtResource( 21 )
+
+[node name="texStructure" type="TextureRect" parent="SideBarNode/texInfoBar/hgrdProcess"]
+margin_left = 888.0
+margin_right = 1088.0
+margin_bottom = 223.0
+rect_min_size = Vector2( 200, 0 )
 rect_clip_content = true
 mouse_filter = 2
 expand = true
@@ -745,6 +767,16 @@ position = Vector2( -128, 280 )
 normal = ExtResource( 19 )
 shape = SubResource( 7 )
 
+[node name="texConnector" type="TextureRect" parent="SideBarNode/btnConnectToggle"]
+margin_left = 32.0
+margin_top = 32.0
+margin_right = 64.0
+margin_bottom = 64.0
+rect_scale = Vector2( 2, 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="btnDeleteToggle" type="TouchScreenButton" parent="SideBarNode"]
 position = Vector2( -128, 416 )
 normal = ExtResource( 10 )
@@ -761,8 +793,13 @@ shape = SubResource( 8 )
 [connection signal="pressed" from="TopBarNode/btnEnhancerMenu" to="TopBarNode" method="_on_btnEnhancerMenu_pressed"]
 [connection signal="pressed" from="TopBarNode/btnConnectorMenu" to="TopBarNode" method="_on_btnConnectorMenu_pressed"]
 [connection signal="pressed" from="TopBarNode/btnAutocraftToggle" to="TopBarNode" method="_on_btnAutocraftToggle_pressed"]
+[connection signal="pressed" from="SideBarNode/texInfoBar/hgrdProcess/ctrlLeftProcess/btnLeft" to="SideBarNode/texInfoBar" method="_on_btnLeft_pressed"]
+[connection signal="pressed" from="SideBarNode/texInfoBar/hgrdProcess/ctrlRightProcess/btnRight" to="SideBarNode/texInfoBar" method="_on_btnRight_pressed"]
 [connection signal="pressed" from="SideBarNode/btnInfoToggle" to="SideBarNode" method="_on_btnInfoToggle_pressed"]
 [connection signal="pressed" from="SideBarNode/btnMoveToggle" to="SideBarNode" method="_on_btnMoveToggle_pressed"]
+[connection signal="released" from="SideBarNode/btnMoveToggle" to="SideBarNode" method="_on_btnMoveToggle_released"]
 [connection signal="pressed" from="SideBarNode/btnConnectToggle" to="SideBarNode" method="_on_btnConnectToggle_pressed"]
+[connection signal="released" from="SideBarNode/btnConnectToggle" to="SideBarNode" method="_on_btnConnectToggle_released"]
 [connection signal="pressed" from="SideBarNode/btnDeleteToggle" to="SideBarNode" method="_on_btnDeleteToggle_pressed"]
+[connection signal="released" from="SideBarNode/btnDeleteToggle" to="SideBarNode" method="_on_btnDeleteToggle_released"]
 [connection signal="pressed" from="SideBarNode/btnSpawnResToggle" to="SideBarNode" method="_on_btnSpawnResToggle_pressed"]
