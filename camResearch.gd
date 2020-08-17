@@ -3,7 +3,7 @@ extends Camera2D
 onready var Globals = get_tree().get_root().get_node("Game/Globals")
 onready var ctnResearchViewport = Globals.get_node("ResearchNode/ctnResearchViewport")
 onready var vp_dim = get_parent().size
-onready var fs_dim = get_node("../ResearchSpace").rect_size
+onready var fs_dim = get_node("../ctrlResearchFloor/ResearchSpace").rect_size
 onready var ctrlResearchFloor = get_parent().get_node("ctrlResearchFloor")
 
 var target_return_enabled = false

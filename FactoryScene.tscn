@@ -89,20 +89,20 @@ usage = 0
 render_target_update_mode = 3
 physics_object_picking = true
 
-[node name="FactorySpace" type="TextureRect" parent="ctnFactoryViewport/vptFactoryScene"]
+[node name="ctrlFactoryFloor" type="Control" parent="ctnFactoryViewport/vptFactoryScene"]
+mouse_filter = 2
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="FactorySpace" type="TextureRect" parent="ctnFactoryViewport/vptFactoryScene/ctrlFactoryFloor"]
 show_behind_parent = true
 margin_right = 1152.0
 margin_bottom = 2432.0
 mouse_filter = 2
 texture = ExtResource( 3 )
 stretch_mode = 2
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="ctrlFactoryFloor" type="Control" parent="ctnFactoryViewport/vptFactoryScene"]
-mouse_filter = 2
-script = ExtResource( 2 )
 __meta__ = {
 "_edit_use_anchors_": false
 }

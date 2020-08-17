@@ -3,7 +3,7 @@ extends Camera2D
 onready var Globals = get_tree().get_root().get_node("Game/Globals")
 onready var ctnUpgradesViewport = Globals.get_node("UpgradesNode/ctnUpgradesViewport")
 onready var vp_dim = get_parent().size
-onready var fs_dim = get_node("../UpgradesSpace").rect_size
+onready var fs_dim = get_node("../ctrlUpgradesFloor/UpgradesSpace").rect_size
 onready var ctrlUpgradesFloor = get_parent().get_node("ctrlUpgradesFloor")
 
 var target_return_enabled = false

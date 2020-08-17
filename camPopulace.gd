@@ -3,7 +3,7 @@ extends Camera2D
 onready var Globals = get_tree().get_root().get_node("Game/Globals")
 onready var ctnPopulaceViewport = Globals.get_node("PopulaceNode/ctnPopulaceViewport")
 onready var vp_dim = get_parent().size
-onready var fs_dim = get_node("../PopulaceSpace").rect_size
+onready var fs_dim = get_node("../ctrlPopulaceFloor/PopulaceSpace").rect_size
 onready var ctrlPopulaceFloor = get_parent().get_node("ctrlPopulaceFloor")
 
 var target_return_enabled = false

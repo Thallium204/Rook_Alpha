@@ -39,11 +39,11 @@ render_target_update_mode = 3
 margin_right = 40.0
 margin_bottom = 40.0
 
-[node name="camPopulace" type="Camera2D" parent="ctnPopulaceViewport/vptPopulaceScene"]
-script = ExtResource( 2 )
-
-[node name="PopulaceSpace" type="TextureRect" parent="ctnPopulaceViewport/vptPopulaceScene"]
+[node name="PopulaceSpace" type="TextureRect" parent="ctnPopulaceViewport/vptPopulaceScene/ctrlPopulaceFloor"]
 margin_right = 1152.0
 margin_bottom = 2432.0
 texture = ExtResource( 1 )
 stretch_mode = 2
+
+[node name="camPopulace" type="Camera2D" parent="ctnPopulaceViewport/vptPopulaceScene"]
+script = ExtResource( 2 )

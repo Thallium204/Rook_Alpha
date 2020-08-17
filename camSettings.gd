@@ -3,7 +3,7 @@ extends Camera2D
 onready var Globals = get_tree().get_root().get_node("Game/Globals")
 onready var ctnSettingsViewport = Globals.get_node("SettingsNode/ctnSettingsViewport")
 onready var vp_dim = get_parent().size
-onready var fs_dim = get_node("../SettingsSpace").rect_size
+onready var fs_dim = get_node("../ctrlSettingsFloor/SettingsSpace").rect_size
 onready var ctrlSettingsFloor = get_parent().get_node("ctrlSettingsFloor")
 
 var target_return_enabled = false
