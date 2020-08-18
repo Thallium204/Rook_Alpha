@@ -31,21 +31,20 @@ func inputResource(resourceNode):
 		if inputBuffer["resourceName"] == resourceNode.resourceName: #  If we have found the corresponding resource option
 			if inputBuffer["bufferCurrent"] < inputBuffer["bufferMax"]: # If there's room
 				inputBuffer["bufferCurrent"] += 1
-				resourceNode.queue_free()
 				return true
-	resourceNode.waiting = self
 	return false # We could not add the resource for whatever reason
 
 func outputResource(resourceName):
-	if entityOutputList.empty():
-		return
+	if entityOutputList.empty(): # If we have no outputs
+		return false
 	for outputBuffer in processData[processIndex]["outputBuffers"]: # Scan through output resource options (for current process)
 		if outputBuffer["resourceName"] == resourceName: #  If we have found the corresponding resource option
 			if outputBuffer["bufferCurrent"] > 0: # If there's resources to export
-				outputBuffer["bufferCurrent"] -= 1
-				ctrlFactoryFloor.spawnResource(resourceName,outputBuffer["resourceType"], entityOutputList[indexOutputList])
 				indexOutputList = (indexOutputList+1)%entityOutputList.size() # Iterate the index
-				return true
+				if ctrlFactoryFloor.spawnResource(resourceName,outputBuffer["resourceType"], entityOutputList[indexOutputList]) == true:
+					outputBuffer["bufferCurrent"] -= 1
+					return true
+				return false
 	return false # We could not export the resource for whatever reason
 
 func _process(delta):
@@ -68,11 +67,12 @@ func _process(delta):
 	if Globals.autoCraft == true and get_parent():
 		tryToProcess()
 	
-	if deltaOutput >= outputRate:
-		outputResource(processData[processIndex]["outputBuffers"][0]["resourceName"])
-		deltaOutput = 0.0
-	else:
-		deltaOutput += delta
+#	if deltaOutput >= outputRate:
+#		outputResource(processData[processIndex]["outputBuffers"][0]["resourceName"])
+#		deltaOutput = 0.0
+#	else:
+#		deltaOutput += delta
+	outputResource(processData[processIndex]["outputBuffers"][0]["resourceName"])
 
 func tryToProcess():
 	# Check if we have required resources

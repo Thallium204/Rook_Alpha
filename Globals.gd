@@ -15,9 +15,8 @@ var displayInfoMode = false
 var moveStructureMode = "off"		# "off" | "ready" | "moving" 
 var deleteStructureMode = false
 var drawConnectorMode = "off"		# "off" | "ready" | "touching"
-var drawConnector = {"nameID":"","connectorType":""}
+var drawConnector = {"nameID":"Standard","connectorType":"Conveyor"}
 var lastTileArea = null
-var spawnResourceMode = false
 
 var infoColorModifier = 0.3
 

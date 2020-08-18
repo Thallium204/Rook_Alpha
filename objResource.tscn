@@ -13,7 +13,7 @@ radius = 1.0
 [sub_resource type="CircleShape2D" id=3]
 radius = 8.0
 
-[node name="tmpResourceNode" type="Node2D"]
+[node name="objResourceNode" type="Node2D"]
 z_index = 20
 z_as_relative = false
 script = ExtResource( 1 )
@@ -34,6 +34,7 @@ position = Vector2( 9, 0 )
 shape = SubResource( 2 )
 
 [node name="TextureRect" type="TextureRect" parent="bodyDetect/shapeInner"]
+visible = false
 margin_left = -1.0
 margin_top = -1.0
 margin_right = 1.0
@@ -47,5 +48,9 @@ __meta__ = {
 
 [node name="shapeOuter" type="CollisionShape2D" parent="bodyOuter"]
 shape = SubResource( 3 )
+[connection signal="area_entered" from="bodyInner" to="." method="_on_bodyInner_area_entered"]
+[connection signal="area_exited" from="bodyInner" to="." method="_on_bodyInner_area_exited"]
 [connection signal="area_entered" from="bodyDetect" to="." method="_on_bodyDetect_area_entered"]
 [connection signal="area_exited" from="bodyDetect" to="." method="_on_bodyDetect_area_exited"]
+[connection signal="area_entered" from="bodyOuter" to="." method="_on_bodyOuter_area_entered"]
+[connection signal="area_exited" from="bodyOuter" to="." method="_on_bodyOuter_area_exited"]

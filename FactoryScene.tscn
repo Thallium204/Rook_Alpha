@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=2]
+[gd_scene load_steps=30 format=2]
 
 [ext_resource path="res://Assets/Buttons/TopBar/img_enhancer_off.png" type="Texture" id=1]
 [ext_resource path="res://ctrlFactoryFloor.gd" type="Script" id=2]
@@ -15,11 +15,10 @@
 [ext_resource path="res://texInfoBar.gd" type="Script" id=13]
 [ext_resource path="res://Assets/Resources/img_empty_solid.png" type="Texture" id=14]
 [ext_resource path="res://Assets/Buttons/SideBar/img_move_off.png" type="Texture" id=15]
-[ext_resource path="res://Assets/Buttons/TopBar/img_autocraft_toggle_off.png" type="Texture" id=16]
+[ext_resource path="res://Assets/Buttons/SideBar/img_autocraft_off.png" type="Texture" id=16]
 [ext_resource path="res://Assets/Buttons/SideBar/img_info_off.png" type="Texture" id=17]
 [ext_resource path="res://Assets/Buttons/TopBar/img_connector_off.png" type="Texture" id=18]
 [ext_resource path="res://Assets/Buttons/SideBar/img_connect_off.png" type="Texture" id=19]
-[ext_resource path="res://Assets/Buttons/SideBar/img_add_res_off.png" type="Texture" id=20]
 [ext_resource path="res://Assets/Menu/img_right.png" type="Texture" id=21]
 [ext_resource path="res://Assets/Menu/img_left.png" type="Texture" id=22]
 
@@ -55,7 +54,7 @@ radius = 64.0
 radius = 64.0
 
 [sub_resource type="CircleShape2D" id=8]
-radius = 64.0
+radius = 16.0
 
 [node name="FactoryNode" type="Control"]
 mouse_filter = 2
@@ -225,10 +224,6 @@ columns = 6
 __meta__ = {
 "_edit_use_anchors_": false
 }
-
-[node name="btnAutocraftToggle" type="TouchScreenButton" parent="TopBarNode"]
-position = Vector2( 811.892, 1192.32 )
-normal = ExtResource( 16 )
 
 [node name="twnTopBar" type="Tween" parent="TopBarNode"]
 
@@ -782,9 +777,10 @@ position = Vector2( -128, 416 )
 normal = ExtResource( 10 )
 shape = SubResource( 6 )
 
-[node name="btnSpawnResToggle" type="TouchScreenButton" parent="SideBarNode"]
+[node name="btnAutocraftToggle" type="TouchScreenButton" parent="SideBarNode"]
 position = Vector2( -128, 552 )
-normal = ExtResource( 20 )
+scale = Vector2( 4, 4 )
+normal = ExtResource( 16 )
 shape = SubResource( 8 )
 
 [node name="twnSideBar" type="Tween" parent="SideBarNode"]
@@ -792,14 +788,15 @@ shape = SubResource( 8 )
 [connection signal="pressed" from="TopBarNode/btnHolderMenu" to="TopBarNode" method="_on_btnHolderMenu_pressed"]
 [connection signal="pressed" from="TopBarNode/btnEnhancerMenu" to="TopBarNode" method="_on_btnEnhancerMenu_pressed"]
 [connection signal="pressed" from="TopBarNode/btnConnectorMenu" to="TopBarNode" method="_on_btnConnectorMenu_pressed"]
-[connection signal="pressed" from="TopBarNode/btnAutocraftToggle" to="TopBarNode" method="_on_btnAutocraftToggle_pressed"]
 [connection signal="pressed" from="SideBarNode/texInfoBar/hgrdProcess/ctrlLeftProcess/btnLeft" to="SideBarNode/texInfoBar" method="_on_btnLeft_pressed"]
 [connection signal="pressed" from="SideBarNode/texInfoBar/hgrdProcess/ctrlRightProcess/btnRight" to="SideBarNode/texInfoBar" method="_on_btnRight_pressed"]
 [connection signal="pressed" from="SideBarNode/btnInfoToggle" to="SideBarNode" method="_on_btnInfoToggle_pressed"]
+[connection signal="released" from="SideBarNode/btnInfoToggle" to="SideBarNode" method="_on_btnInfoToggle_released"]
 [connection signal="pressed" from="SideBarNode/btnMoveToggle" to="SideBarNode" method="_on_btnMoveToggle_pressed"]
 [connection signal="released" from="SideBarNode/btnMoveToggle" to="SideBarNode" method="_on_btnMoveToggle_released"]
 [connection signal="pressed" from="SideBarNode/btnConnectToggle" to="SideBarNode" method="_on_btnConnectToggle_pressed"]
 [connection signal="released" from="SideBarNode/btnConnectToggle" to="SideBarNode" method="_on_btnConnectToggle_released"]
 [connection signal="pressed" from="SideBarNode/btnDeleteToggle" to="SideBarNode" method="_on_btnDeleteToggle_pressed"]
 [connection signal="released" from="SideBarNode/btnDeleteToggle" to="SideBarNode" method="_on_btnDeleteToggle_released"]
-[connection signal="pressed" from="SideBarNode/btnSpawnResToggle" to="SideBarNode" method="_on_btnSpawnResToggle_pressed"]
+[connection signal="pressed" from="SideBarNode/btnAutocraftToggle" to="SideBarNode" method="_on_btnAutocraftToggle_pressed"]
+[connection signal="released" from="SideBarNode/btnAutocraftToggle" to="SideBarNode" method="_on_btnAutocraftToggle_released"]

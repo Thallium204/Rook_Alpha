@@ -17,15 +17,17 @@ func _input(event):
 
 # WHEN ADD STORAGE IS PRESSED
 func _on_btnAdd_released():
-	checkForMovement = false
-	if hasMoved == false and Globals.moveStructureMode == "off": # If this was a click not a drag
+	if Globals.moveStructureMode != "moving":
 		if entityType == "Structure":
 			TopBarNode.call("_on_btn"+subType+"Menu_pressed")
 			Globals.initialseStructureData(entityName,subType) # Initialise building data based on nameID of button
 		elif entityType == "Connector":
 			TopBarNode.call("_on_btn"+entityType+"Menu_pressed")
-			Globals.drawConnector = {"nameID":entityName,"connectorType":subType}
+			if Globals.drawConnector["nameID"] != entityName:
+				Globals.drawConnector = {"nameID":entityName,"connectorType":subType}
+			else:
+				Globals.drawConnector = {"nameID":"","connectorType":""}
 	hasMoved = false
 
 func _on_btnAdd_pressed():
-	checkForMovement = true
+	pass

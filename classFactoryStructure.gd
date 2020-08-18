@@ -66,22 +66,14 @@ func enable_moveMode(isNew = false): # Called when we want to move this structur
 
 func disable_moveMode(placed = false): # Called when we have stopped moving this structure
 	
-	moveMode = false # Disable local move mode
-	
-	# Delete all the move-related nodes ( ConfirmMenu )
-	get_node("objConfirmMenu").queue_free()
-	
-	# Decide moveStructureMode behaviour
-	if last_entityMasterTile == null: # If the structure was new
-		Globals.moveStructureMode = "off" # Disable  move mode
-	else: # If the structure was old
-		Globals.moveStructureMode = "ready" # Return to ready global move mode
+	var isNew = false
+	if last_entityMasterTile == null:
+		isNew = true
 	
 	if placed == false: # If we pressed cancel
 		
 		if last_entityMasterTile == null: # If we're a new structure
 			queue_free() # Destroy self
-			return
 		else: # If we're an old structure
 			entityMasterTile = last_entityMasterTile.duplicate(true) # Reset masterTile
 			# Return to previous position
@@ -89,15 +81,27 @@ func disable_moveMode(placed = false): # Called when we have stopped moving this
 		
 	else: # If we pressed confirm
 		
-		last_entityMasterTile = entityMasterTile.duplicate(true) # Update last_masterTile
+		if canBePlaced == true: # If we can place it
+			last_entityMasterTile = entityMasterTile.duplicate(true) # Update last_masterTile
+		else:
+			return
 	
-	addShapeToFactory(self) # Add ourself to the pointerArray
+	moveMode = false # Disable local move mode
+	
+	# Delete all the move-related nodes ( ConfirmMenu )
+	get_node("objConfirmMenu").queue_free()
+	
+	# Decide moveStructureMode behaviour
+	if isNew == true: # If the structure was new
+		Globals.moveStructureMode = "off" # Disable  move mode
+	else: # If the structure was old
+		Globals.moveStructureMode = "ready" # Return to ready global move mode
 
 func menuResult(menuID,result): # Called by a menu; the menuID tells us the menu type (move|delete|etc) | the result is the result
 	
 	if menuID == "move": # This is the result of the move ConfirmMenu (true|false)
-		
 		disable_moveMode(result) # Disable move mode (have we placed?)
+		addShapeToFactory(self) # Add ourself to the pointerArray
 
 func onPressed_Structure(tile): # Pressed Processes for all structures
 	

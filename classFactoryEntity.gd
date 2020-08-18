@@ -18,8 +18,8 @@ var entitySize = Vector2.ZERO				# (width,height) in pixels
 var entityTileSize = Vector2.ZERO			# (width,height) in number of tiles
 var entityShape = [] 						# 2D array of pointerArray grid positions in shape of entity
 
-var entityInputList = []					# List of entities we're inputting from
-var entityOutputList = []					# List of entities we're outputting to
+var entityInputList = []					# List of objFactoryTile's we're inputting from
+var entityOutputList = []					# List of objFactoryTile's we're outputting to
 
 var directionInputList = []					# List of directions we're inputting from i.e. ["U","L"]
 var directionOutputList = []				# List of directions we're outputting to i.e. ["D","R"]
@@ -53,7 +53,7 @@ func onReleased_Entity(_tile): # Pressed Processes for all entities
 		deleteSelf() # Delete ourself
 		#Globals.deleteStructureMode = false
 	
-	if Globals.displayInfoMode == true:
+	if Globals.displayInfoMode == true and entityType == "Structure":
 		if texInfoBar.infoNode != self:
 			texInfoBar.infoNode = self
 			texInfoBar.functionYet = false
@@ -72,8 +72,35 @@ func addShapeToFactory(father): # Write the father to each fatherNode entry base
 				ctrlFactoryFloor.pointerArray[entityMasterTile["row"]+row][entityMasterTile["col"]+col].fatherNode = father
 
 func deleteSelf():
+	removeInputOutputRefs()
 	addShapeToFactory(null)
 	queue_free() # Remove self
+
+func removeInputOutputRefs():
+	
+	for inputTile in entityInputList: # For each objFactoryTile in our entityInputList
+		if inputTile.fatherNode != null:
+			var target_entityOutputList = inputTile.fatherNode.entityOutputList
+			var target_directionOutputList = inputTile.fatherNode.directionOutputList
+			var outputIndex = 0
+			while outputIndex < target_entityOutputList.size(): # For each output in the fatherNode
+				if target_entityOutputList[outputIndex].fatherNode == self:
+					target_entityOutputList.remove(outputIndex)
+					target_directionOutputList.remove(outputIndex)
+					inputTile.fatherNode.updateUI()
+				outputIndex += 1
+	
+	for outputTile in entityOutputList:
+		if outputTile.fatherNode != null:
+			var target_entityInputList = outputTile.fatherNode.entityInputList
+			var target_directionInputList = outputTile.fatherNode.directionInputList
+			var inputIndex = 0
+			while inputIndex < target_entityInputList.size():
+				if target_entityInputList[inputIndex].fatherNode == self:
+					target_entityInputList.remove(inputIndex)
+					target_directionInputList.remove(inputIndex)
+					outputTile.fatherNode.updateUI()
+				inputIndex += 1
 
 func addInput(entityInput,directionInput):
 	if directionInput == "" or entityInput.fatherNode == self:
@@ -81,14 +108,16 @@ func addInput(entityInput,directionInput):
 	if not(entityInput in entityInputList+entityOutputList):
 		directionInputList.append(directionInput)
 		entityInputList.append(entityInput)
-	print(entityName," entityInputList: ",entityInputList)
 
 func addOutput(entityOutput,directionOutput):
 	if directionOutput == "" or entityOutput.fatherNode == self:
 		return
-	if not(directionOutput in entityInputList+entityOutputList):
+	if not(entityOutput in entityInputList+entityOutputList):
 		directionOutputList.append(directionOutput)
 		entityOutputList.append(entityOutput)
-	print(entityName," entityOutputList: ",entityOutputList)
+
+
+
+
 
 

@@ -131,7 +131,7 @@ var processorBank = {
 		"processesData":{
 			0:{
 				"inputBuffers":[
-					{"resourceName":"Log",		"bufferCurrent":1,	"bufferMax":1,	"resourceType":"Solid"}
+					{"resourceName":"Log",		"bufferCurrent":0,	"bufferMax":1,	"resourceType":"Solid"}
 				],
 				"processTime":3,
 				"outputBuffers":[
@@ -227,7 +227,7 @@ var holderBank = {
 			"Hole2",
 		
 		"internalStorage":[
-			{"resourceName":"",			"bufferCurrent":0,	"bufferMax":4,	"resourceType":"Solid"}
+			{"resourceName":"",			"bufferCurrent":0,	"bufferMax":64,	"resourceType":"Solid"}
 		],
 		
 		"shapeData":[
@@ -251,14 +251,6 @@ var enhancerBank = {
 
 var conveyorBank = {
 	
-	"metaStandard":{
-		
-		"nameID":
-			"Standard",
-		
-		"conveyorSpeed":
-			0.5},
-	
 	"metaSlow":{
 		
 		"nameID":
@@ -266,6 +258,14 @@ var conveyorBank = {
 		
 		"conveyorSpeed":
 			0.2},
+	
+	"metaStandard":{
+		
+		"nameID":
+			"Standard",
+		
+		"conveyorSpeed":
+			0.5},
 	
 	"metaFast":{
 		

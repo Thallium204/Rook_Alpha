@@ -82,13 +82,6 @@ func _input(event):
 	if event.position[0] < 0 or event.position[1] < 0 or event.position[0] > ctnFactoryViewport.rect_size[0] or event.position[1] > ctnFactoryViewport.rect_size[1]:
 		return
 
-	if Globals.spawnResourceMode == true:
-		if event is InputEventMouseButton:
-			if event.is_pressed():
-				if event.button_index == BUTTON_LEFT:
-					ctrlFactoryFloor.spawnResource(["Resource"], position,"Coal")
-		return
-
 
 	if Globals.moveStructureMode == "moving":
 		drag_margin_h_enabled = true

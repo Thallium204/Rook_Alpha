@@ -33,17 +33,21 @@ func _ready():
 func spawnResource(resourceName, resourceType, outputEntity):
 	
 	if resourceType == "Solid":
-		
+
 		var newResource = resource.instance()
 		newResource.position = outputEntity.position+Vector2(16,16)
-		
+		newResource.toPosition = outputEntity.position+Vector2(16,16)
 		newResource.name = resourceName+str(entityCount)
 		entityCount += 1
 		
 		newResource.resourceName = resourceName
 		newResource.get_node("sprResource").texture = load("res://Assets/Resources/img_"+resourceName.to_lower()+".png")
-		
-		add_child(newResource)
+		if outputEntity.fatherNode.currentResource == null: # The conveyor is free
+			outputEntity.fatherNode.currentResource = newResource # We set this here to avoid simultaneous collision
+			add_child(newResource)
+			return true
+		else:
+			return false
 
 func addStructure(structureData,structureType):
 	

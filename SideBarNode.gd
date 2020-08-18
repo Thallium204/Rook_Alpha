@@ -7,7 +7,7 @@ onready var texInfoBar = get_node("texInfoBar")
 onready var btnMove = get_node("btnMoveToggle")
 onready var btnDelete = get_node("btnDeleteToggle")
 onready var btnConnect = get_node("btnConnectToggle")
-onready var btnSpawnRes = get_node("btnSpawnResToggle")
+onready var btnAutocraft = get_node("btnAutocraftToggle")
 
 onready var texInfoRef = texInfoBar.duplicate()
 
@@ -52,10 +52,10 @@ func _process(_delta):
 		btnDelete.normal = load("res://Assets/Buttons/"+barType+"/img_delete_on.png")#
 	
 	# Handle Add Resource (developer)
-	if Globals.spawnResourceMode == false:
-		btnSpawnRes.normal = load("res://Assets/Buttons/"+barType+"/img_add_res_off.png")
+	if Globals.autoCraft == false:
+		btnAutocraft.normal = load("res://Assets/Buttons/"+barType+"/img_autocraft_off.png")
 	else:
-		btnSpawnRes.normal = load("res://Assets/Buttons/"+barType+"/img_add_res_on.png")
+		btnAutocraft.normal = load("res://Assets/Buttons/"+barType+"/img_autocraft_on.png")
 
 func move(mode):
 	var nodeTween = get_node("twnSideBar")
@@ -74,14 +74,17 @@ func untoggleButtons():
 	Globals.moveStructureMode = "off"
 	Globals.drawConnectorMode = "off"
 	Globals.deleteStructureMode = false
-	Globals.spawnResourceMode = false
 
 
 func _on_btnInfoToggle_pressed():
+	get_node("../ctnFactoryViewport/vptFactoryScene").gui_disable_input = true
 	if Globals.displayInfoMode == false: # Toggle info mode
 		Globals.displayInfoMode = true
 	else:
 		Globals.displayInfoMode = false
+
+func _on_btnInfoToggle_released():
+	get_node("../ctnFactoryViewport/vptFactoryScene").gui_disable_input = false
 
 
 func _on_btnMoveToggle_pressed():
@@ -110,7 +113,6 @@ func _on_btnConnectToggle_pressed():
 func _on_btnConnectToggle_released():
 	get_node("../ctnFactoryViewport/vptFactoryScene").gui_disable_input = false
 
-
 func _on_btnDeleteToggle_pressed():
 	get_node("../ctnFactoryViewport/vptFactoryScene").gui_disable_input = true
 	if Globals.isMenuOpen == false: # If the menu isn't open
@@ -126,14 +128,12 @@ func _on_btnDeleteToggle_released():
 	get_node("../ctnFactoryViewport/vptFactoryScene").gui_disable_input = false
 
 
-func _on_btnSpawnResToggle_pressed():
-	if Globals.isMenuOpen == false:
-		if Globals.moveStructureMode != "moving" and Globals.drawConnectorMode != "moving": # Don't allow spawning resources in "moving" mode
-			Globals.moveStructureMode = "off" # Deactivate move mode
-			Globals.drawConnectorMode = "off" # Deactivate conveyor mode
-			if Globals.spawnResourceMode == false: # Toggle delete mode
-				Globals.spawnResourceMode = true
-			else:
-				Globals.spawnResourceMode = false
+func _on_btnAutocraftToggle_pressed():
+	get_node("../ctnFactoryViewport/vptFactoryScene").gui_disable_input = true
+	if Globals.autoCraft == false: # Toggle info mode
+		Globals.autoCraft = true
+	else:
+		Globals.autoCraft = false
 
-
+func _on_btnAutocraftToggle_released():
+	get_node("../ctnFactoryViewport/vptFactoryScene").gui_disable_input = false

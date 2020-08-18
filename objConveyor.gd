@@ -2,21 +2,30 @@ extends "res://classFactoryConnector.gd"
 
 onready var directionSprites = get_children()
 
+var resourceList = []
+var currentResource = null
 var conveyorSpeed = 0.0
 
 func _ready():
 	imageDirectory += "/Conveyor"
 	connectorType = "Conveyor"
 
+func makeCurrent(objResourceNode):
+	if currentResource == null or currentResource == objResourceNode:
+		currentResource = objResourceNode
+		return true
+	else:
+		return false
+
+func resetCurrent():
+	currentResource = null
+
 func pointResource(resourceNode):
 	if entityOutputList.empty():
-		resourceNode.waiting = self
-	else:
-		resourceNode.toPosition = entityOutputList[indexOutputList].position + Vector2(16,16)
-		indexOutputList = (indexOutputList+1)%entityOutputList.size()
-		resourceNode.speed = conveyorSpeed
-		resourceNode.waiting = null
-	
+		return false
+	resourceNode.toPosition = entityOutputList[indexOutputList].position + Vector2(16,16)
+	indexOutputList = (indexOutputList+1)%entityOutputList.size()
+	return true
 
 func configure(connectData): # Called when we want to initialise the internal structure
 	# Here we take the data provided by the Banks (structureData), in some cases edit it, and assign it to it's internal variable
@@ -33,7 +42,6 @@ func updateUI():
 			sprite.texture = load(imageDirectory+"/"+entityName+"/img_output.png")
 		else:
 			sprite.texture = load(imageDirectory+"/"+entityName+"/img_none.png")
-	
 
 func onPressed(tile): # Pressed Processes for all Processors
 	
