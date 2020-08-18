@@ -58,7 +58,7 @@ func shapeActivity(localAreaStr,remoteAreaNode,activityType):
 			# If our bodyOuter has entered the structure
 			if localAreaStr == "bodyOuter" and activityType == "Entered":
 				
-				if objFactoryEntity.inputResource(self) == true: # Let the structure node handle it
+				if objFactoryEntity.inputResource(resourceName,resourceType) == true: # Let the structure node handle it
 					queue_free()
 					return
 				else:
