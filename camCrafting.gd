@@ -3,7 +3,7 @@ extends Camera2D
 onready var Globals = get_tree().get_root().get_node("Game/Globals")
 onready var ctnCraftingViewport = Globals.get_node("CraftingNode/ctnCraftingViewport")
 onready var vp_dim = get_parent().size
-onready var fs_dim = get_node("../CraftingSpace").rect_size
+onready var fs_dim = get_node("../ctrlCraftingFloor/CraftingSpace").rect_size
 onready var ctrlCraftingFloor = get_parent().get_node("ctrlCraftingFloor")
 
 var target_return_enabled = false

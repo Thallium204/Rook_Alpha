@@ -1,7 +1,7 @@
 extends Control
 
 onready var Globals = get_tree().get_root().get_node("Game/Globals")
-onready var FactorySpace = get_node("../FactorySpace")
+onready var FactorySpace = get_node("FactorySpace")
 onready var camFactory = get_node("../camFactory")
 
 var resource = preload("res://objResource.tscn")

@@ -3,7 +3,7 @@ extends Camera2D
 onready var Globals = get_tree().get_root().get_node("Game/Globals")
 onready var ctnFactoryViewport = Globals.get_node("FactoryNode/ctnFactoryViewport")
 onready var vp_dim = get_parent().size
-onready var fs_dim = get_node("../FactorySpace").rect_size
+onready var fs_dim = get_node("../ctrlFactoryFloor/FactorySpace").rect_size
 onready var ctrlFactoryFloor = get_parent().get_node("ctrlFactoryFloor")
 
 var target_return_enabled = false

@@ -3,7 +3,7 @@ extends Camera2D
 onready var Globals = get_tree().get_root().get_node("Game/Globals")
 onready var ctnQuestsViewport = Globals.get_node("QuestsNode/ctnQuestsViewport")
 onready var vp_dim = get_parent().size
-onready var fs_dim = get_node("../QuestsSpace").rect_size
+onready var fs_dim = get_node("../ctrlQuestsFloor/QuestsSpace").rect_size
 onready var ctrlQuestsFloor = get_parent().get_node("ctrlQuestsFloor")
 
 var target_return_enabled = false

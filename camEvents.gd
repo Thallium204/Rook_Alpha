@@ -3,7 +3,7 @@ extends Camera2D
 onready var Globals = get_tree().get_root().get_node("Game/Globals")
 onready var ctnEventsViewport = Globals.get_node("EventsNode/ctnEventsViewport")
 onready var vp_dim = get_parent().size
-onready var fs_dim = get_node("../EventsSpace").rect_size
+onready var fs_dim = get_node("../ctrlEventsFloor/EventsSpace").rect_size
 onready var ctrlEventsFloor = get_parent().get_node("ctrlEventsFloor")
 
 var target_return_enabled = false
