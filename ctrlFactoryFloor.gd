@@ -38,15 +38,16 @@ func spawnResource(resourceName, resourceType, outputEntity):
 		newResource.position = outputEntity.position+Vector2(16,16)
 		newResource.toPosition = outputEntity.position+Vector2(16,16)
 		newResource.name = resourceName+str(entityCount)
-		entityCount += 1
 		
 		newResource.resourceName = resourceName
 		newResource.get_node("sprResource").texture = load("res://Assets/Resources/img_"+resourceName.to_lower()+".png")
 		if outputEntity.fatherNode.currentResource == null: # The conveyor is free
 			outputEntity.fatherNode.currentResource = newResource # We set this here to avoid simultaneous collision
+			entityCount += 1
 			add_child(newResource)
 			return true
 		else:
+			newResource.queue_free()
 			return false
 
 func addStructure(structureData,structureType):

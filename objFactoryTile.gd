@@ -87,8 +87,10 @@ func getDirectionOfTileArea(otherTileArea,forward):
 	for row in [-1,0,1]:
 		for col in [-1,0,1]:
 			if row == 0 or col == 0:
-				if ctrlFactoryFloor.pointerArray[entityTile["row"]+row][entityTile["col"]+col] == otherTileArea:
-					direction = [row,col]
+				if entityTile["row"]+row in range( 0 , ctrlFactoryFloor.pointerArray.size() ):
+					if entityTile["col"]+col in range( 0 , ctrlFactoryFloor.pointerArray[0].size() ):
+						if ctrlFactoryFloor.pointerArray[entityTile["row"]+row][entityTile["col"]+col] == otherTileArea:
+							direction = [row,col]
 	if forward == true:
 		return directionDict[direction]
 	else:
