@@ -2,6 +2,7 @@ extends TouchScreenButton
 
 onready var Globals = null
 onready var ctrlFactoryFloor = null
+onready var ioIndicators = $ioIndicators.get_children()
 
 var entityTile = null # {"row":0,"col":0}The indexes for the pointerArray
 var fatherNode = null
@@ -21,9 +22,40 @@ func _ready():
 func _process(_delta):
 	
 	if fatherNode != null:
-		modulate = Color(1,1,1,0)
+		$texTile.self_modulate = Color(1,1,1,0)
 	else:
-		modulate = Color(1,1,1,0.2)
+		$texTile.self_modulate = Color(1,1,1,0.2)
+	
+	if fatherNode == null:
+		$ioIndicators.modulate = Color(1,1,1,0)
+		return
+	else:
+		$ioIndicators.modulate = Color(1,1,1,1)
+	
+	if fatherNode.entityType != "Structure":
+		$ioIndicators.modulate = Color(1,1,1,0)
+		return
+	
+	for child in ioIndicators:
+		child.modulate = Color(1,1,1,0)
+	
+	for inputTilePos in range(fatherNode.entityInputList.size()):
+		var inputTile = fatherNode.entityInputList[inputTilePos]
+		var for_direction = fatherNode.directionInputList[inputTilePos]
+		var rev_direction = inv_directionDict[for_direction]
+		for directionPos in range(inputTile.fatherNode.directionOutputList.size()):
+			if inputTile.fatherNode.directionOutputList[directionPos] == rev_direction:
+				if inputTile.fatherNode.entityOutputList[directionPos] == self:
+					$ioIndicators.get_node("spr"+for_direction).modulate = Color(0,1,0,1)
+	
+	for outputTilePos in range(fatherNode.entityOutputList.size()):
+		var outputTile = fatherNode.entityOutputList[outputTilePos]
+		var for_direction = fatherNode.directionOutputList[outputTilePos]
+		var rev_direction = inv_directionDict[for_direction]
+		for directionPos in range(outputTile.fatherNode.directionInputList.size()):
+			if outputTile.fatherNode.directionInputList[directionPos] == rev_direction:
+				if outputTile.fatherNode.entityInputList[directionPos] == self:
+					$ioIndicators.get_node("spr"+for_direction).modulate = Color(1,0,0,1)
 
 # Area2D Signals
 

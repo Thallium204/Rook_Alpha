@@ -1,8 +1,8 @@
 [gd_scene load_steps=7 format=2]
 
-[ext_resource path="res://Assets/Menu/img_tile_white.png" type="Texture" id=1]
 [ext_resource path="res://objFactoryTile.gd" type="Script" id=2]
 [ext_resource path="res://Assets/Tileables/img_factorytile.png" type="Texture" id=3]
+[ext_resource path="res://Assets/Misc/img_io_indicator.png" type="Texture" id=4]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 16, 16 )
@@ -14,8 +14,6 @@ extents = Vector2( 16, 16 )
 radius = 2.0
 
 [node name="objFactoryTile" type="TouchScreenButton"]
-self_modulate = Color( 1, 1, 1, 0 )
-normal = ExtResource( 1 )
 shape = SubResource( 1 )
 script = ExtResource( 2 )
 
@@ -39,6 +37,29 @@ texture = ExtResource( 3 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="ioIndicators" type="Node2D" parent="."]
+z_index = 20
+z_as_relative = false
+
+[node name="sprU" type="Sprite" parent="ioIndicators"]
+position = Vector2( 16, 2 )
+rotation = -3.14159
+texture = ExtResource( 4 )
+
+[node name="sprR" type="Sprite" parent="ioIndicators"]
+position = Vector2( 30, 16 )
+rotation = -1.5708
+texture = ExtResource( 4 )
+
+[node name="sprD" type="Sprite" parent="ioIndicators"]
+position = Vector2( 16, 30 )
+texture = ExtResource( 4 )
+
+[node name="sprL" type="Sprite" parent="ioIndicators"]
+position = Vector2( 2, 16 )
+rotation = 1.5708
+texture = ExtResource( 4 )
 [connection signal="pressed" from="." to="." method="_on_objFactoryTile_pressed"]
 [connection signal="released" from="." to="." method="_on_objFactoryTile_released"]
 [connection signal="mouse_entered" from="areaTile" to="." method="_on_areaTile_mouse_entered"]

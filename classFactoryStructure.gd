@@ -15,6 +15,43 @@ func _ready():
 	imageDirectory += "/Structure"
 	entityType = "Structure"
 
+func inputResource_Structure(resName,resType,inputBuffers):
+	for inputBuffer in inputBuffers: # Scan through input resource options
+		if inputBuffer["resourceType"] == resType:
+			#  If we have found the corresponding resource option
+			if inputBuffer["resourceName"] == resName or (inputBuffer["resourceName"] == "" and inputBuffer["resourceType"] == resType):
+				if inputBuffer["bufferCurrent"] < inputBuffer["bufferMax"]: # If there's room
+					inputBuffer["bufferCurrent"] += 1
+					inputBuffer["resourceName"] = resName
+					return true
+	return false
+
+func outputResource_Structure(resName,resType,outputBuffers):
+	var success = false
+	if entityOutputList.empty(): # If we have no outputs
+		return false
+	var outputEntity = entityOutputList[indexOutputList]
+	for outputBuffer in outputBuffers: # Scan through output resource options (for current process)
+		# If valid processor output
+		if outputBuffer["resourceName"] == resName: #  If we have found the corresponding resource option
+			if outputBuffer["bufferCurrent"] > 0: # If there's resources to export
+				indexOutputList = (indexOutputList+1)%entityOutputList.size() # Iterate the index
+				if outputEntity.fatherNode.entityType == "Connector":
+					if outputEntity.fatherNode.connectorType == "Conveyor":
+						if ctrlFactoryFloor.spawnResource(resName,outputBuffer["resourceType"], outputEntity) == true:
+							success = true
+				elif outputEntity.fatherNode.entityType == "Structure":
+					if outputEntity.fatherNode.inputResource(resName,resType) == true:
+						success = true
+				if success == true:
+					outputBuffer["bufferCurrent"] -= 1
+					if structureType == "Holder":
+						if outputBuffer["bufferCurrent"] == 0:
+							outputBuffer["resourceName"] = ""
+					return true
+	
+	return false # We could not export the resource for whatever reason
+
 func _process(_delta):
 	
 	if moveMode == true:

@@ -24,34 +24,11 @@ func updateUI(): # Called when we want to update the display nodes for the user
 	# Update the structure image
 	$sprStructure.texture = load(imageDirectory+"/img_"+entityName.to_lower()+".png")
 
-func inputResource(resourceNode):
-	for internalBuffer in internalStorage: # Scan through input resource options
-		if internalBuffer["resourceType"] == resourceNode.resourceType:
-			#  If we have found the corresponding resource option
-			if internalBuffer["resourceName"] == resourceNode.resourceName or internalBuffer["resourceName"] == "":
-				if internalBuffer["bufferCurrent"] < internalBuffer["bufferMax"]: # If there's room
-					internalBuffer["bufferCurrent"] += 1
-					internalBuffer["resourceName"] = resourceNode.resourceName
-					return true
-	return false
+func inputResource(resName,resType):
+	return inputResource_Structure(resName,resType,internalStorage)
 
-func outputResource(resourceName,resourceType):
-	if entityOutputList.empty():
-		return false
-	for internalBuffer in internalStorage: # Scan through input resource options
-		if internalBuffer["resourceType"] == resourceType:
-			#  If we have found the corresponding resource option
-			if internalBuffer["resourceName"] == resourceName or internalBuffer["resourceName"] == "":
-				if internalBuffer["bufferCurrent"] > 0: # If there's any resources to export
-					indexOutputList = (indexOutputList+1)%entityOutputList.size() # Iterate the index
-					if entityOutputList[indexOutputList].fatherNode.currentResource == null: # If the output conveyor has no resources on it
-						internalBuffer["bufferCurrent"] -= 1
-						ctrlFactoryFloor.spawnResource(resourceName,internalBuffer["resourceType"], entityOutputList[indexOutputList])
-						if internalBuffer["bufferCurrent"] == 0:
-							internalBuffer["resourceName"] = ""
-						return true
-					return false
-	return false
+func outputResource(resName,resType):
+	return outputResource_Structure(resName,resType,internalStorage)
 
 func isStorageEmpty():
 	for storage in internalStorage[0]:
