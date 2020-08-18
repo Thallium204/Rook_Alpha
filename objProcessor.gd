@@ -53,7 +53,8 @@ func _process(delta):
 		tryToProcess()
 	
 	for outputBuffer in processData[processIndex]["outputBuffers"]:
-		outputResource(outputBuffer["resourceName"],outputBuffer["resourceType"])
+		if outputBuffer["bufferCurrent"] > 0:
+			outputResource(outputBuffer["resourceName"],outputBuffer["resourceType"])
 
 func tryToProcess():
 	# Check if we have required resources

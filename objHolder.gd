@@ -10,7 +10,8 @@ func _ready():
 func _process(_delta):
 	
 	for internalBuffer in internalStorage:
-		outputResource(internalBuffer["resourceName"],internalBuffer["resourceType"])
+		if internalBuffer["bufferCurrent"] > 0:
+			outputResource(internalBuffer["resourceName"],internalBuffer["resourceType"])
 
 func configure(structData): # Called when we want to initialise the internal structure
 	# Here we take the data provided by the Banks (structureData), in some cases edit it, and assign it to it's internal variable
