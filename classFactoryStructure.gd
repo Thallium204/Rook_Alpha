@@ -56,6 +56,11 @@ func _process(_delta):
 	
 	if moveMode == true:
 		process_moveMode()
+	
+	if texInfoBar.infoNode == self and Globals.displayInfoMode == true:
+		$texSelect.modulate = Color(1,1,1,1)
+	else:
+		$texSelect.modulate = Color(1,1,1,0)
 
 func configure_Structure(structureData):
 	

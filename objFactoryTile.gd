@@ -1,6 +1,7 @@
 extends TouchScreenButton
 
 onready var Globals = null
+onready var texInfoBar = null
 onready var ctrlFactoryFloor = null
 onready var ioIndicators = $ioIndicators.get_children()
 
@@ -19,6 +20,7 @@ func updatePosition():
 
 func _ready():
 	Globals = get_tree().get_root().get_node("Game/Globals")
+	texInfoBar = Globals.get_node("FactoryNode/SideBarNode/texInfoBar")
 	ctrlFactoryFloor = Globals.get_node("FactoryNode/ctnFactoryViewport/vptFactoryScene/ctrlFactoryFloor")
 
 func _process(_delta):
@@ -58,7 +60,12 @@ func _process(_delta):
 			if outputTile.fatherNode.directionInputList[directionPos] == rev_direction:
 				if outputTile.fatherNode.entityInputList[directionPos] == self:
 					$ioIndicators.get_node("spr"+for_direction).modulate = Color(1,0,0,1)
-
+	
+	if fatherNode == texInfoBar.infoNode and Globals.displayInfoMode == true:
+		$texFill.modulate = Color(0.5,0.5,0.5,0.5)
+	else:
+		$texFill.modulate = Color(1,1,1,0)
+	
 # Area2D Signals
 
 # When the mouse enters our Area
@@ -117,7 +124,6 @@ func _on_objFactoryTile_released():
 			Globals.lastTileArea = null
 			Globals.drawConnectorMode = "ready"
 		return
-	
 	
 	fatherNode.onReleased(entityTile)
 
