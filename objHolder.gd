@@ -6,6 +6,7 @@ var internalStorage = []
 func _ready():
 	imageDirectory += "/Holder"
 	structureType = "Holder"
+	ResourceBarNode.holderArray.append(self)
 
 func _process(_delta):
 	
@@ -47,7 +48,12 @@ func onPressed(tile): # Pressed Processes for all Holders
 		return
 
 func onReleased(tile): # Released Processes for all Holders
-
+	
+	# If we're in delete mode
+	if Globals.deleteStructureMode == true:
+		ResourceBarNode.holderArray.erase(self)
+		print(ResourceBarNode.holderArray)
+	
 	# Handle structure
 	onReleased_Structure(tile)
 	

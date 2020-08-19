@@ -5,6 +5,7 @@ onready var ctrlFactoryFloor = Globals.get_node("FactoryNode/ctnFactoryViewport/
 onready var texInfoBar = Globals.get_node("FactoryNode/SideBarNode/texInfoBar")
 onready var FactorySpace = ctrlFactoryFloor.get_node("FactorySpace")
 onready var camFactory = ctrlFactoryFloor.get_node("../camFactory")
+onready var ResourceBarNode = Globals.get_node("FactoryNode/ResourceBarNode")
 
 onready var grey = Globals.infoColorModifier
 onready var imageDirectory = "res://Assets/FactoryEntity"

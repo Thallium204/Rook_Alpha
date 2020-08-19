@@ -30,12 +30,12 @@ func outputResource_Structure(resName,resType,outputBuffers):
 	var success = false
 	if entityOutputList.empty(): # If we have no outputs
 		return false
-	var outputEntity = entityOutputList[indexOutputList]
 	for outputBuffer in outputBuffers: # Scan through output resource options (for current process)
 		# If valid processor output
 		if outputBuffer["resourceName"] == resName: #  If we have found the corresponding resource option
 			if outputBuffer["bufferCurrent"] > 0: # If there's resources to export
 				indexOutputList = (indexOutputList+1)%entityOutputList.size() # Iterate the index
+				var outputEntity = entityOutputList[indexOutputList]
 				if outputEntity.fatherNode.entityType == "Connector":
 					if outputEntity.fatherNode.connectorType == "Conveyor":
 						if ctrlFactoryFloor.spawnResource(resName,outputBuffer["resourceType"], outputEntity) == true:
