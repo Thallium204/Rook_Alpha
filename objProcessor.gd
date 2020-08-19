@@ -13,13 +13,12 @@ func _ready():
 	imageDirectory += "/Processor"
 	structureType = "Processor"
 
-func configure(structData): # Called when we want to initialise the internal structure
-	# Here we take the data provided by the Banks (structureData), in some cases edit it, and assign it to it's internal variable
-	entityName = structData["nameID"]
-	processData = structData["processesData"]
-	entityShape = structData["shapeData"]
-	setEntitySize([entityShape[0].size(),entityShape.size()])
+func configure(processorData): # Called when we want to initialise the internal structure
+	
+	processData = processorData["processesData"]
 	$prgProcess.rect_scale = Vector2.ONE*(entitySize[0]/64) # Scale the progress bar
+	
+	configure_Structure(processorData)
 
 func updateUI(): # Called when we want to update the display nodes for the user
 	
@@ -86,10 +85,6 @@ func onReleased(tile): # Released Processes for all Processors
 	
 	# Handle structure
 	onReleased_Structure(tile)
-	
-	# Stop if we have moved our mouse since pressing
-	if hasDragged == true:
-		return
 		
 	# Handle Processing
 	if Globals.moveStructureMode == "off":

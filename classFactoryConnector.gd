@@ -8,11 +8,16 @@ var _levelData = [] 			# List of all upgrade modifiers
 func _ready():
 	imageDirectory += "/Connector"
 	entityType = "Connector"
-	entityShape = [[1]]
 
 func _process(_delta):
 	
 	pass
+
+func configure_Connector(connectorData):
+	
+	entityShape = [[1]]
+	
+	configure_Entity(connectorData)
 
 func onPressed_Connector(tile): # Pressed Processes for all structures
 	
@@ -23,10 +28,6 @@ func onReleased_Connector(tile): # Released Processes for all structures
 	
 	# Handle Entity
 	onReleased_Entity(tile)
-	
-	# Stop if we have moved our mouse since pressing
-	if hasDragged == true:
-		return
 
 
 

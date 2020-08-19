@@ -14,12 +14,11 @@ func _process(_delta):
 		if internalBuffer["bufferCurrent"] > 0:
 			outputResource(internalBuffer["resourceName"],internalBuffer["resourceType"])
 
-func configure(structData): # Called when we want to initialise the internal structure
-	# Here we take the data provided by the Banks (structureData), in some cases edit it, and assign it to it's internal variable
-	entityName = structData["nameID"]
-	internalStorage = structData["internalStorage"]
-	entityShape = structData["shapeData"]
-	setEntitySize([entityShape[0].size(),entityShape.size()])
+func configure(holderData): # Called when we want to initialise the internal structure
+	
+	internalStorage = holderData["internalStorage"]
+	
+	configure_Structure(holderData)
 
 func updateUI(): # Called when we want to update the display nodes for the user
 	
@@ -42,10 +41,6 @@ func onPressed(tile): # Pressed Processes for all Holders
 	
 	# Handle structure
 	onPressed_Structure(tile)
-	
-	# Stop if we have moved our mouse since pressing
-	if hasDragged == true:
-		return
 
 func onReleased(tile): # Released Processes for all Holders
 	
@@ -56,7 +51,3 @@ func onReleased(tile): # Released Processes for all Holders
 	
 	# Handle structure
 	onReleased_Structure(tile)
-	
-	# Stop if we have moved our mouse since pressing
-	if hasDragged == true:
-		return

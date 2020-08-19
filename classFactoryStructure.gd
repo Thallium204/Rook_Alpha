@@ -57,6 +57,14 @@ func _process(_delta):
 	if moveMode == true:
 		process_moveMode()
 
+func configure_Structure(structureData):
+	
+	entityShape = structureData["shapeData"]
+	
+	configure_Entity(structureData)
+	
+	$texSelect.rect_size = entitySize
+
 func process_moveMode(): # Called through process when in moveMode
 	
 	# Move the building in tile steps with the camera
@@ -65,10 +73,7 @@ func process_moveMode(): # Called through process when in moveMode
 	position[1] = stepify( camFactory.position[1] - ctrlFactoryFloor.rect_position[1] - entitySize[1]/2 , ctrlFactoryFloor.tileSize )
 	position[1] = clamp(position[1] , camFactory.vertical_offset , FactorySpace.rect_size[1] - entitySize[1])
 	
-	# Get current master tile
-	# Position vector has (x,y) format, Arrays have a [row][column] format
-	# Since y represents rows we need to put the y value in the first position for the Array format
-	# Since x represents columns we need to put the x value in the seond position for the Array format
+	# Update entityMasterTile
 	entityMasterTile["row"] = position[1]/ctrlFactoryFloor.tileSize
 	entityMasterTile["col"] = position[0]/ctrlFactoryFloor.tileSize
 	
@@ -79,11 +84,11 @@ func process_moveMode(): # Called through process when in moveMode
 	canBePlaced = true
 	# Remove any colour tint from the YES button in the Confirm menu
 	get_node("objConfirmMenu/btnYes").modulate = Color(1,1,1)
-	for row in range(entityTileSize[0]):
-		for col in range(entityTileSize[1]):
+	for row in range(entityTileSize[1]):
+		for col in range(entityTileSize[0]):
 			if ctrlFactoryFloor.pointerArray[entityMasterTile["row"]+row][entityMasterTile["col"]+col].fatherNode != null:
 				canBePlaced = false
-				get_node("objConfirmMenu/btnYes").modulate = Color(1,grey,grey)
+				get_node("objConfirmMenu/btnYes").modulate = Color(grey,grey,grey)
 
 func enable_moveMode(isNew = false): # Called when we want to move this structure
 	
@@ -109,17 +114,19 @@ func disable_moveMode(placed = false): # Called when we have stopped moving this
 	
 	if placed == false: # If we pressed cancel
 		
-		if last_entityMasterTile == null: # If we're a new structure
+		if isNew == true: # If we're a new structure
 			queue_free() # Destroy self
 		else: # If we're an old structure
 			entityMasterTile = last_entityMasterTile.duplicate(true) # Reset masterTile
 			# Return to previous position
 			position = ctrlFactoryFloor.tileSize * Vector2(last_entityMasterTile["col"] , last_entityMasterTile["row"])
+			addShapeToFactory(self)
 		
 	else: # If we pressed confirm
 		
 		if canBePlaced == true: # If we can place it
 			last_entityMasterTile = entityMasterTile.duplicate(true) # Update last_masterTile
+			addShapeToFactory(self)
 		else:
 			return
 	
@@ -138,7 +145,6 @@ func menuResult(menuID,result): # Called by a menu; the menuID tells us the menu
 	
 	if menuID == "move": # This is the result of the move ConfirmMenu (true|false)
 		disable_moveMode(result) # Disable move mode (have we placed?)
-		addShapeToFactory(self) # Add ourself to the pointerArray
 
 func onPressed_Structure(tile): # Pressed Processes for all structures
 	
@@ -154,9 +160,6 @@ func onReleased_Structure(tile): # Released Processes for all structures
 	# Handle Entity
 	onReleased_Entity(tile)
 	
-	# Stop if we have moved our mouse since pressing
-	if hasDragged == true:
-		return
 
 
 

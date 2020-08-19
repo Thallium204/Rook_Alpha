@@ -11,9 +11,6 @@ func _process(_delta):
 
 func updateInfo():
 	
-	if Globals.displayInfoMode == false:
-		infoNode = null
-	
 	if infoNode == null:
 		$hgrdName.visible = false
 		$hgrdProcess.visible = false

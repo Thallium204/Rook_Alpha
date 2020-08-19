@@ -7,6 +7,8 @@ onready var ioIndicators = $ioIndicators.get_children()
 var entityTile = null # {"row":0,"col":0}The indexes for the pointerArray
 var fatherNode = null
 
+var isReleasedValid = false
+
 var directionDict = { [0,0]:"" , [-1, 0]:"U" , [ 0, 1]:"R" , [ 1, 0]:"D" , [ 0,-1]:"L" }
 var inv_directionDict = { "":"" , "D":"U" , "L":"R" , "U":"D" , "R":"L" }
 
@@ -78,6 +80,8 @@ func _on_areaTile_mouse_entered():
 # When the mouse exits our Area
 func _on_areaTile_mouse_exited():
 	
+	isReleasedValid = false
+	
 	if fatherNode == null:
 		return
 	
@@ -86,10 +90,13 @@ func _on_areaTile_mouse_exited():
 	fatherNode.updateUI()
 
 
+
 # TouchScreenButton Signals
 
 # When the mouse presses our Button
 func _on_objFactoryTile_pressed():
+	
+	isReleasedValid = true
 	
 	if Globals.drawConnectorMode == "ready":
 		Globals.drawConnectorMode = "moving"
@@ -111,7 +118,10 @@ func _on_objFactoryTile_released():
 			Globals.drawConnectorMode = "ready"
 		return
 	
+	
 	fatherNode.onReleased(entityTile)
+
+
 
 func getDirectionOfTileArea(otherTileArea,forward):
 	

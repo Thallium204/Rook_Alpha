@@ -1,7 +1,7 @@
 extends Control
 
 onready var Globals = get_tree().get_root().get_node("Game/Globals")
-onready var FactorySpace = get_node("FactorySpace")
+onready var FactorySpace = get_node("texBackground")
 onready var camFactory = get_node("../camFactory")
 
 var resource = preload("res://Scenes/FactoryScene/objResource.tscn")
@@ -87,9 +87,9 @@ func addConnector(connectorData,connectorType,entityTile):
 	newConnector.position = tileSize * Vector2(entityTile["col"],entityTile["row"])
 	newConnector.entityMasterTile = entityTile
 	add_child(newConnector)
-	newConnector.addShapeToFactory(newConnector)
 	newConnector.configure(connectorData)
 	newConnector.updateUI()
+	newConnector.addShapeToFactory(newConnector)
 	
 	return
 

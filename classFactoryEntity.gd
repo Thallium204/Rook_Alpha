@@ -21,33 +21,22 @@ var entityShape = [] 						# 2D array of pointerArray grid positions in shape of
 
 var entityInputList = []					# List of objFactoryTile's we're inputting from
 var entityOutputList = []					# List of objFactoryTile's we're outputting to
-
 var directionInputList = []					# List of directions we're inputting from i.e. ["U","L"]
 var directionOutputList = []				# List of directions we're outputting to i.e. ["D","R"]
-
 var indexInputList = 0						# Index for the Input Lists
 var indexOutputList = 0						# Index for the Output Lists
 
-var dragDetectMode = false					# Drag Detect Mode: True when checking for finger movement
-var hasDragged = false						# Drag Detect Mode: True is a finger has been dragged whilst pressing
-
-func _ready():
-	setEntitySize()
-
-func setEntitySize(dim=[1,1]):
-	entitySize = ctrlFactoryFloor.tileSize * Vector2(dim[0],dim[1])
-	entityTileSize = Vector2(dim[0],dim[1])
+func configure_Entity(entityData):
+	
+	entityName = entityData["nameID"]
+	entityTileSize = Vector2(entityShape[0].size(),entityShape.size())
+	entitySize = ctrlFactoryFloor.tileSize * entityTileSize
 
 func onPressed_Entity(_tile): # Pressed Processes for all entities
 	
-	# Enable drag detection
-	dragDetectMode = true
+	pass
 
 func onReleased_Entity(_tile): # Pressed Processes for all entities
-	
-	# Stop if we have moved our mouse since pressing
-	if hasDragged == true:
-		return
 	
 	# If we're in delete mode
 	if Globals.deleteStructureMode == true:

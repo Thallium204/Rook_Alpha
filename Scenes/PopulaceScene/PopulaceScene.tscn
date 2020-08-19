@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://Assets/Tileables/img_factory_lime_120x.png" type="Texture" id=1]
-[ext_resource path="res://camPopulace.gd" type="Script" id=2]
+[ext_resource path="res://Scenes/objCamera.tscn" type="PackedScene" id=2]
 
 [node name="PopulaceNode" type="Control"]
 margin_left = 2160.0
@@ -39,11 +39,10 @@ render_target_update_mode = 3
 margin_right = 40.0
 margin_bottom = 40.0
 
-[node name="PopulaceSpace" type="TextureRect" parent="ctnPopulaceViewport/vptPopulaceScene/ctrlPopulaceFloor"]
+[node name="texBackground" type="TextureRect" parent="ctnPopulaceViewport/vptPopulaceScene/ctrlPopulaceFloor"]
 margin_right = 1152.0
 margin_bottom = 2432.0
 texture = ExtResource( 1 )
 stretch_mode = 2
 
-[node name="camPopulace" type="Camera2D" parent="ctnPopulaceViewport/vptPopulaceScene"]
-script = ExtResource( 2 )
+[node name="camPopulace" parent="ctnPopulaceViewport/vptPopulaceScene" instance=ExtResource( 2 )]
