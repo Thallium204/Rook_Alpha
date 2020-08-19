@@ -21,8 +21,8 @@ var processorBank = {
 		}, 
 		
 		"shapeData":[
-			[1,1],
-			[1,1]
+			[1],
+			[1]
 		
 		]},
 	"metaQuarry":{

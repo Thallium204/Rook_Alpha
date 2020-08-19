@@ -32,6 +32,7 @@ func _process(_delta):
 	
 	if fatherNode == null:
 		$ioIndicators.modulate = Color(1,1,1,0)
+		$texFill.modulate = Color(1,1,1,0)
 		return
 	else:
 		$ioIndicators.modulate = Color(1,1,1,1)
@@ -61,7 +62,7 @@ func _process(_delta):
 				if outputTile.fatherNode.entityInputList[directionPos] == self:
 					$ioIndicators.get_node("spr"+for_direction).modulate = Color(1,0,0,1)
 	
-	if fatherNode == texInfoBar.infoNode and Globals.displayInfoMode == true:
+	if fatherNode == texInfoBar.infoNode and Globals.displayInfoMode == true and fatherNode != null:
 		$texFill.modulate = Color(0.5,0.5,0.5,0.5)
 	else:
 		$texFill.modulate = Color(1,1,1,0)

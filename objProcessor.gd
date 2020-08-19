@@ -16,9 +16,10 @@ func _ready():
 func configure(processorData): # Called when we want to initialise the internal structure
 	
 	processData = processorData["processesData"]
-	$prgProcess.rect_scale = Vector2.ONE*(entitySize[0]/64) # Scale the progress bar
 	
 	configure_Structure(processorData)
+	
+	$prgProcess.rect_scale = entitySize/64 # Scale the progress bar
 
 func updateUI(): # Called when we want to update the display nodes for the user
 	
