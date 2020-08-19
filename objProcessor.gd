@@ -13,39 +13,23 @@ func _ready():
 	imageDirectory += "/Processor"
 	structureType = "Processor"
 
-func configure(structData): # Called when we want to initialise the internal structure
-	# Here we take the data provided by the Banks (structureData), in some cases edit it, and assign it to it's internal variable
-	entityName = structData["nameID"]
-	processData = structData["processesData"]
-	entityShape = structData["shapeData"]
-	setEntitySize([entityShape[0].size(),entityShape.size()])
+func configure(processorData): # Called when we want to initialise the internal structure
+	
+	processData = processorData["processesData"]
 	$prgProcess.rect_scale = Vector2.ONE*(entitySize[0]/64) # Scale the progress bar
+	
+	configure_Structure(processorData)
 
 func updateUI(): # Called when we want to update the display nodes for the user
 	
 	# Update the structure image
 	$sprStructure.texture = load(imageDirectory+"/img_"+entityName.to_lower()+".png")
 
-func inputResource(resourceNode):
-	for inputBuffer in processData[processIndex]["inputBuffers"]: # Scan through input resource options (for current process)
-		if inputBuffer["resourceName"] == resourceNode.resourceName: #  If we have found the corresponding resource option
-			if inputBuffer["bufferCurrent"] < inputBuffer["bufferMax"]: # If there's room
-				inputBuffer["bufferCurrent"] += 1
-				return true
-	return false # We could not add the resource for whatever reason
+func inputResource(resName,resType):
+	return inputResource_Structure(resName,resType,processData[processIndex]["inputBuffers"])
 
-func outputResource(resourceName):
-	if entityOutputList.empty(): # If we have no outputs
-		return false
-	for outputBuffer in processData[processIndex]["outputBuffers"]: # Scan through output resource options (for current process)
-		if outputBuffer["resourceName"] == resourceName: #  If we have found the corresponding resource option
-			if outputBuffer["bufferCurrent"] > 0: # If there's resources to export
-				indexOutputList = (indexOutputList+1)%entityOutputList.size() # Iterate the index
-				if ctrlFactoryFloor.spawnResource(resourceName,outputBuffer["resourceType"], entityOutputList[indexOutputList]) == true:
-					outputBuffer["bufferCurrent"] -= 1
-					return true
-				return false
-	return false # We could not export the resource for whatever reason
+func outputResource(resName,resType):
+	return outputResource_Structure(resName,resType,processData[processIndex]["outputBuffers"])
 
 func _process(delta):
 	
@@ -67,12 +51,9 @@ func _process(delta):
 	if Globals.autoCraft == true and get_parent():
 		tryToProcess()
 	
-#	if deltaOutput >= outputRate:
-#		outputResource(processData[processIndex]["outputBuffers"][0]["resourceName"])
-#		deltaOutput = 0.0
-#	else:
-#		deltaOutput += delta
-	outputResource(processData[processIndex]["outputBuffers"][0]["resourceName"])
+	for outputBuffer in processData[processIndex]["outputBuffers"]:
+		if outputBuffer["bufferCurrent"] > 0:
+			outputResource(outputBuffer["resourceName"],outputBuffer["resourceType"])
 
 func tryToProcess():
 	# Check if we have required resources
@@ -104,10 +85,6 @@ func onReleased(tile): # Released Processes for all Processors
 	
 	# Handle structure
 	onReleased_Structure(tile)
-	
-	# Stop if we have moved our mouse since pressing
-	if hasDragged == true:
-		return
 		
 	# Handle Processing
 	if Globals.moveStructureMode == "off":

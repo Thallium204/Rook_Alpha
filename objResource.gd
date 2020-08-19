@@ -15,16 +15,16 @@ func _process(_delta):
 	if waiting == null:
 		
 		if stop == false:
-		
+			
 			var direction = (toPosition - position).normalized()
 			if (position - toPosition).length() < speed:
 				position = toPosition
 			else:
 				position += direction*speed
 			$bodyDetect.position = direction*9
-		
+			
 	else:
-		print(waiting)
+		
 		shapeActivity(waiting[0],waiting[1],waiting[2])
 
 func shapeActivity(localAreaStr,remoteAreaNode,activityType):
@@ -58,7 +58,7 @@ func shapeActivity(localAreaStr,remoteAreaNode,activityType):
 			# If our bodyOuter has entered the structure
 			if localAreaStr == "bodyOuter" and activityType == "Entered":
 				
-				if objFactoryEntity.inputResource(self) == true: # Let the structure node handle it
+				if objFactoryEntity.inputResource(resourceName,resourceType) == true: # Let the structure node handle it
 					queue_free()
 					return
 				else:
@@ -108,7 +108,6 @@ func shapeActivity(localAreaStr,remoteAreaNode,activityType):
 				stop = true
 			elif activityType == "Exited":
 				stop = false
-			
 
 # DETECT SHAPE for the leading circle
 func _on_bodyDetect_area_entered(area):

@@ -3,7 +3,7 @@ extends Control
 onready var Globals = get_tree().get_root().get_node("Game/Globals")
 onready var SideBarNode = get_node("../SideBarNode")
 
-var objAddEntityButton = preload("res://objAddEntityButton.tscn")
+var objAddEntityButton = preload("res://Scenes/FactoryScene/objAddEntityButton.tscn")
 
 var barType = "TopBar"
 var barData = [["Processor",false],["Holder",false],["Enhancer",false],["Connector",false]]

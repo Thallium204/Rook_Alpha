@@ -1,10 +1,9 @@
-[gd_scene load_steps=30 format=2]
+[gd_scene load_steps=29 format=2]
 
 [ext_resource path="res://Assets/Buttons/TopBar/img_enhancer_off.png" type="Texture" id=1]
 [ext_resource path="res://ctrlFactoryFloor.gd" type="Script" id=2]
 [ext_resource path="res://Assets/Tileables/img_factory_grass_32x.png" type="Texture" id=3]
-[ext_resource path="res://camFactory.gd" type="Script" id=4]
-[ext_resource path="res://Assets/Misc/img_cursor.png" type="Texture" id=5]
+[ext_resource path="res://Scenes/objCamera.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Fonts/minecraft_regular.otf" type="DynamicFontData" id=6]
 [ext_resource path="res://SideBarNode.gd" type="Script" id=7]
 [ext_resource path="res://Assets/Buttons/TopBar/img_holder_off.png" type="Texture" id=8]
@@ -19,12 +18,9 @@
 [ext_resource path="res://Assets/Buttons/SideBar/img_info_off.png" type="Texture" id=17]
 [ext_resource path="res://Assets/Buttons/TopBar/img_connector_off.png" type="Texture" id=18]
 [ext_resource path="res://Assets/Buttons/SideBar/img_connect_off.png" type="Texture" id=19]
+[ext_resource path="res://ResourceBarNode.gd" type="Script" id=20]
 [ext_resource path="res://Assets/Menu/img_right.png" type="Texture" id=21]
 [ext_resource path="res://Assets/Menu/img_left.png" type="Texture" id=22]
-
-[sub_resource type="DynamicFont" id=1]
-size = 30
-font_data = ExtResource( 6 )
 
 [sub_resource type="StyleBoxEmpty" id=2]
 
@@ -95,7 +91,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="FactorySpace" type="TextureRect" parent="ctnFactoryViewport/vptFactoryScene/ctrlFactoryFloor"]
+[node name="texBackground" type="TextureRect" parent="ctnFactoryViewport/vptFactoryScene/ctrlFactoryFloor"]
 show_behind_parent = true
 margin_right = 1152.0
 margin_bottom = 2432.0
@@ -106,35 +102,14 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="camFactory" type="Camera2D" parent="ctnFactoryViewport/vptFactoryScene"]
-position = Vector2( 540, 960 )
-rotating = true
-current = true
-limit_left = 0
-limit_top = 0
-limit_right = 2160
-limit_bottom = 3840
-editor_draw_drag_margin = true
-script = ExtResource( 4 )
+[node name="camFactory" parent="ctnFactoryViewport/vptFactoryScene" instance=ExtResource( 4 )]
 
-[node name="texCursor" type="TextureRect" parent="ctnFactoryViewport/vptFactoryScene/camFactory"]
-margin_left = -16.0
-margin_top = -16.0
-rect_scale = Vector2( 2, 2 )
+[node name="ResourceBarNode" type="VBoxContainer" parent="."]
+margin_top = 128.0
+margin_right = 196.0
+margin_bottom = 1208.0
 mouse_filter = 2
-texture = ExtResource( 5 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Label" type="Label" parent="ctnFactoryViewport/vptFactoryScene/camFactory"]
-visible = false
-margin_left = -250.0
-margin_top = -100.0
-margin_right = 250.0
-margin_bottom = 100.0
-custom_fonts/font = SubResource( 1 )
-text = "lmao"
+script = ExtResource( 20 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -243,13 +218,28 @@ margin_left = -1080.0
 margin_top = 1202.0
 margin_bottom = 1490.0
 rect_scale = Vector2( 1, 1.07 )
-texture = ExtResource( 9 )
+mouse_filter = 0
 region_rect = Rect2( 0, 0, 9, 9 )
 patch_margin_left = 4
 patch_margin_top = 4
 patch_margin_right = 4
 patch_margin_bottom = 4
 script = ExtResource( 13 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="texBacking" type="NinePatchRect" parent="SideBarNode/texInfoBar"]
+margin_right = 270.0
+margin_bottom = 72.0
+rect_scale = Vector2( 4, 4.28 )
+mouse_filter = 0
+texture = ExtResource( 9 )
+region_rect = Rect2( 0, 0, 9, 9 )
+patch_margin_left = 4
+patch_margin_top = 4
+patch_margin_right = 4
+patch_margin_bottom = 4
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -317,6 +307,7 @@ margin_bottom = 223.0
 rect_min_size = Vector2( 64, 0 )
 
 [node name="btnLeft" type="TouchScreenButton" parent="SideBarNode/texInfoBar/hgrdProcess/ctrlLeftProcess"]
+position = Vector2( 4, 0 )
 scale = Vector2( 3.4, 3.4 )
 normal = ExtResource( 22 )
 

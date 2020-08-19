@@ -27,11 +27,11 @@ func pointResource(resourceNode):
 	indexOutputList = (indexOutputList+1)%entityOutputList.size()
 	return true
 
-func configure(connectData): # Called when we want to initialise the internal structure
-	# Here we take the data provided by the Banks (structureData), in some cases edit it, and assign it to it's internal variable
-	entityName = connectData["nameID"]
-	conveyorSpeed = connectData["conveyorSpeed"]
-	setEntitySize([entityShape[0].size(),entityShape.size()])
+func configure(conveyorData): # Called when we want to initialise the internal structure
+	
+	conveyorSpeed = conveyorData["conveyorSpeed"]
+	
+	configure_Connector(conveyorData)
 
 func updateUI():
 	
@@ -52,8 +52,4 @@ func onReleased(tile): # Released Processes for all Processors
 	
 	# Handle structure
 	onReleased_Connector(tile)
-	
-	# Stop if we have moved our mouse since pressing
-	if hasDragged == true:
-		return
 
