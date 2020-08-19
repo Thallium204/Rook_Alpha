@@ -47,6 +47,8 @@ func spawnResource(resourceName, resourceType, outputEntity):
 			add_child(newResource)
 			return true
 		else:
+			newResource.queue_free()
+			entityCount -= 1
 			return false
 
 func addStructure(structureData,structureType):
