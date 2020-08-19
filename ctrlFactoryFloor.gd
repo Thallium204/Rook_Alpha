@@ -4,8 +4,8 @@ onready var Globals = get_tree().get_root().get_node("Game/Globals")
 onready var FactorySpace = get_node("FactorySpace")
 onready var camFactory = get_node("../camFactory")
 
-var resource = preload("res://objResource.tscn")
-var objFactoryTile = preload("res://objFactoryTile.tscn")
+var resource = preload("res://Scenes/FactoryScene/objResource.tscn")
+var objFactoryTile = preload("res://Scenes/FactoryScene/objFactoryTile.tscn")
 
 var gridCols = 9
 var gridRows = 18
@@ -57,11 +57,11 @@ func addStructure(structureData,structureType):
 	# We need to create the correct structure instance
 	var newStructure = null
 	if structureType == "Processor":
-		newStructure = preload("res://objProcessor.tscn").instance()
+		newStructure = preload("res://Scenes/FactoryScene/objProcessor.tscn").instance()
 	elif structureType == "Holder":
-		newStructure = preload("res://objHolder.tscn").instance()
+		newStructure = preload("res://Scenes/FactoryScene/objHolder.tscn").instance()
 	elif structureType == "Enhancer":
-		newStructure = preload("res://objEnhancer.tscn").instance()
+		newStructure = preload("res://Scenes/FactoryScene/objEnhancer.tscn").instance()
 	
 	# Give unique name
 	newStructure.position = Vector2(0,0)
@@ -78,11 +78,11 @@ func addConnector(connectorData,connectorType,entityTile):
 	
 	var newConnector = null
 	if connectorType == "Conveyor":
-		newConnector = preload("res://objConveyor.tscn").instance()
+		newConnector = preload("res://Scenes/FactoryScene/objConveyor.tscn").instance()
 #	elif connectorType == "Pipe":
-#		newConnector = preload("res://objPipe.tscn").instance()
+#		newConnector = preload("res://Scenes/FactoryScene/objPipe.tscn").instance()
 #	elif connectorType == "Cable":
-#		newConnector = preload("res://objCable.tscn").instance()
+#		newConnector = preload("res://Scenes/FactoryScene/objCable.tscn").instance()
 	
 	newConnector.position = tileSize * Vector2(entityTile["col"],entityTile["row"])
 	newConnector.entityMasterTile = entityTile

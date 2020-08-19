@@ -1,6 +1,6 @@
 extends VBoxContainer
 
-var objResTab = preload("res://objResTab.tscn")
+var tmpResTab = preload("res://Scenes/FactoryScene/objResTab.tscn")
 
 var holderArray = []
 
@@ -31,7 +31,7 @@ func updateArrayList():
 			objResTab.updateUI()
 
 func addResTab(resName,resTexture):
-	var newResTab = objResTab.instance()
+	var newResTab = tmpResTab.instance()
 	newResTab.resName = resName
 	newResTab.resTexture = resTexture
 	newResTab.name = resName+"Tab"

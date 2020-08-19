@@ -10,7 +10,7 @@ onready var ResourceBarNode = Globals.get_node("FactoryNode/ResourceBarNode")
 onready var grey = Globals.infoColorModifier
 onready var imageDirectory = "res://Assets/FactoryEntity"
 
-var objConfirmMenu = preload("res://objConfirmMenu.tscn")
+var objConfirmMenu = preload("res://Scenes/FactoryScene/objConfirmMenu.tscn")
 
 var entityName = ""							# i.e. "Quarry"
 var entityType = ""							# "Structure" | "Connector"
