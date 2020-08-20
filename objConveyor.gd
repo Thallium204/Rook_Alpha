@@ -50,6 +50,10 @@ func onPressed(tile): # Pressed Processes for all Processors
 
 func onReleased(tile): # Released Processes for all Processors
 	
+	if Globals.deleteStructureMode == true:
+		if currentResource != null:
+			currentResource.queue_free()
+	
 	# Handle structure
 	onReleased_Connector(tile)
 
