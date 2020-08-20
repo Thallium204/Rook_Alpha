@@ -215,7 +215,7 @@ var holderBank = {
 			"Hole",
 		
 		"internalStorage":[
-			{"resourceName":"",			"bufferCurrent":0,	"bufferMax":4,	"resourceType":"Solid"}
+			{"resourceName":"",			"bufferCurrent":0,	"bufferMax":16,	"resourceType":"Solid"}
 		],
 		
 		"shapeData":[

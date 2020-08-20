@@ -13,7 +13,7 @@ var isReleasedValid = false
 var directionDict = { [0,0]:"" , [-1, 0]:"U" , [ 0, 1]:"R" , [ 1, 0]:"D" , [ 0,-1]:"L" }
 var inv_directionDict = { "":"" , "D":"U" , "L":"R" , "U":"D" , "R":"L" }
 
-# NOTE: You 'enter' the new area BEFORE 'exiting' the old one (if there is no gap between the areas)
+# NOTE: the mouse 'enters' a new area BEFORE 'exiting' the old one (if there is no gap between the areas)
 
 func updatePosition():
 	position = ctrlFactoryFloor.tileSize*Vector2(entityTile["col"],entityTile["row"])
