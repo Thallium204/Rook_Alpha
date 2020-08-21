@@ -27,8 +27,10 @@ func _process(_delta):
 	
 	if fatherNode != null:
 		$texTile.self_modulate = Color(1,1,1,0)
+		$texBacking.self_modulate = Color(1,1,1,1)
 	else:
 		$texTile.self_modulate = Color(1,1,1,0.2)
+		$texBacking.self_modulate = Color(1,1,1,0)
 	
 	if fatherNode == null:
 		$ioIndicators.modulate = Color(1,1,1,0)

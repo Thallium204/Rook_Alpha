@@ -57,12 +57,11 @@ func updateInfo():
 			# Handle Process
 			var vgrdProcess = $hgrdProcess/vgrdProcess # The vertical stack of process info
 			vgrdProcess.visible = true
-			var labProcess = vgrdProcess.get_node("tmpProcess/labProcess")
-			labProcess.text = "-[" + str(currentProcess["processTime"]) + "]->"
+			var prgProcess = vgrdProcess.get_node("prgProcess")
 			if infoNode.isProcessing == true:
-				labProcess.percent_visible = infoNode.progPerc
+				prgProcess.value = 100*infoNode.progPerc
 			else:
-				labProcess.percent_visible = 1
+				prgProcess.value = 0
 			
 			# Handle Outputs
 			var vgrdOutputList = $hgrdProcess/vgrdOutputList # The vertical stack of output buffers

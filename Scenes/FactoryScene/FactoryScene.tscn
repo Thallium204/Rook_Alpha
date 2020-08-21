@@ -1,9 +1,10 @@
-[gd_scene load_steps=29 format=2]
+[gd_scene load_steps=30 format=2]
 
 [ext_resource path="res://Assets/Buttons/TopBar/img_enhancer_off.png" type="Texture" id=1]
 [ext_resource path="res://ctrlFactoryFloor.gd" type="Script" id=2]
 [ext_resource path="res://Assets/Tileables/img_factory_grass_32x.png" type="Texture" id=3]
 [ext_resource path="res://Scenes/objCamera.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Assets/Misc/img_progress_bar.png" type="Texture" id=5]
 [ext_resource path="res://Fonts/minecraft_regular.otf" type="DynamicFontData" id=6]
 [ext_resource path="res://SideBarNode.gd" type="Script" id=7]
 [ext_resource path="res://Assets/Buttons/TopBar/img_holder_off.png" type="Texture" id=8]
@@ -21,6 +22,7 @@
 [ext_resource path="res://ResourceBarNode.gd" type="Script" id=20]
 [ext_resource path="res://Assets/Menu/img_right.png" type="Texture" id=21]
 [ext_resource path="res://Assets/Menu/img_left.png" type="Texture" id=22]
+[ext_resource path="res://Assets/Misc/img_progress_bar_over.png" type="Texture" id=23]
 
 [sub_resource type="StyleBoxEmpty" id=2]
 
@@ -36,10 +38,6 @@ HScrollBar/styles/scroll = SubResource( 2 )
 HScrollBar/styles/scroll_focus = null
 
 [sub_resource type="DynamicFont" id=4]
-size = 56
-font_data = ExtResource( 6 )
-
-[sub_resource type="DynamicFont" id=5]
 size = 56
 font_data = ExtResource( 6 )
 
@@ -302,7 +300,8 @@ __meta__ = {
 }
 
 [node name="ctrlLeftProcess" type="Control" parent="SideBarNode/texInfoBar/hgrdProcess"]
-margin_right = 64.0
+margin_left = 152.0
+margin_right = 216.0
 margin_bottom = 223.0
 rect_min_size = Vector2( 64, 0 )
 
@@ -312,8 +311,8 @@ scale = Vector2( 3.4, 3.4 )
 normal = ExtResource( 22 )
 
 [node name="vgrdInputList" type="VBoxContainer" parent="SideBarNode/texInfoBar/hgrdProcess"]
-margin_left = 68.0
-margin_right = 338.0
+margin_left = 220.0
+margin_right = 490.0
 margin_bottom = 223.0
 rect_min_size = Vector2( 270, 0 )
 mouse_filter = 2
@@ -497,45 +496,25 @@ __meta__ = {
 }
 
 [node name="vgrdProcess" type="VBoxContainer" parent="SideBarNode/texInfoBar/hgrdProcess"]
-margin_left = 342.0
-margin_right = 542.0
+margin_left = 494.0
+margin_right = 694.0
 margin_bottom = 223.0
 rect_min_size = Vector2( 200, 0 )
 mouse_filter = 2
 alignment = 1
 
-[node name="tmpProcess" type="HBoxContainer" parent="SideBarNode/texInfoBar/hgrdProcess/vgrdProcess"]
-margin_top = 83.0
+[node name="prgProcess" type="TextureProgress" parent="SideBarNode/texInfoBar/hgrdProcess/vgrdProcess"]
+margin_top = 61.0
 margin_right = 200.0
-margin_bottom = 140.0
-mouse_filter = 2
-size_flags_vertical = 0
-alignment = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="labProcess" type="Label" parent="SideBarNode/texInfoBar/hgrdProcess/vgrdProcess/tmpProcess"]
-margin_left = 13.0
-margin_right = 187.0
-margin_bottom = 57.0
-size_flags_vertical = 0
-custom_fonts/font = SubResource( 5 )
-custom_colors/font_color = Color( 0.141176, 0.682353, 0.839216, 1 )
-custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
-custom_constants/shadow_offset_x = 4
-custom_constants/line_spacing = 3
-custom_constants/shadow_offset_y = 3
-custom_constants/shadow_as_outline = 0
-text = "-[X]->"
-valign = 2
-__meta__ = {
-"_edit_use_anchors_": false
-}
+margin_bottom = 161.0
+rect_min_size = Vector2( 200, 100 )
+texture_under = ExtResource( 5 )
+texture_progress = ExtResource( 23 )
+nine_patch_stretch = true
 
 [node name="vgrdOutputList" type="VBoxContainer" parent="SideBarNode/texInfoBar/hgrdProcess"]
-margin_left = 546.0
-margin_right = 816.0
+margin_left = 698.0
+margin_right = 968.0
 margin_bottom = 223.0
 rect_min_size = Vector2( 270, 0 )
 mouse_filter = 2
@@ -719,8 +698,8 @@ __meta__ = {
 }
 
 [node name="ctrlRightProcess" type="Control" parent="SideBarNode/texInfoBar/hgrdProcess"]
-margin_left = 820.0
-margin_right = 884.0
+margin_left = 972.0
+margin_right = 1036.0
 margin_bottom = 223.0
 rect_min_size = Vector2( 64, 0 )
 
@@ -729,8 +708,8 @@ scale = Vector2( 3.4, 3.4 )
 normal = ExtResource( 21 )
 
 [node name="texStructure" type="TextureRect" parent="SideBarNode/texInfoBar/hgrdProcess"]
-margin_left = 888.0
-margin_right = 1088.0
+margin_left = 1040.0
+margin_right = 1240.0
 margin_bottom = 223.0
 rect_min_size = Vector2( 200, 0 )
 rect_clip_content = true
