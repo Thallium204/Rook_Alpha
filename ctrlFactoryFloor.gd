@@ -1,5 +1,7 @@
 extends Control
 
+class_name ctrlFactoryFloor
+
 onready var Globals = get_tree().get_root().get_node("Game/Globals")
 onready var FactorySpace = get_node("texBackground")
 onready var camFactory = get_node("../camFactory")

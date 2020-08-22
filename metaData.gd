@@ -244,8 +244,7 @@ var enhancerBank = {
 		
 		"nameID":
 			"Heater"
-		
-	}
+		}
 	
 }
 
@@ -257,31 +256,32 @@ var conveyorBank = {
 			"Slow",
 		
 		"conveyorSpeed":
-			0.2},
-	
+			0.2
+		},
 	"metaStandard":{
 		
 		"nameID":
 			"Standard",
 		
 		"conveyorSpeed":
-			0.5},
-	
+			0.5
+		},
 	"metaFast":{
 		
 		"nameID":
 			"Fast",
 		
 		"conveyorSpeed":
-			1},
-	
+			1
+		},
 	"metaRapid":{
 		
 		"nameID":
 			"Rapid",
 		
 		"conveyorSpeed":
-			2}
+			2
+		}
 	
 }
 

@@ -1,0 +1,332 @@
+{
+	"sheets": [
+		{
+			"name": "Processors",
+			"columns": [
+				{
+					"typeStr": "1",
+					"name": "entityName"
+				},
+				{
+					"typeStr": "8",
+					"name": "processData",
+					"display": null
+				},
+				{
+					"typeStr": "8",
+					"name": "shapeData",
+					"display": null
+				}
+			],
+			"lines": [
+				{
+					"entityName": "Tree",
+					"processData": [
+						{
+							"processes": [
+								{
+									"processTime": 8,
+									"outputBuffers": [
+										{
+											"resName": "MoltenIron",
+											"currentBuffer": 0,
+											"maxBuffer": 1,
+											"resType": "Liquid"
+										}
+									],
+									"inputBuffers": [
+										{
+											"resName": "IronClump",
+											"currentBuffer": 0,
+											"maxBuffer": 1,
+											"resType": "Solid"
+										},
+										{
+											"resName": "Coal",
+											"currentBuffer": 0,
+											"maxBuffer": 2,
+											"resType": "Solid"
+										}
+									]
+								}
+							]
+						}
+					],
+					"shapeData": []
+				},
+				{
+					"entityName": "Workbench",
+					"processData": [
+						{
+							"processes": [
+								{
+									"inputBuffers": [
+										{
+											"resName": "Log",
+											"currentBuffer": 0,
+											"maxBuffer": 1,
+											"resType": "Solid"
+										}
+									],
+									"processTime": 3,
+									"outputBuffers": [
+										{
+											"resName": "Plank",
+											"currentBuffer": 0,
+											"maxBuffer": 2,
+											"resType": "Solid"
+										}
+									]
+								}
+							]
+						},
+						{
+							"processes": [
+								{
+									"inputBuffers": [
+										{
+											"resName": "Plank",
+											"currentBuffer": 0,
+											"maxBuffer": 1,
+											"resType": "Solid"
+										}
+									],
+									"processTime": 3,
+									"outputBuffers": [
+										{
+											"resName": "Gear",
+											"currentBuffer": 0,
+											"maxBuffer": 2,
+											"resType": "Solid"
+										}
+									]
+								}
+							]
+						}
+					],
+					"shapeData": []
+				}
+			],
+			"separators": [],
+			"props": {}
+		},
+		{
+			"name": "Processors@processData",
+			"props": {
+				"hide": true
+			},
+			"separators": [],
+			"lines": [],
+			"columns": [
+				{
+					"typeStr": "8",
+					"name": "processes"
+				}
+			]
+		},
+		{
+			"name": "Processors@processData@processes",
+			"props": {
+				"hide": true
+			},
+			"separators": [],
+			"lines": [],
+			"columns": [
+				{
+					"typeStr": "8",
+					"name": "inputBuffers"
+				},
+				{
+					"typeStr": "3",
+					"name": "processTime"
+				},
+				{
+					"typeStr": "8",
+					"name": "outputBuffers"
+				}
+			]
+		},
+		{
+			"name": "Processors@processData@processes@outputBuffers",
+			"props": {
+				"hide": true
+			},
+			"separators": [],
+			"lines": [],
+			"columns": [
+				{
+					"typeStr": "1",
+					"name": "resName",
+					"display": null
+				},
+				{
+					"typeStr": "3",
+					"name": "currentBuffer"
+				},
+				{
+					"typeStr": "3",
+					"name": "maxBuffer"
+				},
+				{
+					"typeStr": "1",
+					"name": "resType",
+					"display": null
+				}
+			]
+		},
+		{
+			"name": "Processors@processData@processes@inputBuffers",
+			"props": {
+				"hide": true
+			},
+			"separators": [],
+			"lines": [],
+			"columns": [
+				{
+					"typeStr": "1",
+					"name": "resName",
+					"display": null
+				},
+				{
+					"typeStr": "3",
+					"name": "currentBuffer"
+				},
+				{
+					"typeStr": "3",
+					"name": "maxBuffer"
+				},
+				{
+					"typeStr": "1",
+					"name": "resType",
+					"display": null
+				}
+			]
+		},
+		{
+			"name": "Processors@shapeData",
+			"props": {
+				"hide": true
+			},
+			"separators": [],
+			"lines": [],
+			"columns": [
+				{
+					"typeStr": "8",
+					"name": "",
+					"display": null
+				}
+			]
+		},
+		{
+			"name": "Processors@shapeData@",
+			"props": {
+				"hide": true
+			},
+			"separators": [],
+			"lines": [],
+			"columns": [
+				{
+					"typeStr": "8",
+					"name": "",
+					"opt": true
+				}
+			]
+		},
+		{
+			"name": "Processors@shapeData@@",
+			"props": {
+				"hide": true
+			},
+			"separators": [],
+			"lines": [],
+			"columns": []
+		},
+		{
+			"name": "Holders",
+			"columns": [
+				{
+					"typeStr": "1",
+					"name": "entityName",
+					"display": null
+				},
+				{
+					"typeStr": "8",
+					"name": "internalStorage",
+					"display": null
+				},
+				{
+					"typeStr": "8",
+					"name": "shapeData",
+					"display": null
+				}
+			],
+			"lines": [
+				{
+					"entityName": "Hole",
+					"internalStorage": [
+						{
+							"resName": "",
+							"currentBuffer": 0,
+							"maxBuffer": 16,
+							"resType": "Solid"
+						}
+					],
+					"shapeData": []
+				},
+				{
+					"entityName": "Hole2",
+					"internalStorage": [
+						{
+							"resName": "",
+							"currentBuffer": 0,
+							"maxBuffer": 64,
+							"resType": "Solid"
+						}
+					],
+					"shapeData": []
+				}
+			],
+			"separators": [],
+			"props": {}
+		},
+		{
+			"name": "Holders@internalStorage",
+			"props": {
+				"hide": true
+			},
+			"separators": [],
+			"lines": [],
+			"columns": [
+				{
+					"typeStr": "1",
+					"name": "resName",
+					"display": null
+				},
+				{
+					"typeStr": "3",
+					"name": "currentBuffer"
+				},
+				{
+					"typeStr": "3",
+					"name": "maxBuffer"
+				},
+				{
+					"typeStr": "1",
+					"name": "resType",
+					"display": null
+				}
+			]
+		},
+		{
+			"name": "Holders@shapeData",
+			"props": {
+				"hide": true
+			},
+			"separators": [],
+			"lines": [],
+			"columns": []
+		}
+	],
+	"customTypes": [],
+	"compress": false
+}

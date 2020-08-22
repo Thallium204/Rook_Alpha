@@ -97,6 +97,8 @@ func process_moveMode(): # Called through process when in moveMode
 
 func enable_moveMode(isNew = false): # Called when we want to move this structure
 	
+	z_index = 999
+	
 	moveMode = true # Enable local move mode
 	Globals.moveStructureMode = "moving" # Enable global move mode
 	
@@ -112,6 +114,8 @@ func enable_moveMode(isNew = false): # Called when we want to move this structur
 		addShapeToFactory(null) # Remove old shape
 
 func disable_moveMode(placed = false): # Called when we have stopped moving this structure
+	
+	z_index = 0
 	
 	var isNew = false
 	if last_entityMasterTile == null:
