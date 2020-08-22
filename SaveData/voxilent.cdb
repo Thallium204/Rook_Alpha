@@ -66,6 +66,12 @@
 											"currentBuffer": 0,
 											"maxBuffer": 1,
 											"resType": "Solid"
+										},
+										{
+											"resName": "",
+											"currentBuffer": 0,
+											"maxBuffer": 0,
+											"resType": ""
 										}
 									],
 									"processTime": 3,
