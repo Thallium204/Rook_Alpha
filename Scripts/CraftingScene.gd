@@ -2,7 +2,6 @@ extends Control
 
 onready var Game = get_tree().get_root().get_node("Game")
 onready var crafting_tree = get_node("ctnCraftingViewport/vptCraftingScene/ctrlCraftingFloor/Tree")
-var btnCraft = preload("res://Scenes/CraftingScene/Craft_button.tscn")
 
 
 func _ready():
@@ -22,7 +21,7 @@ func _ready():
 
 	for procPos in Game.processorBank:
 		if "meta" in procPos:
-			var button = load("res://Assets/Buttons/img_craft_off.png")
+			var button = load("res://Assets/Buttons/UI/img_craft_off.png")
 			var newProc = crafting_tree.create_item(First_Age)
 			var metadata = Game.processorBank[procPos]
 			newProc.set_collapsed(true)

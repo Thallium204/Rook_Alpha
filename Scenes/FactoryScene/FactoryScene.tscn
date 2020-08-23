@@ -222,7 +222,6 @@ __meta__ = {
 margin_left = -1080.0
 margin_top = 1202.0
 margin_bottom = 1490.0
-rect_scale = Vector2( 1, 1.07 )
 mouse_filter = 0
 region_rect = Rect2( 0, 0, 9, 9 )
 patch_margin_left = 4
@@ -249,7 +248,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="hgrdName" type="HBoxContainer" parent="SideBarNode/texInfoBar"]
+[node name="infoName" type="HBoxContainer" parent="SideBarNode/texInfoBar"]
 margin_right = 1080.0
 margin_bottom = 64.0
 mouse_filter = 2
@@ -259,7 +258,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="labName" type="Label" parent="SideBarNode/texInfoBar/hgrdName"]
+[node name="labName" type="Label" parent="SideBarNode/texInfoBar/infoName"]
 margin_left = 18.0
 margin_right = 538.0
 margin_bottom = 64.0
@@ -277,7 +276,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="labType" type="Label" parent="SideBarNode/texInfoBar/hgrdName"]
+[node name="labType" type="Label" parent="SideBarNode/texInfoBar/infoName"]
 margin_left = 542.0
 margin_right = 1062.0
 margin_bottom = 64.0
@@ -296,38 +295,38 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="hgrdProcess" type="HBoxContainer" parent="SideBarNode/texInfoBar"]
+[node name="infoProcessor" type="HBoxContainer" parent="SideBarNode/texInfoBar"]
+visible = false
 margin_top = 65.0
 margin_right = 1080.0
 margin_bottom = 288.0
 mouse_filter = 2
 custom_constants/separation = 8
-alignment = 1
+alignment = 2
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="ctrlLeftProcess" type="Control" parent="SideBarNode/texInfoBar/hgrdProcess"]
-margin_left = 31.0
-margin_right = 85.4
+[node name="ctrlLeftProcess" type="Control" parent="SideBarNode/texInfoBar/infoProcessor"]
+margin_left = 63.0
+margin_right = 117.4
 margin_bottom = 223.0
 rect_min_size = Vector2( 54.4, 217.6 )
 
-[node name="btnLeft" type="TouchScreenButton" parent="SideBarNode/texInfoBar/hgrdProcess/ctrlLeftProcess"]
+[node name="btnLeft" type="TouchScreenButton" parent="SideBarNode/texInfoBar/infoProcessor/ctrlLeftProcess"]
 position = Vector2( 0, 3 )
 scale = Vector2( 3.4, 3.4 )
 normal = ExtResource( 22 )
 
-[node name="texInputBuffer" type="TextureRect" parent="SideBarNode/texInfoBar/hgrdProcess"]
-margin_left = 93.0
-margin_right = 316.0
+[node name="texInputBuffer" type="TextureRect" parent="SideBarNode/texInfoBar/infoProcessor"]
+margin_left = 125.0
+margin_right = 348.0
 margin_bottom = 223.0
 rect_min_size = Vector2( 223, 223 )
 texture = ExtResource( 24 )
 expand = true
 
-[node name="texResource" type="TextureRect" parent="SideBarNode/texInfoBar/hgrdProcess/texInputBuffer"]
-visible = false
+[node name="texResource" type="TextureRect" parent="SideBarNode/texInfoBar/infoProcessor/texInputBuffer"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 21.0
@@ -340,8 +339,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="labAmount" type="Label" parent="SideBarNode/texInfoBar/hgrdProcess/texInputBuffer"]
-visible = false
+[node name="labAmount" type="Label" parent="SideBarNode/texInfoBar/infoProcessor/texInputBuffer"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 11.0
@@ -356,25 +354,24 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="prgProcess" type="TextureProgress" parent="SideBarNode/texInfoBar/hgrdProcess"]
-margin_left = 324.0
-margin_right = 524.0
+[node name="prgProcess" type="TextureProgress" parent="SideBarNode/texInfoBar/infoProcessor"]
+margin_left = 356.0
+margin_right = 556.0
 margin_bottom = 223.0
 rect_min_size = Vector2( 200, 100 )
 texture_under = ExtResource( 5 )
 texture_progress = ExtResource( 23 )
 nine_patch_stretch = true
 
-[node name="texOutputBuffer" type="TextureRect" parent="SideBarNode/texInfoBar/hgrdProcess"]
-margin_left = 532.0
-margin_right = 755.0
+[node name="texOutputBuffer" type="TextureRect" parent="SideBarNode/texInfoBar/infoProcessor"]
+margin_left = 564.0
+margin_right = 787.0
 margin_bottom = 223.0
 rect_min_size = Vector2( 223, 223 )
 texture = ExtResource( 24 )
 expand = true
 
-[node name="texResource" type="TextureRect" parent="SideBarNode/texInfoBar/hgrdProcess/texOutputBuffer"]
-visible = false
+[node name="texResource" type="TextureRect" parent="SideBarNode/texInfoBar/infoProcessor/texOutputBuffer"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 21.0
@@ -387,8 +384,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="labAmount" type="Label" parent="SideBarNode/texInfoBar/hgrdProcess/texOutputBuffer"]
-visible = false
+[node name="labAmount" type="Label" parent="SideBarNode/texInfoBar/infoProcessor/texOutputBuffer"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 11.0
@@ -403,22 +399,85 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="ctrlRightProcess" type="Control" parent="SideBarNode/texInfoBar/hgrdProcess"]
-margin_left = 763.0
-margin_right = 817.4
+[node name="ctrlRightProcess" type="Control" parent="SideBarNode/texInfoBar/infoProcessor"]
+margin_left = 795.0
+margin_right = 849.4
 margin_bottom = 223.0
 rect_min_size = Vector2( 54.4, 217.6 )
 
-[node name="btnRight" type="TouchScreenButton" parent="SideBarNode/texInfoBar/hgrdProcess/ctrlRightProcess"]
+[node name="btnRight" type="TouchScreenButton" parent="SideBarNode/texInfoBar/infoProcessor/ctrlRightProcess"]
 position = Vector2( 0, 3 )
 scale = Vector2( 3.4, 3.4 )
 normal = ExtResource( 21 )
 
-[node name="texStructure" type="TextureRect" parent="SideBarNode/texInfoBar/hgrdProcess"]
-margin_left = 825.0
-margin_right = 1048.0
+[node name="texStructure" type="TextureRect" parent="SideBarNode/texInfoBar/infoProcessor"]
+margin_left = 857.0
+margin_right = 1080.0
 margin_bottom = 223.0
-rect_min_size = Vector2( 223, 0 )
+rect_min_size = Vector2( 250, 0 )
+rect_clip_content = true
+mouse_filter = 2
+expand = true
+stretch_mode = 6
+
+[node name="infoHolder" type="HBoxContainer" parent="SideBarNode/texInfoBar"]
+margin_top = 65.0
+margin_right = 1080.0
+margin_bottom = 288.0
+mouse_filter = 2
+custom_constants/separation = 8
+alignment = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="texInternalStorage" type="TextureRect" parent="SideBarNode/texInfoBar/infoHolder"]
+margin_left = 537.0
+margin_right = 760.0
+margin_bottom = 223.0
+rect_min_size = Vector2( 223, 223 )
+texture = ExtResource( 24 )
+expand = true
+
+[node name="texResource" type="TextureRect" parent="SideBarNode/texInfoBar/infoHolder/texInternalStorage"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 21.0
+margin_top = 21.0
+margin_right = -22.0
+margin_bottom = -22.0
+texture = ExtResource( 14 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="labAmount" type="Label" parent="SideBarNode/texInfoBar/infoHolder/texInternalStorage"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 11.0
+margin_top = 146.0
+margin_right = -20.0
+margin_bottom = -12.0
+custom_fonts/font = SubResource( 7 )
+text = "0"
+align = 2
+valign = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="buffer" type="Control" parent="SideBarNode/texInfoBar/infoHolder"]
+margin_left = 768.0
+margin_right = 822.4
+margin_bottom = 223.0
+rect_min_size = Vector2( 54.4, 217.6 )
+
+[node name="texStructure" type="TextureRect" parent="SideBarNode/texInfoBar/infoHolder"]
+margin_left = 830.0
+margin_right = 1080.0
+margin_bottom = 223.0
+rect_min_size = Vector2( 250, 0 )
 rect_clip_content = true
 mouse_filter = 2
 expand = true
@@ -465,8 +524,8 @@ shape = SubResource( 6 )
 [connection signal="pressed" from="TopBarNode/btnHolderMenu" to="TopBarNode" method="_on_btnHolderMenu_pressed"]
 [connection signal="pressed" from="TopBarNode/btnEnhancerMenu" to="TopBarNode" method="_on_btnEnhancerMenu_pressed"]
 [connection signal="pressed" from="TopBarNode/btnConnectorMenu" to="TopBarNode" method="_on_btnConnectorMenu_pressed"]
-[connection signal="pressed" from="SideBarNode/texInfoBar/hgrdProcess/ctrlLeftProcess/btnLeft" to="SideBarNode/texInfoBar" method="_on_btnLeft_pressed"]
-[connection signal="pressed" from="SideBarNode/texInfoBar/hgrdProcess/ctrlRightProcess/btnRight" to="SideBarNode/texInfoBar" method="_on_btnRight_pressed"]
+[connection signal="pressed" from="SideBarNode/texInfoBar/infoProcessor/ctrlLeftProcess/btnLeft" to="SideBarNode/texInfoBar" method="_on_btnLeft_pressed"]
+[connection signal="pressed" from="SideBarNode/texInfoBar/infoProcessor/ctrlRightProcess/btnRight" to="SideBarNode/texInfoBar" method="_on_btnRight_pressed"]
 [connection signal="pressed" from="SideBarNode/btnInfoToggle" to="SideBarNode" method="_on_btnInfoToggle_pressed"]
 [connection signal="released" from="SideBarNode/btnInfoToggle" to="SideBarNode" method="_on_btnInfoToggle_released"]
 [connection signal="pressed" from="SideBarNode/btnMoveToggle" to="SideBarNode" method="_on_btnMoveToggle_pressed"]
