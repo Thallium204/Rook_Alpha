@@ -2,10 +2,12 @@ extends Control
 
 onready var Game = get_tree().get_root().get_node("Game")
 onready var crafting_tree = get_node("ctnCraftingViewport/vptCraftingScene/ctrlCraftingFloor/Tree")
-var btnCraft = preload("res://Scenes/CraftingScene/Craft_button.tscn")
 
+var btnTextureOn = load("res://Assets/Buttons/img_craft_on.png")
+var btnTextureOff = load("res://Assets/Buttons/img_craft_off.png")
 
 func _ready():
+	
 	crafting_tree.set_columns(1)
 	var root = crafting_tree.create_item()
 	root.set_text(0, "root")
@@ -35,3 +37,14 @@ func _ready():
 				var craftProc = crafting_tree.create_item(newProc)
 				
 				craftProc.add_button(0, button)
+				print (craftProc)
+				
+
+func _on_Tree_button_pressed(item, column, id):
+	print (item, column, id)
+	print (item.get_parent())
+	print (item.get_button(0, 0))
+	item.set_button(column, id, btnTextureOn)
+	OS.delay_msec(1000)
+	item.set_button(column, id, btnTextureOff)
+	pass
