@@ -1,22 +1,28 @@
 extends Control
 
-
+onready var Game = get_tree().get_root().get_node("Game")
 onready var crafting_tree = get_node("ctnCraftingViewport/vptCraftingScene/ctrlCraftingFloor/Tree")
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	var root = crafting_tree.create_item()
-	root.set_text(0, "YEET")
-	var child1 = crafting_tree.create_item(root)
-	var child2 = crafting_tree.create_item(root)
-	var child3 = crafting_tree.create_item(root)
-	var child4 = crafting_tree.create_item(root)
-	child1.set_text(0, "SKEET")
-	child2.set_text(0, "SKEET")
-	child3.set_text(0, "BANG")
-	child4.set_text(0, "BANG")
-	var child5 = crafting_tree.create_item(child4)
-	child5.set_text(0, "person of color")
+	root.set_text(0, "root")
+	crafting_tree.set_hide_root(true)	
+	var First_Age= crafting_tree.create_item(root)
+	var Second_Age = crafting_tree.create_item(root)
+	var Third_Age = crafting_tree.create_item(root)
+	var Fourth_Age = crafting_tree.create_item(root)
+	
+
+	First_Age.set_text(0, "First Age")
+	Second_Age.set_text(0, "Second Age")
+	Third_Age.set_text(0, "Third Age")
+	Fourth_Age.set_text(0, "Fourth Age")
+	
+	#Game.processor_bank
+	
+	
+	
 	#crafting_tree.set_column_title()
 	#crafting_tree.set_column_expand(0, 0)
 	

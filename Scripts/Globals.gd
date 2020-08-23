@@ -93,7 +93,7 @@ func initialseConnectorData(entityTile):
 	# Send the buildingData off to the FactoryFloor to be made into a child node
 	ctrlFactoryFloor.addConnector(connectorData,drawConnector["connectorType"],entityTile)
 
-
+var testovi = 0
 
 
 
