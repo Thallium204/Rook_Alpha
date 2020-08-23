@@ -98,6 +98,10 @@ var processorBank = {
 			},
 		},
 		
+		"costData":[
+			{"resourceName":"Stone",	"amountRequired":4}
+		],
+		
 		"shapeData":[
 			[1,1],
 			[1,1]
@@ -118,6 +122,12 @@ var processorBank = {
 				]
 			},
 		},
+		
+		"costData":[
+			{"resourceName":"Log",	"amountRequired":4},
+			{"resourceName":"Stone",	"amountRequired":4},
+			{"resourceName":"Gears",	"amountRequired":16}
+		],
 		
 		"shapeData":[
 			[1,1],
@@ -149,6 +159,10 @@ var processorBank = {
 			}
 		},
 		
+		"costData":[
+			{"resourceName":"Log",	"amountRequired":4}
+		],
+		
 		"shapeData":[
 			[1]
 		]},
@@ -179,6 +193,13 @@ var processorBank = {
 			}
 		}, 
 		
+		"costData":[
+			{"resourceName":"Clay",	"amountRequired":12},
+			{"resourceName":"Stone",	"amountRequired":16},
+			{"resourceName":"Plant Fiber",	"amountRequired":4},
+			{"resourceName":"Ceramic",	"amountRequired":32}
+		],
+		
 		"shapeData":[
 			[1],
 			[1]
@@ -199,6 +220,12 @@ var processorBank = {
 				]
 			},
 		}, 
+		
+		"costData":[
+			{"resourceName":"Bricks",	"amountRequired":64},
+			{"resourceName":"Clay",	"amountRequired":32},
+			{"resourceName":"Stone",	"amountRequired":64}
+		],
 		
 		"shapeData":[
 			[1,1],
