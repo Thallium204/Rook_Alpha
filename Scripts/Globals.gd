@@ -18,6 +18,8 @@ var drawConnectorMode = "off"		# "off" | "ready" | "touching"
 var drawConnector = {"nameID":"Standard","connectorType":"Conveyor"}
 var lastTileArea = null
 
+var populace = {"total":1,"avaliable":1}
+
 var infoColorModifier = 0.3
 
 # [ nameID , internalStorage ]

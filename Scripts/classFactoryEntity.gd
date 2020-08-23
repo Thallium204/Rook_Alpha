@@ -25,6 +25,7 @@ var directionInputList = []					# List of directions we're inputting from i.e. [
 var directionOutputList = []				# List of directions we're outputting to i.e. ["D","R"]
 var indexInputList = 0						# Index for the Input Lists
 var indexOutputList = 0						# Index for the Output Lists
+var pulsed = false
 
 func configure_Entity(entityData):
 	
@@ -106,7 +107,24 @@ func addOutput(entityOutput,directionOutput):
 		directionOutputList.append(directionOutput)
 		entityOutputList.append(entityOutput)
 
-
+func sendPulse(pulseList):
+	
+	if pulsed == true:
+		return pulseList
+	
+	pulsed = true
+	
+	if entityType == "Structure" and not(self in pulseList):
+		pulseList.append(self)
+		print("found ",self.name)
+		pulsed = false
+	else:
+		for inputTile in entityInputList:
+			pulseList = inputTile.fatherNode.sendPulse(pulseList)
+	
+	pulsed = false
+	
+	return pulseList
 
 
 

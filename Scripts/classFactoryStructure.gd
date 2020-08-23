@@ -3,6 +3,7 @@ extends "res://Scripts/classFactoryEntity.gd"
 var structureType = ""
 var _levelData = [] 		# List of all upgrade modifiers
 var last_entityMasterTile = null
+var waitingOnWorker = false
 
 var outputRate = 0.5
 var deltaOutput = 0.0
@@ -14,6 +15,18 @@ var canBePlaced = false		# Move mode: 		True when structure can be placed | Fals
 func _ready():
 	imageDirectory += "/Structure"
 	entityType = "Structure"
+
+func generateRequest(requestType):
+	
+	waitingOnWorker = true
+	
+	if requestType == "pull":
+		return { "sender":self , "type":requestType }
+	elif requestType == "process":
+		return {}
+
+func sendRequest(request):
+	pass
 
 func inputResource_Structure(resName,resType,inputBuffers):
 	for inputBuffer in inputBuffers: # Scan through input resource options
@@ -168,7 +181,6 @@ func onReleased_Structure(tile): # Released Processes for all structures
 	
 	# Handle Entity
 	onReleased_Entity(tile)
-	
 
 
 
