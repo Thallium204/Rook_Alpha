@@ -5,8 +5,6 @@ onready var FactoryNode = get_node("FactoryNode")
 onready var vptFactoryScene = FactoryNode.get_node("ctnFactoryViewport/vptFactoryScene")
 onready var ctrlFactoryFloor = vptFactoryScene.get_node("ctrlFactoryFloor")
 
-var testlmao = 1.2
-
 var currentScreen = 0
 
 var autoCraft = false
@@ -92,8 +90,6 @@ func initialseConnectorData(entityTile):
 	var connectorData = getConnectorMeta(drawConnector["nameID"],drawConnector["connectorType"])
 	# Send the buildingData off to the FactoryFloor to be made into a child node
 	ctrlFactoryFloor.addConnector(connectorData,drawConnector["connectorType"],entityTile)
-
-var testovi = 0
 
 
 
