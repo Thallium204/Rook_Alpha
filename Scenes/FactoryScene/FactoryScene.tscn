@@ -24,10 +24,9 @@
 [ext_resource path="res://Assets/Menu/img_left.png" type="Texture" id=22]
 [ext_resource path="res://Assets/Misc/img_progress_bar_over.png" type="Texture" id=23]
 
+[sub_resource type="StyleBoxEmpty" id=1]
 
-[sub_resource type="StyleBoxEmpty" id=2]
-
-[sub_resource type="Theme" id=3]
+[sub_resource type="Theme" id=2]
 HScrollBar/icons/decrement = null
 HScrollBar/icons/decrement_highlight = null
 HScrollBar/icons/increment = null
@@ -35,20 +34,20 @@ HScrollBar/icons/increment_highlight = null
 HScrollBar/styles/grabber = null
 HScrollBar/styles/grabber_highlight = null
 HScrollBar/styles/grabber_pressed = null
-HScrollBar/styles/scroll = SubResource( 2 )
+HScrollBar/styles/scroll = SubResource( 1 )
 HScrollBar/styles/scroll_focus = null
 
-[sub_resource type="DynamicFont" id=4]
+[sub_resource type="DynamicFont" id=3]
 size = 56
 font_data = ExtResource( 6 )
 
+[sub_resource type="CircleShape2D" id=4]
+radius = 64.0
+
+[sub_resource type="CircleShape2D" id=5]
+radius = 64.0
+
 [sub_resource type="CircleShape2D" id=6]
-radius = 64.0
-
-[sub_resource type="CircleShape2D" id=7]
-radius = 64.0
-
-[sub_resource type="CircleShape2D" id=8]
 radius = 16.0
 
 [node name="FactoryNode" type="Control"]
@@ -137,7 +136,7 @@ margin_right = 1080.0
 margin_bottom = -23.0
 rect_scale = Vector2( 1, 1.07 )
 mouse_filter = 2
-theme = SubResource( 3 )
+theme = SubResource( 2 )
 texture = ExtResource( 11 )
 stretch_mode = 2
 __meta__ = {
@@ -259,7 +258,7 @@ margin_right = 538.0
 margin_bottom = 64.0
 rect_min_size = Vector2( 520, 0 )
 size_flags_vertical = 1
-custom_fonts/font = SubResource( 4 )
+custom_fonts/font = SubResource( 3 )
 custom_colors/font_color = Color( 1, 1, 1, 1 )
 custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
 custom_constants/shadow_offset_x = 4
@@ -277,7 +276,7 @@ margin_right = 1062.0
 margin_bottom = 64.0
 rect_min_size = Vector2( 520, 0 )
 size_flags_vertical = 1
-custom_fonts/font = SubResource( 4 )
+custom_fonts/font = SubResource( 3 )
 custom_colors/font_color = Color( 0.890196, 0.470588, 0.25098, 1 )
 custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
 custom_constants/shadow_offset_x = 4
@@ -301,8 +300,7 @@ __meta__ = {
 }
 
 [node name="ctrlLeftProcess" type="Control" parent="SideBarNode/texInfoBar/hgrdProcess"]
-margin_left = 152.0
-margin_right = 216.0
+margin_right = 64.0
 margin_bottom = 223.0
 rect_min_size = Vector2( 64, 0 )
 
@@ -312,8 +310,8 @@ scale = Vector2( 3.4, 3.4 )
 normal = ExtResource( 22 )
 
 [node name="vgrdInputList" type="VBoxContainer" parent="SideBarNode/texInfoBar/hgrdProcess"]
-margin_left = 220.0
-margin_right = 490.0
+margin_left = 68.0
+margin_right = 338.0
 margin_bottom = 223.0
 rect_min_size = Vector2( 270, 0 )
 mouse_filter = 2
@@ -335,7 +333,7 @@ margin_left = 49.0
 margin_right = 83.0
 margin_bottom = 57.0
 size_flags_vertical = 1
-custom_fonts/font = SubResource( 4 )
+custom_fonts/font = SubResource( 3 )
 custom_colors/font_color = Color( 1, 0, 0, 1 )
 text = "0"
 valign = 2
@@ -348,7 +346,7 @@ margin_left = 87.0
 margin_right = 121.0
 margin_bottom = 57.0
 size_flags_vertical = 1
-custom_fonts/font = SubResource( 4 )
+custom_fonts/font = SubResource( 3 )
 text = "/"
 valign = 2
 __meta__ = {
@@ -360,7 +358,7 @@ margin_left = 125.0
 margin_right = 159.0
 margin_bottom = 57.0
 size_flags_vertical = 1
-custom_fonts/font = SubResource( 4 )
+custom_fonts/font = SubResource( 3 )
 text = "3"
 valign = 2
 __meta__ = {
@@ -394,7 +392,7 @@ margin_left = 49.0
 margin_right = 83.0
 margin_bottom = 57.0
 size_flags_vertical = 1
-custom_fonts/font = SubResource( 4 )
+custom_fonts/font = SubResource( 3 )
 custom_colors/font_color = Color( 1, 0, 0, 1 )
 text = "0"
 valign = 2
@@ -407,7 +405,7 @@ margin_left = 87.0
 margin_right = 121.0
 margin_bottom = 57.0
 size_flags_vertical = 1
-custom_fonts/font = SubResource( 4 )
+custom_fonts/font = SubResource( 3 )
 text = "/"
 valign = 2
 __meta__ = {
@@ -419,7 +417,7 @@ margin_left = 125.0
 margin_right = 159.0
 margin_bottom = 57.0
 size_flags_vertical = 1
-custom_fonts/font = SubResource( 4 )
+custom_fonts/font = SubResource( 3 )
 text = "3"
 valign = 2
 __meta__ = {
@@ -453,7 +451,7 @@ margin_left = 49.0
 margin_right = 83.0
 margin_bottom = 57.0
 size_flags_vertical = 1
-custom_fonts/font = SubResource( 4 )
+custom_fonts/font = SubResource( 3 )
 custom_colors/font_color = Color( 1, 0, 0, 1 )
 text = "0"
 valign = 2
@@ -466,7 +464,7 @@ margin_left = 87.0
 margin_right = 121.0
 margin_bottom = 57.0
 size_flags_vertical = 1
-custom_fonts/font = SubResource( 4 )
+custom_fonts/font = SubResource( 3 )
 text = "/"
 valign = 2
 __meta__ = {
@@ -478,7 +476,7 @@ margin_left = 125.0
 margin_right = 159.0
 margin_bottom = 57.0
 size_flags_vertical = 1
-custom_fonts/font = SubResource( 4 )
+custom_fonts/font = SubResource( 3 )
 text = "3"
 valign = 2
 __meta__ = {
@@ -497,8 +495,8 @@ __meta__ = {
 }
 
 [node name="vgrdProcess" type="VBoxContainer" parent="SideBarNode/texInfoBar/hgrdProcess"]
-margin_left = 494.0
-margin_right = 694.0
+margin_left = 342.0
+margin_right = 542.0
 margin_bottom = 223.0
 rect_min_size = Vector2( 200, 0 )
 mouse_filter = 2
@@ -514,8 +512,8 @@ texture_progress = ExtResource( 23 )
 nine_patch_stretch = true
 
 [node name="vgrdOutputList" type="VBoxContainer" parent="SideBarNode/texInfoBar/hgrdProcess"]
-margin_left = 698.0
-margin_right = 968.0
+margin_left = 546.0
+margin_right = 816.0
 margin_bottom = 223.0
 rect_min_size = Vector2( 270, 0 )
 mouse_filter = 2
@@ -537,7 +535,7 @@ margin_left = 49.0
 margin_right = 83.0
 margin_bottom = 57.0
 size_flags_vertical = 1
-custom_fonts/font = SubResource( 4 )
+custom_fonts/font = SubResource( 3 )
 custom_colors/font_color = Color( 1, 0, 0, 1 )
 text = "0"
 valign = 2
@@ -550,7 +548,7 @@ margin_left = 87.0
 margin_right = 121.0
 margin_bottom = 57.0
 size_flags_vertical = 1
-custom_fonts/font = SubResource( 4 )
+custom_fonts/font = SubResource( 3 )
 text = "/"
 valign = 2
 __meta__ = {
@@ -562,7 +560,7 @@ margin_left = 125.0
 margin_right = 159.0
 margin_bottom = 57.0
 size_flags_vertical = 1
-custom_fonts/font = SubResource( 4 )
+custom_fonts/font = SubResource( 3 )
 text = "3"
 valign = 2
 __meta__ = {
@@ -596,7 +594,7 @@ margin_left = 49.0
 margin_right = 83.0
 margin_bottom = 57.0
 size_flags_vertical = 1
-custom_fonts/font = SubResource( 4 )
+custom_fonts/font = SubResource( 3 )
 custom_colors/font_color = Color( 1, 0, 0, 1 )
 text = "0"
 valign = 2
@@ -609,7 +607,7 @@ margin_left = 87.0
 margin_right = 121.0
 margin_bottom = 57.0
 size_flags_vertical = 1
-custom_fonts/font = SubResource( 4 )
+custom_fonts/font = SubResource( 3 )
 text = "/"
 valign = 2
 __meta__ = {
@@ -621,7 +619,7 @@ margin_left = 125.0
 margin_right = 159.0
 margin_bottom = 57.0
 size_flags_vertical = 1
-custom_fonts/font = SubResource( 4 )
+custom_fonts/font = SubResource( 3 )
 text = "3"
 valign = 2
 __meta__ = {
@@ -655,7 +653,7 @@ margin_left = 49.0
 margin_right = 83.0
 margin_bottom = 57.0
 size_flags_vertical = 1
-custom_fonts/font = SubResource( 4 )
+custom_fonts/font = SubResource( 3 )
 custom_colors/font_color = Color( 1, 0, 0, 1 )
 text = "0"
 valign = 2
@@ -668,7 +666,7 @@ margin_left = 87.0
 margin_right = 121.0
 margin_bottom = 57.0
 size_flags_vertical = 1
-custom_fonts/font = SubResource( 4 )
+custom_fonts/font = SubResource( 3 )
 text = "/"
 valign = 2
 __meta__ = {
@@ -680,7 +678,7 @@ margin_left = 125.0
 margin_right = 159.0
 margin_bottom = 57.0
 size_flags_vertical = 1
-custom_fonts/font = SubResource( 4 )
+custom_fonts/font = SubResource( 3 )
 text = "3"
 valign = 2
 __meta__ = {
@@ -699,8 +697,8 @@ __meta__ = {
 }
 
 [node name="ctrlRightProcess" type="Control" parent="SideBarNode/texInfoBar/hgrdProcess"]
-margin_left = 972.0
-margin_right = 1036.0
+margin_left = 820.0
+margin_right = 884.0
 margin_bottom = 223.0
 rect_min_size = Vector2( 64, 0 )
 
@@ -709,8 +707,8 @@ scale = Vector2( 3.4, 3.4 )
 normal = ExtResource( 21 )
 
 [node name="texStructure" type="TextureRect" parent="SideBarNode/texInfoBar/hgrdProcess"]
-margin_left = 1040.0
-margin_right = 1240.0
+margin_left = 888.0
+margin_right = 1088.0
 margin_bottom = 223.0
 rect_min_size = Vector2( 200, 0 )
 rect_clip_content = true
@@ -721,17 +719,17 @@ stretch_mode = 6
 [node name="btnInfoToggle" type="TouchScreenButton" parent="SideBarNode"]
 position = Vector2( -128, 8 )
 normal = ExtResource( 17 )
-shape = SubResource( 6 )
+shape = SubResource( 4 )
 
 [node name="btnMoveToggle" type="TouchScreenButton" parent="SideBarNode"]
 position = Vector2( -128, 144 )
 normal = ExtResource( 15 )
-shape = SubResource( 7 )
+shape = SubResource( 5 )
 
 [node name="btnConnectToggle" type="TouchScreenButton" parent="SideBarNode"]
 position = Vector2( -128, 280 )
 normal = ExtResource( 19 )
-shape = SubResource( 7 )
+shape = SubResource( 5 )
 
 [node name="texConnector" type="TextureRect" parent="SideBarNode/btnConnectToggle"]
 margin_left = 32.0
@@ -746,13 +744,13 @@ __meta__ = {
 [node name="btnDeleteToggle" type="TouchScreenButton" parent="SideBarNode"]
 position = Vector2( -128, 416 )
 normal = ExtResource( 10 )
-shape = SubResource( 6 )
+shape = SubResource( 4 )
 
 [node name="btnAutocraftToggle" type="TouchScreenButton" parent="SideBarNode"]
 position = Vector2( -128, 552 )
 scale = Vector2( 4, 4 )
 normal = ExtResource( 16 )
-shape = SubResource( 8 )
+shape = SubResource( 6 )
 
 [node name="twnSideBar" type="Tween" parent="SideBarNode"]
 [connection signal="pressed" from="TopBarNode/btnProcessorMenu" to="TopBarNode" method="_on_btnProcessorMenu_pressed"]

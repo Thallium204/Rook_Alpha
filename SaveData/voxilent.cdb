@@ -331,6 +331,138 @@
 			"separators": [],
 			"lines": [],
 			"columns": []
+		},
+		{
+			"name": "Resources",
+			"columns": [
+				{
+					"typeStr": "1",
+					"name": "resName"
+				},
+				{
+					"typeStr": "8",
+					"name": "States"
+				}
+			],
+			"lines": [
+				{
+					"resName": "Iron",
+					"States": [
+						{
+							"stateName": "Ore",
+							"Tags": [
+								{
+									"tagName": "Solid"
+								}
+							]
+						},
+						{
+							"stateName": "Ingot",
+							"Tags": [
+								{
+									"tagName": "Solid"
+								}
+							]
+						},
+						{
+							"stateName": "Plate",
+							"Tags": [
+								{
+									"tagName": "Solid"
+								}
+							]
+						},
+						{
+							"stateName": "Gear",
+							"Tags": [
+								{
+									"tagName": "Solid"
+								}
+							]
+						},
+						{
+							"stateName": "Molten",
+							"Tags": [
+								{
+									"tagName": "Fluid"
+								}
+							]
+						}
+					]
+				},
+				{
+					"resName": "Wood",
+					"States": [
+						{
+							"stateName": "Log",
+							"Tags": [
+								{
+									"tagName": "Solid"
+								},
+								{
+									"tagName": "Burnable"
+								}
+							]
+						},
+						{
+							"stateName": "Plank",
+							"Tags": [
+								{
+									"tagName": "Solid"
+								},
+								{
+									"tagName": "Burnable"
+								}
+							]
+						},
+						{
+							"stateName": "Gear",
+							"Tags": [
+								{
+									"tagName": "Solid"
+								}
+							]
+						}
+					]
+				}
+			],
+			"separators": [],
+			"props": {}
+		},
+		{
+			"name": "Resources@States",
+			"props": {
+				"hide": true
+			},
+			"separators": [],
+			"lines": [],
+			"columns": [
+				{
+					"typeStr": "1",
+					"name": "stateName",
+					"display": null
+				},
+				{
+					"typeStr": "8",
+					"name": "Tags",
+					"display": null
+				}
+			]
+		},
+		{
+			"name": "Resources@States@Tags",
+			"props": {
+				"hide": true
+			},
+			"separators": [],
+			"lines": [],
+			"columns": [
+				{
+					"typeStr": "1",
+					"name": "tagName",
+					"display": null
+				}
+			]
 		}
 	],
 	"customTypes": [],

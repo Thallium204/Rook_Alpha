@@ -5,6 +5,8 @@ onready var FactoryNode = get_node("FactoryNode")
 onready var vptFactoryScene = FactoryNode.get_node("ctnFactoryViewport/vptFactoryScene")
 onready var ctrlFactoryFloor = vptFactoryScene.get_node("ctrlFactoryFloor")
 
+var testlmao = 1.2
+
 var currentScreen = 0
 
 var autoCraft = false

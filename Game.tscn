@@ -22,7 +22,6 @@
 [ext_resource path="res://Assets/Buttons/BottomBarSquare/img_settings_off.png" type="Texture" id=58]
 [ext_resource path="res://Assets/Buttons/BottomBarSquare/img_research_off.png" type="Texture" id=59]
 
-
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 135, 52 )
 

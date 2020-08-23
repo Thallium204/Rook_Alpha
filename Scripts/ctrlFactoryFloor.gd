@@ -6,6 +6,8 @@ onready var Globals = get_tree().get_root().get_node("Game/Globals")
 onready var FactorySpace = get_node("texBackground")
 onready var camFactory = get_node("../camFactory")
 
+var testVar = 0
+
 var resource = preload("res://Scenes/FactoryScene/objResource.tscn")
 var objFactoryTile = preload("res://Scenes/FactoryScene/objFactoryTile.tscn")
 
