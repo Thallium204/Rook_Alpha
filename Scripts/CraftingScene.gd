@@ -3,8 +3,8 @@ extends Control
 onready var Game = get_tree().get_root().get_node("Game")
 onready var crafting_tree = get_node("ctnCraftingViewport/vptCraftingScene/ctrlCraftingFloor/Tree")
 
-var btnTextureOn = load("res://Assets/Buttons/img_craft_on.png")
-var btnTextureOff = load("res://Assets/Buttons/img_craft_off.png")
+var btnTextureOn = load("res://Assets/Buttons/UI/img_craft_on.png")
+var btnTextureOff = load("res://Assets/Buttons/UI/img_craft_off.png")
 
 func _ready():
 	
@@ -24,27 +24,27 @@ func _ready():
 
 	for procPos in Game.processorBank:
 		if "meta" in procPos:
-			var button = load("res://Assets/Buttons/UI/img_craft_off.png")
 			var newProc = crafting_tree.create_item(First_Age)
 			var metadata = Game.processorBank[procPos]
-			newProc.set_collapsed(true)
+			#newProc.set_collapsed(true)
 			newProc.set_metadata(0, metadata)
 			newProc.set_text(0, metadata["nameID"])
 			if metadata.has("costData"):
 				for resCost in metadata["costData"]:
-					var newCost = crafting_tree.create_item(newProc)
-					newCost.set_text(0, resCost["resourceName"] + " " + str(resCost["amountRequired"]))
-				var craftProc = crafting_tree.create_item(newProc)
-				
-				craftProc.add_button(0, button)
-				print (craftProc)
+					var costItem = crafting_tree.create_item(newProc)
+					costItem.set_text(0, resCost["resourceName"] + " " + str(resCost["amountRequired"]))
+				var buttonItem = crafting_tree.create_item(newProc)
+				buttonItem.add_button(0, btnTextureOff,0)
+				print(newProc.get_text(0)," -> ", buttonItem," -> ",buttonItem.get_button(0,0))
 				
 
 func _on_Tree_button_pressed(item, column, id):
-	print (item, column, id)
+	print()
+	print (item," = ",item.get_text(0), column, id)
 	print (item.get_parent())
-	print (item.get_button(0, 0))
-	item.set_button(column, id, btnTextureOn)
-	OS.delay_msec(1000)
-	item.set_button(column, id, btnTextureOff)
+	#item.set_button(column, id, btnTextureOn)
+	#item.set_text(0,"pressed")
+	#OS.delay_msec(500)
+	item.set_text(0,"released")
+	#item.set_button(column, id, btnTextureOff)
 	pass

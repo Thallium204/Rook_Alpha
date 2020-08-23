@@ -88,6 +88,9 @@ func _input(event):
 	
 	get_node("Label").text = ""
 	
+	if not(event is InputEventScreenTouch or event is InputEventScreenDrag):
+		return
+	
 	# Don't process input if the input was outside of the viewport
 	if event.position[0] < 0 or event.position[1] < 0 or event.position[0] > ctnSceneViewport.rect_size[0] or event.position[1] > ctnSceneViewport.rect_size[1]:
 		return
