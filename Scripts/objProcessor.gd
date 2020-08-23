@@ -57,13 +57,19 @@ func _process(delta):
 			outputResource(outputBuffer["resourceName"],outputBuffer["resourceType"])
 
 func tryToProcess():
-	# Check if we have required resources
-	if haveEnoughResources() == true and haveEnoughStorage() == true and isProcessing == false and moveMode == false:
-		# Deduct resource costs
-		for inputBuffer in processData[processIndex]["inputBuffers"]:
-			inputBuffer["bufferCurrent"] -= inputBuffer["bufferMax"]
-		# Commense Processing
-		isProcessing = true
+	
+	if isProcessing == true:
+		return
+	
+	if haveEnoughResources() == true: # If we have the resources needed to process
+		if haveEnoughStorage() == true:
+			# Deduct resource costs
+			for inputBuffer in processData[processIndex]["inputBuffers"]:
+				inputBuffer["bufferCurrent"] -= inputBuffer["bufferMax"]
+			# Commense Processing
+			isProcessing = true
+	else: # If we need resources
+		sendRequest(generateRequest("process"))
 
 func haveEnoughResources():
 	for inputBuffer in processData[processIndex]["inputBuffers"]:
@@ -86,7 +92,10 @@ func onReleased(tile): # Released Processes for all Processors
 	
 	# Handle structure
 	onReleased_Structure(tile)
-		
+	
+	if Globals.moveStructureMode != "off":
+		return
+	
 	# Handle Processing
 	if Globals.moveStructureMode == "off":
 		if Globals.displayInfoMode == false: # If we're not in info mode
