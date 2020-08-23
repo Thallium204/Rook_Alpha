@@ -6,14 +6,14 @@
 [ext_resource path="res://Scenes/QuestsScene/QuestsScene.tscn" type="PackedScene" id=6]
 [ext_resource path="res://Assets/Tileables/img_factory_orange_120x.png" type="Texture" id=7]
 [ext_resource path="res://Scenes/PopulaceScene/PopulaceScene.tscn" type="PackedScene" id=8]
-[ext_resource path="res://Globals.gd" type="Script" id=9]
+[ext_resource path="res://Scripts/Globals.gd" type="Script" id=9]
 [ext_resource path="res://Scenes/CraftingScene/CraftingScene.tscn" type="PackedScene" id=12]
-[ext_resource path="res://BottomBarNode.gd" type="Script" id=13]
+[ext_resource path="res://Scripts/BottomBarNode.gd" type="Script" id=13]
 [ext_resource path="res://Scenes/UpgradesScene/UpgradesScene.tscn" type="PackedScene" id=15]
-[ext_resource path="res://BeepBox-Song.wav" type="AudioStream" id=16]
+[ext_resource path="res://Sounds/BeepBox-Song.wav" type="AudioStream" id=16]
 [ext_resource path="res://Scenes/ResearchScene/ResearchScene.tscn" type="PackedScene" id=17]
 [ext_resource path="res://Scenes/SettingsScene/SettingsScene.tscn" type="PackedScene" id=18]
-[ext_resource path="res://metaData.gd" type="Script" id=22]
+[ext_resource path="res://Scripts/metaData.gd" type="Script" id=22]
 [ext_resource path="res://Assets/Buttons/BottomBarSquare/img_populace_off.png" type="Texture" id=26]
 [ext_resource path="res://Assets/Buttons/BottomBarSquare/img_upgrades_off.png" type="Texture" id=28]
 [ext_resource path="res://Assets/Buttons/BottomBarSquare/img_quests_off.png" type="Texture" id=29]
@@ -21,6 +21,7 @@
 [ext_resource path="res://Assets/Buttons/BottomBarSquare/img_crafting_off.png" type="Texture" id=31]
 [ext_resource path="res://Assets/Buttons/BottomBarSquare/img_settings_off.png" type="Texture" id=58]
 [ext_resource path="res://Assets/Buttons/BottomBarSquare/img_research_off.png" type="Texture" id=59]
+
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 135, 52 )

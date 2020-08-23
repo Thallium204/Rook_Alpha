@@ -1,8 +1,9 @@
 [gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://Assets/FactoryEntity/Structure/Holder/img_hole2.png" type="Texture" id=1]
-[ext_resource path="res://objHolder.gd" type="Script" id=2]
+[ext_resource path="res://Scripts/objHolder.gd" type="Script" id=2]
 [ext_resource path="res://Assets/Tileables/img_factorytile.png" type="Texture" id=3]
+
 
 [node name="objHolder" type="Node2D"]
 script = ExtResource( 2 )

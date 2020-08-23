@@ -1,10 +1,13 @@
 [gd_scene load_steps=9 format=2]
 
-[ext_resource path="res://old_bodyQuad.gd" type="Script" id=1]
-[ext_resource path="res://old_bodyWhole.gd" type="Script" id=2]
-[ext_resource path="res://old_QuadMaster.gd" type="Script" id=3]
-[ext_resource path="res://Assets/FactoryEntity/Connector/Conveyor/conv_quadrants/QuadU_none.png" type="Texture" id=4]
-[ext_resource path="res://Assets/FactoryEntity/Connector/Conveyor/conv_quadrants/Center.png" type="Texture" id=5]
+[ext_resource path="res://Scripts/old_bodyQuad.gd" type="Script" id=1]
+[ext_resource path="res://Scripts/old_bodyWhole.gd" type="Script" id=2]
+[ext_resource path="res://Scripts/old_QuadMaster.gd" type="Script" id=3]
+[ext_resource path="res://Assets/FactoryEntity/Connector/Conveyor/Standard/img_none.png" type="Texture" id=4]
+[ext_resource path="res://Assets/FactoryEntity/Connector/Conveyor/Standard/img_normal.png" type="Texture" id=5]
+
+
+
 
 [sub_resource type="ConvexPolygonShape2D" id=1]
 points = PoolVector2Array( 0, 0, 32, 0, 24, 8, 8, 8 )

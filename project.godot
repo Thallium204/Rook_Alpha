@@ -12,7 +12,7 @@ _global_script_classes=[ {
 "base": "Control",
 "class": "ctrlFactoryFloor",
 "language": "GDScript",
-"path": "res://ctrlFactoryFloor.gd"
+"path": "res://Scripts/ctrlFactoryFloor.gd"
 } ]
 _global_script_class_icons={
 "ctrlFactoryFloor": ""
