@@ -296,7 +296,6 @@ __meta__ = {
 }
 
 [node name="infoProcessor" type="HBoxContainer" parent="SideBarNode/texInfoBar"]
-visible = false
 margin_top = 65.0
 margin_right = 1080.0
 margin_bottom = 288.0
@@ -308,8 +307,8 @@ __meta__ = {
 }
 
 [node name="ctrlLeftProcess" type="Control" parent="SideBarNode/texInfoBar/infoProcessor"]
-margin_left = 63.0
-margin_right = 117.4
+margin_left = 36.0
+margin_right = 90.4
 margin_bottom = 223.0
 rect_min_size = Vector2( 54.4, 217.6 )
 
@@ -319,8 +318,8 @@ scale = Vector2( 3.4, 3.4 )
 normal = ExtResource( 22 )
 
 [node name="texInputBuffer" type="TextureRect" parent="SideBarNode/texInfoBar/infoProcessor"]
-margin_left = 125.0
-margin_right = 348.0
+margin_left = 98.0
+margin_right = 321.0
 margin_bottom = 223.0
 rect_min_size = Vector2( 223, 223 )
 texture = ExtResource( 24 )
@@ -355,8 +354,8 @@ __meta__ = {
 }
 
 [node name="prgProcess" type="TextureProgress" parent="SideBarNode/texInfoBar/infoProcessor"]
-margin_left = 356.0
-margin_right = 556.0
+margin_left = 329.0
+margin_right = 529.0
 margin_bottom = 223.0
 rect_min_size = Vector2( 200, 100 )
 texture_under = ExtResource( 5 )
@@ -364,8 +363,8 @@ texture_progress = ExtResource( 23 )
 nine_patch_stretch = true
 
 [node name="texOutputBuffer" type="TextureRect" parent="SideBarNode/texInfoBar/infoProcessor"]
-margin_left = 564.0
-margin_right = 787.0
+margin_left = 537.0
+margin_right = 760.0
 margin_bottom = 223.0
 rect_min_size = Vector2( 223, 223 )
 texture = ExtResource( 24 )
@@ -400,8 +399,8 @@ __meta__ = {
 }
 
 [node name="ctrlRightProcess" type="Control" parent="SideBarNode/texInfoBar/infoProcessor"]
-margin_left = 795.0
-margin_right = 849.4
+margin_left = 768.0
+margin_right = 822.4
 margin_bottom = 223.0
 rect_min_size = Vector2( 54.4, 217.6 )
 
@@ -411,7 +410,7 @@ scale = Vector2( 3.4, 3.4 )
 normal = ExtResource( 21 )
 
 [node name="texStructure" type="TextureRect" parent="SideBarNode/texInfoBar/infoProcessor"]
-margin_left = 857.0
+margin_left = 830.0
 margin_right = 1080.0
 margin_bottom = 223.0
 rect_min_size = Vector2( 250, 0 )
@@ -421,6 +420,7 @@ expand = true
 stretch_mode = 6
 
 [node name="infoHolder" type="HBoxContainer" parent="SideBarNode/texInfoBar"]
+visible = false
 margin_top = 65.0
 margin_right = 1080.0
 margin_bottom = 288.0

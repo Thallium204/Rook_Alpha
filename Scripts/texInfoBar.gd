@@ -54,6 +54,7 @@ func updateInfo():
 					texInputBuffer.get_node("texResource").modulate = Color(1,1,1,alpha)
 					texInputBuffer.modulate = Color(1,1,1,1)
 				else:
+					texInputBuffer.get_node("texResource").texture = load("res://Assets/Menu/img_empty.png")
 					texInputBuffer.get_node("labAmount").text = ""
 					texInputBuffer.modulate = Color(1,1,1,0)
 			
@@ -77,6 +78,7 @@ func updateInfo():
 					texOutputBuffer.get_node("texResource").modulate = Color(1,1,1,alpha)
 					texInputBuffer.modulate = Color(1,1,1,1)
 				else:
+					texInputBuffer.get_node("texResource").texture = load("res://Assets/Menu/img_empty.png")
 					texInputBuffer.get_node("labAmount").text = ""
 					texInputBuffer.modulate = Color(1,1,1,0)
 			

@@ -34,7 +34,7 @@ func _ready():
 					var costItem = crafting_tree.create_item(procItem)
 					costItem.set_text(0, resCost["resourceName"] + " " + str(resCost["amountRequired"]))
 				var buttonItem = crafting_tree.create_item(procItem)
-				procItem.add_button(0, btnTextureOff)
+				buttonItem.add_button(0, btnTextureOff)
 				print(procItem.get_text(0)," -> ", buttonItem," -> ",buttonItem.get_button(0,0))
 				
 
