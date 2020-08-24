@@ -24,21 +24,23 @@ func _ready():
 
 	for procPos in Game.processorBank:
 		if "meta" in procPos:
-			var newProc = crafting_tree.create_item(First_Age)
+			var procItem = crafting_tree.create_item(First_Age)
 			var metadata = Game.processorBank[procPos]
-			#newProc.set_collapsed(true)
-			newProc.set_metadata(0, metadata)
-			newProc.set_text(0, metadata["nameID"])
+			#procItem.set_collapsed(true)
+			procItem.set_metadata(0, metadata)
+			procItem.set_text(0, metadata["nameID"])
 			if metadata.has("costData"):
 				for resCost in metadata["costData"]:
-					var costItem = crafting_tree.create_item(newProc)
+					var costItem = crafting_tree.create_item(procItem)
 					costItem.set_text(0, resCost["resourceName"] + " " + str(resCost["amountRequired"]))
-				var buttonItem = crafting_tree.create_item(newProc)
-				buttonItem.add_button(0, btnTextureOff)
-				print(newProc.get_text(0)," -> ", buttonItem," -> ",buttonItem.get_button(0,0))
+				var buttonItem = crafting_tree.create_item(procItem)
+				procItem.add_button(0, btnTextureOff)
+				print(procItem.get_text(0)," -> ", buttonItem," -> ",buttonItem.get_button(0,0))
 				
 
 func _on_Tree_button_pressed(item, column, id):
+	if item == null:
+		return
 	print()
 	print (item," = ",item.get_text(0), column, id)
 	print (item.get_parent())
