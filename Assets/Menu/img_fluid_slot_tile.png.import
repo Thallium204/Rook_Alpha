@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/img_empty.png-5d0a07f0e0a6e43c0139dd387161cd84.stex"
+path="res://.import/img_fluid_slot_tile.png-41b4a435d8d0248711d3692069ee6e20.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Menu/img_empty.png"
-dest_files=[ "res://.import/img_empty.png-5d0a07f0e0a6e43c0139dd387161cd84.stex" ]
+source_file="res://Assets/Menu/img_fluid_slot_tile.png"
+dest_files=[ "res://.import/img_fluid_slot_tile.png-41b4a435d8d0248711d3692069ee6e20.stex" ]
 
 [params]
 

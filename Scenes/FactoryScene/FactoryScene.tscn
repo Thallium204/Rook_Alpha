@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=2]
+[gd_scene load_steps=39 format=2]
 
 [ext_resource path="res://Assets/Buttons/TopBar/img_enhancer_off.png" type="Texture" id=1]
 [ext_resource path="res://Scripts/ctrlFactoryFloor.gd" type="Script" id=2]
@@ -25,7 +25,11 @@
 [ext_resource path="res://Assets/Misc/img_progress_bar_over.png" type="Texture" id=23]
 [ext_resource path="res://Assets/Menu/img_res_slot.png" type="Texture" id=24]
 [ext_resource path="res://Fonts/minecraft_bold.otf" type="DynamicFontData" id=25]
-[ext_resource path="res://Assets/Resources/img_copperclump.png" type="Texture" id=26]
+[ext_resource path="res://Assets/FactoryEntity/Structure/Holder/img_huntingtent.png" type="Texture" id=27]
+[ext_resource path="res://Scenes/FactoryScene/objSolidResInfo.tscn" type="PackedScene" id=28]
+[ext_resource path="res://Assets/FactoryEntity/Structure/Processor/img_smeltery.png" type="Texture" id=29]
+[ext_resource path="res://Assets/Menu/img_fluid_slot_tile.png" type="Texture" id=30]
+[ext_resource path="res://Assets/Menu/img_fluid_slot.png" type="Texture" id=31]
 
 [sub_resource type="StyleBoxEmpty" id=1]
 
@@ -43,6 +47,10 @@ HScrollBar/styles/scroll_focus = null
 [sub_resource type="DynamicFont" id=3]
 size = 56
 font_data = ExtResource( 6 )
+
+[sub_resource type="DynamicFont" id=8]
+size = 20
+font_data = ExtResource( 25 )
 
 [sub_resource type="DynamicFont" id=7]
 size = 64
@@ -307,8 +315,8 @@ __meta__ = {
 }
 
 [node name="ctrlLeftProcess" type="Control" parent="SideBarNode/texInfoBar/infoProcessor"]
-margin_left = 36.0
-margin_right = 90.4
+margin_left = 82.0
+margin_right = 136.4
 margin_bottom = 223.0
 rect_min_size = Vector2( 54.4, 217.6 )
 
@@ -317,35 +325,48 @@ position = Vector2( 0, 3 )
 scale = Vector2( 3.4, 3.4 )
 normal = ExtResource( 22 )
 
-[node name="texInputBuffer" type="TextureRect" parent="SideBarNode/texInfoBar/infoProcessor"]
-margin_left = 98.0
-margin_right = 321.0
+[node name="inputBuffers" type="HBoxContainer" parent="SideBarNode/texInfoBar/infoProcessor"]
+margin_left = 144.0
+margin_right = 344.0
 margin_bottom = 223.0
-rect_min_size = Vector2( 223, 223 )
-texture = ExtResource( 24 )
-expand = true
+rect_min_size = Vector2( 200, 223 )
+alignment = 2
 
-[node name="texResource" type="TextureRect" parent="SideBarNode/texInfoBar/infoProcessor/texInputBuffer"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 21.0
-margin_top = 21.0
-margin_right = -22.0
-margin_bottom = -22.0
-texture = ExtResource( 14 )
+[node name="inputFluid" type="TextureRect" parent="SideBarNode/texInfoBar/infoProcessor/inputBuffers"]
+visible = false
+margin_right = 64.0
+margin_bottom = 223.0
+rect_min_size = Vector2( 64, 64 )
+texture = ExtResource( 30 )
 expand = true
+stretch_mode = 2
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="labAmount" type="Label" parent="SideBarNode/texInfoBar/infoProcessor/texInputBuffer"]
-anchor_right = 1.0
+[node name="texBacking" type="NinePatchRect" parent="SideBarNode/texInfoBar/infoProcessor/inputBuffers/inputFluid"]
+show_behind_parent = true
+margin_right = 64.0
+margin_bottom = 223.0
+rect_min_size = Vector2( 64, 64 )
+texture = ExtResource( 31 )
+region_rect = Rect2( 0, 0, 64, 64 )
+patch_margin_left = 2
+patch_margin_top = 2
+patch_margin_right = 2
+patch_margin_bottom = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="labAmount" type="Label" parent="SideBarNode/texInfoBar/infoProcessor/inputBuffers/inputFluid"]
+anchor_top = 0.8
+anchor_right = 0.94
 anchor_bottom = 1.0
-margin_left = 11.0
-margin_top = 146.0
-margin_right = -20.0
-margin_bottom = -12.0
-custom_fonts/font = SubResource( 7 )
+margin_top = 1.52588e-05
+margin_right = 7.62939e-06
+margin_bottom = 1.52588e-05
+custom_fonts/font = SubResource( 8 )
 text = "0"
 align = 2
 valign = 2
@@ -353,50 +374,115 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="inputSolid" type="VBoxContainer" parent="SideBarNode/texInfoBar/infoProcessor/inputBuffers"]
+margin_right = 200.0
+margin_bottom = 223.0
+size_flags_horizontal = 3
+alignment = 1
+
+[node name="texInputBuffer0" parent="SideBarNode/texInfoBar/infoProcessor/inputBuffers/inputSolid" instance=ExtResource( 28 )]
+margin_right = 200.0
+margin_bottom = 71.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="texInputBuffer1" parent="SideBarNode/texInfoBar/infoProcessor/inputBuffers/inputSolid" instance=ExtResource( 28 )]
+margin_top = 75.0
+margin_right = 200.0
+margin_bottom = 146.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="texInputBuffer2" parent="SideBarNode/texInfoBar/infoProcessor/inputBuffers/inputSolid" instance=ExtResource( 28 )]
+margin_top = 150.0
+margin_right = 200.0
+margin_bottom = 223.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
 [node name="prgProcess" type="TextureProgress" parent="SideBarNode/texInfoBar/infoProcessor"]
-margin_left = 329.0
-margin_right = 529.0
+margin_left = 352.0
+margin_right = 552.0
 margin_bottom = 223.0
 rect_min_size = Vector2( 200, 100 )
 texture_under = ExtResource( 5 )
 texture_progress = ExtResource( 23 )
 nine_patch_stretch = true
 
-[node name="texOutputBuffer" type="TextureRect" parent="SideBarNode/texInfoBar/infoProcessor"]
-margin_left = 537.0
+[node name="outputBuffers" type="HBoxContainer" parent="SideBarNode/texInfoBar/infoProcessor"]
+margin_left = 560.0
 margin_right = 760.0
 margin_bottom = 223.0
-rect_min_size = Vector2( 223, 223 )
-texture = ExtResource( 24 )
-expand = true
+rect_min_size = Vector2( 200, 223 )
+alignment = 2
 
-[node name="texResource" type="TextureRect" parent="SideBarNode/texInfoBar/infoProcessor/texOutputBuffer"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 21.0
-margin_top = 21.0
-margin_right = -22.0
-margin_bottom = -22.0
-texture = ExtResource( 26 )
+[node name="outputFluid" type="TextureRect" parent="SideBarNode/texInfoBar/infoProcessor/outputBuffers"]
+visible = false
+margin_right = 64.0
+margin_bottom = 223.0
+rect_min_size = Vector2( 64, 64 )
+texture = ExtResource( 30 )
 expand = true
+stretch_mode = 2
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="labAmount" type="Label" parent="SideBarNode/texInfoBar/infoProcessor/texOutputBuffer"]
-anchor_right = 1.0
+[node name="texBacking" type="NinePatchRect" parent="SideBarNode/texInfoBar/infoProcessor/outputBuffers/outputFluid"]
+show_behind_parent = true
+margin_right = 64.0
+margin_bottom = 223.0
+rect_min_size = Vector2( 64, 64 )
+texture = ExtResource( 31 )
+region_rect = Rect2( 0, 0, 64, 64 )
+patch_margin_left = 2
+patch_margin_top = 2
+patch_margin_right = 2
+patch_margin_bottom = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="labAmount" type="Label" parent="SideBarNode/texInfoBar/infoProcessor/outputBuffers/outputFluid"]
+anchor_top = 0.8
+anchor_right = 0.94
 anchor_bottom = 1.0
-margin_left = 11.0
-margin_top = 146.0
-margin_right = -20.0
-margin_bottom = -12.0
-custom_fonts/font = SubResource( 7 )
+margin_top = 1.52588e-05
+margin_right = 7.62939e-06
+margin_bottom = 1.52588e-05
+custom_fonts/font = SubResource( 8 )
 text = "0"
 align = 2
 valign = 2
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="outputSolid" type="VBoxContainer" parent="SideBarNode/texInfoBar/infoProcessor/outputBuffers"]
+margin_right = 200.0
+margin_bottom = 223.0
+size_flags_horizontal = 3
+alignment = 1
+
+[node name="texOutputBuffer0" parent="SideBarNode/texInfoBar/infoProcessor/outputBuffers/outputSolid" instance=ExtResource( 28 )]
+margin_right = 200.0
+margin_bottom = 71.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="texOutputBuffer1" parent="SideBarNode/texInfoBar/infoProcessor/outputBuffers/outputSolid" instance=ExtResource( 28 )]
+margin_top = 75.0
+margin_right = 200.0
+margin_bottom = 146.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="texOutputBuffer2" parent="SideBarNode/texInfoBar/infoProcessor/outputBuffers/outputSolid" instance=ExtResource( 28 )]
+margin_top = 150.0
+margin_right = 200.0
+margin_bottom = 223.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
 
 [node name="ctrlRightProcess" type="Control" parent="SideBarNode/texInfoBar/infoProcessor"]
 margin_left = 768.0
@@ -416,6 +502,7 @@ margin_bottom = 223.0
 rect_min_size = Vector2( 250, 0 )
 rect_clip_content = true
 mouse_filter = 2
+texture = ExtResource( 29 )
 expand = true
 stretch_mode = 6
 
@@ -480,6 +567,7 @@ margin_bottom = 223.0
 rect_min_size = Vector2( 250, 0 )
 rect_clip_content = true
 mouse_filter = 2
+texture = ExtResource( 27 )
 expand = true
 stretch_mode = 6
 
