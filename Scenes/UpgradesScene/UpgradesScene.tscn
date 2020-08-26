@@ -1,10 +1,10 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Assets/Tileables/img_factory_green_120x.png" type="Texture" id=1]
 [ext_resource path="res://Scenes/objCamera.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Scripts/UpgradesScene.gd" type="Script" id=3]
 [ext_resource path="res://Fonts/minecraft_bold_italic.otf" type="DynamicFontData" id=4]
-
+[ext_resource path="res://Scenes/UpgradesScene/objUpgradeTab.tscn" type="PackedScene" id=5]
 
 [sub_resource type="DynamicFont" id=1]
 size = 48
@@ -44,23 +44,23 @@ size = Vector2( 1080, 1632 )
 handle_input_locally = false
 render_target_update_mode = 3
 
-[node name="ctrlUpgradesFloor" type="Control" parent="ctnUpgradesViewport/vptUpgradesScene"]
+[node name="texBackground" type="TextureRect" parent="ctnUpgradesViewport/vptUpgradesScene"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-theme = SubResource( 2 )
-
-[node name="texBackground" type="TextureRect" parent="ctnUpgradesViewport/vptUpgradesScene/ctrlUpgradesFloor"]
-anchor_right = 1.0
-anchor_bottom = 1.0
+margin_bottom = 1368.0
 texture = ExtResource( 1 )
 stretch_mode = 2
 
-[node name="Tree" type="Tree" parent="ctnUpgradesViewport/vptUpgradesScene/ctrlUpgradesFloor"]
+[node name="ctrlUpgradesFloor" type="VBoxContainer" parent="ctnUpgradesViewport/vptUpgradesScene"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 60.0
 margin_top = 60.0
 margin_right = -60.0
 margin_bottom = -60.0
+theme = SubResource( 2 )
+custom_constants/separation = 60
+
+[node name="objUpgradeTab" parent="ctnUpgradesViewport/vptUpgradesScene/ctrlUpgradesFloor" instance=ExtResource( 5 )]
 
 [node name="camUpgrades" parent="ctnUpgradesViewport/vptUpgradesScene" instance=ExtResource( 2 )]

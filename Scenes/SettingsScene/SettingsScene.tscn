@@ -32,14 +32,14 @@ size = Vector2( 1080, 1632 )
 handle_input_locally = false
 render_target_update_mode = 3
 
-[node name="ctrlSettingsFloor" type="Control" parent="ctnSettingsViewport/vptSettingsScene"]
-margin_right = 40.0
-margin_bottom = 40.0
-
-[node name="texBackground" type="TextureRect" parent="ctnSettingsViewport/vptSettingsScene/ctrlSettingsFloor"]
+[node name="texBackground" type="TextureRect" parent="ctnSettingsViewport/vptSettingsScene"]
 margin_right = 1152.0
 margin_bottom = 2432.0
 texture = ExtResource( 1 )
 stretch_mode = 2
+
+[node name="ctrlSettingsFloor" type="Control" parent="ctnSettingsViewport/vptSettingsScene"]
+margin_right = 40.0
+margin_bottom = 40.0
 
 [node name="camSettings" parent="ctnSettingsViewport/vptSettingsScene" instance=ExtResource( 2 )]

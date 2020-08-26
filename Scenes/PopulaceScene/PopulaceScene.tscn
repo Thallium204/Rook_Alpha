@@ -35,14 +35,14 @@ size = Vector2( 1080, 1632 )
 handle_input_locally = false
 render_target_update_mode = 3
 
-[node name="ctrlPopulaceFloor" type="Control" parent="ctnPopulaceViewport/vptPopulaceScene"]
-margin_right = 40.0
-margin_bottom = 40.0
-
-[node name="texBackground" type="TextureRect" parent="ctnPopulaceViewport/vptPopulaceScene/ctrlPopulaceFloor"]
+[node name="texBackground" type="TextureRect" parent="ctnPopulaceViewport/vptPopulaceScene"]
 margin_right = 1152.0
 margin_bottom = 2432.0
 texture = ExtResource( 1 )
 stretch_mode = 2
+
+[node name="ctrlPopulaceFloor" type="Control" parent="ctnPopulaceViewport/vptPopulaceScene"]
+margin_right = 40.0
+margin_bottom = 40.0
 
 [node name="camPopulace" parent="ctnPopulaceViewport/vptPopulaceScene" instance=ExtResource( 2 )]

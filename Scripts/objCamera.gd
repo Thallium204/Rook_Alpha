@@ -61,7 +61,7 @@ func _ready():
 		zoomEnabled = true
 	
 	ctrlSceneFloor = get_parent().get_node("ctrl"+sceneName+"Floor")
-	bg_dim = ctrlSceneFloor.get_node("texBackground").rect_size
+	bg_dim = get_node("../texBackground").rect_size
 	
 	limit_right = bg_dim[0] # Limit the position of the camera
 	limit_bottom = bg_dim[1]
