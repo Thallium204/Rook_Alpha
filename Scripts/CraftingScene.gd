@@ -34,19 +34,21 @@ func _ready():
 					var costItem = crafting_tree.create_item(procItem)
 					costItem.set_text(0, resCost["resourceName"] + " " + str(resCost["amountRequired"]))
 				var buttonItem = crafting_tree.create_item(procItem)
-				buttonItem.add_button(0, btnTextureOff)
+				buttonItem.add_button(0, btnTextureOff, -1, false, "Craft: " + metadata["nameID"])
 				print(procItem.get_text(0)," -> ", buttonItem," -> ",buttonItem.get_button(0,0))
 				
 
 func _on_Tree_button_pressed(item, column, id):
 	if item == null:
 		return
-	print()
+	var tooltip = item.get_button_tooltip(0, id)
 	print (item," = ",item.get_text(0), column, id)
 	print (item.get_parent())
+	print ("Tooltip: " + tooltip)
 	#item.set_button(column, id, btnTextureOn)
 	#item.set_text(0,"pressed")
 	#OS.delay_msec(500)
-	item.set_text(0,"released")
+	
+	item.get_parent().set_text(0,"released")
 	#item.set_button(column, id, btnTextureOff)
 	pass
