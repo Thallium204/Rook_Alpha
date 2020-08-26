@@ -44,7 +44,7 @@ func updateInfo():
 			# Handle Inputs
 			var inputSolid = $infoProcessor/inputBuffers/inputSolid # The vertical stack of input buffers
 			for inputPos in range(3):
-				var texInputBuffer = inputSolid.get_node("texInputBuffer"+str(inputPos))
+				var texInputBuffer = inputSolid.get_node("texBuffer"+str(inputPos))
 				if inputPos < currentProcess["inputBuffers"].size(): # If we still have an input buffer to display
 					texInputBuffer.visible = true
 					var bufferInfo = currentProcess["inputBuffers"][inputPos] # Get the buffer data
@@ -71,7 +71,7 @@ func updateInfo():
 			# Handle Outputs
 			var outputSolid = $infoProcessor/outputBuffers/outputSolid # The vertical stack of input buffers
 			for outputPos in range(3):
-				var texOutputBuffer = outputSolid.get_node("texOutputBuffer"+str(outputPos))
+				var texOutputBuffer = outputSolid.get_node("texBuffer"+str(outputPos))
 				if outputPos < currentProcess["outputBuffers"].size(): # If we still have an input buffer to display
 					texOutputBuffer.visible = true
 					var bufferInfo = currentProcess["outputBuffers"][outputPos] # Get the buffer data

@@ -25,7 +25,7 @@ func generateRequest(requestType):
 	elif requestType == "process":
 		return {}
 
-func sendRequest(request):
+func sendRequest(_request):
 	pass
 
 func inputResource_Structure(resName,resType,inputBuffers):

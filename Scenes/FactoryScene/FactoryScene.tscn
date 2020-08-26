@@ -49,7 +49,7 @@ size = 56
 font_data = ExtResource( 6 )
 
 [sub_resource type="DynamicFont" id=8]
-size = 20
+size = 40
 font_data = ExtResource( 25 )
 
 [sub_resource type="DynamicFont" id=7]
@@ -380,20 +380,20 @@ margin_bottom = 223.0
 size_flags_horizontal = 3
 alignment = 1
 
-[node name="texInputBuffer0" parent="SideBarNode/texInfoBar/infoProcessor/inputBuffers/inputSolid" instance=ExtResource( 28 )]
+[node name="texBuffer0" parent="SideBarNode/texInfoBar/infoProcessor/inputBuffers/inputSolid" instance=ExtResource( 28 )]
 margin_right = 200.0
 margin_bottom = 71.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="texInputBuffer1" parent="SideBarNode/texInfoBar/infoProcessor/inputBuffers/inputSolid" instance=ExtResource( 28 )]
+[node name="texBuffer1" parent="SideBarNode/texInfoBar/infoProcessor/inputBuffers/inputSolid" instance=ExtResource( 28 )]
 margin_top = 75.0
 margin_right = 200.0
 margin_bottom = 146.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="texInputBuffer2" parent="SideBarNode/texInfoBar/infoProcessor/inputBuffers/inputSolid" instance=ExtResource( 28 )]
+[node name="texBuffer2" parent="SideBarNode/texInfoBar/infoProcessor/inputBuffers/inputSolid" instance=ExtResource( 28 )]
 margin_top = 150.0
 margin_right = 200.0
 margin_bottom = 223.0
@@ -464,20 +464,20 @@ margin_bottom = 223.0
 size_flags_horizontal = 3
 alignment = 1
 
-[node name="texOutputBuffer0" parent="SideBarNode/texInfoBar/infoProcessor/outputBuffers/outputSolid" instance=ExtResource( 28 )]
+[node name="texBuffer0" parent="SideBarNode/texInfoBar/infoProcessor/outputBuffers/outputSolid" instance=ExtResource( 28 )]
 margin_right = 200.0
 margin_bottom = 71.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="texOutputBuffer1" parent="SideBarNode/texInfoBar/infoProcessor/outputBuffers/outputSolid" instance=ExtResource( 28 )]
+[node name="texBuffer1" parent="SideBarNode/texInfoBar/infoProcessor/outputBuffers/outputSolid" instance=ExtResource( 28 )]
 margin_top = 75.0
 margin_right = 200.0
 margin_bottom = 146.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="texOutputBuffer2" parent="SideBarNode/texInfoBar/infoProcessor/outputBuffers/outputSolid" instance=ExtResource( 28 )]
+[node name="texBuffer2" parent="SideBarNode/texInfoBar/infoProcessor/outputBuffers/outputSolid" instance=ExtResource( 28 )]
 margin_top = 150.0
 margin_right = 200.0
 margin_bottom = 223.0
