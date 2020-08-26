@@ -48,21 +48,21 @@ HScrollBar/styles/scroll_focus = null
 size = 56
 font_data = ExtResource( 6 )
 
-[sub_resource type="DynamicFont" id=4]
-size = 20
+[sub_resource type="DynamicFont" id=8]
+size = 40
 font_data = ExtResource( 25 )
 
-[sub_resource type="DynamicFont" id=5]
+[sub_resource type="DynamicFont" id=7]
 size = 64
 font_data = ExtResource( 25 )
 
+[sub_resource type="CircleShape2D" id=4]
+radius = 64.0
+
+[sub_resource type="CircleShape2D" id=5]
+radius = 64.0
+
 [sub_resource type="CircleShape2D" id=6]
-radius = 64.0
-
-[sub_resource type="CircleShape2D" id=7]
-radius = 64.0
-
-[sub_resource type="CircleShape2D" id=8]
 radius = 16.0
 
 [node name="FactoryNode" type="Control"]
@@ -366,7 +366,7 @@ anchor_bottom = 1.0
 margin_top = 1.52588e-05
 margin_right = 7.62939e-06
 margin_bottom = 1.52588e-05
-custom_fonts/font = SubResource( 4 )
+custom_fonts/font = SubResource( 8 )
 text = "0"
 align = 2
 valign = 2
@@ -450,7 +450,7 @@ anchor_bottom = 1.0
 margin_top = 1.52588e-05
 margin_right = 7.62939e-06
 margin_bottom = 1.52588e-05
-custom_fonts/font = SubResource( 4 )
+custom_fonts/font = SubResource( 8 )
 text = "0"
 align = 2
 valign = 2
@@ -546,7 +546,7 @@ margin_left = 11.0
 margin_top = 146.0
 margin_right = -20.0
 margin_bottom = -12.0
-custom_fonts/font = SubResource( 5 )
+custom_fonts/font = SubResource( 7 )
 text = "0"
 align = 2
 valign = 2
@@ -574,17 +574,17 @@ stretch_mode = 6
 [node name="btnInfoToggle" type="TouchScreenButton" parent="SideBarNode"]
 position = Vector2( -128, 8 )
 normal = ExtResource( 17 )
-shape = SubResource( 6 )
+shape = SubResource( 4 )
 
 [node name="btnMoveToggle" type="TouchScreenButton" parent="SideBarNode"]
 position = Vector2( -128, 144 )
 normal = ExtResource( 15 )
-shape = SubResource( 7 )
+shape = SubResource( 5 )
 
 [node name="btnConnectToggle" type="TouchScreenButton" parent="SideBarNode"]
 position = Vector2( -128, 280 )
 normal = ExtResource( 19 )
-shape = SubResource( 7 )
+shape = SubResource( 5 )
 
 [node name="texConnector" type="TextureRect" parent="SideBarNode/btnConnectToggle"]
 margin_left = 32.0
@@ -599,13 +599,13 @@ __meta__ = {
 [node name="btnDeleteToggle" type="TouchScreenButton" parent="SideBarNode"]
 position = Vector2( -128, 416 )
 normal = ExtResource( 10 )
-shape = SubResource( 6 )
+shape = SubResource( 4 )
 
 [node name="btnAutocraftToggle" type="TouchScreenButton" parent="SideBarNode"]
 position = Vector2( -128, 552 )
 scale = Vector2( 4, 4 )
 normal = ExtResource( 16 )
-shape = SubResource( 8 )
+shape = SubResource( 6 )
 
 [node name="twnSideBar" type="Tween" parent="SideBarNode"]
 [connection signal="pressed" from="TopBarNode/btnProcessorMenu" to="TopBarNode" method="_on_btnProcessorMenu_pressed"]
