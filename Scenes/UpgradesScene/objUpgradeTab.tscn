@@ -52,7 +52,8 @@ text = "Workbench"
 margin_left = 20.0
 margin_top = 108.0
 margin_right = 940.0
-margin_bottom = 472.0
+margin_bottom = 168.0
+rect_min_size = Vector2( 920, 60 )
 tab_align = 0
 __meta__ = {
 "_edit_use_anchors_": false
@@ -62,16 +63,16 @@ __meta__ = {
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 4.0
-margin_top = 24.0
-margin_right = -876.0
-margin_bottom = -308.0
+margin_top = 32.0
+margin_right = -4.0
+margin_bottom = -4.0
 
 [node name="Output" type="Tabs" parent="ctnTabInfo"]
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 4.0
-margin_top = 24.0
+margin_top = 32.0
 margin_right = -4.0
 margin_bottom = -4.0
 
@@ -80,9 +81,11 @@ visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 4.0
-margin_top = 24.0
+margin_top = 32.0
 margin_right = -4.0
 margin_bottom = -4.0
+
+[node name="twnTabInfo" type="Tween" parent="ctnTabInfo"]
 
 [node name="twnExpandTab" type="Tween" parent="."]
 [connection signal="released" from="btnExpand" to="." method="_on_btnExpand_released"]
