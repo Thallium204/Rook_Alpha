@@ -9,6 +9,63 @@ var processDisplay = 0
 func _process(_delta):
 	updateInfo()
 
+func updateProcessorInfo():
+	var currentProcess = infoNode.processData[infoNode.processIndex] # Get the processData for the current
+	
+	# Colour modulate the process change buttons
+	if infoNode.processIndex < infoNode.processData.size()-1:
+		$infoProcessor/ctrlRightProcess.modulate = Color(1,1,1)
+	else:
+		$infoProcessor/ctrlRightProcess.modulate = Color(0.3,0.3,0.3)
+	if 0 < infoNode.processIndex:
+		$infoProcessor/ctrlLeftProcess.modulate = Color(1,1,1)
+	else:
+		$infoProcessor/ctrlLeftProcess.modulate = Color(0.3,0.3,0.3)
+	
+	# Handle Inputs
+	var inputSolid = $infoProcessor/inputBuffers/inputSolid # The vertical stack of input buffers
+	for inputPos in range(3): # For every texBuffer
+		# Do we need to display the buffer
+		var bufferIsVisible = bool( inputPos < currentProcess["inputBuffers"].size() )
+		var texInputBuffer = inputSolid.get_node("texBuffer"+str(inputPos))
+		texInputBuffer.visible = bufferIsVisible
+		if bufferIsVisible: # If we still have an input buffer to display
+			var texResource = texInputBuffer.get_node("texResource")
+			var labAmount = texResource.get_node("labAmount")
+			var bufferInfo = currentProcess["inputBuffers"][inputPos] # Get the buffer data
+			labAmount.text = str(bufferInfo["bufferCurrent"])
+			labAmount.modulate = Color( 1,1,1, min(bufferInfo["bufferCurrent"],1) )
+			labAmount.rect_scale = Vector2.ONE * texResource.rect_size[1]/64
+			texResource.texture = load("res://Assets/Resources/img_"+bufferInfo["resourceName"].to_lower()+".png")
+			texResource.modulate = Color( 1,1,1, clamp(0.3,bufferInfo["bufferCurrent"],1) )
+	
+	# Handle Process
+	var prgProcess = $infoProcessor/prgProcess # The vertical stack of process info
+	if infoNode.isProcessing == true:
+		prgProcess.value = 100*infoNode.progPerc
+	else:
+		prgProcess.value = 0
+	
+	# Handle Outputs
+	var outputSolid = $infoProcessor/outputBuffers/outputSolid # The vertical stack of input buffers
+	for outputPos in range(3): # For every texBuffer
+		# Do we need to display the buffer
+		var bufferIsVisible = bool( outputPos < currentProcess["outputBuffers"].size() )
+		var texInputBuffer = outputSolid.get_node("texBuffer"+str(outputPos))
+		texInputBuffer.visible = bufferIsVisible
+		if bufferIsVisible: # If we still have an input buffer to display
+			var texResource = texInputBuffer.get_node("texResource")
+			var labAmount = texResource.get_node("labAmount")
+			var bufferInfo = currentProcess["outputBuffers"][outputPos] # Get the buffer data
+			labAmount.text = str(bufferInfo["bufferCurrent"])
+			labAmount.modulate = Color( 1,1,1, min(bufferInfo["bufferCurrent"],1) )
+			labAmount.rect_scale = Vector2.ONE * texResource.rect_size[1]/64
+			texResource.texture = load("res://Assets/Resources/img_"+bufferInfo["resourceName"].to_lower()+".png")
+			texResource.modulate = Color( 1,1,1, clamp(0.3,bufferInfo["bufferCurrent"],1) )
+	
+	# Draw the image
+	$infoProcessor/texStructure.texture = infoNode.get_node("sprStructure").texture
+
 func updateInfo():
 	
 	$infoName.visible = false
@@ -28,68 +85,7 @@ func updateInfo():
 		if infoNode.structureType == "Processor":
 			
 			$infoProcessor.visible = true
-			
-			var currentProcess = infoNode.processData[infoNode.processIndex] # Get the processData for the current
-			
-			# Colour modulate the process change buttons
-			if infoNode.processIndex < infoNode.processData.size()-1:
-				$infoProcessor/ctrlRightProcess.modulate = Color(1,1,1)
-			else:
-				$infoProcessor/ctrlRightProcess.modulate = Color(0.3,0.3,0.3)
-			if 0 < infoNode.processIndex:
-				$infoProcessor/ctrlLeftProcess.modulate = Color(1,1,1)
-			else:
-				$infoProcessor/ctrlLeftProcess.modulate = Color(0.3,0.3,0.3)
-			
-			# Handle Inputs
-			var inputSolid = $infoProcessor/inputBuffers/inputSolid # The vertical stack of input buffers
-			for inputPos in range(3):
-				var texInputBuffer = inputSolid.get_node("texBuffer"+str(inputPos))
-				if inputPos < currentProcess["inputBuffers"].size(): # If we still have an input buffer to display
-					texInputBuffer.visible = true
-					var bufferInfo = currentProcess["inputBuffers"][inputPos] # Get the buffer data
-					texInputBuffer.get_node("texResource/labAmount").text = str(bufferInfo["bufferCurrent"])
-					texInputBuffer.get_node("texResource/labAmount").modulate = Color(1,1,1,min(bufferInfo["bufferCurrent"],1))
-					#texInputBuffer.get_node("labCapacity").text = str(bufferInfo["bufferMax"])
-					texInputBuffer.get_node("texResource").texture = load("res://Assets/Resources/img_"+bufferInfo["resourceName"].to_lower()+".png")
-					var alpha = clamp(0.3,bufferInfo["bufferCurrent"],1)
-					texInputBuffer.get_node("texResource").modulate = Color(1,1,1,alpha)
-					texInputBuffer.modulate = Color(1,1,1,1)
-				else:
-					texInputBuffer.visible = false
-					texInputBuffer.get_node("texResource").texture = load("res://Assets/Menu/img_empty.png")
-					texInputBuffer.get_node("texResource/labAmount").text = ""
-					texInputBuffer.modulate = Color(1,1,1,0)
-			
-			# Handle Process
-			var prgProcess = $infoProcessor/prgProcess # The vertical stack of process info
-			if infoNode.isProcessing == true:
-				prgProcess.value = 100*infoNode.progPerc
-			else:
-				prgProcess.value = 0
-			
-			# Handle Outputs
-			var outputSolid = $infoProcessor/outputBuffers/outputSolid # The vertical stack of input buffers
-			for outputPos in range(3):
-				var texOutputBuffer = outputSolid.get_node("texBuffer"+str(outputPos))
-				if outputPos < currentProcess["outputBuffers"].size(): # If we still have an input buffer to display
-					texOutputBuffer.visible = true
-					var bufferInfo = currentProcess["outputBuffers"][outputPos] # Get the buffer data
-					texOutputBuffer.get_node("texResource/labAmount").text = str(bufferInfo["bufferCurrent"])
-					texOutputBuffer.get_node("texResource/labAmount").modulate = Color(1,1,1,min(bufferInfo["bufferCurrent"],1))
-					#texOutputBuffer.get_node("labCapacity").text = str(bufferInfo["bufferMax"])
-					texOutputBuffer.get_node("texResource").texture = load("res://Assets/Resources/img_"+bufferInfo["resourceName"].to_lower()+".png")
-					var alpha = clamp(0.3,bufferInfo["bufferCurrent"],1)
-					texOutputBuffer.get_node("texResource").modulate = Color(1,1,1,alpha)
-					texOutputBuffer.modulate = Color(1,1,1,1)
-				else:
-					texOutputBuffer.visible = false
-					texOutputBuffer.get_node("texResource").texture = load("res://Assets/Menu/img_empty.png")
-					texOutputBuffer.get_node("texResource/labAmount").text = ""
-					texOutputBuffer.modulate = Color(1,1,1,0)
-			
-			# Draw the image
-			$infoProcessor/texStructure.texture = infoNode.get_node("sprStructure").texture
+			updateProcessorInfo()
 		
 		elif infoNode.structureType == "Holder":
 			

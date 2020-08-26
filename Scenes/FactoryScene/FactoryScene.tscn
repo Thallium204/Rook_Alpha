@@ -49,7 +49,7 @@ size = 56
 font_data = ExtResource( 6 )
 
 [sub_resource type="DynamicFont" id=8]
-size = 40
+size = 30
 font_data = ExtResource( 25 )
 
 [sub_resource type="DynamicFont" id=7]
