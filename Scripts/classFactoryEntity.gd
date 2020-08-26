@@ -1,11 +1,13 @@
 extends Node2D
 
 onready var Globals = get_tree().get_root().get_node("Game/Globals")
-onready var ctrlFactoryFloor = Globals.get_node("FactoryNode/ctnFactoryViewport/vptFactoryScene/ctrlFactoryFloor")
-onready var texInfoBar = Globals.get_node("FactoryNode/SideBarNode/texInfoBar")
-onready var FactorySpace = Globals.get_node("FactoryNode/texBackground")
+onready var FactoryNode = Globals.get_node("FactoryNode")
+onready var ctrlFactoryFloor = FactoryNode.get_node("ctnFactoryViewport/vptFactoryScene/ctrlFactoryFloor")
+onready var FactorySpace = ctrlFactoryFloor.get_node("../texBackground")
 onready var camFactory = ctrlFactoryFloor.get_node("../camFactory")
-onready var ResourceBarNode = Globals.get_node("FactoryNode/ResourceBarNode")
+
+onready var texInfoBar = FactoryNode.get_node("SideBarNode/texInfoBar")
+onready var ResourceBarNode = FactoryNode.get_node("ResourceBarNode")
 
 onready var grey = Globals.infoColorModifier
 onready var imageDirectory = "res://Assets/FactoryEntity"

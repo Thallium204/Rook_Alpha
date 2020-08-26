@@ -5,7 +5,7 @@
 [ext_resource path="res://Scripts/CraftingScene.gd" type="Script" id=3]
 [ext_resource path="res://Scenes/CraftingScene/theme_main.tres" type="Theme" id=4]
 
-[sub_resource type="StyleBoxLine" id=1]
+[sub_resource type="StyleBoxLine" id=1442]
 resource_local_to_scene = true
 color = Color( 0.843137, 0.113725, 0.113725, 1 )
 thickness = 10
@@ -59,7 +59,7 @@ margin_top = 60.0
 margin_right = -60.0
 margin_bottom = -60.0
 theme = ExtResource( 4 )
-custom_styles/custom_button_pressed = SubResource( 1 )
+custom_styles/custom_button_pressed = SubResource( 1442 )
 
 [node name="camCrafting" parent="ctnCraftingViewport/vptCraftingScene" instance=ExtResource( 2 )]
 [connection signal="button_pressed" from="ctnCraftingViewport/vptCraftingScene/ctrlCraftingFloor/Tree" to="." method="_on_Tree_button_pressed"]
