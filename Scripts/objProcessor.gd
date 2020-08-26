@@ -24,7 +24,10 @@ func configure(processorData): # Called when we want to initialise the internal 
 func updateUI(): # Called when we want to update the display nodes for the user
 	
 	# Update the structure image
-	$sprStructure.texture = load(imageDirectory+"/img_"+entityName.to_lower()+".png")
+	$sprStructure.frames = load(imageDirectory+"/img_"+entityName.to_lower()+".tres")
+	$sprStructure.animation = "idle"
+	$sprStructure.position[1] = -$sprStructure.frames.get_frame("idle",0).get_size()[1] + entitySize[1]
+	
 
 func inputResource(resName,resType):
 	return inputResource_Structure(resName,resType,processData[processIndex]["inputBuffers"])
@@ -42,6 +45,7 @@ func _process(delta):
 				outputBuffer["bufferCurrent"] += outputBuffer["bufferMax"] # Gain resources
 			timer_processTime = 0.0
 			isProcessing = false
+			$sprStructure.animation = "idle"
 			get_node("prgProcess").value = 0
 			updateUI()
 		else: # If we are still processing
@@ -68,6 +72,7 @@ func tryToProcess():
 				inputBuffer["bufferCurrent"] -= inputBuffer["bufferMax"]
 			# Commense Processing
 			isProcessing = true
+			$sprStructure.animation = "process"
 	else: # If we need resources
 		sendRequest(generateRequest("process"))
 

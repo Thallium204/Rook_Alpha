@@ -64,7 +64,7 @@ func updateProcessorInfo():
 			texResource.modulate = Color( 1,1,1, clamp(0.3,bufferInfo["bufferCurrent"],1) )
 	
 	# Draw the image
-	$infoProcessor/texStructure.texture = infoNode.get_node("sprStructure").texture
+	$infoProcessor/texStructure.texture = load(infoNode.imageDirectory + "/img_"+infoNode.entityName.to_lower() + ".png")
 
 func updateInfo():
 	

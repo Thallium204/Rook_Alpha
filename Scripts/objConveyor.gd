@@ -23,6 +23,7 @@ func resetCurrent():
 func pointResource(resourceNode):
 	if entityOutputList.empty():
 		return false
+	indexOutputList %= entityOutputList.size()
 	resourceNode.toPosition = entityOutputList[indexOutputList].position + Vector2(16,16)
 	indexOutputList = (indexOutputList+1)%entityOutputList.size()
 	return true

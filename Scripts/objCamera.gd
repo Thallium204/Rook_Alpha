@@ -58,6 +58,7 @@ func _ready():
 	sceneName = name.right(3)
 	
 	if sceneName in ["Factory","Research"]:
+		print(sceneName)
 		zoomEnabled = true
 	
 	ctrlSceneFloor = get_parent().get_node("ctrl"+sceneName+"Floor")
@@ -88,7 +89,7 @@ func _input(event):
 	
 	get_node("Label").text = ""
 	
-	if not(event is InputEventScreenTouch or event is InputEventScreenDrag):
+	if not(event is InputEventScreenTouch or event is InputEventScreenDrag or event is InputEventMouseButton):
 		return
 	
 	# Don't process input if the input was outside of the viewport

@@ -3,8 +3,8 @@
 [ext_resource path="res://Scripts/objConveyor.gd" type="Script" id=1]
 [ext_resource path="res://Assets/FactoryEntity/Connector/Conveyor/Standard/img_none.png" type="Texture" id=2]
 
-
 [node name="objConveyor" type="Node2D"]
+z_index = 1
 script = ExtResource( 1 )
 
 [node name="sprU" type="Sprite" parent="."]
