@@ -2,7 +2,7 @@
 
 [ext_resource path="res://Scripts/objUpgradesInfo.gd" type="Script" id=1]
 
-[node name="objUpgradeInfo" type="TabContainer"]
+[node name="objUpgradesInfo" type="TabContainer"]
 margin_left = 20.0
 margin_top = 108.0
 margin_right = 940.0
@@ -13,31 +13,5 @@ script = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
-
-[node name="Planks" type="Tabs" parent="."]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 4.0
-margin_top = 32.0
-margin_right = -4.0
-margin_bottom = -4.0
-
-[node name="Gears" type="Tabs" parent="."]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 4.0
-margin_top = 32.0
-margin_right = -4.0
-margin_bottom = -4.0
-
-[node name="Secondary" type="Tabs" parent="."]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 4.0
-margin_top = 32.0
-margin_right = -4.0
-margin_bottom = -4.0
 
 [node name="twnTabInfo" type="Tween" parent="."]

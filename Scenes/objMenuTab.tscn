@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=2]
 
-[ext_resource path="res://Assets/UI/img_upgrades_nine.png" type="Texture" id=1]
+[ext_resource path="res://Assets/UI/img_none_nine.png" type="Texture" id=1]
 [ext_resource path="res://Scenes/UpgradesScene/upgradesTheme.tres" type="Theme" id=2]
 [ext_resource path="res://Scripts/objMenuTab.gd" type="Script" id=3]
 [ext_resource path="res://Assets/FactoryEntity/Structure/Processor/img_workbench.png" type="Texture" id=4]
@@ -9,7 +9,7 @@
 [node name="objMenuTab" type="NinePatchRect"]
 margin_right = 960.0
 margin_bottom = 128.0
-rect_min_size = Vector2( 960, 128 )
+rect_min_size = Vector2( 960, 140 )
 texture = ExtResource( 1 )
 region_rect = Rect2( 0, 0, 128, 128 )
 patch_margin_left = 37
@@ -30,14 +30,17 @@ margin_left = 20.0
 margin_right = 397.0
 margin_bottom = 128.0
 rect_min_size = Vector2( 0, 128 )
+mouse_filter = 2
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="texIcon" type="TextureRect" parent="ctnTitle"]
+anchor_bottom = 1.0
 margin_right = 64.0
-margin_bottom = 128.0
+margin_bottom = -8.0
 rect_min_size = Vector2( 64, 0 )
+mouse_filter = 2
 size_flags_vertical = 3
 texture = ExtResource( 4 )
 expand = true

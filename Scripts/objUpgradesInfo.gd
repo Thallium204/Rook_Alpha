@@ -3,6 +3,15 @@ extends TabContainer
 onready var twnTabInfo = get_node("twnTabInfo")
 
 var tabInfoPosList = [Vector2(920,60), Vector2(920, 364)]
+var load_objUpgradesTab = preload("res://Scenes/UpgradesScene/objUpgradesTab.tscn")
+
+func configure(entityData):
+	for processIndex in entityData["processesData"]:
+		var processInfo = entityData["processesData"][processIndex]
+		var objUpgradesTab = load_objUpgradesTab.instance()
+		objUpgradesTab.name = processInfo["outputBuffers"][0]["resourceName"]
+		add_child(objUpgradesTab)
+	visible = false
 
 func toggleVisible(isCollapsed):
 	

@@ -1,4 +1,7 @@
 extends Control
 
-func toggleVisible(isCollapsed):
+func configure(_entityData):
+	visible = false
+
+func toggleVisible(_isCollapsed):
 	pass

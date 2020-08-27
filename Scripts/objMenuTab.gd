@@ -6,25 +6,26 @@ onready var daddyNode = get_parent().get_parent().get_parent().get_parent()
 
 var nodeTweenTabInfo
 var sceneName
-var infoTab
+var objMenuInfo
 var isCollapsed:bool = true
 
 var tabPosList = [rect_min_size, rect_min_size + Vector2(0, 384)]
 var tabImgList = [load("res://Assets/UI/img_tab_down.png"), load("res://Assets/UI/img_tab_up.png")]
 
-
-func _ready():
-	
-	sceneName = owner.sceneName
+func configure(scnName,entityData,imageDirectory):
+	# Configure Scene Info
+	sceneName = scnName
 	texture = load("res://Assets/UI/img_" + sceneName.to_lower() + "_nine.png")
-	var temp = str("res://Scenes/" + sceneName + "Scene/obj" + sceneName + "Info.tscn")
-	var objMenuInfo = load(temp)
-	infoTab = objMenuInfo.instance()
-	infoTab.visible = false
-	infoTab.get_node("twnTabInfo")
-	add_child(infoTab)
 	
-
+	# Configure Entity Info
+	$ctnTitle/labName.text = entityData["nameID"]
+	$ctnTitle/texIcon.texture = load(imageDirectory + "/img_" + entityData["nameID"].to_lower() + ".png")
+	
+	# Create Info Node
+	var load_objMenuInfo = load("res://Scenes/" + sceneName + "Scene/obj" + sceneName + "Info.tscn")
+	objMenuInfo = load_objMenuInfo.instance()
+	objMenuInfo.configure(entityData)
+	add_child(objMenuInfo)
 
 func _on_btnExpand_released():
 	
@@ -33,5 +34,5 @@ func _on_btnExpand_released():
 	nodeTweenExpandTab.interpolate_property(self, "rect_min_size", rect_min_size, targetExpandTab, 1, Tween.TRANS_EXPO, Tween.EASE_OUT)
 	nodeTweenExpandTab.start()
 	
-	infoTab.toggleVisible(isCollapsed)
+	objMenuInfo.toggleVisible(isCollapsed)
 	isCollapsed = not(isCollapsed)
