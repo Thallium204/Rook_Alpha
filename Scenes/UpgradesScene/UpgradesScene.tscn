@@ -4,7 +4,7 @@
 [ext_resource path="res://Scenes/objCamera.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Scripts/UpgradesScene.gd" type="Script" id=3]
 [ext_resource path="res://Fonts/minecraft_bold_italic.otf" type="DynamicFontData" id=4]
-[ext_resource path="res://Scenes/UpgradesScene/objUpgradeTab.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Scenes/UpgradesScene/objMenuTab.tscn" type="PackedScene" id=5]
 
 [sub_resource type="DynamicFont" id=1]
 size = 48
@@ -58,29 +58,10 @@ margin_left = 60.0
 margin_top = 60.0
 margin_right = -60.0
 margin_bottom = -60.0
+mouse_filter = 2
 theme = SubResource( 2 )
 custom_constants/separation = 60
 
-[node name="objUpgradeTab" parent="ctnUpgradesViewport/vptUpgradesScene/ctrlUpgradesFloor" instance=ExtResource( 5 )]
-
-[node name="objUpgradeTab2" parent="ctnUpgradesViewport/vptUpgradesScene/ctrlUpgradesFloor" instance=ExtResource( 5 )]
-margin_top = 188.0
-margin_bottom = 316.0
-
-[node name="objUpgradeTab3" parent="ctnUpgradesViewport/vptUpgradesScene/ctrlUpgradesFloor" instance=ExtResource( 5 )]
-margin_top = 376.0
-margin_bottom = 504.0
-
-[node name="objUpgradeTab4" parent="ctnUpgradesViewport/vptUpgradesScene/ctrlUpgradesFloor" instance=ExtResource( 5 )]
-margin_top = 564.0
-margin_bottom = 692.0
-
-[node name="objUpgradeTab5" parent="ctnUpgradesViewport/vptUpgradesScene/ctrlUpgradesFloor" instance=ExtResource( 5 )]
-margin_top = 752.0
-margin_bottom = 880.0
-
-[node name="objUpgradeTab6" parent="ctnUpgradesViewport/vptUpgradesScene/ctrlUpgradesFloor" instance=ExtResource( 5 )]
-margin_top = 940.0
-margin_bottom = 1068.0
+[node name="objMenuTab" parent="ctnUpgradesViewport/vptUpgradesScene/ctrlUpgradesFloor" instance=ExtResource( 5 )]
 
 [node name="camUpgrades" parent="ctnUpgradesViewport/vptUpgradesScene" instance=ExtResource( 2 )]
