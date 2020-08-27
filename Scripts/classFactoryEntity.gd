@@ -1,7 +1,7 @@
 extends Node2D
 
-onready var Globals = get_tree().get_root().get_node("Game/Globals")
-onready var FactoryNode = Globals.get_node("FactoryNode")
+onready var Menus = get_tree().get_root().get_node("Game/Menus")
+onready var FactoryNode = Menus.get_node("FactoryNode")
 onready var ctrlFactoryFloor = FactoryNode.get_node("ctnFactoryViewport/vptFactoryScene/ctrlFactoryFloor")
 onready var FactorySpace = ctrlFactoryFloor.get_node("../texBackground")
 onready var camFactory = ctrlFactoryFloor.get_node("../camFactory")

@@ -1,6 +1,6 @@
 extends Node2D
 
-onready var Globals = get_tree().get_root().get_node("Game/Globals")
+onready var Menus = get_tree().get_root().get_node("Game/Menus")
 
 var screenNames = ["Factory","Crafting","Upgrades","Research","Events","Quests","Populace","Settings"]
 var currentScreen = 0
@@ -12,13 +12,13 @@ func _process(_delta):
 
 func move(target):
 	var nodeTween = get_node("twnBottomBar")
-	nodeTween.interpolate_property(Globals, "position", Globals.position,  target, 1, Tween.TRANS_BACK, Tween.EASE_OUT)
+	nodeTween.interpolate_property(Menus, "position", Menus.position,  target, 1, Tween.TRANS_BACK, Tween.EASE_OUT)
 	nodeTween.start()
 
 func updateButtonUIs():
 	
 	var scnTxt = screenNames[currentScreen]
-	Globals.get_node(scnTxt+"Node").get_node("ctn"+scnTxt+"Viewport").get_node("vpt"+scnTxt+"Scene").get_node("cam"+scnTxt).make_current()
+	Menus.get_node(scnTxt+"Node").get_node("ctn"+scnTxt+"Viewport").get_node("vpt"+scnTxt+"Scene").get_node("cam"+scnTxt).make_current()
 	
 	for screenID in range(screenNames.size()):
 		if currentScreen == screenID: # If this is the menu we're now on

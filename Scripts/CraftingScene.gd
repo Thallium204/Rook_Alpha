@@ -22,10 +22,10 @@ func _ready():
 	#Third_Age.set_text(0, "Third Age")
 	#Fourth_Age.set_text(0, "Fourth Age")
 
-	for procPos in Game.processorBank:
+	for procPos in MetaData.processorBank:
 		if "meta" in procPos:
 			var procItem = crafting_tree.create_item(First_Age)
-			var metadata = Game.processorBank[procPos]
+			var metadata = MetaData.processorBank[procPos]
 			#procItem.set_collapsed(true)
 			procItem.set_metadata(0, metadata)
 			procItem.set_text(0, metadata["nameID"])

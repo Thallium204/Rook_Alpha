@@ -1,6 +1,7 @@
 extends TextureRect
 
-onready var Globals = get_tree().get_root().get_node("Game/Globals")
+onready var Menus = get_tree().get_root().get_node("Game/Menus")
+onready var ctrlFactoryFloor = Menus.get_node("FactoryNode/ctnFactoryViewport/vptFactoryScene/ctrlFactoryFloor")
 onready var TopBarNode = get_parent().get_parent()
 
 var hasMoved = false
@@ -20,7 +21,8 @@ func _on_btnAdd_released():
 	if Globals.moveStructureMode != "moving":
 		if entityType == "Structure":
 			TopBarNode.call("_on_btn"+subType+"Menu_pressed")
-			Globals.initialseStructureData(entityName,subType) # Initialise building data based on nameID of button
+			var structureData = Globals.initialseStructureData(entityName,subType)
+			ctrlFactoryFloor.addStructure(structureData,subType)
 		elif entityType == "Connector":
 			TopBarNode.call("_on_btn"+entityType+"Menu_pressed")
 			if Globals.drawConnector["nameID"] != entityName:

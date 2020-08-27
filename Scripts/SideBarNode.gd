@@ -1,7 +1,5 @@
 extends Control
 
-onready var Globals = get_tree().get_root().get_node("Game/Globals")
-
 onready var btnInfo = get_node("btnInfoToggle")
 onready var texInfoBar = get_node("texInfoBar")
 onready var btnMove = get_node("btnMoveToggle")

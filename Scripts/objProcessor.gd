@@ -27,7 +27,6 @@ func updateUI(): # Called when we want to update the display nodes for the user
 	$sprStructure.frames = load(imageDirectory+"/img_"+entityName.to_lower()+".tres")
 	$sprStructure.animation = "idle"
 	$sprStructure.position[1] = -$sprStructure.frames.get_frame("idle",0).get_size()[1] + entitySize[1]
-	
 
 func inputResource(resName,resType):
 	return inputResource_Structure(resName,resType,processData[processIndex]["inputBuffers"])

@@ -1,6 +1,5 @@
 extends Control
 
-onready var Globals = get_tree().get_root().get_node("Game/Globals")
 onready var SideBarNode = get_node("../SideBarNode")
 
 var objAddEntityButton = preload("res://Scenes/FactoryScene/objAddEntityButton.tscn")
@@ -26,13 +25,13 @@ func addEntityAddButton(nameID,entityType,subType):
 		get_node("grdConnector").add_child(newAddEntityButton)
 
 func _ready():
-	for Processor in Globals.processorBank.values():
+	for Processor in MetaData.processorBank.values():
 		addEntityAddButton(Processor["nameID"],"Structure","Processor")
-	for Holder in Globals.holderBank.values():
+	for Holder in MetaData.holderBank.values():
 		addEntityAddButton(Holder["nameID"],"Structure","Holder")
-	for conveyor in Globals.enhancerBank.values():
+	for conveyor in MetaData.enhancerBank.values():
 		addEntityAddButton(conveyor["nameID"],"Structure","Enhancer")
-	for conveyor in Globals.conveyorBank.values():
+	for conveyor in MetaData.conveyorBank.values():
 		addEntityAddButton(conveyor["nameID"],"Connector","Conveyor")
 
 func move(target):

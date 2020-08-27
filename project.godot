@@ -20,6 +20,11 @@ run/main_scene="res://Game.tscn"
 boot_splash/image="res://Assets/Misc/img_bootstrap.png"
 config/icon="res://icon.png"
 
+[autoload]
+
+MetaData="*res://Scripts/metaData.gd"
+Globals="*res://Scripts/Globals.gd"
+
 [display]
 
 window/size/width=1080

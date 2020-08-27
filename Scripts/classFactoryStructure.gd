@@ -70,7 +70,7 @@ func _process(_delta):
 	if moveMode == true:
 		process_moveMode()
 	
-	if texInfoBar.infoNode == self and Globals.displayInfoMode == true:
+	if (texInfoBar.infoNode == self and Globals.displayInfoMode == true) or moveMode == true:
 		$texSelect.modulate = Color(1,1,1,1)
 	else:
 		$texSelect.modulate = Color(1,1,1,0)
@@ -110,10 +110,12 @@ func process_moveMode(): # Called through process when in moveMode
 
 func enable_moveMode(isNew = false): # Called when we want to move this structure
 	
-	z_index = 999
-	
 	moveMode = true # Enable local move mode
 	Globals.moveStructureMode = "moving" # Enable global move mode
+	
+	# Visual Changes
+	z_index = 4096
+	$sprStructure.self_modulate = Color(1,1,1,0.8)
 	
 	# Add move Confirm Menu
 	var newConfirmMenu = objConfirmMenu.instance() # Get the Confirm Menu template
@@ -130,6 +132,7 @@ func enable_moveMode(isNew = false): # Called when we want to move this structur
 func disable_moveMode(placed = false): # Called when we have stopped moving this structure
 	
 	z_index = 0
+	$sprStructure.self_modulate = Color(1,1,1,1)
 	
 	var isNew = false
 	if last_entityMasterTile == null:

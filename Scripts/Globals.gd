@@ -1,9 +1,4 @@
-extends "res://Scripts/metaData.gd"
-
-# Factory Node
-onready var FactoryNode = get_node("FactoryNode")
-onready var vptFactoryScene = FactoryNode.get_node("ctnFactoryViewport/vptFactoryScene")
-onready var ctrlFactoryFloor = vptFactoryScene.get_node("ctrlFactoryFloor")
+extends Node2D
 
 var currentScreen = 0
 
@@ -53,7 +48,6 @@ var resourceBank = [
 	
 	]
 
-
 func _process(_delta):
 	pass
 
@@ -65,33 +59,29 @@ func getResourceType(nameID):
 
 func getStructureMeta(nameID,structureType):
 	if structureType == "Processor":
-		return processorBank["meta"+nameID].duplicate(true)
+		return MetaData.processorBank["meta"+nameID].duplicate(true)
 	elif structureType == "Holder":
-		return holderBank["meta"+nameID].duplicate(true)
+		return MetaData.holderBank["meta"+nameID].duplicate(true)
 	elif structureType == "Enhancer":
-		return enhancerBank["meta"+nameID].duplicate(true)
+		return MetaData.enhancerBank["meta"+nameID].duplicate(true)
 
 func getConnectorMeta(nameID,connectorType):
 	if connectorType == "Conveyor":
-		return conveyorBank["meta"+nameID].duplicate(true)
+		return MetaData.conveyorBank["meta"+nameID].duplicate(true)
 	if connectorType == "Pipe":
-		return pipeBank["meta"+nameID].duplicate(true)
+		return MetaData.pipeBank["meta"+nameID].duplicate(true)
 	if connectorType == "Cable":
-		return cableBank["meta"+nameID].duplicate(true)
+		return MetaData.cableBank["meta"+nameID].duplicate(true)
 
 func initialseStructureData(nameID,structureType):
 	var structureData = getStructureMeta(nameID,structureType)
-	# Send the buildingData off to the FactoryFloor to be made into a child node
-	ctrlFactoryFloor.addStructure(structureData,structureType)
+	return structureData
 
-
-
-func initialseConnectorData(entityTile):
+func initialseConnectorData():
 	if drawConnector["nameID"] == "":
 		return
 	var connectorData = getConnectorMeta(drawConnector["nameID"],drawConnector["connectorType"])
-	# Send the buildingData off to the FactoryFloor to be made into a child node
-	ctrlFactoryFloor.addConnector(connectorData,drawConnector["connectorType"],entityTile)
+	return connectorData
 
 
 

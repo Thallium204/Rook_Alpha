@@ -1,6 +1,6 @@
 extends TouchScreenButton
 
-onready var Globals = null
+onready var Menus = null
 onready var texInfoBar = null
 onready var ctrlFactoryFloor = null
 onready var ioIndicators = $ioIndicators.get_children()
@@ -15,13 +15,17 @@ var inv_directionDict = { "":"" , "D":"U" , "L":"R" , "U":"D" , "R":"L" }
 
 # NOTE: the mouse 'enters' a new area BEFORE 'exiting' the old one (if there is no gap between the areas)
 
+func drawConnector():
+	var connectorData = Globals.initialseConnectorData()
+	ctrlFactoryFloor.addConnector(connectorData,Globals.drawConnector["connectorType"],entityTile)
+
 func updatePosition():
 	position = ctrlFactoryFloor.tileSize*Vector2(entityTile["col"],entityTile["row"])
 
 func _ready():
-	Globals = get_tree().get_root().get_node("Game/Globals")
-	texInfoBar = Globals.get_node("FactoryNode/SideBarNode/texInfoBar")
-	ctrlFactoryFloor = Globals.get_node("FactoryNode/ctnFactoryViewport/vptFactoryScene/ctrlFactoryFloor")
+	Menus = get_tree().get_root().get_node("Game/Menus")
+	texInfoBar = Menus.get_node("FactoryNode/SideBarNode/texInfoBar")
+	ctrlFactoryFloor = Menus.get_node("FactoryNode/ctnFactoryViewport/vptFactoryScene/ctrlFactoryFloor")
 
 func _process(_delta):
 	
@@ -76,7 +80,7 @@ func _on_areaTile_mouse_entered():
 	
 	if Globals.drawConnectorMode == "moving":
 		if fatherNode == null:
-			Globals.initialseConnectorData(entityTile)
+			drawConnector()
 		# We check again because initialseConnectorData can change our fatherNode
 		if fatherNode != null:
 			fatherNode.addInput(Globals.lastTileArea,getDirectionOfTileArea(Globals.lastTileArea,true))
@@ -111,7 +115,7 @@ func _on_objFactoryTile_pressed():
 	if Globals.drawConnectorMode == "ready":
 		Globals.drawConnectorMode = "moving"
 		if fatherNode == null:
-			Globals.initialseConnectorData(entityTile)
+			drawConnector()
 		Globals.lastTileArea = self
 	
 	if fatherNode == null:

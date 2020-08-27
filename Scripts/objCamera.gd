@@ -1,6 +1,6 @@
 extends Camera2D
 
-onready var Globals = get_tree().get_root().get_node("Game/Globals")
+onready var Menus = get_tree().get_root().get_node("Game/Menus")
 onready var ctnSceneViewport = get_parent().get_parent()
 onready var vp_dim = get_parent().size
 onready var ctrlSceneFloor = null

@@ -1,7 +1,5 @@
 extends NinePatchRect
 
-onready var Globals = get_tree().get_root().get_node("Game/Globals")
-
 var infoNode = null
 var functionYet = false
 var processDisplay = 0

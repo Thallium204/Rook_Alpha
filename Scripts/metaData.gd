@@ -1,7 +1,5 @@
 extends Node2D
 
-
-
 var processorBank = {
 	
 	# PROCESSORS
