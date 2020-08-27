@@ -2,8 +2,8 @@
 
 [ext_resource path="res://Scenes/UpgradesScene/objUpgradeTab.gd" type="Script" id=1]
 [ext_resource path="res://Assets/FactoryEntity/Structure/Processor/img_workbench.png" type="Texture" id=2]
-[ext_resource path="res://Assets/Buttons/UI/img_craft_nine.png" type="Texture" id=3]
-[ext_resource path="res://Assets/Buttons/UI/img_tab_down.png" type="Texture" id=4]
+[ext_resource path="res://Assets/UI/img_upgrade_nine.png" type="Texture" id=3]
+[ext_resource path="res://Assets/UI/img_tab_down.png" type="Texture" id=4]
 [ext_resource path="res://Scenes/UpgradesScene/upgradesTheme.tres" type="Theme" id=5]
 
 [node name="objUpgradeTab" type="NinePatchRect"]
@@ -17,6 +17,9 @@ patch_margin_top = 53
 patch_margin_right = 64
 patch_margin_bottom = 58
 script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="btnExpand" type="TouchScreenButton" parent="."]
 position = Vector2( 832, 0 )

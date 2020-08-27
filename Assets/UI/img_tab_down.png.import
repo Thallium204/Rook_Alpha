@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/img_tab_down.png-d61d5a8471f01a61cf93676ce040629a.stex"
+path="res://.import/img_tab_down.png-63918de9c6428ace3c842d21b28c23e0.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Buttons/UI/img_tab_down.png"
-dest_files=[ "res://.import/img_tab_down.png-d61d5a8471f01a61cf93676ce040629a.stex" ]
+source_file="res://Assets/UI/img_tab_down.png"
+dest_files=[ "res://.import/img_tab_down.png-63918de9c6428ace3c842d21b28c23e0.stex" ]
 
 [params]
 

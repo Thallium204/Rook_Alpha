@@ -3,8 +3,8 @@ extends Control
 onready var Game = get_tree().get_root().get_node("Game")
 onready var crafting_tree = get_node("ctnCraftingViewport/vptCraftingScene/ctrlCraftingFloor/Tree")
 
-var btnTextureOn = load("res://Assets/Buttons/UI/img_craft_on.png")
-var btnTextureOff = load("res://Assets/Buttons/UI/img_craft_off.png")
+var btnTextureOn = load("res://Assets/UI/img_craft_on.png")
+var btnTextureOff = load("res://Assets/UI/img_craft_off.png")
 
 func _ready():
 	

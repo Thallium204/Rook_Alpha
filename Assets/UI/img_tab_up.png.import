@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/img_craft_off.png-6036af03f64c64b11ad55c85ac71c9c5.stex"
+path="res://.import/img_tab_up.png-5ef6bf8cc197f42b45ca604eccee7dc4.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Buttons/UI/img_craft_off.png"
-dest_files=[ "res://.import/img_craft_off.png-6036af03f64c64b11ad55c85ac71c9c5.stex" ]
+source_file="res://Assets/UI/img_tab_up.png"
+dest_files=[ "res://.import/img_tab_up.png-5ef6bf8cc197f42b45ca604eccee7dc4.stex" ]
 
 [params]
 

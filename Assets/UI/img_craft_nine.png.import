@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/img_craft_on.png-4581f153d708325f572edd63b9e86229.stex"
+path="res://.import/img_craft_nine.png-14179f82813fa734d43edd719772a260.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Buttons/UI/img_craft_on.png"
-dest_files=[ "res://.import/img_craft_on.png-4581f153d708325f572edd63b9e86229.stex" ]
+source_file="res://Assets/UI/img_craft_nine.png"
+dest_files=[ "res://.import/img_craft_nine.png-14179f82813fa734d43edd719772a260.stex" ]
 
 [params]
 

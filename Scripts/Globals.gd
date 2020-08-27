@@ -3,7 +3,6 @@ extends Node2D
 var currentScreen = 0
 
 var autoCraft = false
-
 var isMenuOpen = false
 
 var displayInfoMode = false
