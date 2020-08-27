@@ -7,6 +7,8 @@ onready var ctnTabInfo = get_node("objUpgradeInfo")
 
 var isCollapsed:bool = true
 
+var sceneName = ""
+
 var tabPosList = [rect_min_size, rect_min_size + Vector2(0, 384)]
 var tabImgList = [load("res://Assets/UI/img_tab_down.png"), load("res://Assets/UI/img_tab_up.png")]
 var tabInfoPosList = [Vector2(920,60), Vector2(920, 364)]
