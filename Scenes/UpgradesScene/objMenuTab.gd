@@ -1,9 +1,9 @@
 extends NinePatchRect
 
 onready var nodeTweenExpandTab = get_node("twnExpandTab")
-onready var nodeTweenTabInfo = get_node("ctnTabInfo/twnTabInfo")
+onready var nodeTweenTabInfo = get_node("objUpgradeInfo/twnTabInfo")
 onready var btnExpand = get_node("btnExpand")
-onready var ctnTabInfo = get_node("ctnTabInfo")
+onready var ctnTabInfo = get_node("objUpgradeInfo")
 
 var isCollapsed:bool = true
 
