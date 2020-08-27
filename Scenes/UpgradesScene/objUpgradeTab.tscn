@@ -17,6 +17,9 @@ patch_margin_top = 53
 patch_margin_right = 64
 patch_margin_bottom = 58
 script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="btnExpand" type="TouchScreenButton" parent="."]
 position = Vector2( 832, 0 )
@@ -59,7 +62,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Process" type="Tabs" parent="ctnTabInfo"]
+[node name="Planks" type="Tabs" parent="ctnTabInfo"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 4.0
@@ -67,7 +70,7 @@ margin_top = 32.0
 margin_right = -4.0
 margin_bottom = -4.0
 
-[node name="Output" type="Tabs" parent="ctnTabInfo"]
+[node name="Gears" type="Tabs" parent="ctnTabInfo"]
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
