@@ -4,7 +4,6 @@
 [ext_resource path="res://Scenes/objCamera.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Scenes/objMenuTab.tscn" type="PackedScene" id=3]
 
-
 [node name="CraftingNode" type="Control"]
 margin_left = 1080.0
 margin_right = 1080.0

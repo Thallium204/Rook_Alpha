@@ -1,33 +1,37 @@
 extends NinePatchRect
 
 onready var nodeTweenExpandTab = get_node("twnExpandTab")
-onready var nodeTweenTabInfo = get_node("objUpgradeInfo/twnTabInfo")
 onready var btnExpand = get_node("btnExpand")
-onready var ctnTabInfo = get_node("objUpgradeInfo")
+onready var daddyNode = get_parent().get_parent().get_parent().get_parent()
 
+var nodeTweenTabInfo
+var sceneName
+var infoTab
 var isCollapsed:bool = true
-
-var sceneName = ""
 
 var tabPosList = [rect_min_size, rect_min_size + Vector2(0, 384)]
 var tabImgList = [load("res://Assets/UI/img_tab_down.png"), load("res://Assets/UI/img_tab_up.png")]
-var tabInfoPosList = [Vector2(920,60), Vector2(920, 364)]
+
 
 func _ready():
-	ctnTabInfo.visible = false
 	
-	pass # Replace with function body.
+	var sceneName = owner.sceneName
+	texture = load("res://Assets/UI/img_" + sceneName.to_lower() + "_nine.png")
+	var temp = str("res://Scenes/" + sceneName + "Scene/obj" + sceneName + "Info.tscn")
+	var objMenuInfo = load(temp)
+	infoTab = objMenuInfo.instance()
+	infoTab.visible = false
+	infoTab.get_node("twnTabInfo")
+	add_child(infoTab)
+	
 
 
 func _on_btnExpand_released():
 	
 	var targetExpandTab = tabPosList[int(isCollapsed)]
-	var targetTabInfo = tabInfoPosList[int(isCollapsed)]
 	btnExpand.normal = tabImgList[int(isCollapsed)]
-	ctnTabInfo.visible = isCollapsed
-	isCollapsed = not(isCollapsed)
 	nodeTweenExpandTab.interpolate_property(self, "rect_min_size", rect_min_size, targetExpandTab, 1, Tween.TRANS_EXPO, Tween.EASE_OUT)
 	nodeTweenExpandTab.start()
-	nodeTweenTabInfo.interpolate_property(ctnTabInfo, "rect_size", rect_size, targetTabInfo, 1, Tween.TRANS_EXPO, Tween.EASE_OUT, 0.125)
-	nodeTweenTabInfo.start()
-
+	
+	infoTab.toggleVisible(isCollapsed)
+	isCollapsed = not(isCollapsed)
