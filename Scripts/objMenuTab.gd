@@ -15,7 +15,7 @@ var tabImgList = [load("res://Assets/UI/img_tab_down.png"), load("res://Assets/U
 
 func _ready():
 	
-	var sceneName = owner.sceneName
+	sceneName = owner.sceneName
 	texture = load("res://Assets/UI/img_" + sceneName.to_lower() + "_nine.png")
 	var temp = str("res://Scenes/" + sceneName + "Scene/obj" + sceneName + "Info.tscn")
 	var objMenuInfo = load(temp)
