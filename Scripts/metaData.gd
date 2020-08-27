@@ -21,7 +21,6 @@ var processorBank = {
 		}, 
 		
 		"shapeData":[
-			[1],
 			[1]
 		
 		]},
@@ -130,7 +129,6 @@ var processorBank = {
 		],
 		
 		"shapeData":[
-			[1,1],
 			[1,1]
 		]},
 	"metaWorkbench":{
@@ -201,7 +199,6 @@ var processorBank = {
 		],
 		
 		"shapeData":[
-			[1],
 			[1]
 		]},
 	"metaSmeltery":{
@@ -246,7 +243,7 @@ var holderBank = {
 		],
 		
 		"shapeData":[
-			[1,1]
+			[1]
 		]},
 	"metaHole2":{
 		

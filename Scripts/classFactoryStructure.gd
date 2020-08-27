@@ -124,6 +124,7 @@ func enable_moveMode(isNew = false): # Called when we want to move this structur
 	
 	if isNew == false: # If we're moving an old structure
 		camFactory.position = position+entitySize/2 # Move the camera to the middle of the structure
+		removeInputOutputRefs()
 		addShapeToFactory(null) # Remove old shape
 
 func disable_moveMode(placed = false): # Called when we have stopped moving this structure

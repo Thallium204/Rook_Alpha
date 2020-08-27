@@ -23,6 +23,7 @@ func _process(_delta):
 				position += direction*speed
 			$bodyDetect.position = direction*9
 			
+		
 	else:
 		
 		shapeActivity(waiting[0],waiting[1],waiting[2])

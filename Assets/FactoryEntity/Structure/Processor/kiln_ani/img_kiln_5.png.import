@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/img_smeltery2.png-0e5453695ac937ece14f23a77ef08aa2.stex"
+path="res://.import/img_kiln_5.png-f5b7dc2de573cf92c2a9743ade25b921.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/FactoryEntity/Structure/Processor/img_smeltery2.png"
-dest_files=[ "res://.import/img_smeltery2.png-0e5453695ac937ece14f23a77ef08aa2.stex" ]
+source_file="res://Assets/FactoryEntity/Structure/Processor/kiln_ani/img_kiln_5.png"
+dest_files=[ "res://.import/img_kiln_5.png-f5b7dc2de573cf92c2a9743ade25b921.stex" ]
 
 [params]
 

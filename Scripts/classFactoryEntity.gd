@@ -37,6 +37,13 @@ func configure_Entity(entityData):
 
 func onPressed_Entity(_tile): # Pressed Processes for all entities
 	
+	print()
+	print(entityInputList)
+	print(directionInputList)
+	print(entityOutputList)
+	print(directionOutputList)
+	print(z_index)
+	
 	pass
 
 func onReleased_Entity(_tile): # Pressed Processes for all entities
@@ -63,6 +70,12 @@ func addShapeToFactory(father): # Write the father to each fatherNode entry base
 			if entityShape[row][col] != 0: # If our shape is there
 				# Add our pointer to every tile we occupy in pointerArray
 				ctrlFactoryFloor.pointerArray[entityMasterTile["row"]+row][entityMasterTile["col"]+col].fatherNode = father
+	
+	# Set appropriate z-value
+	if entityType == "Structure":
+		z_index = entityMasterTile["row"] + 100
+	elif entityType == "Connector":
+		z_index = 1
 
 func deleteSelf():
 	removeInputOutputRefs()
@@ -94,6 +107,13 @@ func removeInputOutputRefs():
 					target_directionInputList.remove(inputIndex)
 					outputTile.fatherNode.updateUI()
 				inputIndex += 1
+	
+	entityInputList = []					# List of objFactoryTile's we're inputting from
+	entityOutputList = []					# List of objFactoryTile's we're outputting to
+	directionInputList = []					# List of directions we're inputting from i.e. ["U","L"]
+	directionOutputList = []				# List of directions we're outputting to i.e. ["D","R"]
+	indexInputList = 0						# Index for the Input Lists
+	indexOutputList = 0						# Index for the Output Lists
 
 func addInput(entityInput,directionInput):
 	if directionInput == "" or entityInput.fatherNode == self:
