@@ -10,7 +10,7 @@ var isCollapsed:bool = true
 var tabPosList = [rect_min_size, rect_min_size + Vector2(0, 384)]
 var tabImgList = [load("res://Assets/UI/img_tab_down.png"), load("res://Assets/UI/img_tab_up.png")]
 
-func configure(scnName,entityData,imageDirectory):
+func configure(scnName, entityData, imageDirectory):
 	# Configure Scene Info
 	sceneName = scnName
 	texture = load("res://Assets/UI/img_" + sceneName.to_lower() + "_nine.png")
@@ -22,8 +22,9 @@ func configure(scnName,entityData,imageDirectory):
 	# Create Info Node
 	var load_objMenuInfo = load("res://Scenes/" + sceneName + "Scene/obj" + sceneName + "Info.tscn")
 	objMenuInfo = load_objMenuInfo.instance()
-	objMenuInfo.configure(entityData)
 	add_child(objMenuInfo)
+	objMenuInfo.configure(scnName, entityData, imageDirectory)
+	
 
 func _on_btnExpand_released():
 	

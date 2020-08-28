@@ -8,7 +8,7 @@ var load_objUpgradesTab = preload("res://Scenes/UpgradesScene/objUpgradesTab.tsc
 func _ready():
 	rect_size = tabInfoPosList[0]
 
-func configure(entityData):
+func configure(_scnName, entityData, _imageDirectory):
 	for processIndex in entityData["processesData"]:
 		var processInfo = entityData["processesData"][processIndex]
 		var objUpgradesTab = load_objUpgradesTab.instance()

@@ -1,0 +1,25 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Scripts/objCostRes.gd" type="Script" id=1]
+[ext_resource path="res://Assets/Resources/img_clay.png" type="Texture" id=2]
+
+[node name="ctnCostRes" type="HBoxContainer"]
+margin_top = 56.0
+margin_right = 144.0
+margin_bottom = 106.0
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="texResImg" type="TextureRect" parent="."]
+margin_right = 32.0
+margin_bottom = 50.0
+texture = ExtResource( 2 )
+
+[node name="labResAmount" type="Label" parent="."]
+margin_left = 36.0
+margin_top = 18.0
+margin_right = 60.0
+margin_bottom = 32.0
+text = "*12"
