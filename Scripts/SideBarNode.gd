@@ -33,11 +33,13 @@ func _process(_delta):
 		btnDelete.modulate = Color(0.3,0.3,0.3) # Grey out delete button
 	
 	# Handle Connect
-	if Globals.drawConnector["nameID"] == "":
-		btnConnect.get_node("texConnector").modulate = Color(1,1,1,0)
-	else:
+	if Globals.drawConnector["nameID"] != "":
+		if Inventory.entityInv[ Globals.drawConnector["nameID"] ] == 0:
+			Globals.drawConnector["nameID"] = ""
 		btnConnect.get_node("texConnector").modulate = Color(1,1,1,1)
 		btnConnect.get_node("texConnector").texture = load("res://Assets/FactoryEntity/Connector/"+Globals.drawConnector["connectorType"]+"/"+Globals.drawConnector["nameID"]+"/img_normal.png")
+	else:
+		btnConnect.get_node("texConnector").modulate = Color(1,1,1,0)
 	btnConnect.normal = load("res://Assets/Buttons/"+barType+"/img_connect_"+Globals.drawConnectorMode+".png")
 	if Globals.drawConnectorMode == "moving":
 		btnMove.modulate = Color(0.3,0.3,0.3) # Grey out move button

@@ -1,6 +1,5 @@
 extends "res://Scripts/classFactoryEntity.gd"
 
-var connectorType = "" 			# Type of structure: conveyor|pipe|cable
 var _levelData = [] 			# List of all upgrade modifiers
 
 # BOOLEANS

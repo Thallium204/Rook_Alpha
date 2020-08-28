@@ -69,7 +69,7 @@ func shapeActivity(localAreaStr,remoteAreaNode,activityType):
 		elif objFactoryEntity.entityType == "Connector":
 			
 			# If the Connector is a Conveyor
-			if objFactoryEntity.connectorType == "Conveyor":
+			if objFactoryEntity.entityClass == "Conveyor":
 				
 				# If this is the center area of the conveyor
 				if "Center" in remoteAreaNode.name:

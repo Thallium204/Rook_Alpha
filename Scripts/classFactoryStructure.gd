@@ -1,6 +1,5 @@
 extends "res://Scripts/classFactoryEntity.gd"
 
-var structureType = ""
 var _levelData = [] 		# List of all upgrade modifiers
 var last_entityMasterTile = null
 var waitingOnWorker = false
@@ -50,7 +49,7 @@ func outputResource_Structure(resName,resType,outputBuffers):
 				indexOutputList = (indexOutputList+1)%entityOutputList.size() # Iterate the index
 				var outputEntity = entityOutputList[indexOutputList]
 				if outputEntity.fatherNode.entityType == "Connector":
-					if outputEntity.fatherNode.connectorType == "Conveyor":
+					if outputEntity.fatherNode.entityClass == "Conveyor":
 						if ctrlFactoryFloor.spawnResource(resName,outputBuffer["resourceType"], outputEntity) == true:
 							success = true
 				elif outputEntity.fatherNode.entityType == "Structure":
@@ -58,7 +57,7 @@ func outputResource_Structure(resName,resType,outputBuffers):
 						success = true
 				if success == true:
 					outputBuffer["bufferCurrent"] -= 1
-					if structureType == "Holder":
+					if entityClass == "Holder":
 						if outputBuffer["bufferCurrent"] == 0:
 							outputBuffer["resourceName"] = ""
 					return true
@@ -141,8 +140,7 @@ func disable_moveMode(placed = false): # Called when we have stopped moving this
 	if placed == false: # If we pressed cancel
 		
 		if isNew == true: # If we're a new structure
-			Inventory.entityInv[entityName] += 1
-			queue_free() # Destroy self
+			deleteSelf(true)
 		else: # If we're an old structure
 			entityMasterTile = last_entityMasterTile.duplicate(true) # Reset masterTile
 			# Return to previous position

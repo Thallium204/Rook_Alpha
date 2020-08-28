@@ -8,7 +8,7 @@ var conveyorSpeed = 0.0
 
 func _ready():
 	imageDirectory += "/Conveyor"
-	connectorType = "Conveyor"
+	entityClass = "Conveyor"
 
 func makeCurrent(objResourceNode):
 	if currentResource == null or currentResource == objResourceNode:

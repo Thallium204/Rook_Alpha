@@ -16,42 +16,11 @@ var populace = {"total":1,"avaliable":1}
 
 var infoColorModifier = 0.3
 
-# [ nameID , internalStorage ]
-var resourceBank = [
-	
-	["Log",			"Solid"],
-	
-	["Cobble",		"Solid"],
-	
-	["Stone",		"Solid"],
-	
-	["Plank",		"Solid"],
-	
-	["Brick",		"Solid"],
-	
-	["Hemp",		"Solid"],
-	
-	["Cermaic",		"Solid"],
-	
-	["Gear",		"Solid"],
-	
-	["Ironore",		"Solid"],
-	
-	["Ironclump",	"Solid"],
-	
-	["Coal",		"Solid"],
-	
-	["Water",		"Fluid"],
-	
-	["Power",		"Power"]
-	
-	]
-
 func _process(_delta):
 	pass
 
 func getResourceType(nameID):
-	for resource in resourceBank:
+	for resource in MetaData.resourceBank:
 		if resource[0] == nameID:
 			return resource[1]
 	return "none"

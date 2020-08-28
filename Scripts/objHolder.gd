@@ -5,7 +5,7 @@ var internalStorage = []
 
 func _ready():
 	imageDirectory += "/Holder"
-	structureType = "Holder"
+	entityClass = "Holder"
 	ResourceBarNode.holderArray.append(self)
 
 func _process(_delta):

@@ -325,7 +325,35 @@ var cableBank = {
 			"Standard"}
 }
 
-
+var resourceBank = [
+	
+	["Log",			"Solid"],
+	
+	["Cobble",		"Solid"],
+	
+	["Stone",		"Solid"],
+	
+	["Plank",		"Solid"],
+	
+	["Brick",		"Solid"],
+	
+	["Hemp",		"Solid"],
+	
+	["Ceramic",		"Solid"],
+	
+	["Gear",		"Solid"],
+	
+	["Ironore",		"Solid"],
+	
+	["Ironclump",	"Solid"],
+	
+	["Coal",		"Solid"],
+	
+	["Water",		"Fluid"],
+	
+	["Power",		"Power"]
+	
+	]
 
 
 

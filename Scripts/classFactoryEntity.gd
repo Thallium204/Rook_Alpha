@@ -16,6 +16,7 @@ var objConfirmMenu = preload("res://Scenes/FactoryScene/objConfirmMenu.tscn")
 
 var entityName = ""							# i.e. "Quarry"
 var entityType = ""							# "Structure" | "Connector"
+var entityClass = ""						# "Processor" | "Conveyor" | etc...
 var entityMasterTile = {"row":0,"col":0}	# (width,height) in pixels
 var entitySize = Vector2.ZERO				# (width,height) in pixels
 var entityTileSize = Vector2.ZERO			# (width,height) in number of tiles
@@ -34,15 +35,16 @@ func configure_Entity(entityData):
 	entityName = entityData["nameID"]
 	entityTileSize = Vector2(entityShape[0].size(),entityShape.size())
 	entitySize = ctrlFactoryFloor.tileSize * entityTileSize
+	Inventory.addEntityRef(self)
 
 func onPressed_Entity(_tile): # Pressed Processes for all entities
 	
-	print()
-	print(entityInputList)
-	print(directionInputList)
-	print(entityOutputList)
-	print(directionOutputList)
-	print(z_index)
+#	print()
+#	print(entityInputList)
+#	print(directionInputList)
+#	print(entityOutputList)
+#	print(directionOutputList)
+#	print(z_index)
 	
 	pass
 
@@ -62,6 +64,8 @@ func onReleased_Entity(_tile): # Pressed Processes for all entities
 	if Globals.drawConnectorMode == "moving":
 		# End the conveyor drawing
 		Globals.drawConnectorMode = "ready"
+	
+	print( Inventory.factoryEntities )
 
 func addShapeToFactory(father): # Write the father to each fatherNode entry based upon on shapeData
 	# Update entityShape with the new pointerArray positions  AND  update pointerArray with entityShape areas
@@ -77,11 +81,11 @@ func addShapeToFactory(father): # Write the father to each fatherNode entry base
 	elif entityType == "Connector":
 		z_index = 1
 
-func deleteSelf():
-	Inventory.entityInv[entityName] += 1
-	ctrlFactoryFloor.entityCount -= 1
-	removeInputOutputRefs()
-	addShapeToFactory(null)
+func deleteSelf(isNew=false):
+	Inventory.removeEntityRef(self)
+	if not isNew:
+		removeInputOutputRefs()
+		addShapeToFactory(null)
 	queue_free() # Remove self
 
 func removeInputOutputRefs():
