@@ -141,6 +141,7 @@ func disable_moveMode(placed = false): # Called when we have stopped moving this
 	if placed == false: # If we pressed cancel
 		
 		if isNew == true: # If we're a new structure
+			Inventory.entityInv[entityName] += 1
 			queue_free() # Destroy self
 		else: # If we're an old structure
 			entityMasterTile = last_entityMasterTile.duplicate(true) # Reset masterTile

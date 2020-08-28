@@ -16,8 +16,21 @@ func _input(event):
 		if event is InputEventMouseMotion:
 			hasMoved = true
 
+func _process(_delta):
+	if Inventory.entityInv[entityName] > 0: # If we have any entities
+		$labAmount.visible = true
+		modulate = Color(1,1,1)
+		$labAmount.text = str(Inventory.entityInv[entityName])
+	else:
+		$labAmount.visible = false
+		modulate = Color(0.5,0.5,0.5)
+
 # WHEN ADD STORAGE IS PRESSED
 func _on_btnAdd_released():
+	
+	if Inventory.entityInv[entityName] == 0:
+		return
+	
 	if Globals.moveStructureMode != "moving":
 		if entityType == "Structure":
 			TopBarNode.call("_on_btn"+subType+"Menu_pressed")

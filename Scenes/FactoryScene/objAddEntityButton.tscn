@@ -1,16 +1,20 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://Scripts/objAddEntityButton.gd" type="Script" id=1]
 [ext_resource path="res://Assets/FactoryEntity/Structure/Processor/img_quarry.png" type="Texture" id=2]
+[ext_resource path="res://Fonts/minecraft_bold.otf" type="DynamicFontData" id=3]
+[ext_resource path="res://Assets/Tileables/img_factorytile.png" type="Texture" id=4]
 
 [sub_resource type="CircleShape2D" id=1]
 radius = 110.0
 
+[sub_resource type="DynamicFont" id=2]
+size = 64
+font_data = ExtResource( 3 )
+
 [node name="objAddEntityButton" type="TextureRect"]
-margin_left = 287.037
-margin_top = 66.1846
-margin_right = 543.037
-margin_bottom = 322.185
+margin_right = 256.0
+margin_bottom = 256.0
 mouse_filter = 2
 texture = ExtResource( 2 )
 expand = true
@@ -20,8 +24,41 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="texBacking" type="ColorRect" parent="."]
+show_behind_parent = true
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_bottom = -0.000396729
+color = Color( 1, 0.694118, 0.0313726, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="texOutline" type="TextureRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_bottom = -0.000396729
+texture = ExtResource( 4 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="btnAdd" type="TouchScreenButton" parent="."]
 position = Vector2( 16, 16 )
 shape = SubResource( 1 )
+
+[node name="labAmount" type="Label" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_right = -16.0
+margin_bottom = -8.0
+custom_fonts/font = SubResource( 2 )
+text = "0"
+align = 2
+valign = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
 [connection signal="pressed" from="btnAdd" to="." method="_on_btnAdd_pressed"]
 [connection signal="released" from="btnAdd" to="." method="_on_btnAdd_released"]

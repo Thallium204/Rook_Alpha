@@ -67,6 +67,8 @@ func addStructure(structureData,structureType):
 	objStructure.name = structureData["nameID"]+str(entityCount)
 	entityCount += 1
 	
+	Inventory.entityInv[ structureData["nameID"] ] -= 1
+	
 	add_child(objStructure)
 	
 	objStructure.configure(structureData)
@@ -74,6 +76,9 @@ func addStructure(structureData,structureType):
 	objStructure.enable_moveMode(true)
 
 func addConnector(connectorData,connectorType,entityTile):
+	
+	if Inventory.entityInv[ connectorData["nameID"] ] == 0:
+		return
 	
 	# We need to create the correct structure instance
 	var load_objConnector = load("res://Scenes/FactoryScene/obj"+connectorType+".tscn")
@@ -84,6 +89,8 @@ func addConnector(connectorData,connectorType,entityTile):
 	objConnector.name = connectorType + str(entityCount)
 	objConnector.entityMasterTile = entityTile
 	entityCount += 1
+	
+	Inventory.entityInv[ connectorData["nameID"] ] -= 1
 	
 	add_child(objConnector)
 	
