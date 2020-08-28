@@ -5,6 +5,9 @@ onready var twnTabInfo = get_node("twnTabInfo")
 var tabInfoPosList = [Vector2(920,60), Vector2(920, 374)]
 var load_objUpgradesTab = preload("res://Scenes/UpgradesScene/objUpgradesTab.tscn")
 
+func _ready():
+	rect_size = tabInfoPosList[0]
+
 func configure(entityData):
 	for processIndex in entityData["processesData"]:
 		var processInfo = entityData["processesData"][processIndex]
