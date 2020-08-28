@@ -1,10 +1,9 @@
 [gd_scene load_steps=6 format=2]
 
-[ext_resource path="res://Fonts/minecraft_regular.otf" type="DynamicFontData" id=1]
+[ext_resource path="res://Fonts/voxilent.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://Assets/Menu/img_menu_black_9x.png" type="Texture" id=2]
 [ext_resource path="res://Assets/Resources/img_empty_solid.png" type="Texture" id=3]
 [ext_resource path="res://Scripts/objResTab.gd" type="Script" id=4]
-
 
 [sub_resource type="DynamicFont" id=1]
 size = 56
@@ -43,7 +42,7 @@ __meta__ = {
 }
 
 [node name="labCurrent" type="Label" parent="conTab"]
-margin_left = 94.0
+margin_left = 92.0
 margin_right = 128.0
 margin_bottom = 64.0
 size_flags_vertical = 1
