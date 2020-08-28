@@ -2,9 +2,7 @@ extends NinePatchRect
 
 onready var nodeTweenExpandTab = get_node("twnExpandTab")
 onready var btnExpand = get_node("btnExpand")
-onready var daddyNode = get_parent().get_parent().get_parent().get_parent()
 
-var nodeTweenTabInfo
 var sceneName
 var objMenuInfo
 var isCollapsed:bool = true
