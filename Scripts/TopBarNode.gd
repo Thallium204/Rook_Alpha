@@ -6,7 +6,6 @@ var objAddEntityButton = preload("res://Scenes/FactoryScene/objAddEntityButton.t
 
 var barType = "TopBar"
 var barData = [["Processor",false],["Holder",false],["Enhancer",false],["Connector",false]]
-var dict = {true:"on",false:"off"}
 
 func addEntityAddButton(nameID,entityType,subType):
 	# Creating the Processor from template
@@ -43,17 +42,14 @@ func _process(_delta):
 	
 	# Handle button images
 	for btnData in barData:
-		get_node("btn"+btnData[0]+"Menu").normal = load("res://Assets/Buttons/"+barType+"/img_"+btnData[0].to_lower()+"_"+dict[btnData[1]]+".png")
+		get_node("Buttons/tex"+btnData[0]).texture = load("res://Assets/UI/img_factory_nine_"+str(btnData[1]).to_lower()+".png")
+		get_node("Buttons/tex"+btnData[0]+"/labOption").rect_position = int(btnData[1]) * Vector2(0,16)
 	
 	# Grey buttons if moving a structure
 	if Globals.moveStructureMode == "moving":
-		$btnProcessorMenu.modulate = Color(0.3,0.3,0.3) # Grey out Processors button
-		$btnHolderMenu.modulate = Color(0.3,0.3,0.3) # Grey out Processors button
-		$btnEnhancerMenu.modulate = Color(0.3,0.3,0.3) # Grey out Processors button
+		$Buttons.modulate = Color(0.3,0.3,0.3) # Grey out buttons
 	else:
-		$btnProcessorMenu.modulate = Color(1,1,1) # Grey out Processors button
-		$btnHolderMenu.modulate = Color(1,1,1) # Grey out Processors button
-		$btnEnhancerMenu.modulate = Color(1,1,1) # Grey out Processors button
+		$Buttons.modulate = Color(1,1,1) # Grey out buttons
 
 func updateIsMenuOpen():
 	Globals.isMenuOpen = false
