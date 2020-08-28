@@ -2,7 +2,7 @@ extends TabContainer
 
 onready var twnTabInfo = get_node("twnTabInfo")
 
-var tabInfoPosList = [Vector2(920,60), Vector2(920, 364)]
+var tabInfoPosList = [Vector2(920,60), Vector2(920, 374)]
 var load_objUpgradesTab = preload("res://Scenes/UpgradesScene/objUpgradesTab.tscn")
 
 func configure(entityData):
