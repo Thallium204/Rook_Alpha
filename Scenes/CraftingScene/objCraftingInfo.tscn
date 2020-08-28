@@ -10,19 +10,19 @@
 [ext_resource path="res://Scenes/CraftingScene/craftBtnAnimatedTexture.tres" type="Texture" id=8]
 [ext_resource path="res://Assets/UI/ani_craft_button/frame1.png" type="Texture" id=9]
 
-[sub_resource type="StyleBoxTexture" id=3]
-texture = ExtResource( 9 )
-region_rect = Rect2( 0, 0, 256, 64 )
-
 [sub_resource type="StyleBoxTexture" id=1]
-texture = ExtResource( 8 )
-region_rect = Rect2( 0, 0, 1, 1 )
-
-[sub_resource type="StyleBoxTexture" id=4]
 texture = ExtResource( 9 )
 region_rect = Rect2( 0, 0, 256, 64 )
 
 [sub_resource type="StyleBoxTexture" id=2]
+texture = ExtResource( 8 )
+region_rect = Rect2( 0, 0, 1, 1 )
+
+[sub_resource type="StyleBoxTexture" id=3]
+texture = ExtResource( 9 )
+region_rect = Rect2( 0, 0, 256, 64 )
+
+[sub_resource type="StyleBoxTexture" id=4]
 texture = ExtResource( 9 )
 region_rect = Rect2( 0, 0, 256, 64 )
 
@@ -158,10 +158,10 @@ margin_right = 253.0
 margin_bottom = 272.0
 focus_mode = 1
 theme = ExtResource( 2 )
-custom_styles/hover = SubResource( 3 )
-custom_styles/pressed = SubResource( 1 )
-custom_styles/focus = SubResource( 4 )
-custom_styles/normal = SubResource( 2 )
+custom_styles/hover = SubResource( 1 )
+custom_styles/pressed = SubResource( 2 )
+custom_styles/focus = SubResource( 3 )
+custom_styles/normal = SubResource( 4 )
 action_mode = 0
 enabled_focus_mode = 1
 text = "CRAFT"
