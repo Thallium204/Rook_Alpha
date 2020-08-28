@@ -31,6 +31,9 @@ func _ready():
 	# Initialise the background size
 	FactorySpace.rect_size = tileSize * Vector2(gridCols,gridRows)
 
+func _process(_delta):
+	$labEntities.text = str(entityCount)
+
 func spawnResource(resourceName, resourceType, outputEntity):
 	
 	if resourceType == "Solid":
@@ -56,56 +59,35 @@ func addStructure(structureData,structureType):
 	# structType = "processor", "holder" or "enhancer"
 	
 	# We need to create the correct structure instance
-	var newStructure = null
-	if structureType == "Processor":
-		newStructure = preload("res://Scenes/FactoryScene/objProcessor.tscn").instance()
-	elif structureType == "Holder":
-		newStructure = preload("res://Scenes/FactoryScene/objHolder.tscn").instance()
-	elif structureType == "Enhancer":
-		newStructure = preload("res://Scenes/FactoryScene/objEnhancer.tscn").instance()
+	var load_objStructure = load("res://Scenes/FactoryScene/obj"+structureType+".tscn")
+	var objStructure = load_objStructure.instance()
 	
-	# Give unique name
-	newStructure.position = Vector2(0,0)
-	newStructure.name = structureData["nameID"]+str(entityCount)
+	# Set unique identifiers
+	objStructure.position = Vector2(0,0)
+	objStructure.name = structureData["nameID"]+str(entityCount)
 	entityCount += 1
 	
-	add_child(newStructure)
+	add_child(objStructure)
 	
-	newStructure.configure(structureData)
-	newStructure.updateUI()
-	newStructure.enable_moveMode(true)
+	objStructure.configure(structureData)
+	objStructure.updateUI()
+	objStructure.enable_moveMode(true)
 
 func addConnector(connectorData,connectorType,entityTile):
 	
-	var newConnector = null
-	if connectorType == "Conveyor":
-		newConnector = preload("res://Scenes/FactoryScene/objConveyor.tscn").instance()
-#	elif connectorType == "Pipe":
-#		newConnector = preload("res://Scenes/FactoryScene/objPipe.tscn").instance()
-#	elif connectorType == "Cable":
-#		newConnector = preload("res://Scenes/FactoryScene/objCable.tscn").instance()
+	# We need to create the correct structure instance
+	var load_objConnector = load("res://Scenes/FactoryScene/obj"+connectorType+".tscn")
+	var objConnector = load_objConnector.instance()
 	
-	newConnector.position = tileSize * Vector2(entityTile["col"],entityTile["row"])
-	newConnector.entityMasterTile = entityTile
-	add_child(newConnector)
-	newConnector.configure(connectorData)
-	newConnector.updateUI()
-	newConnector.addShapeToFactory(newConnector)
+	# Set unique identifiers
+	objConnector.position = tileSize * Vector2(entityTile["col"],entityTile["row"])
+	objConnector.name = connectorType + str(entityCount)
+	objConnector.entityMasterTile = entityTile
+	entityCount += 1
 	
-	return
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+	add_child(objConnector)
+	
+	objConnector.configure(connectorData)
+	objConnector.updateUI()
+	objConnector.addShapeToFactory(objConnector)
 

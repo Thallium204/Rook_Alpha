@@ -78,6 +78,7 @@ func addShapeToFactory(father): # Write the father to each fatherNode entry base
 		z_index = 1
 
 func deleteSelf():
+	ctrlFactoryFloor.entityCount -= 1
 	removeInputOutputRefs()
 	addShapeToFactory(null)
 	queue_free() # Remove self
