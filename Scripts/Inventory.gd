@@ -1,3 +1,3 @@
 extends Node
 
-var inventory = {}
+var entityInv = {}
