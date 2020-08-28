@@ -1,20 +1,144 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Scripts/objCraftingInfo.gd" type="Script" id=1]
 [ext_resource path="res://Scenes/CraftingScene/CraftingTheme.tres" type="Theme" id=2]
+[ext_resource path="res://Assets/Resources/img_clay.png" type="Texture" id=3]
+[ext_resource path="res://Assets/Resources/img_hemp.png" type="Texture" id=4]
+[ext_resource path="res://Assets/Resources/img_cobble.png" type="Texture" id=5]
+[ext_resource path="res://Assets/Resources/img_ceramic.png" type="Texture" id=6]
+[ext_resource path="res://Assets/FactoryEntity/Structure/Processor/img_kiln_5x.png" type="Texture" id=7]
 
 [node name="Control" type="Panel"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 20.0
 margin_top = 108.0
-margin_right = 940.0
-margin_bottom = 168.0
+margin_right = -140.0
+margin_bottom = -1438.0
+rect_min_size = Vector2( 920, 60 )
 mouse_filter = 2
 theme = ExtResource( 2 )
 script = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 20.0
+margin_right = -20.0
+mouse_filter = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ctnCostInfo" type="VBoxContainer" parent="HBoxContainer"]
+margin_right = 131.0
+margin_bottom = 400.0
+mouse_filter = 2
+custom_constants/separation = 6
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="labCost" type="Label" parent="HBoxContainer/ctnCostInfo"]
+margin_right = 131.0
+margin_bottom = 51.0
+text = "Cost:"
+
+[node name="ctnCostRes1" type="HBoxContainer" parent="HBoxContainer/ctnCostInfo"]
+margin_top = 57.0
+margin_right = 131.0
+margin_bottom = 108.0
+
+[node name="texResImg" type="TextureRect" parent="HBoxContainer/ctnCostInfo/ctnCostRes1"]
+margin_right = 32.0
+margin_bottom = 51.0
+texture = ExtResource( 3 )
+
+[node name="labResAmount" type="Label" parent="HBoxContainer/ctnCostInfo/ctnCostRes1"]
+margin_left = 36.0
+margin_right = 131.0
+margin_bottom = 51.0
+text = "x12"
+
+[node name="ctnCostRes2" type="HBoxContainer" parent="HBoxContainer/ctnCostInfo"]
+margin_top = 114.0
+margin_right = 131.0
+margin_bottom = 165.0
+
+[node name="texResImg" type="TextureRect" parent="HBoxContainer/ctnCostInfo/ctnCostRes2"]
+margin_right = 32.0
+margin_bottom = 51.0
+texture = ExtResource( 5 )
+
+[node name="labResAmount" type="Label" parent="HBoxContainer/ctnCostInfo/ctnCostRes2"]
+margin_left = 36.0
+margin_right = 131.0
+margin_bottom = 51.0
+text = "x80"
+
+[node name="ctnCostRes3" type="HBoxContainer" parent="HBoxContainer/ctnCostInfo"]
+margin_top = 171.0
+margin_right = 131.0
+margin_bottom = 222.0
+
+[node name="texResImg" type="TextureRect" parent="HBoxContainer/ctnCostInfo/ctnCostRes3"]
+margin_right = 32.0
+margin_bottom = 51.0
+texture = ExtResource( 4 )
+
+[node name="labResAmount" type="Label" parent="HBoxContainer/ctnCostInfo/ctnCostRes3"]
+margin_left = 36.0
+margin_right = 131.0
+margin_bottom = 51.0
+text = "x42"
+
+[node name="ctnCostRes4" type="HBoxContainer" parent="HBoxContainer/ctnCostInfo"]
+margin_top = 228.0
+margin_right = 131.0
+margin_bottom = 279.0
+
+[node name="texResImg" type="TextureRect" parent="HBoxContainer/ctnCostInfo/ctnCostRes4"]
+margin_right = 32.0
+margin_bottom = 51.0
+texture = ExtResource( 6 )
+
+[node name="labResAmount" type="Label" parent="HBoxContainer/ctnCostInfo/ctnCostRes4"]
+margin_left = 36.0
+margin_right = 131.0
+margin_bottom = 51.0
+text = "x60"
+
+[node name="texEntity" type="TextureRect" parent="HBoxContainer"]
+margin_left = 135.0
+margin_right = 295.0
+margin_bottom = 400.0
+texture = ExtResource( 7 )
+
+[node name="ctnCraftProgress" type="VBoxContainer" parent="HBoxContainer"]
+margin_left = 299.0
+margin_right = 552.0
+margin_bottom = 400.0
+alignment = 1
+
+[node name="Label" type="Label" parent="HBoxContainer/ctnCraftProgress"]
+margin_top = 127.0
+margin_right = 253.0
+margin_bottom = 178.0
+text = "Progress:"
+
+[node name="ProgressBar" type="ProgressBar" parent="HBoxContainer/ctnCraftProgress"]
+margin_top = 182.0
+margin_right = 253.0
+margin_bottom = 225.0
+
+[node name="btnCraft" type="Button" parent="HBoxContainer/ctnCraftProgress"]
+margin_top = 229.0
+margin_right = 253.0
+margin_bottom = 272.0
+theme = ExtResource( 2 )
+text = "CRAFT"
 
 [node name="twnTabInfo" type="Tween" parent="."]
