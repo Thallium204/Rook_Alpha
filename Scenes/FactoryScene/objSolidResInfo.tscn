@@ -9,7 +9,10 @@ size = 30
 font_data = ExtResource( 3 )
 
 [node name="texInputBuffer" type="TextureRect"]
-margin_right = 64.0
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -540.0
+margin_right = -476.0
 margin_bottom = 64.0
 rect_min_size = Vector2( 64, 64 )
 texture = ExtResource( 2 )

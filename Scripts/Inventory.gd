@@ -8,6 +8,8 @@ var entityInv = {
 	"Plant":1,
 	"Hole":5,
 	"Hole2":2,
+	"Kiln":1,
+	"Smeltery":1,
 	
 	"Slow":5,
 	"Standard":3,

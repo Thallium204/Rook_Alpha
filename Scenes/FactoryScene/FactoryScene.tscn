@@ -518,12 +518,18 @@ size_flags_horizontal = 3
 alignment = 1
 
 [node name="texBuffer0" parent="SideBarNode/texInfoBar/infoProcessor/inputBuffers/inputSolid" instance=ExtResource( 28 )]
+anchor_left = 0.0
+anchor_right = 0.0
+margin_left = 0.0
 margin_right = 200.0
 margin_bottom = 71.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="texBuffer1" parent="SideBarNode/texInfoBar/infoProcessor/inputBuffers/inputSolid" instance=ExtResource( 28 )]
+anchor_left = 0.0
+anchor_right = 0.0
+margin_left = 0.0
 margin_top = 75.0
 margin_right = 200.0
 margin_bottom = 146.0
@@ -531,6 +537,9 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="texBuffer2" parent="SideBarNode/texInfoBar/infoProcessor/inputBuffers/inputSolid" instance=ExtResource( 28 )]
+anchor_left = 0.0
+anchor_right = 0.0
+margin_left = 0.0
 margin_top = 150.0
 margin_right = 200.0
 margin_bottom = 223.0
@@ -602,12 +611,18 @@ size_flags_horizontal = 3
 alignment = 1
 
 [node name="texBuffer0" parent="SideBarNode/texInfoBar/infoProcessor/outputBuffers/outputSolid" instance=ExtResource( 28 )]
+anchor_left = 0.0
+anchor_right = 0.0
+margin_left = 0.0
 margin_right = 200.0
 margin_bottom = 71.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="texBuffer1" parent="SideBarNode/texInfoBar/infoProcessor/outputBuffers/outputSolid" instance=ExtResource( 28 )]
+anchor_left = 0.0
+anchor_right = 0.0
+margin_left = 0.0
 margin_top = 75.0
 margin_right = 200.0
 margin_bottom = 146.0
@@ -615,6 +630,9 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="texBuffer2" parent="SideBarNode/texInfoBar/infoProcessor/outputBuffers/outputSolid" instance=ExtResource( 28 )]
+anchor_left = 0.0
+anchor_right = 0.0
+margin_left = 0.0
 margin_top = 150.0
 margin_right = 200.0
 margin_bottom = 223.0

@@ -70,7 +70,7 @@ var processorBank = {
 				"inputBuffers":[],
 				"processTime":3,
 				"outputBuffers":[
-					{"resourceName":"Hemp",		"bufferCurrent":0,	"bufferMax":2,	"resourceType":"Solid"}
+					{"resourceName":"Hemp",		"bufferCurrent":0,	"bufferMax":1,	"resourceType":"Solid"}
 				]
 			},
 		},
@@ -86,7 +86,8 @@ var processorBank = {
 		"processesData":{
 			0:{
 				"inputBuffers":[
-					{"resourceName":"Clay",		"bufferCurrent":0,	"bufferMax":1,	"resourceType":"Solid"}
+					{"resourceName":"Clay",		"bufferCurrent":0,	"bufferMax":1,	"resourceType":"Solid"},
+					{"resourceName":"Plank",	"bufferCurrent":0,	"bufferMax":1,	"resourceType":"Solid"}
 				],
 				"processTime":4,
 				"outputBuffers":[
@@ -96,7 +97,7 @@ var processorBank = {
 		},
 		
 		"costData":[
-			{"resourceName":"Cobble",	"amountRequired":4}
+			{"resourceName":"Cobble",	"amountRequired":8}
 		],
 		
 		"shapeData":[
@@ -156,7 +157,8 @@ var processorBank = {
 		},
 		
 		"costData":[
-			{"resourceName":"Log",	"amountRequired":2}
+			{"resourceName":"Log",	"amountRequired":4},
+			{"resourceName":"Hemp",	"amountRequired":3}
 		],
 		
 		"shapeData":[
@@ -221,6 +223,28 @@ var processorBank = {
 			{"resourceName":"Clay",	"amountRequired":32},
 			{"resourceName":"Cobble",	"amountRequired":64}
 		],
+		
+		"shapeData":[
+			[1,1],
+			[1,1]
+		]},
+	"metaMineshaft":{
+		
+		"nameID":
+			"Mineshaft",
+		
+		"processesData":{
+			0:{
+				"inputBuffers":[],
+				"processTime":8,
+				"outputBuffers":[
+					{"resourceName":"Ironore","bufferCurrent":0,	"bufferMax":1,	"resourceType":"Solid"},
+					{"resourceName":"Coal","bufferCurrent":0,	"bufferMax":1,	"resourceType":"Solid"},
+				]
+			},
+		}, 
+		
+		"costData":[],
 		
 		"shapeData":[
 			[1,1],
@@ -351,7 +375,15 @@ var resourceBank = [
 	
 	["Water",		"Fluid"],
 	
-	["Power",		"Power"]
+	["Power",		"Power"],
+	
+	["Clay",		"Solid"],
+	
+	["Ironore",		"Solid"],
+	
+	["Ironclump",	"Solid"],
+	
+	["Ironingot",	"Solid"]
 	
 	]
 
