@@ -78,14 +78,14 @@ func updateInfo():
 	
 	if infoNode.entityType == "Structure":
 		
-		$infoName/labType.text = "("+infoNode.structureType+") "
+		$infoName/labType.text = "("+infoNode.entityClass+") "
 		
-		if infoNode.structureType == "Processor":
+		if infoNode.entityClass == "Processor":
 			
 			$infoProcessor.visible = true
 			updateProcessorInfo()
 		
-		elif infoNode.structureType == "Holder":
+		elif infoNode.entityClass == "Holder":
 			
 			$infoHolder.visible = true
 			

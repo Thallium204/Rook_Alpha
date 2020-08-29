@@ -6,12 +6,13 @@ var entityInv = {
 	"Quarry":1,
 	"River":1,
 	"Plant":1,
-	"Hole":3,
+	"Hole":5,
+	"Hole2":2,
 	
-	"Slow":6,
-	"Standard":6,
-	"Fast":6,
-	"Rapid":6
+	"Slow":5,
+	"Standard":3,
+	"Fast":2,
+	"Rapid":1
 	
 }
 
@@ -83,6 +84,15 @@ func getBuffers(resName):
 
 func spendResources(costData):
 	
+	var haveEnough = true
+	for resCostData in costData:
+		if resourceInv[resCostData["resourceName"]] < resCostData["amountRequired"]:
+			print( "NOT ENOUGH "+resCostData["resourceName"]+" | Need:"+str(resCostData["amountRequired"])+" Have:"+str(resourceInv[resCostData["resourceName"]]))
+			haveEnough = false
+	
+	if not haveEnough:
+		return false
+	
 	for resCostData in costData:
 		var cost = resCostData["amountRequired"]
 		var buffers = getBuffers(resCostData["resourceName"])
@@ -90,5 +100,11 @@ func spendResources(costData):
 		while cost != 0:
 			var buffer = buffers[bufferIndex]
 			buffer["bufferCurrent"] -= 1
+			cost -= 1
+			if buffer["bufferCurrent"] == 0:
+				buffer["resourceName"] = ""
+				buffers.erase(buffer)
+	
+	return true
 
 

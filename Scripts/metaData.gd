@@ -156,7 +156,7 @@ var processorBank = {
 		},
 		
 		"costData":[
-			{"resourceName":"Log",	"amountRequired":4}
+			{"resourceName":"Log",	"amountRequired":2}
 		],
 		
 		"shapeData":[

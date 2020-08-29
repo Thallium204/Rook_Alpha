@@ -10,14 +10,14 @@ var load_objCostRes = preload("res://Scenes/CraftingScene/objCostRes.tscn")
 func _ready():
 	rect_size = tabInfoPosList[0]
 
-func configure(scnName, input_entityData, imageDirectory):
+func configure(input_entityData, imageDirectory):
 	
 	entityData = input_entityData
 	if entityData.has("costData"):
 		for costInfo in entityData["costData"]:
 			var objCostRes = load_objCostRes.instance()
 			get_node("HBoxContainer/ctnCostInfo").add_child(objCostRes)
-			objCostRes.configure(scnName, costInfo, imageDirectory)
+			objCostRes.configure(costInfo)
 	$HBoxContainer/texEntity.texture = load(imageDirectory + "/img_" + entityData["nameID"].to_lower() + ".png")
 	visible = false
 
@@ -31,5 +31,6 @@ func toggleVisible(isCollapsed):
 
 func _on_btnCraft_pressed():
 	if entityData.has("costData"):
-		Inventory.spendResources(entityData["costData"])
+		if Inventory.spendResources(entityData["costData"]) == true:
+			Inventory.entityInv[entityData["nameID"]] += 1
 	pass # Replace with function body.

@@ -58,7 +58,6 @@ func _ready():
 	sceneName = name.right(3)
 	
 	if sceneName in ["Factory","Research"]:
-		print(sceneName)
 		zoomEnabled = true
 	
 	ctrlSceneFloor = get_parent().get_node("ctrl"+sceneName+"Floor")

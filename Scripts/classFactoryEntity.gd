@@ -64,8 +64,6 @@ func onReleased_Entity(_tile): # Pressed Processes for all entities
 	if Globals.drawConnectorMode == "moving":
 		# End the conveyor drawing
 		Globals.drawConnectorMode = "ready"
-	
-	print( Inventory.factoryEntities )
 
 func addShapeToFactory(father): # Write the father to each fatherNode entry based upon on shapeData
 	# Update entityShape with the new pointerArray positions  AND  update pointerArray with entityShape areas

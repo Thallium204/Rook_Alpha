@@ -23,7 +23,7 @@ func configure(scnName, entityData, imageDirectory):
 	var load_objMenuInfo = load("res://Scenes/" + sceneName + "Scene/obj" + sceneName + "Info.tscn")
 	objMenuInfo = load_objMenuInfo.instance()
 	add_child(objMenuInfo)
-	objMenuInfo.configure(scnName, entityData, imageDirectory)
+	objMenuInfo.configure(entityData, imageDirectory)
 	
 
 func _on_btnExpand_released():
