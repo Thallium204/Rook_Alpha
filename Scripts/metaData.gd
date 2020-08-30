@@ -99,6 +99,9 @@ var processorBank = {
 			{"resourceName":"Cobble",	"amountRequired":4}
 		],
 		
+		"craftTime":
+			2,
+		
 		"shapeData":[
 			[1,1],
 			[1,1]
@@ -125,6 +128,9 @@ var processorBank = {
 			{"resourceName":"Cobble",	"amountRequired":4},
 			{"resourceName":"Gear",	"amountRequired":16}
 		],
+		
+		"craftTime":
+			2,
 		
 		"shapeData":[
 			[1,1]
@@ -158,6 +164,9 @@ var processorBank = {
 		"costData":[
 			{"resourceName":"Log",	"amountRequired":2}
 		],
+		
+		"craftTime":
+			2,
 		
 		"shapeData":[
 			[1]
@@ -196,6 +205,9 @@ var processorBank = {
 			{"resourceName":"Ceramic",	"amountRequired":16}
 		],
 		
+		"craftTime":
+			2,
+		
 		"shapeData":[
 			[1]
 		]},
@@ -221,6 +233,9 @@ var processorBank = {
 			{"resourceName":"Clay",	"amountRequired":32},
 			{"resourceName":"Cobble",	"amountRequired":32}
 		],
+		
+		"craftTime":
+			2,
 		
 		"shapeData":[
 			[1,1],

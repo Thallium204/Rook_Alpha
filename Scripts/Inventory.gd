@@ -8,6 +8,8 @@ var entityInv = {
 	"Plant":1,
 	"Hole":5,
 	"Hole2":2,
+	"Kiln":1,
+	"Smeltery":1,
 	
 	"Slow":5,
 	"Standard":3,
@@ -60,6 +62,8 @@ func _process(_delta):
 		if buffer["resourceName"] == "":
 			continue
 		resourceInv[buffer["resourceName"]] += buffer["bufferCurrent"]
+	
+	updateInvUI()
 
 func addEntityRef(entityRef):
 	entityInv[ entityRef.entityName ] -= 1
@@ -106,5 +110,42 @@ func spendResources(costData):
 				buffers.erase(buffer)
 	
 	return true
+	
+func updateInvUI():
+	var UINodes = get_tree().get_nodes_in_group("grpInvUI")
+	
+	for UINode in UINodes:
+		UINode.call("updateUI")
+	pass
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 

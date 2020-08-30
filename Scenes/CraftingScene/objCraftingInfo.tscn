@@ -24,14 +24,16 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 margin_right = 6.10352e-05
 margin_bottom = 3.05176e-05
+rect_min_size = Vector2( 920, 374 )
 mouse_filter = 2
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="ctnCostInfo" type="VBoxContainer" parent="HBoxContainer"]
-margin_right = 144.0
+margin_right = 200.0
 margin_bottom = 374.0
+rect_min_size = Vector2( 200, 0 )
 mouse_filter = 2
 custom_constants/separation = 6
 __meta__ = {
@@ -39,38 +41,39 @@ __meta__ = {
 }
 
 [node name="labCost" type="Label" parent="HBoxContainer/ctnCostInfo"]
-margin_right = 144.0
+margin_right = 200.0
 margin_bottom = 50.0
 text = "Cost:"
 
 [node name="texEntity" type="TextureRect" parent="HBoxContainer"]
-margin_left = 148.0
-margin_right = 522.0
+margin_left = 204.0
+margin_right = 560.0
 margin_bottom = 374.0
-rect_min_size = Vector2( 374, 374 )
+size_flags_horizontal = 3
 texture = ExtResource( 4 )
 stretch_mode = 6
 
 [node name="ctnCraftProgress" type="VBoxContainer" parent="HBoxContainer"]
-margin_left = 526.0
-margin_right = 778.0
+margin_left = 564.0
+margin_right = 920.0
 margin_bottom = 374.0
+size_flags_horizontal = 3
 alignment = 1
 
 [node name="Label" type="Label" parent="HBoxContainer/ctnCraftProgress"]
 margin_top = 116.0
-margin_right = 252.0
+margin_right = 356.0
 margin_bottom = 166.0
 text = "Progress:"
 
 [node name="ProgressBar" type="ProgressBar" parent="HBoxContainer/ctnCraftProgress"]
 margin_top = 170.0
-margin_right = 252.0
+margin_right = 356.0
 margin_bottom = 212.0
 
 [node name="btnCraft" type="Button" parent="HBoxContainer/ctnCraftProgress"]
 margin_top = 216.0
-margin_right = 252.0
+margin_right = 356.0
 margin_bottom = 258.0
 focus_mode = 1
 theme = ExtResource( 2 )
