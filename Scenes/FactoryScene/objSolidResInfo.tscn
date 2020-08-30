@@ -12,8 +12,8 @@ font_data = ExtResource( 3 )
 anchor_left = 0.5
 anchor_right = 0.5
 margin_left = -540.0
-margin_right = -476.0
-margin_bottom = 64.0
+margin_right = -400.0
+margin_bottom = 141.0
 rect_min_size = Vector2( 64, 64 )
 texture = ExtResource( 2 )
 expand = true
@@ -38,9 +38,9 @@ __meta__ = {
 
 [node name="labAmount" type="Label" parent="texResource"]
 anchor_left = 0.5
-anchor_top = 1.0
+anchor_top = 0.5
 anchor_right = 0.5
-anchor_bottom = 1.0
+anchor_bottom = 0.5
 margin_left = -10.88
 margin_top = -1.88
 margin_right = 10.12
@@ -52,8 +52,8 @@ size_flags_horizontal = 0
 size_flags_vertical = 0
 custom_fonts/font = SubResource( 1 )
 text = "0"
-align = 2
-valign = 2
+align = 1
+valign = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
