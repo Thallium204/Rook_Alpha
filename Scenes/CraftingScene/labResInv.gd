@@ -6,6 +6,4 @@ func _ready():
 
 func updateUI():
 	
-	self.text = str(Inventory.resourceInv[get_parent().localCostInfo["resourceName"]])
-	
-	pass
+	text = str(Inventory.resourceInv[get_parent().localCostInfo["resourceName"]])
