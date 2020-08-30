@@ -51,7 +51,7 @@ size = 41
 font_data = ExtResource( 26 )
 
 [sub_resource type="DynamicFont" id=5]
-size = 56
+size = 48
 font_data = ExtResource( 26 )
 
 [sub_resource type="DynamicFont" id=6]
@@ -413,8 +413,8 @@ custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
 custom_constants/shadow_offset_x = 4
 custom_constants/line_spacing = 3
 custom_constants/shadow_offset_y = 3
-text = " Name"
-valign = 2
+text = "Name"
+valign = 1
 uppercase = true
 __meta__ = {
 "_edit_use_anchors_": false
@@ -434,7 +434,7 @@ custom_constants/line_spacing = 3
 custom_constants/shadow_offset_y = 3
 text = "(Structure)"
 align = 2
-valign = 2
+valign = 1
 uppercase = true
 __meta__ = {
 "_edit_use_anchors_": false
@@ -518,12 +518,18 @@ size_flags_horizontal = 3
 alignment = 1
 
 [node name="texBuffer0" parent="SideBarNode/texInfoBar/infoProcessor/inputBuffers/inputSolid" instance=ExtResource( 28 )]
+anchor_left = 0.0
+anchor_right = 0.0
+margin_left = 0.0
 margin_right = 200.0
 margin_bottom = 71.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="texBuffer1" parent="SideBarNode/texInfoBar/infoProcessor/inputBuffers/inputSolid" instance=ExtResource( 28 )]
+anchor_left = 0.0
+anchor_right = 0.0
+margin_left = 0.0
 margin_top = 75.0
 margin_right = 200.0
 margin_bottom = 146.0
@@ -531,6 +537,9 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="texBuffer2" parent="SideBarNode/texInfoBar/infoProcessor/inputBuffers/inputSolid" instance=ExtResource( 28 )]
+anchor_left = 0.0
+anchor_right = 0.0
+margin_left = 0.0
 margin_top = 150.0
 margin_right = 200.0
 margin_bottom = 223.0
@@ -602,12 +611,18 @@ size_flags_horizontal = 3
 alignment = 1
 
 [node name="texBuffer0" parent="SideBarNode/texInfoBar/infoProcessor/outputBuffers/outputSolid" instance=ExtResource( 28 )]
+anchor_left = 0.0
+anchor_right = 0.0
+margin_left = 0.0
 margin_right = 200.0
 margin_bottom = 71.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="texBuffer1" parent="SideBarNode/texInfoBar/infoProcessor/outputBuffers/outputSolid" instance=ExtResource( 28 )]
+anchor_left = 0.0
+anchor_right = 0.0
+margin_left = 0.0
 margin_top = 75.0
 margin_right = 200.0
 margin_bottom = 146.0
@@ -615,6 +630,9 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="texBuffer2" parent="SideBarNode/texInfoBar/infoProcessor/outputBuffers/outputSolid" instance=ExtResource( 28 )]
+anchor_left = 0.0
+anchor_right = 0.0
+margin_left = 0.0
 margin_top = 150.0
 margin_right = 200.0
 margin_bottom = 223.0
