@@ -1,13 +1,17 @@
 extends HBoxContainer
 
-var localCostInfo
+var costInfo # = { "resourceName":? , "amountRequired":? }
 
-func configure(costInfo):
-	localCostInfo = costInfo
-	$labResAmount.text = "/" + str(costInfo["amountRequired"])
+func configure(indCostInfo):
+	costInfo = indCostInfo
 	$texResImg.texture = load("res://Assets/Resources/img_" + costInfo["resourceName"].to_lower() + ".png")
-	pass
+	$labResAmount.text = "/" + str(costInfo["amountRequired"])
 
 func updateUI():
 	
-	$labResInv.text = str(Inventory.resourceInv[localCostInfo["resourceName"]])
+	var resAmount = Inventory.resourceInv[costInfo["resourceName"]]
+	
+	$labResInv.text = str(resAmount)
+	
+	if resAmount < costInfo["amountRequired"]:
+		$labResInv.add_color_override("font_color", Color(0.7,0.3,0.3))
