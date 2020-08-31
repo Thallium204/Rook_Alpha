@@ -50,3 +50,9 @@ func _on_btnCraft_pressed():
 		if Inventory.spendResources(entityData["costData"]) == true:
 			isCrafting = true
 	pass # Replace with function body.
+
+func updateUI():
+	
+	$HBoxContainer/texEntity/labInvAmount.text = str(Inventory.entityInv[entityData["nameID"]])
+	
+	pass
