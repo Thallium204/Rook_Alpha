@@ -88,13 +88,7 @@ func getBuffers(resName):
 
 func spendResources(costData):
 	
-	var haveEnough = true
-	for resCostData in costData:
-		if resourceInv[resCostData["resourceName"]] < resCostData["amountRequired"]:
-			print( "NOT ENOUGH "+resCostData["resourceName"]+" | Need:"+str(resCostData["amountRequired"])+" Have:"+str(resourceInv[resCostData["resourceName"]]))
-			haveEnough = false
-	
-	if not haveEnough:
+	if not hasResources(costData):
 		return false
 	
 	for resCostData in costData:
@@ -110,7 +104,15 @@ func spendResources(costData):
 				buffers.erase(buffer)
 	
 	return true
-	
+
+func hasResources(costData):
+	var haveEnough = true
+	for resCostData in costData:
+		if resourceInv[resCostData["resourceName"]] < resCostData["amountRequired"]:
+			#print( "NOT ENOUGH "+resCostData["resourceName"]+" | Need:"+str(resCostData["amountRequired"])+" Have:"+str(resourceInv[resCostData["resourceName"]]))
+			haveEnough = false
+	return haveEnough
+
 func updateInvUI():
 	var UINodes = get_tree().get_nodes_in_group("grpInvUI")
 	

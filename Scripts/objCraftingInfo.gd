@@ -49,10 +49,11 @@ func _on_btnCraft_pressed():
 	if entityData.has("costData"):
 		if Inventory.spendResources(entityData["costData"]) == true:
 			isCrafting = true
-	pass # Replace with function body.
 
 func updateUI():
 	
 	$HBoxContainer/texEntity/labInvAmount.text = str(Inventory.entityInv[entityData["nameID"]])
-	
-	pass
+	if Inventory.hasResources(entityData["costData"]):
+		$HBoxContainer/ctnCraftProgress/btnCraft.disabled = false
+	else:
+		$HBoxContainer/ctnCraftProgress/btnCraft.disabled = true
