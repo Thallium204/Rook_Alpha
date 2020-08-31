@@ -4,7 +4,7 @@ onready var twnTabInfo = get_node("twnTabInfo")
 onready var ctnCostInfo = get_node("HBoxContainer/ctnCostInfo")
 
 var entityData
-var tabInfoPosList = [Vector2(920,60), Vector2(920, 374)]
+var tabInfoPosList = [Vector2(920,60), Vector2(920, 358)]
 var load_objCostRes = preload("res://Scenes/CraftingScene/objCostRes.tscn")
 
 var timer_craftingTime = 0.0 # Current timer

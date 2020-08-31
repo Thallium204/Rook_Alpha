@@ -370,8 +370,6 @@ var resourceBank = [
 	
 	["Cobble",		"Solid"],
 	
-	["Stone",		"Solid"],
-	
 	["Clay",		"Solid"],
 	
 	["Plank",		"Solid"],

@@ -12,7 +12,7 @@ func _process(_delta):
 
 func move(target):
 	var nodeTween = get_node("twnBottomBar")
-	nodeTween.interpolate_property(Menus, "position", Menus.position,  target, 1, Tween.TRANS_BACK, Tween.EASE_OUT)
+	nodeTween.interpolate_property(Menus, "position", Menus.position,  target, 1, Tween.TRANS_EXPO, Tween.EASE_OUT)
 	nodeTween.start()
 
 func updateButtonUIs():
