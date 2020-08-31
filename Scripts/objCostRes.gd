@@ -15,3 +15,5 @@ func updateUI():
 	
 	if resAmount < costInfo["amountRequired"]:
 		$labResInv.add_color_override("font_color", Color(0.7,0.3,0.3))
+	else:
+		$labResInv.add_color_override("font_color", Color(0.3,0.7,0.3))
