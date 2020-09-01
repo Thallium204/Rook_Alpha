@@ -150,21 +150,66 @@ var processorBank = {
 				"outputBuffers":[
 					{"resourceName":"Plank",	"bufferCurrent":0,	"bufferMax":2,	"resourceType":"Solid"}
 				]
+				
 			},
-			1:{
-				"inputBuffers":[
-					{"resourceName":"Plank",	"bufferCurrent":0,	"bufferMax":1,	"resourceType":"Solid"}
-				],
-				"processTime":3,
-				"outputBuffers":[
-					{"resourceName":"Gear",		"bufferCurrent":0,	"bufferMax":2,	"resourceType":"Solid"}
-				]
-			}
+			
 		},
 		
 		"costData":[
-			{"resourceName":"Log",	"amountRequired":4},
-			{"resourceName":"Hemp",	"amountRequired":3}
+			{"resourceName":"Log",	"amountRequired":0},
+			{"resourceName":"Hemp",	"amountRequired":0}
+		],
+		
+		"upgradeData":[
+			
+			{
+				"action":"edit",
+				"type":"modify",
+				"level":1,
+				"class":"speed",
+				"reference":["processData", 1, "processTime"],
+				"info":2,
+				"upgCost":[
+					{"resourceName":"Log",	"amountRequired":0}
+				],
+				"upgTime":2
+			},
+			
+			{
+				"action":"edit",
+				"type":"modify",
+				"level":1,
+				"class":"output",
+				"reference":["processData", 1, "outputBuffers"], 
+				"info":{"resourceName":"Gear",		"bufferCurrent":0,	"bufferMax":3,	"resourceType":"Solid"},
+				"upgCost":[
+					{"resourceName":"Log",	"amountRequired":0}
+				],
+				"upgTime":2
+			},
+			
+			{
+				"action":"add",
+				"class":"newProc",
+				"name":"Gear",
+				"ref":["processData"],
+				"info":{
+					
+					"inputBuffers":[
+						{"resourceName":"Plank",	"bufferCurrent":0,	"bufferMax":1,	"resourceType":"Solid"}
+					],
+					"processTime":3,
+					"outputBuffers":[
+							{"resourceName":"Gear",		"bufferCurrent":0,	"bufferMax":2,	"resourceType":"Solid"}
+						]
+					
+				},
+				"upgCost":[
+					{"resourceName":"Log",	"amountRequired":0}
+				],
+				"upgTime":2
+			}
+			
 		],
 		
 		"craftTime":
