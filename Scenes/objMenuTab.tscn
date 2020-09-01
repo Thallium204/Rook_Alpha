@@ -7,42 +7,41 @@
 [ext_resource path="res://Fonts/voxilent.ttf" type="DynamicFontData" id=6]
 
 [sub_resource type="DynamicFont" id=1]
-size = 42
+size = 60
 font_data = ExtResource( 6 )
 
 [node name="objMenuTab" type="NinePatchRect"]
-margin_right = 960.0
+anchor_right = 1.0
+margin_left = 32.0
+margin_right = -32.0
 margin_bottom = 128.0
-rect_min_size = Vector2( 960, 140 )
+rect_min_size = Vector2( 1016, 0 )
+rect_scale = Vector2( 4, 4 )
 texture = ExtResource( 1 )
 region_rect = Rect2( 0, 0, 128, 128 )
-patch_margin_left = 37
-patch_margin_top = 53
-patch_margin_right = 64
-patch_margin_bottom = 58
+patch_margin_left = 47
+patch_margin_top = 60
+patch_margin_right = 75
+patch_margin_bottom = 65
 script = ExtResource( 3 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="btnExpand" type="TouchScreenButton" parent="."]
-position = Vector2( 832, 0 )
-normal = ExtResource( 5 )
-
 [node name="ctnTitle" type="HBoxContainer" parent="."]
-margin_left = 20.0
-margin_right = 397.0
-margin_bottom = 120.0
-rect_min_size = Vector2( 0, 120 )
+margin_left = 36.0
+margin_top = 12.0
+margin_right = 1002.0
+margin_bottom = 96.0
 mouse_filter = 2
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="texIcon" type="TextureRect" parent="ctnTitle"]
-margin_right = 64.0
-margin_bottom = 120.0
-rect_min_size = Vector2( 64, 0 )
+margin_right = 84.0
+margin_bottom = 84.0
+rect_min_size = Vector2( 84, 0 )
 mouse_filter = 2
 size_flags_vertical = 3
 texture = ExtResource( 4 )
@@ -50,13 +49,26 @@ expand = true
 stretch_mode = 6
 
 [node name="labName" type="Label" parent="ctnTitle"]
-margin_left = 68.0
-margin_top = 39.0
-margin_right = 311.0
-margin_bottom = 81.0
+margin_left = 88.0
+margin_top = 12.0
+margin_right = 878.0
+margin_bottom = 72.0
+size_flags_horizontal = 3
 custom_fonts/font = SubResource( 1 )
 text = "Workbench"
 uppercase = true
 
+[node name="btnExpand" type="TextureButton" parent="ctnTitle"]
+margin_left = 882.0
+margin_right = 966.0
+margin_bottom = 84.0
+rect_min_size = Vector2( 84, 0 )
+texture_normal = ExtResource( 5 )
+expand = true
+stretch_mode = 5
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="twnExpandTab" type="Tween" parent="."]
-[connection signal="released" from="btnExpand" to="." method="_on_btnExpand_released"]
+[connection signal="pressed" from="ctnTitle/btnExpand" to="." method="_on_btnExpand_pressed"]

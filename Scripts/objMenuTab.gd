@@ -1,13 +1,13 @@
 extends NinePatchRect
 
 onready var nodeTweenExpandTab = get_node("twnExpandTab")
-onready var btnExpand = get_node("btnExpand")
+onready var btnExpand = get_node("ctnTitle/btnExpand")
 
 var sceneName
 var objMenuInfo
 var isCollapsed:bool = true
 
-var tabPosList = [rect_min_size, rect_min_size + Vector2(0, 384)]
+var tabPosList = [rect_min_size, rect_min_size + Vector2(0, 500)]
 var tabImgList = [load("res://Assets/UI/img_tab_down.png"), load("res://Assets/UI/img_tab_up.png")]
 
 func configure(scnName, entityData, imageDirectory):
@@ -26,10 +26,10 @@ func configure(scnName, entityData, imageDirectory):
 	objMenuInfo.configure(entityData, imageDirectory)
 	
 
-func _on_btnExpand_released():
+func _on_btnExpand_pressed():
 	
 	var targetExpandTab = tabPosList[int(isCollapsed)]
-	btnExpand.normal = tabImgList[int(isCollapsed)]
+	btnExpand.texture_normal = tabImgList[int(isCollapsed)]
 	nodeTweenExpandTab.interpolate_property(self, "rect_min_size", rect_min_size, targetExpandTab, 1, Tween.TRANS_EXPO, Tween.EASE_OUT)
 	nodeTweenExpandTab.start()
 	

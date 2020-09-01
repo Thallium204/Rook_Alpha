@@ -4,14 +4,13 @@ onready var twnTabInfo = get_node("twnTabInfo")
 onready var ctnCostInfo = get_node("HBoxContainer/ctnCostInfo")
 
 var entityData
-var tabInfoPosList = [Vector2(920,60), Vector2(920, 358)]
 var load_objCostRes = preload("res://Scenes/CraftingScene/objCostRes.tscn")
 
 var timer_craftingTime = 0.0 # Current timer
 var isCrafting = false
 
 func _ready():
-	rect_size = tabInfoPosList[0]
+	rect_size = rect_min_size
 
 func configure(input_entityData, imageDirectory):
 	
@@ -39,10 +38,7 @@ func _process(delta):
 	pass
 
 func toggleVisible(isCollapsed):
-	var targetTabInfo = tabInfoPosList[int(isCollapsed)]
 	visible = isCollapsed
-	twnTabInfo.interpolate_property(self, "rect_size", rect_size, targetTabInfo, 1, Tween.TRANS_EXPO, Tween.EASE_OUT, 0.125)
-	twnTabInfo.start()
 
 
 func _on_btnCraft_pressed():
@@ -53,7 +49,7 @@ func _on_btnCraft_pressed():
 func updateUI():
 	
 	$HBoxContainer/texEntity/labInvAmount.text = str(Inventory.entityInv[entityData["nameID"]])
-	if Inventory.hasResources(entityData["costData"]):
+	if Inventory.hasResources(entityData["costData"]) and not(isCrafting):
 		$HBoxContainer/ctnCraftProgress/btnCraft.disabled = false
 	else:
 		$HBoxContainer/ctnCraftProgress/btnCraft.disabled = true

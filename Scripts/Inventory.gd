@@ -118,35 +118,6 @@ func updateInvUI():
 	
 	for UINode in UINodes:
 		UINode.call("updateUI")
-	pass
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

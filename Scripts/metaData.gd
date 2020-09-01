@@ -261,6 +261,9 @@ var processorBank = {
 		
 		"costData":[],
 		
+		"craftTime":
+			5,
+		
 		"shapeData":[
 			[1,1],
 			[1,1]
