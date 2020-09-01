@@ -4,9 +4,6 @@ var _levelData = [] 		# List of all upgrade modifiers
 var last_entityMasterTile = null
 var waitingOnWorker = false
 
-var outputRate = 0.5
-var deltaOutput = 0.0
-
 # BOOLEANS
 var moveMode = false		# Move mode: 		True when moving structure | False when not moving structure
 var canBePlaced = false		# Move mode: 		True when structure can be placed | False when structure is over other structures

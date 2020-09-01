@@ -2,19 +2,13 @@ extends Node
 
 var entityInv = {
 	
-	"Tree":1,
-	"Quarry":1,
-	"River":1,
-	"Plant":1,
 	"Hole":5,
 	"Hole2":2,
-	"Kiln":1,
-	"Smeltery":1,
 	
 	"Slow":5,
-	"Standard":3,
-	"Fast":2,
-	"Rapid":1
+	"Standard":8,
+	"Fast":6,
+	"Rapid":3
 	
 }
 
@@ -48,7 +42,7 @@ func _ready():
 		for entity in entityBank:
 			var nameID = entityBank[entity]["nameID"]
 			if not(entityInv.has(nameID)):
-				entityInv[nameID] = 0
+				entityInv[nameID] = 2
 	
 	for resourceData in MetaData.resourceBank:
 		resourceInv[resourceData[0]] = 0
