@@ -149,7 +149,10 @@ var processorBank = {
 				"processTime":3,
 				"outputBuffers":[
 					{"resourceName":"Plank",	"bufferCurrent":0,	"bufferMax":2,	"resourceType":"Solid"}
-				]
+				],
+				"speedLevel":0,
+				"inputLevel":0,
+				"outputLevel":0
 				
 			},
 			
@@ -165,10 +168,11 @@ var processorBank = {
 			{
 				"action":"edit",
 				"type":"modify",
+				"name":"Plank",
 				"level":1,
 				"class":"speed",
-				"reference":["processData", 1, "processTime"],
-				"info":2,
+				"reference":["metaWorkbench","processesData", 0, "processTime"],
+				"info":0.1,
 				"upgCost":[
 					{"resourceName":"Log",	"amountRequired":0}
 				],
@@ -178,10 +182,11 @@ var processorBank = {
 			{
 				"action":"edit",
 				"type":"modify",
+				"name":"Plank",
 				"level":1,
 				"class":"output",
-				"reference":["processData", 1, "outputBuffers"], 
-				"info":{"resourceName":"Gear",		"bufferCurrent":0,	"bufferMax":3,	"resourceType":"Solid"},
+				"reference":["metaWorkbench","processesData", 0, "outputBuffers"], 
+				"info":{"resourceName":"Plank",		"bufferCurrent":0,	"bufferMax":3,	"resourceType":"Solid"},
 				"upgCost":[
 					{"resourceName":"Log",	"amountRequired":0}
 				],
@@ -201,7 +206,10 @@ var processorBank = {
 					"processTime":3,
 					"outputBuffers":[
 							{"resourceName":"Gear",		"bufferCurrent":0,	"bufferMax":2,	"resourceType":"Solid"}
-						]
+						],
+					"speedLevel":0,
+					"inputLevel":0,
+					"outputLevel":0
 					
 				},
 				"upgCost":[

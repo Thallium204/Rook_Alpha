@@ -46,110 +46,111 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="ctnVBox1" type="VBoxContainer" parent="ctnHBox"]
+[node name="ctnVBoxSpeed" type="VBoxContainer" parent="ctnHBox"]
 margin_left = 13.0
 margin_right = 327.0
 margin_bottom = 330.0
 
-[node name="labProperty" type="Label" parent="ctnHBox/ctnVBox1"]
+[node name="labProperty" type="Label" parent="ctnHBox/ctnVBoxSpeed"]
 margin_right = 314.0
 margin_bottom = 49.0
 custom_fonts/font = SubResource( 1 )
 text = "Speed"
 
-[node name="HSeparator" type="HSeparator" parent="ctnHBox/ctnVBox1"]
+[node name="HSeparator" type="HSeparator" parent="ctnHBox/ctnVBoxSpeed"]
 margin_top = 53.0
 margin_right = 314.0
 margin_bottom = 57.0
 
-[node name="labCost" type="Label" parent="ctnHBox/ctnVBox1"]
+[node name="labCost" type="Label" parent="ctnHBox/ctnVBoxSpeed"]
 margin_top = 61.0
 margin_right = 314.0
 margin_bottom = 105.0
 custom_fonts/font = SubResource( 2 )
 text = "Cost:"
 
-[node name="ProgressBar" type="ProgressBar" parent="ctnHBox/ctnVBox1"]
+[node name="prgBar" type="ProgressBar" parent="ctnHBox/ctnVBoxSpeed"]
 margin_top = 109.0
 margin_right = 314.0
 margin_bottom = 145.0
 custom_fonts/font = SubResource( 3 )
 
-[node name="Button" type="Button" parent="ctnHBox/ctnVBox1"]
+[node name="btnSpeed" type="Button" parent="ctnHBox/ctnVBoxSpeed"]
 margin_top = 149.0
 margin_right = 314.333
 margin_bottom = 242.579
 custom_fonts/font = SubResource( 4 )
 text = "UPG"
 
-[node name="ctnVBox2" type="VBoxContainer" parent="ctnHBox"]
+[node name="ctnVBoxInput" type="VBoxContainer" parent="ctnHBox"]
 margin_left = 331.0
 margin_right = 645.0
 margin_bottom = 330.0
 
-[node name="labProperty" type="Label" parent="ctnHBox/ctnVBox2"]
+[node name="labProperty" type="Label" parent="ctnHBox/ctnVBoxInput"]
 margin_right = 314.0
 margin_bottom = 49.0
 custom_fonts/font = SubResource( 1 )
 text = "Input"
 
-[node name="HSeparator" type="HSeparator" parent="ctnHBox/ctnVBox2"]
+[node name="HSeparator" type="HSeparator" parent="ctnHBox/ctnVBoxInput"]
 margin_top = 53.0
 margin_right = 314.0
 margin_bottom = 57.0
 
-[node name="labCost" type="Label" parent="ctnHBox/ctnVBox2"]
+[node name="labCost" type="Label" parent="ctnHBox/ctnVBoxInput"]
 margin_top = 61.0
 margin_right = 314.0
 margin_bottom = 105.0
 custom_fonts/font = SubResource( 2 )
 text = "Cost:"
 
-[node name="ProgressBar" type="ProgressBar" parent="ctnHBox/ctnVBox2"]
+[node name="prgBar" type="ProgressBar" parent="ctnHBox/ctnVBoxInput"]
 margin_top = 109.0
 margin_right = 314.0
 margin_bottom = 145.0
 custom_fonts/font = SubResource( 5 )
 
-[node name="Button" type="Button" parent="ctnHBox/ctnVBox2"]
+[node name="btnInput" type="Button" parent="ctnHBox/ctnVBoxInput"]
 margin_top = 149.0
 margin_right = 314.333
 margin_bottom = 242.579
 custom_fonts/font = SubResource( 4 )
 text = "UPG"
 
-[node name="ctnVBox3" type="VBoxContainer" parent="ctnHBox"]
+[node name="ctnVBoxOutput" type="VBoxContainer" parent="ctnHBox"]
 margin_left = 649.0
 margin_right = 963.0
 margin_bottom = 330.0
 
-[node name="labProperty" type="Label" parent="ctnHBox/ctnVBox3"]
+[node name="labProperty" type="Label" parent="ctnHBox/ctnVBoxOutput"]
 margin_right = 314.0
 margin_bottom = 49.0
 custom_fonts/font = SubResource( 1 )
 text = "Output"
 
-[node name="HSeparator" type="HSeparator" parent="ctnHBox/ctnVBox3"]
+[node name="HSeparator" type="HSeparator" parent="ctnHBox/ctnVBoxOutput"]
 margin_top = 53.0
 margin_right = 314.0
 margin_bottom = 57.0
 
-[node name="labCost" type="Label" parent="ctnHBox/ctnVBox3"]
+[node name="labCost" type="Label" parent="ctnHBox/ctnVBoxOutput"]
 margin_top = 61.0
 margin_right = 314.0
 margin_bottom = 105.0
 custom_fonts/font = SubResource( 2 )
 text = "Cost:"
 
-[node name="ProgressBar" type="ProgressBar" parent="ctnHBox/ctnVBox3"]
+[node name="prgBar" type="ProgressBar" parent="ctnHBox/ctnVBoxOutput"]
 margin_top = 109.0
 margin_right = 314.0
 margin_bottom = 145.0
 custom_fonts/font = SubResource( 6 )
 
-[node name="Button" type="Button" parent="ctnHBox/ctnVBox3"]
+[node name="btnOutput" type="Button" parent="ctnHBox/ctnVBoxOutput"]
 margin_top = 149.0
 margin_right = 314.333
 margin_bottom = 242.579
 custom_fonts/font = SubResource( 4 )
 text = "UPG"
+[connection signal="pressed" from="ctnHBox/ctnVBoxSpeed/btnSpeed" to="." method="_on_btnSpeed_pressed"]

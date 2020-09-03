@@ -15,12 +15,13 @@ func configure(entityData, _imageDirectory):
 		var objUpgradesTab = load_objUpgradesTab.instance()
 		objUpgradesTab.name = processInfo["outputBuffers"][0]["resourceName"]
 		add_child(objUpgradesTab)
-		objUpgradesTab.configure(processIndex)
 	
 	if entityData.has("upgradeData"):
 		for upgIndex in entityData["upgradeData"]:
 			match upgIndex["action"]:
 				"edit":
+					if upgIndex["type"] == "modify":
+						get_node(upgIndex["name"]).configure(upgIndex)
 					pass
 				"add":
 					if upgIndex["class"] == "newProc":
