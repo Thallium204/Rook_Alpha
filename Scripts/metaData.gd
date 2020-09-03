@@ -159,8 +159,8 @@ var processorBank = {
 		},
 		
 		"costData":[
-			{"resourceName":"Log",	"amountRequired":0},
-			{"resourceName":"Hemp",	"amountRequired":0}
+			{"resourceName":"Log",	"amountRequired":4},
+			{"resourceName":"Hemp",	"amountRequired":3}
 		],
 		
 		"upgradeData":[
