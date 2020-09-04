@@ -9,7 +9,7 @@ var processorBank = {
 			"Tree",
 		
 		"processesData":{
-			0:{
+			"Log":{
 				"inputBuffers":[],
 				"processTime":3,
 				"outputBuffers":[
@@ -28,7 +28,7 @@ var processorBank = {
 			"Quarry", 
 		
 		"processesData":{ 	
-			0:{
+			"Cobble":{
 				"inputBuffers":[],
 				"processTime":2,	
 				"outputBuffers":[
@@ -47,7 +47,7 @@ var processorBank = {
 			"River",
 		
 		"processesData":{
-			0:{
+			"Clay":{
 				"inputBuffers":[],
 				"processTime":5,
 				"outputBuffers":[
@@ -66,7 +66,7 @@ var processorBank = {
 			"Plant",
 		
 		"processesData":{
-			0:{
+			"Hemp":{
 				"inputBuffers":[],
 				"processTime":3,
 				"outputBuffers":[
@@ -84,7 +84,7 @@ var processorBank = {
 			"Furnace",
 		
 		"processesData":{
-			0:{
+			"Brick":{
 				"inputBuffers":[
 					{"resourceName":"Clay",		"bufferCurrent":0,	"bufferMax":1,	"resourceType":"Solid"},
 					{"resourceName":"Plank",	"bufferCurrent":0,	"bufferMax":1,	"resourceType":"Solid"}
@@ -113,7 +113,7 @@ var processorBank = {
 			"PotteryTable",
 		
 		"processesData":{
-			0:{
+			"Ceramic":{
 				"inputBuffers":[
 					{"resourceName":"Clay",		"bufferCurrent":0,	"bufferMax":1,	"resourceType":"Solid"}
 				],
@@ -142,7 +142,7 @@ var processorBank = {
 			"Workbench",
 		
 		"processesData":{
-			0:{
+			"Plank":{
 				"inputBuffers":[
 					{"resourceName":"Log",		"bufferCurrent":0,	"bufferMax":1,	"resourceType":"Solid"}
 				],
@@ -232,7 +232,7 @@ var processorBank = {
 			"Kiln",
 		
 		"processesData":{
-			0:{
+			"IronClump":{
 				"inputBuffers":[
 					{"resourceName":"Ironore",	"bufferCurrent":0,	"bufferMax":1,	"resourceType":"Solid"},
 					{"resourceName":"Coal",		"bufferCurrent":0,	"bufferMax":1,	"resourceType":"Solid"},
@@ -242,7 +242,7 @@ var processorBank = {
 					{"resourceName":"Ironclump","bufferCurrent":0,	"bufferMax":1,	"resourceType":"Solid"}
 				]
 			},
-			1:{
+			"Brick":{
 				"inputBuffers":[
 					{"resourceName":"Clay",		"bufferCurrent":0,	"bufferMax":1,	"resourceType":"Solid"}
 				],
@@ -272,7 +272,7 @@ var processorBank = {
 			"Smeltery",
 		
 		"processesData":{
-			0:{
+			"Ironingot":{
 				"inputBuffers":[
 					{"resourceName":"Ironclump","bufferCurrent":0,	"bufferMax":1,	"resourceType":"Solid"}
 				],
@@ -302,7 +302,7 @@ var processorBank = {
 			"Mineshaft",
 		
 		"processesData":{
-			0:{
+			"IronOre":{
 				"inputBuffers":[],
 				"processTime":8,
 				"outputBuffers":[
@@ -459,6 +459,161 @@ var resourceBank = [
 	]
 
 
+var upgradesBank = {
+	
+	"Workbench":
+		{
+			"Plank":
+				{
+					1:{
+						"column":1,
+						"row":1,
+						"prerequisites":[],
+						"reference":["metaWorkbench","processesData", "Plank", "processTime"],
+						"info":2.5,
+						"cost":[
+							{"resourceName":"Plank",	"amountRequired":1},
+							{"resourceName":"Gear",	"amountRequired":1},
+							{"resourceName":"Cobble",	"amountRequired":1}
+						]
+					},
+					2:{
+						"column":1,
+						"row":2,
+						"prerequisites":[],
+						"reference":["metaWorkbench","processesData", "Plank", "outputBuffers"],
+						"info":{"resourceName":"Plank",		"bufferCurrent":0,	"bufferMax":3,	"resourceType":"Solid"},
+						"cost":[
+							{"resourceName":"Plank",	"amountRequired":2}
+						]
+					},
+					3:{
+						"column":2,
+						"row":1,
+						"prerequisites":[1],
+						"reference":["metaWorkbench","processesData", "Plank", "processTime"],
+						"info":2,
+						"cost":[
+							{"resourceName":"Plank",	"amountRequired":3}
+						]
+					},
+					4:{
+						"column":2,
+						"row":2,
+						"prerequisites":[1,2],
+						"reference":["metaWorkbench","processesData", "Plank", "outputBuffers"],
+						"info":{"resourceName":"Plank",		"bufferCurrent":0,	"bufferMax":4,	"resourceType":"Solid"},
+						"cost":[
+							{"resourceName":"Plank",	"amountRequired":4}
+						]
+					},
+					5:{
+						"column":3,
+						"row":1,
+						"prerequisites":[3],
+						"reference":["metaWorkbench","processesData", "Plank", "processTime"],
+						"info":1.5,
+						"cost":[
+							{"resourceName":"Plank",	"amountRequired":5}
+						]
+					},
+					6:{
+						"column":3,
+						"row":2,
+						"prerequisites":[4],
+						"reference":["metaWorkbench","processesData", "Plank", "outputBuffers"],
+						"info":{"resourceName":"Plank",		"bufferCurrent":0,	"bufferMax":5,	"resourceType":"Solid"},
+						"cost":[
+							{"resourceName":"Plank",	"amountRequired":6}
+						]
+					},
+					7:{
+						"column":4,
+						"row":1,
+						"prerequisites":[5,6],
+						"reference":["metaWorkbench","processesData", "Plank", "processTime"],
+						"info":1,
+						"cost":[
+							{"resourceName":"Plank",	"amountRequired":7}
+						]
+					}
+				},
 
+				"Gear":
+				{
+					1:{
+						"column":1,
+						"row":1,
+						"prerequisites":[],
+						"reference":["metaWorkbench","processesData", "Gear", "processTime"],
+						"info":2.5,
+						"cost":[
+							{"resourceName":"Gear",	"amountRequired":1}
+						]
+					},
+					2:{
+						"column":2,
+						"row":1,
+						"prerequisites":[1],
+						"reference":["metaWorkbench","processesData", "Gear", "outputBuffers"],
+						"info":{"resourceName":"Plank",		"bufferCurrent":0,	"bufferMax":3,	"resourceType":"Solid"},
+						"cost":[
+							{"resourceName":"Gear",	"amountRequired":2}
+						]
+					},
+					3:{
+						"column":2,
+						"row":2,
+						"prerequisites":[],
+						"reference":["metaWorkbench","processesData", "Gear", "processTime"],
+						"info":2,
+						"cost":[
+							{"resourceName":"Gear",	"amountRequired":3}
+						]
+					},
+					4:{
+						"column":2,
+						"row":3,
+						"prerequisites":[1],
+						"reference":["metaWorkbench","processesData", "Gear", "outputBuffers"],
+						"info":{"resourceName":"Plank",		"bufferCurrent":0,	"bufferMax":4,	"resourceType":"Solid"},
+						"cost":[
+							{"resourceName":"Gear",	"amountRequired":4}
+						]
+					},
+					5:{
+						"column":3,
+						"row":1,
+						"prerequisites":[2,3],
+						"reference":["metaWorkbench","processesData", "Gear", "processTime"],
+						"info":1.5,
+						"cost":[
+							{"resourceName":"Gear",	"amountRequired":5}
+						]
+					},
+					6:{
+						"column":3,
+						"row":2,
+						"prerequisites":[4],
+						"reference":["metaWorkbench","processesData", "Gear", "outputBuffers"],
+						"info":{"resourceName":"Plank",		"bufferCurrent":0,	"bufferMax":5,	"resourceType":"Solid"},
+						"cost":[
+							{"resourceName":"Gear",	"amountRequired":6}
+						]
+					},
+					7:{
+						"column":4,
+						"row":1,
+						"prerequisites":[5,6],
+						"reference":["metaWorkbench","processesData", "Gear", "processTime"],
+						"info":1,
+						"cost":[
+							{"resourceName":"Gear",	"amountRequired":7}
+						]
+					}
+				}
+		},
+
+}
 
 
