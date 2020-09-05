@@ -22,6 +22,9 @@ func configure(input_treeNodes):
 	for entry in treeNodes.keys():
 		treeNodes[entry]["unlocks"] = []
 		treeNodes[entry]["acquired"] = false
+		treeNodes[entry]["ID"] = entry
+		if not(treeNodes[entry].has("tooltip")):
+			treeNodes[entry]["tooltip"] = "This is a sample upgrade tooltip"
 	for entry in treeNodes.keys():
 		for prereq in treeNodes[entry]["prerequisites"]:
 			treeNodes[prereq]["unlocks"].append(entry)
@@ -117,7 +120,17 @@ func draw_lines():
 									
 				entry.add_child(line)
 
+func applyUpgrade(id):
+	
 
+	
+	MetaData.processorBank[treeNodes[id]["reference"]] = treeNodes[id]["info"]
+	
+	print(MetaData.processorBank)
+	#print(MetaData.processorBank[treeNodes[id]["reference"][0]][treeNodes[id]["reference"][1]][treeNodes[id]["reference"][2]][treeNodes[id]["reference"][3]])
+	
+	
+	pass
 
 
 

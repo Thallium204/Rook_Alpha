@@ -6,11 +6,12 @@ var data
 
 func configure(input_data):
 	data = input_data
-	for costIndex in data:
+	for costIndex in data["cost"]:
 		var objCostRes = load_objCostRes.instance()
 		objCostRes.configure(costIndex)
-		$VBoxContainer/VBoxContainer.add_child(objCostRes)
-	pass 
+		$VBoxContainer/HBoxContainer/VBoxContainer.add_child(objCostRes)
+	
+	$VBoxContainer/HBoxContainer/Label.text = data["tooltip"]
 
 
 func _on_btnUpg_pressed():
