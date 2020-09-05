@@ -22,6 +22,8 @@ func configure(input_treeNodes):
 	for entry in treeNodes.keys():
 		treeNodes[entry]["unlocks"] = []
 		treeNodes[entry]["acquired"] = false
+		if not(treeNodes[entry].has("tooltip")):
+			treeNodes[entry]["tooltip"] = "This is a sample upgrade tooltip"
 	for entry in treeNodes.keys():
 		for prereq in treeNodes[entry]["prerequisites"]:
 			treeNodes[prereq]["unlocks"].append(entry)
@@ -117,7 +119,8 @@ func draw_lines():
 									
 				entry.add_child(line)
 
-
+func applyUpgrade(id):
+	pass
 
 
 
