@@ -1,6 +1,5 @@
 extends Control
 
-onready var twnTabInfo = get_node("twnTabInfo")
 onready var ctnCostInfo = get_node("HBoxContainer/ctnCostInfo")
 
 var entityData

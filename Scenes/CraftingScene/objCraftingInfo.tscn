@@ -95,6 +95,4 @@ focus_mode = 1
 action_mode = 0
 enabled_focus_mode = 1
 text = "CRAFT"
-
-[node name="twnTabInfo" type="Tween" parent="."]
 [connection signal="pressed" from="HBoxContainer/ctnCraftProgress/btnCraft" to="." method="_on_btnCraft_pressed"]
