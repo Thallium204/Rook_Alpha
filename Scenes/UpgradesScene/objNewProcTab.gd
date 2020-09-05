@@ -28,8 +28,8 @@ func _process(delta):
 			var objUpgradesTab = load_objUpgradesTab.instance()
 			objUpgradesTab.name = entityData["name"]
 			get_parent().add_child(objUpgradesTab)
-			objUpgradesTab.configure(entityData)
-			metaParent["processesData"][metaParent["processesData"].size()] = entityData["info"]
+			objUpgradesTab.configure(MetaData.upgradesBank[metaParent["nameID"]][entityData["name"]])
+			metaParent["processesData"][entityData["name"]] = entityData["info"]
 			queue_free()
 		
 		var progPerc = timer_upgradingTime/float(entityData["upgTime"])

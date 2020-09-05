@@ -1,0 +1,156 @@
+[gd_scene load_steps=10 format=2]
+
+[ext_resource path="res://Fonts/voxilent.ttf" type="DynamicFontData" id=1]
+[ext_resource path="res://Scenes/UpgradesScene/upgradesTheme.tres" type="Theme" id=2]
+[ext_resource path="res://Scenes/UpgradesScene/old_objUpgradesTab.gd" type="Script" id=3]
+
+[sub_resource type="DynamicFont" id=1]
+size = 41
+font_data = ExtResource( 1 )
+
+[sub_resource type="DynamicFont" id=2]
+size = 36
+font_data = ExtResource( 1 )
+
+[sub_resource type="DynamicFont" id=3]
+size = 36
+font_data = ExtResource( 1 )
+
+[sub_resource type="DynamicFont" id=4]
+size = 36
+font_data = ExtResource( 1 )
+
+[sub_resource type="DynamicFont" id=5]
+size = 36
+font_data = ExtResource( 1 )
+
+[sub_resource type="DynamicFont" id=6]
+size = 36
+font_data = ExtResource( 1 )
+
+[node name="objUpgradeTab" type="Tabs"]
+margin_right = 976.0
+margin_bottom = 330.0
+rect_min_size = Vector2( 976, 300 )
+theme = ExtResource( 2 )
+script = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ctnHBox" type="HBoxContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+alignment = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ctnVBoxSpeed" type="VBoxContainer" parent="ctnHBox"]
+margin_left = 13.0
+margin_right = 327.0
+margin_bottom = 330.0
+
+[node name="labProperty" type="Label" parent="ctnHBox/ctnVBoxSpeed"]
+margin_right = 314.0
+margin_bottom = 49.0
+custom_fonts/font = SubResource( 1 )
+text = "Speed"
+
+[node name="HSeparator" type="HSeparator" parent="ctnHBox/ctnVBoxSpeed"]
+margin_top = 53.0
+margin_right = 314.0
+margin_bottom = 57.0
+
+[node name="labCost" type="Label" parent="ctnHBox/ctnVBoxSpeed"]
+margin_top = 61.0
+margin_right = 314.0
+margin_bottom = 105.0
+custom_fonts/font = SubResource( 2 )
+text = "Cost:"
+
+[node name="prgBar" type="ProgressBar" parent="ctnHBox/ctnVBoxSpeed"]
+margin_top = 109.0
+margin_right = 314.0
+margin_bottom = 145.0
+custom_fonts/font = SubResource( 3 )
+
+[node name="btnSpeed" type="Button" parent="ctnHBox/ctnVBoxSpeed"]
+margin_top = 149.0
+margin_right = 314.333
+margin_bottom = 242.579
+custom_fonts/font = SubResource( 4 )
+text = "UPG"
+
+[node name="ctnVBoxInput" type="VBoxContainer" parent="ctnHBox"]
+margin_left = 331.0
+margin_right = 645.0
+margin_bottom = 330.0
+
+[node name="labProperty" type="Label" parent="ctnHBox/ctnVBoxInput"]
+margin_right = 314.0
+margin_bottom = 49.0
+custom_fonts/font = SubResource( 1 )
+text = "Input"
+
+[node name="HSeparator" type="HSeparator" parent="ctnHBox/ctnVBoxInput"]
+margin_top = 53.0
+margin_right = 314.0
+margin_bottom = 57.0
+
+[node name="labCost" type="Label" parent="ctnHBox/ctnVBoxInput"]
+margin_top = 61.0
+margin_right = 314.0
+margin_bottom = 105.0
+custom_fonts/font = SubResource( 2 )
+text = "Cost:"
+
+[node name="prgBar" type="ProgressBar" parent="ctnHBox/ctnVBoxInput"]
+margin_top = 109.0
+margin_right = 314.0
+margin_bottom = 145.0
+custom_fonts/font = SubResource( 5 )
+
+[node name="btnInput" type="Button" parent="ctnHBox/ctnVBoxInput"]
+margin_top = 149.0
+margin_right = 314.333
+margin_bottom = 242.579
+custom_fonts/font = SubResource( 4 )
+text = "UPG"
+
+[node name="ctnVBoxOutput" type="VBoxContainer" parent="ctnHBox"]
+margin_left = 649.0
+margin_right = 963.0
+margin_bottom = 330.0
+
+[node name="labProperty" type="Label" parent="ctnHBox/ctnVBoxOutput"]
+margin_right = 314.0
+margin_bottom = 49.0
+custom_fonts/font = SubResource( 1 )
+text = "Output"
+
+[node name="HSeparator" type="HSeparator" parent="ctnHBox/ctnVBoxOutput"]
+margin_top = 53.0
+margin_right = 314.0
+margin_bottom = 57.0
+
+[node name="labCost" type="Label" parent="ctnHBox/ctnVBoxOutput"]
+margin_top = 61.0
+margin_right = 314.0
+margin_bottom = 105.0
+custom_fonts/font = SubResource( 2 )
+text = "Cost:"
+
+[node name="prgBar" type="ProgressBar" parent="ctnHBox/ctnVBoxOutput"]
+margin_top = 109.0
+margin_right = 314.0
+margin_bottom = 145.0
+custom_fonts/font = SubResource( 6 )
+
+[node name="btnOutput" type="Button" parent="ctnHBox/ctnVBoxOutput"]
+margin_top = 149.0
+margin_right = 314.333
+margin_bottom = 242.579
+custom_fonts/font = SubResource( 4 )
+text = "UPG"
+[connection signal="pressed" from="ctnHBox/ctnVBoxSpeed/btnSpeed" to="." method="_on_btnSpeed_pressed"]

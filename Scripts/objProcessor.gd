@@ -2,6 +2,7 @@ extends "res://Scripts/classFactoryStructure.gd"
 
 # Variables unique to Buildings
 var processData = []
+var processNames = []
 var processIndex = 0
 var timer_processTime = 0.0 # Current timer
 var progPerc = 0
@@ -19,6 +20,8 @@ func _ready():
 func configure(processorData): # Called when we want to initialise the internal structure
 	
 	processData = processorData["processesData"]
+	for name in processData:
+		processNames.append(name)
 	
 	configure_Structure(processorData)
 	
@@ -35,10 +38,10 @@ func updateUI(): # Called when we want to update the display nodes for the user
 #	return inputResource_Structure(resName,resType,processData[processIndex]["inputBuffers"])
 
 func getInputBuffers():
-	return processData[processIndex]["inputBuffers"]
+	return processData[processNames[processIndex]]["inputBuffers"]
 
 func getOutputBuffers():
-	return processData[processIndex]["outputBuffers"]
+	return processData[processNames[processIndex]]["outputBuffers"]
 
 func _process(delta):
 	
@@ -49,8 +52,8 @@ func _process(delta):
 	# IF WE ARE PROCESSING
 	if isProcessing == true:
 		timer_processTime += delta
-		if timer_processTime >= processData[processIndex]["processTime"]: # If we have finished
-			for outputBuffer in processData[processIndex]["outputBuffers"]:
+		if timer_processTime >= processData[processNames[processIndex]]["processTime"]: # If we have finished
+			for outputBuffer in processData[processNames[processIndex]]["outputBuffers"]:
 				outputBuffer["bufferCurrent"] += outputBuffer["bufferMax"] # Gain resources
 			timer_processTime = 0.0
 			isProcessing = false
@@ -58,14 +61,14 @@ func _process(delta):
 			get_node("prgProcess").value = 0
 			updateUI()
 		else: # If we are still processing
-			progPerc = timer_processTime/float(processData[processIndex]["processTime"])
+			progPerc = timer_processTime/float(processData[processNames[processIndex]]["processTime"])
 			#self.self_modulate = Color(1-progPerc,1,1-progPerc)
 			get_node("prgProcess").value = stepify(100*progPerc,0.1)
 	
 	if Globals.autoCraft == true and get_parent():
 		tryToProcess()
 	
-	for outputBuffer in processData[processIndex]["outputBuffers"]:
+	for outputBuffer in processData[processNames[processIndex]]["outputBuffers"]:
 		if outputBuffer["bufferCurrent"] > 0:
 			outputResource(outputBuffer)
 
@@ -77,7 +80,7 @@ func tryToProcess():
 	if haveEnoughResources() == true: # If we have the resources needed to process
 		if haveEnoughStorage() == true:
 			# Deduct resource costs
-			for inputBuffer in processData[processIndex]["inputBuffers"]:
+			for inputBuffer in processData[processNames[processIndex]]["inputBuffers"]:
 				inputBuffer["bufferCurrent"] -= inputBuffer["bufferMax"]
 				inputBuffer["bufferPotential"] = inputBuffer["bufferCurrent"]
 			# Commense Processing
@@ -87,13 +90,13 @@ func tryToProcess():
 		sendRequest(generateRequest("process"))
 
 func haveEnoughResources():
-	for inputBuffer in processData[processIndex]["inputBuffers"]:
+	for inputBuffer in processData[processNames[processIndex]]["inputBuffers"]:
 		if inputBuffer["bufferCurrent"] < inputBuffer["bufferMax"]:
 			return false
 	return true
 
 func haveEnoughStorage():
-	for outputBuffer in processData[processIndex]["outputBuffers"]:
+	for outputBuffer in processData[processNames[processIndex]]["outputBuffers"]:
 		if outputBuffer["bufferCurrent"] > 0:
 			return false
 	return true

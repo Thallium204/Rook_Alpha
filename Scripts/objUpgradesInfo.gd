@@ -10,17 +10,20 @@ func _ready():
 	rect_size = tabInfoPosList[0]
 
 func configure(entityData, _imageDirectory):
-	for processIndex in entityData["processesData"]:
+	for processIndex in entityData["processesData"].keys():
 		var processInfo = entityData["processesData"][processIndex]
 		var objUpgradesTab = load_objUpgradesTab.instance()
 		objUpgradesTab.name = processInfo["outputBuffers"][0]["resourceName"]
 		add_child(objUpgradesTab)
-		objUpgradesTab.configure(processIndex)
+		if MetaData.upgradesBank.has(entityData["nameID"]):
+			objUpgradesTab.configure(MetaData.upgradesBank[entityData["nameID"]][processIndex])
 	
 	if entityData.has("upgradeData"):
 		for upgIndex in entityData["upgradeData"]:
 			match upgIndex["action"]:
 				"edit":
+#					if upgIndex["type"] == "modify":
+#						get_node(upgIndex["name"]).configure(upgIndex)
 					pass
 				"add":
 					if upgIndex["class"] == "newProc":
