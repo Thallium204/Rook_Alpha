@@ -17,8 +17,13 @@ func _ready():
 	Menus = get_tree().get_root().get_node("Game/Menus")
 	texInfoBar = Menus.get_node("FactoryNode/SideBarNode/texInfoBar")
 	ctrlFactoryFloor = Menus.get_node("FactoryNode/ctnFactoryViewport/vptFactoryScene/ctrlFactoryFloor")
+	updateUI()
 
-func _process(_delta):
+func setFatherNode(node):
+	fatherNode = node
+	updateUI()
+
+func updateUI():
 	
 	if fatherNode == null:
 		$texTile.modulate = Color(1,1,1,0.2)

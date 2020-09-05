@@ -16,7 +16,7 @@ func _input(event):
 		if event is InputEventMouseMotion:
 			hasMoved = true
 
-func _process(_delta):
+func updateUI():
 	if Inventory.entityInv[entityName] > 0: # If we have any entities
 		$labAmount.visible = true
 		modulate = Color(1,1,1)

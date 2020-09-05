@@ -3,7 +3,6 @@ extends Node2D
 onready var sprResource = get_node("sprResource")
 
 var tileList = []
-var finalTile = null
 var inputBuffer = null
 var speed = 0.5
 var resourceName = ""
@@ -11,13 +10,12 @@ var resourceName = ""
 func configure(resName,tilePath,buffer):
 	resourceName = resName
 	tileList = tilePath.duplicate()
-	finalTile = tileList[-1]
 	$sprResource.texture = load("res://Assets/Resources/img_"+resourceName.to_lower()+".png")
 	position = tileList[0].position
 	inputBuffer = buffer
 	tileList.remove(0)
 
-func _process(_delta):
+func _process(delta):
 	
 	if tileList.empty(): # If we have arrived
 		inputBuffer["bufferCurrent"] += 1
@@ -31,4 +29,4 @@ func _process(_delta):
 			else:
 				queue_free()
 		else:
-			position += direction*speed
+			position += direction*speed*delta*100

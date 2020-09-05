@@ -68,3 +68,7 @@ valign = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="timeProcess" type="Timer" parent="."]
+one_shot = true
+[connection signal="timeout" from="timeProcess" to="." method="_on_timeProcess_timeout"]

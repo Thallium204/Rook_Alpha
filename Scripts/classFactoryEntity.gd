@@ -100,7 +100,7 @@ func addShapeToFactory(father): # Write the father to each fatherNode entry base
 		for col in range( entityShape[row].size() ): # For every column in that row
 			if entityShape[row][col] != 0: # If our shape is there
 				# Add our pointer to every tile we occupy in pointerArray
-				ctrlFactoryFloor.pointerArray[entityMasterTile["row"]+row][entityMasterTile["col"]+col].fatherNode = father
+				ctrlFactoryFloor.pointerArray[entityMasterTile["row"]+row][entityMasterTile["col"]+col].setFatherNode(father)
 	
 	setAdjacencyTileList()
 	

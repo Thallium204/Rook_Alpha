@@ -32,13 +32,14 @@ func _ready():
 		addEntityAddButton(conveyor["nameID"],"Structure","Enhancer")
 	for conveyor in MetaData.conveyorBank.values():
 		addEntityAddButton(conveyor["nameID"],"Connector","Conveyor")
+	updateUI()
 
 func move(target):
 	var nodeTween = get_node("twnTopBar")
 	nodeTween.interpolate_property(self, "rect_position", rect_position,  target, 1, Tween.TRANS_EXPO, Tween.EASE_OUT)
 	nodeTween.start()
 
-func _process(_delta):
+func updateUI():
 	
 	# Handle button images
 	for btnData in barData:
@@ -78,6 +79,13 @@ func toggleButton(btnID):
 			barData[iter_btnID][1] = false
 	SideBarNode.untoggleButtons()
 	updateIsMenuOpen()
+	updateUI()
+
+func untoggleButtons():
+	for bar in barData:
+		bar[1] = false
+	updateIsMenuOpen()
+	updateUI()
 
 func _on_btnProcessorMenu_pressed():
 	toggleButton(0)
@@ -87,12 +95,6 @@ func _on_btnEnhancerMenu_pressed():
 	toggleButton(2)
 func _on_btnConnectorMenu_pressed():
 	toggleButton(3)
-
-func _on_btnAutocraftToggle_pressed():
-	if Globals.autoCraft == true:
-		Globals.autoCraft = false
-	else:
-		Globals.autoCraft = true
 
 
 

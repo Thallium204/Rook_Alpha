@@ -128,6 +128,7 @@ func _on_btnLeft_pressed():
 		return
 	if infoNode.processIndex > 0:
 		infoNode.processIndex -= 1
+		infoNode.updateTimer()
 
 
 func _on_btnRight_pressed():
@@ -135,3 +136,4 @@ func _on_btnRight_pressed():
 		return
 	if infoNode.processIndex < infoNode.processData.size()-1:
 		infoNode.processIndex += 1
+		infoNode.updateTimer()

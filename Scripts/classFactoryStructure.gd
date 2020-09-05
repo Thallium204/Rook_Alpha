@@ -66,9 +66,12 @@ func outputResource(outputBuffer):
 	
 	ioIndex["output"] = (ioIndex["output"]+1)%receivers.size()
 	var target = receivers[ioIndex["output"]]
-	target["buffer"]["resourceName"] = outputBuffer["resourceName"]
 	target["buffer"]["bufferPotential"] += 1 # Tell the target it has our resource on the way
 	outputBuffer["bufferCurrent"] -= 1 # Deduct our resource
+	if target["entity"].entityClass == "Holder":
+		target["buffer"]["resourceName"] = outputBuffer["resourceName"]
+	if entityClass == "Holder":
+		outputBuffer["bufferPotential"] = outputBuffer["bufferCurrent"]
 	var tilePath = Networks.networkArray[target["netID"]]["Paths"][self][target["entity"]] # Get travel path
 	ctrlFactoryFloor.spawnResource(outputBuffer["resourceName"],tilePath,target["buffer"])
 
@@ -77,7 +80,7 @@ func _process(_delta):
 	if moveMode == true:
 		process_moveMode()
 	
-	if (texInfoBar.infoNode == self and Globals.displayInfoMode == true) or moveMode == true:
+	if texInfoBar.infoNode == self and Globals.displayInfoMode == true:
 		$texSelect.modulate = Color(1,1,1,1)
 	else:
 		$texSelect.modulate = Color(1,1,1,0)
@@ -123,6 +126,7 @@ func enable_moveMode(isNew = false): # Called when we want to move this structur
 	# Visual Changes
 	z_index = 4096
 	$sprStructure.self_modulate = Color(1,1,1,0.8)
+	$texSelect.modulate = Color(1,1,1,1)
 	
 	# Add move Confirm Menu
 	var newConfirmMenu = objConfirmMenu.instance() # Get the Confirm Menu template
@@ -140,6 +144,7 @@ func disable_moveMode(placed = false): # Called when we have stopped moving this
 	
 	z_index = 0
 	$sprStructure.self_modulate = Color(1,1,1,1)
+	$texSelect.modulate = Color(1,1,1,0)
 	
 	var isNew = false
 	if last_entityMasterTile == null:

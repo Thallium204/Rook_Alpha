@@ -6,10 +6,6 @@ func _ready():
 	imageDirectory += "/Connector"
 	entityType = "Connector"
 
-func _process(_delta):
-	
-	pass
-
 func updateNetwork():
 	# Find the surrounding entities and networks
 	var entityList = []

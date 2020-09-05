@@ -6,9 +6,9 @@ func _ready():
 	imageDirectory += "/Conveyor"
 	entityClass = "Conveyor"
 
-func _process(_delta):
-	if not(networkIDs.empty()):
-		$netID.text = str(networkIDs[0])
+#func _process(_delta):
+#	if not(networkIDs.empty()):
+#		$netID.text = str(networkIDs[0])
 
 func pointResource(resourceNode):
 	if ioList.empty():

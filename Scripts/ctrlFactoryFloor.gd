@@ -31,9 +31,6 @@ func _ready():
 	# Initialise the background size
 	FactorySpace.rect_size = tileSize * Vector2(gridCols,gridRows)
 
-func _process(_delta):
-	$labEntities.text = str(entityCount)
-
 func spawnResource(resourceName, tilePath, inputBuffer):
 	
 	var newResource = resource.instance()

@@ -11,8 +11,10 @@ onready var texInfoRef = texInfoBar.duplicate()
 
 var barType = "SideBar"
 
-func _process(_delta):
-	
+func _ready():
+	updateUI()
+
+func updateUI():
 	# Handle UI
 	btnMove.modulate = Color(1,1,1)
 	btnConnect.modulate = Color(1,1,1)
@@ -74,6 +76,7 @@ func untoggleButtons():
 	Globals.moveStructureMode = "off"
 	Globals.drawConnectorMode = "off"
 	Globals.deleteStructureMode = false
+	updateUI()
 
 
 func _on_btnInfoToggle_pressed():
@@ -85,6 +88,7 @@ func _on_btnInfoToggle_pressed():
 
 func _on_btnInfoToggle_released():
 	get_node("../ctnFactoryViewport/vptFactoryScene").gui_disable_input = false
+	updateUI()
 
 
 func _on_btnMoveToggle_pressed():
@@ -99,6 +103,7 @@ func _on_btnMoveToggle_pressed():
 
 func _on_btnMoveToggle_released():
 	get_node("../ctnFactoryViewport/vptFactoryScene").gui_disable_input = false
+	updateUI()
 
 func _on_btnConnectToggle_pressed():
 	get_node("../ctnFactoryViewport/vptFactoryScene").gui_disable_input = true
@@ -112,6 +117,7 @@ func _on_btnConnectToggle_pressed():
 
 func _on_btnConnectToggle_released():
 	get_node("../ctnFactoryViewport/vptFactoryScene").gui_disable_input = false
+	updateUI()
 
 func _on_btnDeleteToggle_pressed():
 	get_node("../ctnFactoryViewport/vptFactoryScene").gui_disable_input = true
@@ -126,6 +132,7 @@ func _on_btnDeleteToggle_pressed():
 
 func _on_btnDeleteToggle_released():
 	get_node("../ctnFactoryViewport/vptFactoryScene").gui_disable_input = false
+	updateUI()
 
 
 func _on_btnAutocraftToggle_pressed():
@@ -137,3 +144,7 @@ func _on_btnAutocraftToggle_pressed():
 
 func _on_btnAutocraftToggle_released():
 	get_node("../ctnFactoryViewport/vptFactoryScene").gui_disable_input = false
+	updateUI()
+
+
+
