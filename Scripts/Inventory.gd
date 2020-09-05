@@ -6,7 +6,7 @@ var entityInv = {
 	"Hole2":2,
 	
 	"Slow":5,
-	"Standard":8,
+	"Standard":100,
 	"Fast":6,
 	"Rapid":3
 	

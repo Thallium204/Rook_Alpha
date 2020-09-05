@@ -1,6 +1,5 @@
 extends "res://Scripts/classFactoryEntity.gd"
 
-var _levelData = [] 		# List of all upgrade modifiers
 var last_entityMasterTile = null
 var waitingOnWorker = false
 
@@ -24,42 +23,54 @@ func generateRequest(requestType):
 func sendRequest(_request):
 	pass
 
-func inputResource_Structure(resName,resType,inputBuffers):
-	for inputBuffer in inputBuffers: # Scan through input resource options
-		if inputBuffer["resourceType"] == resType:
-			#  If we have found the corresponding resource option
-			if inputBuffer["resourceName"] == resName or (inputBuffer["resourceName"] == "" and inputBuffer["resourceType"] == resType):
-				if inputBuffer["bufferCurrent"] < inputBuffer["bufferMax"]: # If there's room
-					inputBuffer["bufferCurrent"] += 1
-					inputBuffer["resourceName"] = resName
-					return true
-	return false
+func updateNetwork():
+	for adj in adjacentTileList: # Scan our surroundings
+		# ioPair = [ioTile,ioDire (of the adjacent tile)]
+		if adj["tile"].fatherNode != null: # Scan for entities only
+			var checkEntity = adj["tile"].fatherNode
+			var rowDiff = adj["tile"].entityTile["row"] - adj["vector"][0]
+			var colDiff = adj["tile"].entityTile["col"] - adj["vector"][1]
+			var selfTile = ctrlFactoryFloor.pointerArray[rowDiff][colDiff]
+			ioList.append( { "tile":adj["tile"] , "dire":dirConv[adj["vector"]] , "self":selfTile } )
+			checkEntity.ioList.append( { "tile":selfTile , "dire":dirConv[-adj["vector"]] , "self":adj["tile"]} )
+			if checkEntity.entityType == "Structure":
+				Networks.instanceNetwork([self,checkEntity])
+			elif checkEntity.entityType == "Connector":
+				Networks.addToNetwork(self,checkEntity.networkIDs[0])
+			checkEntity.updateUI()
+			selfTile.fatherNode.updateUI()
 
-func outputResource_Structure(resName,resType,outputBuffers):
-	var success = false
-	if entityOutputList.empty(): # If we have no outputs
-		return false
-	for outputBuffer in outputBuffers: # Scan through output resource options (for current process)
-		# If valid processor output
-		if outputBuffer["resourceName"] == resName: #  If we have found the corresponding resource option
-			if outputBuffer["bufferCurrent"] > 0: # If there's resources to export
-				indexOutputList = (indexOutputList+1)%entityOutputList.size() # Iterate the index
-				var outputEntity = entityOutputList[indexOutputList]
-				if outputEntity.fatherNode.entityType == "Connector":
-					if outputEntity.fatherNode.entityClass == "Conveyor":
-						if ctrlFactoryFloor.spawnResource(resName,outputBuffer["resourceType"], outputEntity) == true:
-							success = true
-				elif outputEntity.fatherNode.entityType == "Structure":
-					if outputEntity.fatherNode.inputResource(resName,resType) == true:
-						success = true
-				if success == true:
-					outputBuffer["bufferCurrent"] -= 1
-					if entityClass == "Holder":
-						if outputBuffer["bufferCurrent"] == 0:
-							outputBuffer["resourceName"] = ""
-					return true
+func deleteFromNetwork():
+	for adj in adjacentTileList: # Scan our surroundings
+		if adj["tile"].fatherNode != null: # Scan for entities only
+			var checkEntity = adj["tile"].fatherNode
+			if checkEntity.entityType == "Structure":
+				Networks.deleteNetworks(networkIDs,true)
+
+func outputResource(outputBuffer):
 	
-	return false # We could not export the resource for whatever reason
+	# Find all potential receivers
+	var receivers = []
+	for netID in networkIDs: # Go through our networks
+		var network = Networks.networkArray[netID]
+		for structure in network["Structure"]: # Go through the potential structures
+			if structure == self:
+				continue
+			for inputBuffer in structure.getInputBuffers():
+				if inputBuffer["resourceName"] == outputBuffer["resourceName"] or inputBuffer["resourceName"] == "":
+					if inputBuffer["bufferPotential"] < inputBuffer["bufferMax"]: # If it has room
+						receivers.append({"entity":structure,"buffer":inputBuffer,"netID":netID})
+	
+	if receivers.empty():
+		return
+	
+	ioIndex["output"] = (ioIndex["output"]+1)%receivers.size()
+	var target = receivers[ioIndex["output"]]
+	target["buffer"]["resourceName"] = outputBuffer["resourceName"]
+	target["buffer"]["bufferPotential"] += 1 # Tell the target it has our resource on the way
+	outputBuffer["bufferCurrent"] -= 1 # Deduct our resource
+	var tilePath = Networks.networkArray[target["netID"]]["Paths"][self][target["entity"]] # Get travel path
+	ctrlFactoryFloor.spawnResource(outputBuffer["resourceName"],tilePath,target["buffer"])
 
 func _process(_delta):
 	
@@ -143,12 +154,14 @@ func disable_moveMode(placed = false): # Called when we have stopped moving this
 			# Return to previous position
 			position = ctrlFactoryFloor.tileSize * Vector2(last_entityMasterTile["col"] , last_entityMasterTile["row"])
 			addShapeToFactory(self)
+			updateNetwork()
 		
 	else: # If we pressed confirm
 		
 		if canBePlaced == true: # If we can place it
 			last_entityMasterTile = entityMasterTile.duplicate(true) # Update last_masterTile
 			addShapeToFactory(self)
+			updateNetwork()
 		else:
 			return
 	
@@ -178,6 +191,9 @@ func onPressed_Structure(tile): # Pressed Processes for all structures
 		enable_moveMode()
 
 func onReleased_Structure(tile): # Released Processes for all structures
+	
+	if Globals.deleteStructureMode == true:
+		deleteFromNetwork()
 	
 	# Handle Entity
 	onReleased_Entity(tile)

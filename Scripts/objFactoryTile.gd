@@ -9,18 +9,9 @@ var entityTile = null # {"row":0,"col":0}The indexes for the pointerArray
 var fatherNode = null
 
 var isReleasedValid = false
-
-var directionDict = { [0,0]:"" , [-1, 0]:"U" , [ 0, 1]:"R" , [ 1, 0]:"D" , [ 0,-1]:"L" }
-var inv_directionDict = { "":"" , "D":"U" , "L":"R" , "U":"D" , "R":"L" }
+var connectedDirections = []
 
 # NOTE: the mouse 'enters' a new area BEFORE 'exiting' the old one (if there is no gap between the areas)
-
-func drawConnector():
-	var connectorData = Globals.initialseConnectorData()
-	ctrlFactoryFloor.addConnector(connectorData,Globals.drawConnector["connectorType"],entityTile)
-
-func updatePosition():
-	position = ctrlFactoryFloor.tileSize*Vector2(entityTile["col"],entityTile["row"])
 
 func _ready():
 	Menus = get_tree().get_root().get_node("Game/Menus")
@@ -29,64 +20,48 @@ func _ready():
 
 func _process(_delta):
 	
-	if fatherNode != null:
-		$texTile.self_modulate = Color(1,1,1,0)
-		$texBacking.self_modulate = Color(1,1,1,1)
-	else:
-		$texTile.self_modulate = Color(1,1,1,0.2)
-		$texBacking.self_modulate = Color(1,1,1,0)
-	
 	if fatherNode == null:
-		$ioIndicators.modulate = Color(1,1,1,0)
-		$texFill.modulate = Color(1,1,1,0)
+		$texTile.modulate = Color(1,1,1,0.2)
+		$texBacking.visible = false
+		$ioIndicators.visible = false
+		$texFill.visible = false
 		return
 	else:
-		$ioIndicators.modulate = Color(1,1,1,1)
+		$texTile.modulate = Color(1,1,1,0)
+		$texBacking.visible = true
+		if fatherNode.entityType == "Connector":
+			$ioIndicators.visible = false
+			return
+		else:
+			$ioIndicators.visible = true
 	
-	if fatherNode.entityType != "Structure":
-		$ioIndicators.modulate = Color(1,1,1,0)
-		return
+	for spr in ioIndicators:
+		spr.visible = false
 	
-	for child in ioIndicators:
-		child.modulate = Color(1,1,1,0)
-	
-	for inputTilePos in range(fatherNode.entityInputList.size()):
-		var inputTile = fatherNode.entityInputList[inputTilePos]
-		var for_direction = fatherNode.directionInputList[inputTilePos]
-		var rev_direction = inv_directionDict[for_direction]
-		for directionPos in range(inputTile.fatherNode.directionOutputList.size()):
-			if inputTile.fatherNode.directionOutputList[directionPos] == rev_direction:
-				if inputTile.fatherNode.entityOutputList[directionPos] == self:
-					$ioIndicators.get_node("spr"+for_direction).modulate = Color(0,1,0,1)
-	
-	for outputTilePos in range(fatherNode.entityOutputList.size()):
-		var outputTile = fatherNode.entityOutputList[outputTilePos]
-		var for_direction = fatherNode.directionOutputList[outputTilePos]
-		var rev_direction = inv_directionDict[for_direction]
-		for directionPos in range(outputTile.fatherNode.directionInputList.size()):
-			if outputTile.fatherNode.directionInputList[directionPos] == rev_direction:
-				if outputTile.fatherNode.entityInputList[directionPos] == self:
-					$ioIndicators.get_node("spr"+for_direction).modulate = Color(1,0,0,1)
+	for ioTilePos in connectedDirections:
+		$ioIndicators.get_node("spr"+str(ioTilePos)).visible = true
 	
 	if fatherNode == texInfoBar.infoNode and Globals.displayInfoMode == true and fatherNode != null:
 		$texFill.modulate = Color(0.5,0.5,0.5,0.5)
 	else:
 		$texFill.modulate = Color(1,1,1,0)
-	
+
+func drawConnector():
+	ctrlFactoryFloor.addConnector(entityTile)
+
+func updatePosition():
+	position = ctrlFactoryFloor.tileSize*Vector2(entityTile["col"],entityTile["row"])
+
+
+
 # Area2D Signals
 
 # When the mouse enters our Area
 func _on_areaTile_mouse_entered():
 	
-	if Globals.drawConnectorMode == "moving":
-		if fatherNode == null:
-			drawConnector()
-		# We check again because initialseConnectorData can change our fatherNode
-		if fatherNode != null:
-			fatherNode.addInput(Globals.lastTileArea,getDirectionOfTileArea(Globals.lastTileArea,true))
-		Globals.lastTileArea = self
-	
 	if fatherNode == null:
+		if Globals.drawConnectorMode == "moving":
+			drawConnector()
 		return
 	
 	fatherNode.updateUI()
@@ -99,8 +74,6 @@ func _on_areaTile_mouse_exited():
 	if fatherNode == null:
 		return
 	
-	if Globals.drawConnectorMode == "moving":
-		fatherNode.addOutput(Globals.lastTileArea,getDirectionOfTileArea(Globals.lastTileArea,true))
 	fatherNode.updateUI()
 
 
@@ -114,9 +87,7 @@ func _on_objFactoryTile_pressed():
 	
 	if Globals.drawConnectorMode == "ready":
 		Globals.drawConnectorMode = "moving"
-		if fatherNode == null:
-			drawConnector()
-		Globals.lastTileArea = self
+		_on_areaTile_mouse_entered()
 	
 	if fatherNode == null:
 		return
@@ -126,29 +97,13 @@ func _on_objFactoryTile_pressed():
 # When the mouse releases our Button
 func _on_objFactoryTile_released():
 	
-	if fatherNode == null:
-		if Globals.drawConnectorMode == "moving":
-			Globals.lastTileArea = null
-			Globals.drawConnectorMode = "ready"
+	if Globals.drawConnectorMode == "moving":
+		Globals.drawConnectorMode = "ready"
+	
+	if fatherNode == null or not(isReleasedValid):
 		return
 	
 	fatherNode.onReleased(entityTile)
 
-
-
-func getDirectionOfTileArea(otherTileArea,forward):
-	
-	var direction = [0,0]
-	for row in [-1,0,1]:
-		for col in [-1,0,1]:
-			if row == 0 or col == 0:
-				if entityTile["row"]+row in range( 0 , ctrlFactoryFloor.pointerArray.size() ):
-					if entityTile["col"]+col in range( 0 , ctrlFactoryFloor.pointerArray[0].size() ):
-						if ctrlFactoryFloor.pointerArray[entityTile["row"]+row][entityTile["col"]+col] == otherTileArea:
-							direction = [row,col]
-	if forward == true:
-		return directionDict[direction]
-	else:
-		return inv_directionDict[directionDict[direction]]
 
 

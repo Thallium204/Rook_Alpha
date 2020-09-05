@@ -51,7 +51,7 @@ func _process(_delta):
 	else:
 		btnDelete.normal = load("res://Assets/Buttons/"+barType+"/img_delete_on.png")#
 	
-	# Handle Add Resource (developer)
+	# Handle Autocraft
 	if Globals.autoCraft == false:
 		btnAutocraft.normal = load("res://Assets/Buttons/"+barType+"/img_autocraft_off.png")
 	else:

@@ -25,6 +25,7 @@ config/icon="res://icon.png"
 MetaData="*res://Scripts/metaData.gd"
 Globals="*res://Scripts/Globals.gd"
 Inventory="*res://Scripts/Inventory.gd"
+Networks="*res://Scripts/Networks.gd"
 
 [display]
 

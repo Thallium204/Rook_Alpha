@@ -6,6 +6,9 @@ var processIndex = 0
 var timer_processTime = 0.0 # Current timer
 var progPerc = 0
 
+var delta_output = 0.0
+var extractTime = 3
+
 var isProcessing = false	# General:   		True when building is processing | False when building is not processing
 var autoCraft = false		# General: 			True when always trying to process | False when not always trying to process
 
@@ -28,13 +31,20 @@ func updateUI(): # Called when we want to update the display nodes for the user
 	$sprStructure.animation = "idle"
 	$sprStructure.position[1] = -$sprStructure.frames.get_frame("idle",0).get_size()[1] + entitySize[1]
 
-func inputResource(resName,resType):
-	return inputResource_Structure(resName,resType,processData[processIndex]["inputBuffers"])
+#func inputResource(resName,resType):
+#	return inputResource_Structure(resName,resType,processData[processIndex]["inputBuffers"])
 
-func outputResource(resName,resType):
-	return outputResource_Structure(resName,resType,processData[processIndex]["outputBuffers"])
+func getInputBuffers():
+	return processData[processIndex]["inputBuffers"]
+
+func getOutputBuffers():
+	return processData[processIndex]["outputBuffers"]
 
 func _process(delta):
+	
+	$netIDs.text = ""
+	for ID in networkIDs:
+		$netIDs.text += str(ID)
 	
 	# IF WE ARE PROCESSING
 	if isProcessing == true:
@@ -57,7 +67,7 @@ func _process(delta):
 	
 	for outputBuffer in processData[processIndex]["outputBuffers"]:
 		if outputBuffer["bufferCurrent"] > 0:
-			outputResource(outputBuffer["resourceName"],outputBuffer["resourceType"])
+			outputResource(outputBuffer)
 
 func tryToProcess():
 	
@@ -69,6 +79,7 @@ func tryToProcess():
 			# Deduct resource costs
 			for inputBuffer in processData[processIndex]["inputBuffers"]:
 				inputBuffer["bufferCurrent"] -= inputBuffer["bufferMax"]
+				inputBuffer["bufferPotential"] = inputBuffer["bufferCurrent"]
 			# Commense Processing
 			isProcessing = true
 			$sprStructure.animation = "process"

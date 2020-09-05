@@ -2,19 +2,21 @@ extends Node2D
 
 var currentScreen = 0
 
-var autoCraft = false
 var isMenuOpen = false
 
 var displayInfoMode = false
 var moveStructureMode = "off"		# "off" | "ready" | "moving" 
-var deleteStructureMode = false
 var drawConnectorMode = "off"		# "off" | "ready" | "touching"
+var deleteStructureMode = false
+var autoCraft = false
+
 var drawConnector = {"nameID":"Standard","connectorType":"Conveyor"}
-var lastTileArea = null
-
 var populace = {"total":1,"avaliable":1}
-
 var infoColorModifier = 0.3
+var colorList = [Color(1,1,1),
+				Color(1,0.2,0.2),Color(0.2,1,0.2),Color(0.2,0.2,1),
+				Color(0.2,1,1),Color(1,0.2,1),Color(1,1,0.2),
+				Color(0.2,0.2,0.2)]
 
 func _process(_delta):
 	pass

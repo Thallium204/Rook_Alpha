@@ -34,25 +34,13 @@ func _ready():
 func _process(_delta):
 	$labEntities.text = str(entityCount)
 
-func spawnResource(resourceName, resourceType, outputEntity):
+func spawnResource(resourceName, tilePath, inputBuffer):
 	
-	if resourceType == "Solid":
-
-		var newResource = resource.instance()
-		newResource.position = outputEntity.position+Vector2(16,16)
-		newResource.toPosition = outputEntity.position+Vector2(16,16)
-		newResource.name = resourceName+str(entityCount)
-		
-		newResource.resourceName = resourceName
-		newResource.get_node("sprResource").texture = load("res://Assets/Resources/img_"+resourceName.to_lower()+".png")
-		if outputEntity.fatherNode.currentResource == null: # The conveyor is free
-			outputEntity.fatherNode.currentResource = newResource # We set this here to avoid simultaneous collision
-			entityCount += 1
-			add_child(newResource)
-			return true
-		else:
-			newResource.queue_free()
-			return false
+	var newResource = resource.instance()
+	newResource.name = resourceName+str(entityCount)
+	newResource.configure(resourceName,tilePath,inputBuffer)
+	entityCount += 1
+	add_child(newResource)
 
 func addStructure(structureData,structureType):
 	
@@ -73,12 +61,15 @@ func addStructure(structureData,structureType):
 	objStructure.updateUI()
 	objStructure.enable_moveMode(true)
 
-func addConnector(connectorData,connectorType,entityTile):
+func addConnector(entityTile):
 	
-	if connectorData == null:
+	var connectorData = Globals.initialseConnectorData()
+	var connectorType = Globals.drawConnector["connectorType"]
+	
+	if connectorData == null: # If there's no draw conveyor selected
 		return
 	
-	if Inventory.entityInv[ connectorData["nameID"] ] == 0:
+	if Inventory.entityInv[ connectorData["nameID"] ] == 0: # If we've run out of these connectors
 		return
 	
 	# We need to create the correct structure instance
@@ -87,14 +78,15 @@ func addConnector(connectorData,connectorType,entityTile):
 	
 	# Set unique identifiers
 	objConnector.position = tileSize * Vector2(entityTile["col"],entityTile["row"])
-	objConnector.name = connectorType + str(entityCount)
+	objConnector.name = connectorData["nameID"] + str(entityCount)
 	objConnector.entityMasterTile = entityTile
 	entityCount += 1
 	
 	add_child(objConnector)
 	
 	objConnector.configure(connectorData)
-	objConnector.updateUI()
 	objConnector.addShapeToFactory(objConnector)
+	objConnector.updateNetwork()
+	objConnector.updateUI()
 
 

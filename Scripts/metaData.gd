@@ -1,5 +1,16 @@
 extends Node2D
 
+func _ready():
+	for processor in processorBank.values():
+		for process in processor["processesData"].values():
+			for buffer in process["inputBuffers"]:
+				buffer["bufferCurrent"] = 0
+				buffer["bufferPotential"] = 0
+	for holder in holderBank.values():
+		for buffer in holder["internalStorage"]:
+			buffer["bufferCurrent"] = 0
+			buffer["bufferPotential"] = 0
+
 var processorBank = {
 	
 	# PROCESSORS
@@ -196,11 +207,11 @@ var processorBank = {
 				"info":{
 					
 					"inputBuffers":[
-						{"resourceName":"Plank",	"bufferCurrent":0,	"bufferMax":1,	"resourceType":"Solid"}
+						{"resourceName":"Plank",	"bufferPotential":0,	"bufferCurrent":0,	"bufferMax":1,	"resourceType":"Solid"}
 					],
 					"processTime":3,
 					"outputBuffers":[
-							{"resourceName":"Gear",		"bufferCurrent":0,	"bufferMax":2,	"resourceType":"Solid"}
+							{"resourceName":"Gear",	"bufferPotential":0,	"bufferCurrent":0,	"bufferMax":2,	"resourceType":"Solid"}
 						]
 					
 				},
