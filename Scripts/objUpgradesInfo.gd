@@ -16,25 +16,17 @@ func configure(entityData, _imageDirectory):
 		objUpgradesTab.name = processInfo["outputBuffers"][0]["resourceName"]
 		add_child(objUpgradesTab)
 		if MetaData.upgradesBank.has(entityData["nameID"]):
-			objUpgradesTab.configure(MetaData.upgradesBank[entityData["nameID"]][processIndex])
+			objUpgradesTab.configure(MetaData.upgradesBank[entityData["nameID"]][processIndex], "meta" + entityData["nameID"])
 	
-	if entityData.has("upgradeData"):
-		for upgIndex in entityData["upgradeData"]:
-			match upgIndex["action"]:
-				"edit":
-#					if upgIndex["type"] == "modify":
-#						get_node(upgIndex["name"]).configure(upgIndex)
-					pass
-				"add":
-					if upgIndex["class"] == "newProc":
-						var objNewProcTab = load_objNewProcTab.instance()
-						objNewProcTab.name = "_" + upgIndex["name"]
-						add_child(objNewProcTab)
-						objNewProcTab.configure(upgIndex, "meta" + entityData["nameID"])
-					pass
-				_:
-					pass
 	
+	
+	if entityData.has("lockedProcesses"):
+		for upgIndex in entityData["lockedProcesses"]:
+				var objNewProcTab = load_objNewProcTab.instance()
+				objNewProcTab.name = "_" + upgIndex["name"]
+				add_child(objNewProcTab)
+				objNewProcTab.configure(upgIndex, "meta" + entityData["nameID"])
+
 	
 	
 	

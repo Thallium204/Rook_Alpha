@@ -165,56 +165,23 @@ var processorBank = {
 			},
 			
 		},
+
+		"upgradeData":
+		[
+
+		],
 		
 		"costData":[
 			{"resourceName":"Log",	"amountRequired":4},
 			{"resourceName":"Hemp",	"amountRequired":3}
 		],
 		
-		"upgradeData":[
-			
-#			{
-#				"action":"edit",
-#				"type":"modify",
-#				"name":"Plank",
-#				"level":1,
-#				"class":"speed",
-#				"reference":["metaWorkbench","processesData", 0, "processTime"],
-#				"info":0.1,
-#				"upgCost":[
-#					{"resourceName":"Log",	"amountRequired":0}
-#				],
-#				"upgTime":2
-#			},
-#
-#			{
-#				"action":"edit",
-#				"type":"modify",
-#				"name":"Plank",
-#				"level":1,
-#				"class":"output",
-#				"reference":["metaWorkbench","processesData", 0, "outputBuffers"], 
-#				"info":{"resourceName":"Plank",		"bufferCurrent":0,	"bufferMax":3,	"resourceType":"Solid"},
-#				"upgCost":[
-#					{"resourceName":"Log",	"amountRequired":0}
-#				],
-#				"upgTime":2
-#			},
+		"lockedProcesses":[
 			
 			{
-				"action":"add",
-				"class":"newProc",
 				"name":"Gear",
 				"ref":["processData"],
 				"info":{
-					
-					#"inputBuffers":[
-					#	{"resourceName":"Plank",	"bufferPotential":0,	"bufferCurrent":0,	"bufferMax":1,	"resourceType":"Solid"}
-					#],
-					#"processTime":3,
-					#"outputBuffers":[
-					#		{"resourceName":"Gear",	"bufferPotential":0,	"bufferCurrent":0,	"bufferMax":2,	"resourceType":"Solid"}
-					#	]
 
 					"inputBuffers":[
 						{"resourceName":"Plank",	"bufferPotential":0,	"bufferCurrent":0,	"bufferMax":1,	"resourceType":"Solid"}
@@ -482,7 +449,7 @@ var upgradesBank = {
 						"column":1,
 						"row":1,
 						"prerequisites":[],
-						"reference":["metaWorkbench","processesData", "Plank", "processTime"],
+						"reference":["Plank", "processTime"],
 						"info":2.5,
 						"tooltip":"decreases process time by 0.5s",
 						"cost":[
@@ -495,7 +462,7 @@ var upgradesBank = {
 						"column":1,
 						"row":2,
 						"prerequisites":[],
-						"reference":["metaWorkbench","processesData", "Plank", "outputBuffers", "bufferMax"],
+						"reference":["Plank", "outputBuffers", "bufferMax"],
 						"info":3,
 						"tooltip":"increases yield by 1",
 						"cost":[
@@ -506,7 +473,7 @@ var upgradesBank = {
 						"column":2,
 						"row":1,
 						"prerequisites":[1],
-						"reference":["metaWorkbench","processesData", "Plank", "processTime"],
+						"reference":["Plank", "processTime"],
 						"info":2,
 						"tooltip":"decreases process time by 0.5s",
 						"cost":[
@@ -517,7 +484,7 @@ var upgradesBank = {
 						"column":2,
 						"row":2,
 						"prerequisites":[1,2],
-						"reference":["metaWorkbench","processesData", "Plank", "outputBuffers", "bufferMax"],
+						"reference":["Plank", "outputBuffers", "bufferMax"],
 						"info":4,
 						"tooltip":"increases yield by 1",
 						"cost":[
@@ -528,7 +495,7 @@ var upgradesBank = {
 						"column":3,
 						"row":1,
 						"prerequisites":[3],
-						"reference":["metaWorkbench","processesData", "Plank", "processTime"],
+						"reference":["Plank", "processTime"],
 						"info":1.5,
 						"tooltip":"decreases process time by 0.5s",
 						"cost":[
@@ -539,7 +506,7 @@ var upgradesBank = {
 						"column":3,
 						"row":2,
 						"prerequisites":[4],
-						"reference":["metaWorkbench","processesData", "Plank", "outputBuffers", "bufferMax"],
+						"reference":["Plank", "outputBuffers", "bufferMax"],
 						"info":5,
 						"tooltip":"increases yield by 1",
 						"cost":[
@@ -550,7 +517,7 @@ var upgradesBank = {
 						"column":4,
 						"row":1,
 						"prerequisites":[5,6],
-						"reference":["metaWorkbench","processesData", "Plank", "processTime"],
+						"reference":["Plank", "processTime"],
 						"info":1,
 						"tooltip":"decreases process time by 0.5s",
 						"cost":[
@@ -565,7 +532,7 @@ var upgradesBank = {
 						"column":1,
 						"row":1,
 						"prerequisites":[],
-						"reference":["metaWorkbench","processesData", "Gear", "processTime"],
+						"reference":["Gear", "processTime"],
 						"info":2.5,
 						"tooltip":"decreases process time by 0.5s",
 						"cost":[
@@ -576,7 +543,7 @@ var upgradesBank = {
 						"column":2,
 						"row":1,
 						"prerequisites":[1],
-						"reference":["metaWorkbench","processesData", "Gear", "outputBuffers", "bufferMax"],
+						"reference":["Gear", "outputBuffers", "bufferMax"],
 						"info":3,
 						"tooltip":"increases yield by 1",
 						"cost":[
@@ -587,7 +554,7 @@ var upgradesBank = {
 						"column":2,
 						"row":2,
 						"prerequisites":[],
-						"reference":["metaWorkbench","processesData", "Gear", "processTime"],
+						"reference":["Gear", "processTime"],
 						"info":2,
 						"tooltip":"decreases process time by 0.5s",
 						"cost":[
@@ -598,7 +565,7 @@ var upgradesBank = {
 						"column":2,
 						"row":3,
 						"prerequisites":[1],
-						"reference":["metaWorkbench","processesData", "Gear", "outputBuffers", "bufferMax"],
+						"reference":["Gear", "outputBuffers", "bufferMax"],
 						"info":4,
 						"tooltip":"increases yield by 1",
 						"cost":[
@@ -609,7 +576,7 @@ var upgradesBank = {
 						"column":3,
 						"row":1,
 						"prerequisites":[2,3],
-						"reference":["metaWorkbench","processesData", "Gear", "processTime"],
+						"reference":["Gear", "processTime"],
 						"info":1.5,
 						"tooltip":"decreases process time by 0.5s",
 						"cost":[
@@ -620,7 +587,7 @@ var upgradesBank = {
 						"column":3,
 						"row":2,
 						"prerequisites":[4],
-						"reference":["metaWorkbench","processesData", "Gear", "outputBuffers", "bufferMax"],
+						"reference":["Gear", "outputBuffers", "bufferMax"],
 						"info":5,
 						"tooltip":"increases yield by 1",
 						"cost":[
@@ -631,7 +598,7 @@ var upgradesBank = {
 						"column":4,
 						"row":1,
 						"prerequisites":[5,6],
-						"reference":["metaWorkbench","processesData", "Gear", "processTime"],
+						"reference":["Gear", "processTime"],
 						"info":1,
 						"tooltip":"decreases process time by 0.5s",
 						"cost":[

@@ -28,7 +28,7 @@ func _process(delta):
 			var objUpgradesTab = load_objUpgradesTab.instance()
 			objUpgradesTab.name = entityData["name"]
 			get_parent().add_child(objUpgradesTab)
-			objUpgradesTab.configure(MetaData.upgradesBank[metaParent["nameID"]][entityData["name"]])
+			objUpgradesTab.configure(MetaData.upgradesBank[metaParent["nameID"]][entityData["name"]], "meta" + metaParent["nameID"])
 			metaParent["processesData"][entityData["name"]] = entityData["info"]
 			queue_free()
 		

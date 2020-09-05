@@ -6,6 +6,7 @@ var load_column = preload("res://Scenes/UpgradesScene/column.tscn")
 var load_line = preload("res://Scenes/UpgradesScene/line.tscn")
 
 var treeNodes = {}
+var metaName
 
 var nodes = []
 
@@ -16,8 +17,9 @@ var timer = 0
 
 var flag = false
 
-func configure(input_treeNodes):
+func configure(input_treeNodes, input_metaName):
 	treeNodes = input_treeNodes
+	metaName = input_metaName
 	
 	for entry in treeNodes.keys():
 		treeNodes[entry]["unlocks"] = []
@@ -122,13 +124,10 @@ func draw_lines():
 
 func applyUpgrade(id):
 	
-
+	var passUpgData = {"reference": treeNodes[id]["reference"], "info":treeNodes[id]["info"]}
+	MetaData.processorBank[metaName]["upgradeData"].append(passUpgData)
 	
-	MetaData.processorBank[treeNodes[id]["reference"]] = treeNodes[id]["info"]
-	
-	print(MetaData.processorBank)
-	#print(MetaData.processorBank[treeNodes[id]["reference"][0]][treeNodes[id]["reference"][1]][treeNodes[id]["reference"][2]][treeNodes[id]["reference"][3]])
-	
+	print(MetaData.processorBank[metaName])
 	
 	pass
 
