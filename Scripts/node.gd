@@ -36,6 +36,7 @@ func purchasedUpgrade():
 			if flag == true:
 				texture_normal = load("res://Assets/icon_done.png")
 				data["acquired"] = true
+				Tab.applyUpgrade(data["ID"])
 				for child in get_children():
 					if "Line" in child.name:
 						child.default_color = Color(0.18, 0.55, 0.34, 1)
