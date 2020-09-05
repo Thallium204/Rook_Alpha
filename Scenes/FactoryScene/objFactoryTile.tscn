@@ -65,21 +65,21 @@ z_index = 30
 z_as_relative = false
 
 [node name="sprU" type="Sprite" parent="ioIndicators"]
-position = Vector2( 16, 2 )
+position = Vector2( 16, 3.5 )
 rotation = -3.14159
 texture = ExtResource( 4 )
 
 [node name="sprR" type="Sprite" parent="ioIndicators"]
-position = Vector2( 30, 16 )
+position = Vector2( 28.5, 16 )
 rotation = -1.5708
 texture = ExtResource( 4 )
 
 [node name="sprD" type="Sprite" parent="ioIndicators"]
-position = Vector2( 16, 30 )
+position = Vector2( 16, 28.5 )
 texture = ExtResource( 4 )
 
 [node name="sprL" type="Sprite" parent="ioIndicators"]
-position = Vector2( 2, 16 )
+position = Vector2( 3.5, 16 )
 rotation = 1.5708
 texture = ExtResource( 4 )
 [connection signal="pressed" from="." to="." method="_on_objFactoryTile_pressed"]

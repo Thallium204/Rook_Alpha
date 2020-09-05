@@ -12,7 +12,9 @@ radius = 110.0
 size = 51
 font_data = ExtResource( 3 )
 
-[node name="objAddEntityButton" type="TextureRect"]
+[node name="objAddEntityButton" type="TextureRect" groups=[
+"grpInvUI",
+]]
 margin_right = 256.0
 margin_bottom = 256.0
 mouse_filter = 2

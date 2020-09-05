@@ -1,55 +1,13 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://Scripts/objResource.gd" type="Script" id=1]
 [ext_resource path="res://Assets/Resources/img_log.png" type="Texture" id=2]
-[ext_resource path="res://Assets/Misc/img_detect.png" type="Texture" id=3]
-
-[sub_resource type="CircleShape2D" id=1]
-radius = 0.5
-
-[sub_resource type="CircleShape2D" id=2]
-radius = 1.0
-
-[sub_resource type="CircleShape2D" id=3]
-radius = 8.0
 
 [node name="objResourceNode" type="Node2D"]
 z_index = 2
 script = ExtResource( 1 )
 
 [node name="sprResource" type="Sprite" parent="."]
+position = Vector2( 16, 16 )
 scale = Vector2( 0.5, 0.5 )
 texture = ExtResource( 2 )
-
-[node name="bodyInner" type="Area2D" parent="."]
-
-[node name="shapeInner" type="CollisionShape2D" parent="bodyInner"]
-shape = SubResource( 1 )
-
-[node name="bodyDetect" type="Area2D" parent="."]
-position = Vector2( 9, 0 )
-
-[node name="shapeInner" type="CollisionShape2D" parent="bodyDetect"]
-shape = SubResource( 2 )
-
-[node name="TextureRect" type="TextureRect" parent="bodyDetect/shapeInner"]
-visible = false
-margin_left = -1.0
-margin_top = -1.0
-margin_right = 1.0
-margin_bottom = 1.0
-texture = ExtResource( 3 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="bodyOuter" type="Area2D" parent="."]
-
-[node name="shapeOuter" type="CollisionShape2D" parent="bodyOuter"]
-shape = SubResource( 3 )
-[connection signal="area_entered" from="bodyInner" to="." method="_on_bodyInner_area_entered"]
-[connection signal="area_exited" from="bodyInner" to="." method="_on_bodyInner_area_exited"]
-[connection signal="area_entered" from="bodyDetect" to="." method="_on_bodyDetect_area_entered"]
-[connection signal="area_exited" from="bodyDetect" to="." method="_on_bodyDetect_area_exited"]
-[connection signal="area_entered" from="bodyOuter" to="." method="_on_bodyOuter_area_entered"]
-[connection signal="area_exited" from="bodyOuter" to="." method="_on_bodyOuter_area_exited"]

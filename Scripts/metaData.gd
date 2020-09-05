@@ -1,5 +1,16 @@
 extends Node2D
 
+func _ready():
+	for processor in processorBank.values():
+		for process in processor["processesData"].values():
+			for buffer in process["inputBuffers"]:
+				buffer["bufferCurrent"] = 0
+				buffer["bufferPotential"] = 0
+	for holder in holderBank.values():
+		for buffer in holder["internalStorage"]:
+			buffer["bufferCurrent"] = 0
+			buffer["bufferPotential"] = 0
+
 var processorBank = {
 	
 	# PROCESSORS
@@ -162,6 +173,34 @@ var processorBank = {
 		
 		"upgradeData":[
 			
+#			{
+#				"action":"edit",
+#				"type":"modify",
+#				"name":"Plank",
+#				"level":1,
+#				"class":"speed",
+#				"reference":["metaWorkbench","processesData", 0, "processTime"],
+#				"info":0.1,
+#				"upgCost":[
+#					{"resourceName":"Log",	"amountRequired":0}
+#				],
+#				"upgTime":2
+#			},
+#
+#			{
+#				"action":"edit",
+#				"type":"modify",
+#				"name":"Plank",
+#				"level":1,
+#				"class":"output",
+#				"reference":["metaWorkbench","processesData", 0, "outputBuffers"], 
+#				"info":{"resourceName":"Plank",		"bufferCurrent":0,	"bufferMax":3,	"resourceType":"Solid"},
+#				"upgCost":[
+#					{"resourceName":"Log",	"amountRequired":0}
+#				],
+#				"upgTime":2
+#			},
+			
 			{
 				"action":"add",
 				"class":"newProc",
@@ -170,12 +209,13 @@ var processorBank = {
 				"info":{
 					
 					"inputBuffers":[
-						{"resourceName":"Plank",	"bufferCurrent":0,	"bufferMax":1,	"resourceType":"Solid"}
+						{"resourceName":"Plank",	"bufferPotential":0,	"bufferCurrent":0,	"bufferMax":1,	"resourceType":"Solid"}
 					],
 					"processTime":3,
 					"outputBuffers":[
-							{"resourceName":"Gear",		"bufferCurrent":0,	"bufferMax":2,	"resourceType":"Solid"}
-						],
+							{"resourceName":"Gear",	"bufferPotential":0,	"bufferCurrent":0,	"bufferMax":2,	"resourceType":"Solid"}
+						]
+					
 				},
 				"upgCost":[
 					{"resourceName":"Log",	"amountRequired":0}

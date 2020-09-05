@@ -22,13 +22,28 @@ var entitySize = Vector2.ZERO				# (width,height) in pixels
 var entityTileSize = Vector2.ZERO			# (width,height) in number of tiles
 var entityShape = [] 						# 2D array of pointerArray grid positions in shape of entity
 
-var entityInputList = []					# List of objFactoryTile's we're inputting from
-var entityOutputList = []					# List of objFactoryTile's we're outputting to
-var directionInputList = []					# List of directions we're inputting from i.e. ["U","L"]
-var directionOutputList = []				# List of directions we're outputting to i.e. ["D","R"]
-var indexInputList = 0						# Index for the Input Lists
-var indexOutputList = 0						# Index for the Output Lists
+var networkIDs = []							# List of networks we're a part of
+var ioList = []								# List of {tile":ioTile,"dire":"X","self":selfTile}'s
+var ioIndex = {"input":0,"output":0}		# Indexes for the ioPairList
+var adjacentTileList = []					# List of [ioTile,ioDire]'s of adjacent tiles
 var pulsed = false
+var pulseList = []
+
+var dirConv = { Vector2(-1,0):"U", Vector2(0,1):"R", Vector2(1,0):"D", Vector2(0,-1):"L" }
+
+func setAdjacencyTileList():
+	adjacentTileList = []
+	for rowIndex in range(entityShape.size()):
+		for colIndex in range(entityShape[rowIndex].size()):
+			if entityShape[rowIndex][colIndex] == 1: # If this tile is a part of our shape
+				var mainRC = [entityMasterTile["row"]+rowIndex,entityMasterTile["col"]+colIndex]
+				var selfTile = ctrlFactoryFloor.pointerArray[mainRC[0]][mainRC[1]]
+				for dir in dirConv:
+					var adjacentTile = ctrlFactoryFloor.pointerArray[mainRC[0]+dir[0]][mainRC[1]+dir[1]]
+					if adjacentTile.fatherNode != self: # If the adjacent tile is not us
+						# It must be adjacent to us
+						if not(adjacentTile in adjacentTileList): # If we have not already recorded it
+							adjacentTileList.append({"tile":adjacentTile,"vector":dir,"self":selfTile})
 
 func configure_Entity(entityData):
 	
@@ -37,14 +52,32 @@ func configure_Entity(entityData):
 	entitySize = ctrlFactoryFloor.tileSize * entityTileSize
 	Inventory.addEntityRef(self)
 
+func addNetworkID(newID):
+	if not(newID in networkIDs):
+		networkIDs.append(newID)
+
+func removeNetworkID(oldID):
+	networkIDs.erase(oldID)
+
+func removeNetworkRefs():
+	Networks.removeFromNetwork(self,networkIDs.duplicate())
+
+func addIOTile(io):
+	if not(io in ioList):
+		ioList.append(io)
+
+func removeIOTile(io):
+	ioList.erase(io)
+
+func deleteSelf(isNew=false):
+	Inventory.removeEntityRef(self)
+	if not isNew:
+		removeInputOutputRefs()
+		removeNetworkRefs()
+		addShapeToFactory(null)
+	queue_free() # Remove self
+
 func onPressed_Entity(_tile): # Pressed Processes for all entities
-	
-#	print()
-#	print(entityInputList)
-#	print(directionInputList)
-#	print(entityOutputList)
-#	print(directionOutputList)
-#	print(z_index)
 	
 	pass
 
@@ -60,10 +93,6 @@ func onReleased_Entity(_tile): # Pressed Processes for all entities
 			texInfoBar.infoNode = self
 			texInfoBar.functionYet = false
 		texInfoBar.updateInfo()
-	
-	if Globals.drawConnectorMode == "moving":
-		# End the conveyor drawing
-		Globals.drawConnectorMode = "ready"
 
 func addShapeToFactory(father): # Write the father to each fatherNode entry based upon on shapeData
 	# Update entityShape with the new pointerArray positions  AND  update pointerArray with entityShape areas
@@ -71,7 +100,9 @@ func addShapeToFactory(father): # Write the father to each fatherNode entry base
 		for col in range( entityShape[row].size() ): # For every column in that row
 			if entityShape[row][col] != 0: # If our shape is there
 				# Add our pointer to every tile we occupy in pointerArray
-				ctrlFactoryFloor.pointerArray[entityMasterTile["row"]+row][entityMasterTile["col"]+col].fatherNode = father
+				ctrlFactoryFloor.pointerArray[entityMasterTile["row"]+row][entityMasterTile["col"]+col].setFatherNode(father)
+	
+	setAdjacencyTileList()
 	
 	# Set appropriate z-value
 	if entityType == "Structure":
@@ -79,78 +110,33 @@ func addShapeToFactory(father): # Write the father to each fatherNode entry base
 	elif entityType == "Connector":
 		z_index = 1
 
-func deleteSelf(isNew=false):
-	Inventory.removeEntityRef(self)
-	if not isNew:
-		removeInputOutputRefs()
-		addShapeToFactory(null)
-	queue_free() # Remove self
-
 func removeInputOutputRefs():
 	
-	for inputTile in entityInputList: # For each objFactoryTile in our entityInputList
-		if inputTile.fatherNode != null:
-			var target_entityOutputList = inputTile.fatherNode.entityOutputList
-			var target_directionOutputList = inputTile.fatherNode.directionOutputList
-			var outputIndex = 0
-			while outputIndex < target_entityOutputList.size(): # For each output in the fatherNode
-				if target_entityOutputList[outputIndex].fatherNode == self:
-					target_entityOutputList.remove(outputIndex)
-					target_directionOutputList.remove(outputIndex)
-					inputTile.fatherNode.updateUI()
-				outputIndex += 1
+	for io in ioList: # For each objFactoryTile in our ioTileList
+		if io["tile"].fatherNode != null: # If this is the tile of an entity
+			var target_ioList = io["tile"].fatherNode.ioList
+			for target_io in target_ioList: # For each output in the fatherNode
+				if target_io["tile"].fatherNode == self:
+					target_ioList.erase(target_io) # Remove ourself from their ioList
+					target_io["tile"].fatherNode.updateUI() # Update ourselves
+		io["tile"].fatherNode.updateUI() # Update them
 	
-	for outputTile in entityOutputList:
-		if outputTile.fatherNode != null:
-			var target_entityInputList = outputTile.fatherNode.entityInputList
-			var target_directionInputList = outputTile.fatherNode.directionInputList
-			var inputIndex = 0
-			while inputIndex < target_entityInputList.size():
-				if target_entityInputList[inputIndex].fatherNode == self:
-					target_entityInputList.remove(inputIndex)
-					target_directionInputList.remove(inputIndex)
-					outputTile.fatherNode.updateUI()
-				inputIndex += 1
-	
-	entityInputList = []					# List of objFactoryTile's we're inputting from
-	entityOutputList = []					# List of objFactoryTile's we're outputting to
-	directionInputList = []					# List of directions we're inputting from i.e. ["U","L"]
-	directionOutputList = []				# List of directions we're outputting to i.e. ["D","R"]
-	indexInputList = 0						# Index for the Input Lists
-	indexOutputList = 0						# Index for the Output Lists
+	ioList = []
+	ioIndex = {"input":0,"output":0}
 
-func addInput(entityInput,directionInput):
-	if directionInput == "" or entityInput.fatherNode == self:
-		return
-	if not(entityInput in entityInputList+entityOutputList):
-		directionInputList.append(directionInput)
-		entityInputList.append(entityInput)
-
-func addOutput(entityOutput,directionOutput):
-	if directionOutput == "" or entityOutput.fatherNode == self:
-		return
-	if not(entityOutput in entityInputList+entityOutputList):
-		directionOutputList.append(directionOutput)
-		entityOutputList.append(entityOutput)
-
-func sendPulse(pulseList):
+func sendPulse(entityList):
 	
-	if pulsed == true:
-		return pulseList
+	if pulsed == false:
+		pulsed = true
+		entityList.append(self)
+		if entityType == "Connector":
+			for io in ioList:
+				if io["tile"].fatherNode.pulsed == false:
+					io["tile"].fatherNode.sendPulse(entityList)
+		elif entityType == "Structure":
+			pulsed = false
 	
-	pulsed = true
-	
-	if entityType == "Structure" and not(self in pulseList):
-		pulseList.append(self)
-		print("found ",self.name)
-		pulsed = false
-	else:
-		for inputTile in entityInputList:
-			pulseList = inputTile.fatherNode.sendPulse(pulseList)
-	
-	pulsed = false
-	
-	return pulseList
+	return entityList
 
 
 

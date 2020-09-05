@@ -11,7 +11,9 @@ func _process(_delta):
 	
 	for internalBuffer in internalStorage:
 		if internalBuffer["bufferCurrent"] > 0:
-			outputResource(internalBuffer["resourceName"],internalBuffer["resourceType"])
+			outputResource(internalBuffer)
+	
+	pass
 
 func configure(holderData): # Called when we want to initialise the internal structure
 	
@@ -24,11 +26,15 @@ func updateUI(): # Called when we want to update the display nodes for the user
 	# Update the structure image
 	$sprStructure.texture = load(imageDirectory+"/img_"+entityName.to_lower()+".png")
 
-func inputResource(resName,resType):
-	return inputResource_Structure(resName,resType,internalStorage)
+func getInputBuffers():
+	return internalStorage
 
-func outputResource(resName,resType):
-	return outputResource_Structure(resName,resType,internalStorage)
+func getOutputBuffers():
+	return internalStorage
+
+#func inputResource(resName,resType):
+#	return inputResource_Structure(resName,resType,internalStorage)
+#
 
 func isStorageEmpty():
 	for storage in internalStorage[0]:
