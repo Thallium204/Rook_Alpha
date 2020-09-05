@@ -208,13 +208,21 @@ var processorBank = {
 				"ref":["processData"],
 				"info":{
 					
+					#"inputBuffers":[
+					#	{"resourceName":"Plank",	"bufferPotential":0,	"bufferCurrent":0,	"bufferMax":1,	"resourceType":"Solid"}
+					#],
+					#"processTime":3,
+					#"outputBuffers":[
+					#		{"resourceName":"Gear",	"bufferPotential":0,	"bufferCurrent":0,	"bufferMax":2,	"resourceType":"Solid"}
+					#	]
+
 					"inputBuffers":[
-						{"resourceName":"Plank",	"bufferPotential":0,	"bufferCurrent":0,	"bufferMax":1,	"resourceType":"Solid"}
+						{"resourceName":"Plank",		"bufferCurrent":0,	"bufferMax":1,	"resourceType":"Solid"}
 					],
 					"processTime":3,
 					"outputBuffers":[
-							{"resourceName":"Gear",	"bufferPotential":0,	"bufferCurrent":0,	"bufferMax":2,	"resourceType":"Solid"}
-						]
+							{"resourceName":"Gear",	"bufferCurrent":0,	"bufferMax":2,	"resourceType":"Solid"}
+						],
 					
 				},
 				"upgCost":[
