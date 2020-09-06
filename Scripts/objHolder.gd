@@ -10,7 +10,7 @@ func _ready():
 func _process(_delta):
 	
 	for internalBuffer in internalStorage:
-		if internalBuffer["bufferCurrent"] > 0:
+		if internalBuffer["current"] > 0:
 			outputResource(internalBuffer)
 	
 	pass

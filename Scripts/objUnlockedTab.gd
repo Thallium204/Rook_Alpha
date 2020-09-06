@@ -26,14 +26,18 @@ func configure(input_entityName,input_processName,input_upgradeData):
 		upgradeData[upgID]["acquired"] = false
 		upgradeData[upgID]["ID"] = upgID
 		match upgradeData[upgID]["reference"][-1]:
-			"processTime": 
-				upgradeData[upgID]["tooltip"] = "Decrease process time by " + str(upgradeData[upgID]["info"])
-			"bufferMax": 
-				upgradeData[upgID]["tooltip"] = "Increase yield by " + str(-1*upgradeData[upgID]["info"])
-			"inputBuffers": 
+			"processTime":
+				upgradeData[upgID]["tooltip"] = "Decrease process time by " + str(-1*upgradeData[upgID]["info"])
+			"yield":
+				upgradeData[upgID]["tooltip"] = "Increase yield by " + str(upgradeData[upgID]["info"])
+			"cost":
+				upgradeData[upgID]["tooltip"] = "Decrease cost by " + str(-1*upgradeData[upgID]["info"])
+			"inputBuffers":
 				upgradeData[upgID]["tooltip"] = "Add " + str(processName) + " to input buffer"
-			"outputBuffers": 
+			"outputBuffers":
 				upgradeData[upgID]["tooltip"] = "Add " + str(processName) + " to output buffer"
+			_:
+				upgradeData[upgID]["tooltip"] = ""
 	
 	for upgID in upgradeData:
 		for prereq in upgradeData[upgID]["prerequisites"]:

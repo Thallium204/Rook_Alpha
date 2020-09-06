@@ -14,6 +14,8 @@ onready var imageDirectory = "res://Assets/FactoryEntity"
 
 var objConfirmMenu = preload("res://Scenes/FactoryScene/objConfirmMenu.tscn")
 
+var rng = RandomNumberGenerator.new()
+
 var entityName = ""							# i.e. "Quarry"
 var entityType = ""							# "Structure" | "Connector"
 var entityClass = ""						# "Processor" | "Conveyor" | etc...
@@ -30,6 +32,9 @@ var pulsed = false
 var pulseList = []
 
 var dirConv = { Vector2(-1,0):"U", Vector2(0,1):"R", Vector2(1,0):"D", Vector2(0,-1):"L" }
+
+func _ready():
+	rng.randomize()
 
 func setAdjacencyTileList():
 	adjacentTileList = []

@@ -1,15 +1,42 @@
 extends Node2D
 
 func _ready():
+	
+	# Init processorBank
 	for processor in processorBank.values():
 		for process in processor["processesData"].values():
-			for buffer in process["inputBuffers"]:
-				buffer["bufferCurrent"] = 0
-				buffer["bufferPotential"] = 0
+			configureProcess(process)
+	
+	# Init holderBank
 	for holder in holderBank.values():
 		for buffer in holder["internalStorage"]:
-			buffer["bufferCurrent"] = 0
-			buffer["bufferPotential"] = 0
+			configureInternalBuffer(buffer)
+
+func configureProcess(process):
+	for buffer in process["inputBuffers"]:
+		configureInputBuffer(buffer)
+	for buffer in process["outputBuffers"]:
+		configureOutputBuffer(buffer)
+	return process
+
+func configureInputBuffer(buffer):
+	buffer["current"] = 0
+	buffer["potential"] = 0
+	buffer["max"] = ceil(buffer["cost"])
+	buffer["type"] = resourceBank[buffer["name"]]["type"]
+	return buffer
+
+func configureOutputBuffer(buffer):
+	buffer["current"] = 0
+	buffer["max"] = ceil(buffer["yield"])
+	buffer["type"] = resourceBank[buffer["name"]]["type"]
+	return buffer
+
+func configureInternalBuffer(buffer):
+	buffer["name"] = ""
+	buffer["current"] = 0
+	buffer["potential"] = 0
+	return buffer
 
 var processorBank = {
 	
@@ -20,11 +47,11 @@ var processorBank = {
 			"Tree",
 		
 		"processesData":{
-			"Log":{
+			"log":{
 				"inputBuffers":[],
 				"processTime":3,
 				"outputBuffers":[
-					{"resourceName":"Log",		"bufferCurrent":0,	"bufferMax":1,	"resourceType":"Solid"}
+					{"name":"log",		"yield":1}
 				]
 			},
 		}, 
@@ -41,11 +68,11 @@ var processorBank = {
 			"Quarry", 
 		
 		"processesData":{ 	
-			"Cobble":{
+			"cobble":{
 				"inputBuffers":[],
 				"processTime":2,	
 				"outputBuffers":[
-					{"resourceName":"Cobble",	"bufferCurrent":0,	"bufferMax":1,	"resourceType":"Solid"}
+					{"name":"cobble",	"yield":1}
 				]
 			},
 		}, 
@@ -62,11 +89,11 @@ var processorBank = {
 			"River",
 		
 		"processesData":{
-			"Clay":{
+			"clay":{
 				"inputBuffers":[],
 				"processTime":5,
 				"outputBuffers":[
-					{"resourceName":"Clay",		"bufferCurrent":0,	"bufferMax":3,	"resourceType":"Solid"}
+					{"name":"clay",		"yield":3}
 				]
 			},
 		}, 
@@ -83,11 +110,11 @@ var processorBank = {
 			"Plant",
 		
 		"processesData":{
-			"Hemp":{
+			"hemp":{
 				"inputBuffers":[],
 				"processTime":3,
 				"outputBuffers":[
-					{"resourceName":"Hemp",		"bufferCurrent":0,	"bufferMax":1,	"resourceType":"Solid"}
+					{"name":"hemp",		"yield":1}
 				]
 			},
 		},
@@ -103,14 +130,14 @@ var processorBank = {
 			"Furnace",
 		
 		"processesData":{
-			"Brick":{
+			"brick":{
 				"inputBuffers":[
-					{"resourceName":"Clay",		"bufferCurrent":0,	"bufferMax":1,	"resourceType":"Solid"},
-					{"resourceName":"Plank",	"bufferCurrent":0,	"bufferMax":1,	"resourceType":"Solid"}
+					{"name":"clay",		"cost":1},
+					{"name":"plank",	"cost":1}
 				],
 				"processTime":4,
 				"outputBuffers":[
-					{"resourceName":"Brick",	"bufferCurrent":0,	"bufferMax":1,	"resourceType":"Solid"}
+					{"name":"brick",	"yield":1}
 				]
 			},
 		},
@@ -118,7 +145,7 @@ var processorBank = {
 		"upgradeData":[],
 		
 		"costData":[
-			{"resourceName":"Cobble",	"amountRequired":8}
+			{"name":"cobble",	"cost":8}
 		],
 		
 		"craftTime":
@@ -134,13 +161,13 @@ var processorBank = {
 			"PotteryTable",
 		
 		"processesData":{
-			"Ceramic":{
+			"ceramic":{
 				"inputBuffers":[
-					{"resourceName":"Clay",		"bufferCurrent":0,	"bufferMax":1,	"resourceType":"Solid"}
+					{"name":"clay",		"cost":1}
 				],
 				"processTime":4,
 				"outputBuffers":[
-					{"resourceName":"Ceramic",	"bufferCurrent":0,	"bufferMax":1,	"resourceType":"Solid"}
+					{"name":"ceramic",	"yield":1}
 				]
 			},
 		},
@@ -148,9 +175,9 @@ var processorBank = {
 		"upgradeData":[],
 		
 		"costData":[
-			{"resourceName":"Log",	"amountRequired":4},
-			{"resourceName":"Cobble",	"amountRequired":4},
-			{"resourceName":"Gear",	"amountRequired":16}
+			{"name":"log",	"cost":4},
+			{"name":"cobble",	"cost":4},
+			{"name":"gear",	"cost":16}
 		],
 		
 		"craftTime":
@@ -165,13 +192,13 @@ var processorBank = {
 			"Workbench",
 		
 		"processesData":{
-			"Plank":{
+			"plank":{
 				"inputBuffers":[
-					{"resourceName":"Log",		"bufferCurrent":0,	"bufferMax":1,	"resourceType":"Solid"}
+					{"name":"log",		"cost":1}
 				],
 				"processTime":3,
 				"outputBuffers":[
-					{"resourceName":"Plank",	"bufferCurrent":0,	"bufferMax":2,	"resourceType":"Solid"}
+					{"name":"plank",	"yield":2}
 				],
 				
 			},
@@ -180,23 +207,23 @@ var processorBank = {
 		"upgradeData":[],
 		
 		"costData":[
-			{"resourceName":"Log",	"amountRequired":4},
-			{"resourceName":"Hemp",	"amountRequired":3}
+			{"name":"log",	"cost":4},
+			{"name":"hemp",	"cost":3}
 		],
 		
 		"lockedProcesses":{
 			
-			"Gear":{
+			"gear":{
 				"inputBuffers":[
-					{"resourceName":"Plank",	"bufferPotential":0,	"bufferCurrent":0,	"bufferMax":1,	"resourceType":"Solid"}
+					{"name":"plank",	"cost":1}
 				],
 				"processTime":3,
 				"outputBuffers":[
-					{"resourceName":"Gear",	"bufferPotential":0,    "bufferCurrent":0,	"bufferMax":2,	"resourceType":"Solid"}
+					{"name":"gear",		"yield":2}
 				],
 				
 				"upgCost":[
-					{"resourceName":"Log",	"amountRequired":0}
+					{"name":"log",	"cost":0}
 				],
 				"upgTime":4
 			}
@@ -215,23 +242,23 @@ var processorBank = {
 			"Kiln",
 		
 		"processesData":{
-			"IronClump":{
+			"ironclump":{
 				"inputBuffers":[
-					{"resourceName":"Ironore",	"bufferCurrent":0,	"bufferMax":1,	"resourceType":"Solid"},
-					{"resourceName":"Coal",		"bufferCurrent":0,	"bufferMax":1,	"resourceType":"Solid"},
+					{"name":"ironore",		"cost":1},
+					{"name":"coal",			"cost":1},
 				],
 				"processTime":8,
 				"outputBuffers":[
-					{"resourceName":"Ironclump","bufferCurrent":0,	"bufferMax":1,	"resourceType":"Solid"}
+					{"name":"ironclump",	"yield":1}
 				]
 			},
-			"Brick":{
+			"brick":{
 				"inputBuffers":[
-					{"resourceName":"Clay",		"bufferCurrent":0,	"bufferMax":1,	"resourceType":"Solid"}
+					{"name":"clay",			"cost":1}
 				],
 				"processTime":4,
 				"outputBuffers":[
-					{"resourceName":"Brick",	"bufferCurrent":0,	"bufferMax":1,	"resourceType":"Solid"}
+					{"name":"brick",		"yield":1}
 				]
 			}
 		}, 
@@ -239,10 +266,10 @@ var processorBank = {
 		"upgradeData":[],
 		
 		"costData":[
-			{"resourceName":"Clay",	"amountRequired":12},
-			{"resourceName":"Cobble",	"amountRequired":16},
-			{"resourceName":"Hemp",	"amountRequired":4},
-			{"resourceName":"Ceramic",	"amountRequired":16}
+			{"name":"clay",	"cost":12},
+			{"name":"cobble",	"cost":16},
+			{"name":"hemp",	"cost":4},
+			{"name":"ceramic",	"cost":16}
 		],
 		
 		"craftTime":
@@ -257,13 +284,13 @@ var processorBank = {
 			"Smeltery",
 		
 		"processesData":{
-			"Ironingot":{
+			"ironingot":{
 				"inputBuffers":[
-					{"resourceName":"Ironclump","bufferCurrent":0,	"bufferMax":1,	"resourceType":"Solid"}
+					{"name":"ironclump",	"cost":1}
 				],
 				"processTime":8,
 				"outputBuffers":[
-					{"resourceName":"Ironingot","bufferCurrent":0,	"bufferMax":1,	"resourceType":"Solid"}
+					{"name":"ironingot",	"yield":1}
 				]
 			},
 		}, 
@@ -271,9 +298,9 @@ var processorBank = {
 		"upgradeData":[],
 		
 		"costData":[
-			{"resourceName":"Brick",	"amountRequired":32},
-			{"resourceName":"Clay",	"amountRequired":32},
-			{"resourceName":"Cobble",	"amountRequired":32}
+			{"name":"brick",	"cost":32},
+			{"name":"clay",	"cost":32},
+			{"name":"cobble",	"cost":32}
 		],
 		
 		"craftTime":
@@ -289,12 +316,12 @@ var processorBank = {
 			"Mineshaft",
 		
 		"processesData":{
-			"IronOre":{
+			"ironore":{
 				"inputBuffers":[],
 				"processTime":8,
 				"outputBuffers":[
-					{"resourceName":"Ironore","bufferCurrent":0,	"bufferMax":1,	"resourceType":"Solid"},
-					{"resourceName":"Coal","bufferCurrent":0,	"bufferMax":1,	"resourceType":"Solid"},
+					{"name":"ironore",	"yield":1},
+					{"name":"coal",		"yield":1},
 				]
 			},
 		}, 
@@ -321,7 +348,7 @@ var holderBank = {
 			"Hole",
 		
 		"internalStorage":[
-			{"resourceName":"",			"bufferCurrent":0,	"bufferMax":16,	"resourceType":"Solid"}
+			{"max":16,	"type":"solid"}
 		],
 		
 		"upgradeData":[],
@@ -335,7 +362,7 @@ var holderBank = {
 			"Hole2",
 		
 		"internalStorage":[
-			{"resourceName":"",			"bufferCurrent":0,	"bufferMax":64,	"resourceType":"Solid"}
+			{"max":64,	"type":"solid"}
 		],
 		
 		"upgradeData":[],
@@ -428,209 +455,178 @@ var cableBank = {
 			"Standard"}
 }
 
-var resourceBank = [
+var resourceBank = {
 	
-	["Log",			"Solid"],
+	"log":		{"type":"solid"},
+	"cobble":	{"type":"solid"},
+	"clay":		{"type":"solid"},
+	"plank":	{"type":"solid"},
+	"brick":	{"type":"solid"},
+	"hemp":		{"type":"solid"},
+	"ceramic":	{"type":"solid"},
+	"gear":		{"type":"solid"},
+	"coal":		{"type":"solid"},
+	"ironore":	{"type":"solid"},
+	"ironclump":{"type":"solid"},
+	"ironingot":{"type":"solid"},
 	
-	["Cobble",		"Solid"],
+	"water":	{"type":"fluid"},
 	
-	["Clay",		"Solid"],
+	"power":	{"type":"power"}
 	
-	["Plank",		"Solid"],
-	
-	["Brick",		"Solid"],
-	
-	["Hemp",		"Solid"],
-	
-	["Ceramic",		"Solid"],
-	
-	["Gear",		"Solid"],
-	
-	["Ironore",		"Solid"],
-	
-	["Ironclump",	"Solid"],
-	
-	["Coal",		"Solid"],
-	
-	["Water",		"Fluid"],
-	
-	["Power",		"Power"],
-	
-	["Clay",		"Solid"],
-	
-	["Ironore",		"Solid"],
-	
-	["Ironclump",	"Solid"],
-	
-	["Ironingot",	"Solid"]
-	
-	]
+	}
 
 
 var upgradesBank = {
 	
 	"Workbench":
 		{
-			"Plank":
+			"plank":
 				{
 					1:{
 						"column":1,
 						"row":1,
 						"prerequisites":[],
-						"reference":["Plank", "processTime"],
+						"reference":["plank", "processTime"],
 						"info":-0.5,
-						"tooltip":"decreases process time by 0.5s",
 						"cost":[
-							{"resourceName":"Plank",	"amountRequired":0},
-							{"resourceName":"Gear",	"amountRequired":0},
-							{"resourceName":"Cobble",	"amountRequired":0}
+							{"name":"plank",	"cost":0},
+							{"name":"gear",	"cost":0},
+							{"name":"cobble",	"cost":0}
 						]
 					},
 					2:{
 						"column":1,
 						"row":2,
 						"prerequisites":[],
-						"reference":["Plank", "outputBuffers", 0, "bufferMax"],
-						"info":1,
-						"tooltip":"increases yield by 1",
+						"reference":["plank", "outputBuffers", 0, "yield"],
+						"info":0.5,
 						"cost":[
-							{"resourceName":"Plank",	"amountRequired":0}
+							{"name":"plank",	"cost":0}
 						]
 					},
 					3:{
 						"column":2,
 						"row":1,
 						"prerequisites":[1],
-						"reference":["Plank", "processTime"],
+						"reference":["plank", "processTime"],
 						"info":-0.5,
-						"tooltip":"decreases process time by 0.5s",
 						"cost":[
-							{"resourceName":"Plank",	"amountRequired":0}
+							{"name":"plank",	"cost":0}
 						]
 					},
 					4:{
 						"column":2,
 						"row":2,
 						"prerequisites":[1,2],
-						"reference":["Plank", "outputBuffers", 0, "bufferMax"],
-						"info":1,
-						"tooltip":"increases yield by 1",
+						"reference":["plank", "inputBuffers", 0, "cost"],
+						"info":-0.5,
 						"cost":[
-							{"resourceName":"Plank",	"amountRequired":0}
+							{"name":"plank",	"cost":0}
 						]
 					},
 					5:{
 						"column":3,
 						"row":1,
 						"prerequisites":[3],
-						"reference":["Plank", "processTime"],
+						"reference":["plank", "processTime"],
 						"info":-0.5,
-						"tooltip":"decreases process time by 0.5s",
 						"cost":[
-							{"resourceName":"Plank",	"amountRequired":0}
+							{"name":"plank",	"cost":0}
 						]
 					},
 					6:{
 						"column":3,
 						"row":2,
 						"prerequisites":[4],
-						"reference":["Plank", "outputBuffers", 0, "bufferMax"],
+						"reference":["plank", "outputBuffers", 0, "yield"],
 						"info":1,
-						"tooltip":"increases yield by 1",
 						"cost":[
-							{"resourceName":"Plank",	"amountRequired":0}
+							{"name":"plank",	"cost":0}
 						]
 					},
 					7:{
 						"column":4,
 						"row":1,
 						"prerequisites":[5,6],
-						"reference":["Plank", "processTime"],
+						"reference":["plank", "processTime"],
 						"info":-0.5,
-						"tooltip":"decreases process time by 0.5s",
 						"cost":[
-							{"resourceName":"Plank",	"amountRequired":0}
+							{"name":"plank",	"cost":0}
 						]
 					}
 				},
 
-				"Gear":
+				"gear":
 				{
 					1:{
 						"column":1,
 						"row":1,
 						"prerequisites":[],
-						"reference":["Gear", "processTime"],
+						"reference":["gear", "processTime"],
 						"info":-0.5,
-						"tooltip":"decreases process time by 0.5s",
 						"cost":[
-							{"resourceName":"Gear",	"amountRequired":1}
+							{"name":"gear",	"cost":1}
 						]
 					},
 					2:{
 						"column":2,
 						"row":1,
 						"prerequisites":[1],
-						"reference":["Gear", "outputBuffers", 0, "bufferMax"],
+						"reference":["gear", "outputBuffers", 0, "yield"],
 						"info":1,
-						"tooltip":"increases yield by 1",
 						"cost":[
-							{"resourceName":"Gear",	"amountRequired":2}
+							{"name":"gear",	"cost":2}
 						]
 					},
 					3:{
 						"column":2,
 						"row":2,
 						"prerequisites":[],
-						"reference":["Gear", "processTime"],
+						"reference":["gear", "processTime"],
 						"info":-0.5,
-						"tooltip":"decreases process time by 0.5s",
 						"cost":[
-							{"resourceName":"Gear",	"amountRequired":3}
+							{"name":"gear",	"cost":3}
 						]
 					},
 					4:{
 						"column":2,
 						"row":3,
 						"prerequisites":[1],
-						"reference":["Gear", "outputBuffers", 0, "bufferMax"],
+						"reference":["gear", "outputBuffers", 0, "yield"],
 						"info":1,
-						"tooltip":"increases yield by 1",
 						"cost":[
-							{"resourceName":"Gear",	"amountRequired":4}
+							{"name":"gear",	"cost":4}
 						]
 					},
 					5:{
 						"column":3,
 						"row":1,
 						"prerequisites":[2,3],
-						"reference":["Gear", "processTime"],
+						"reference":["gear", "processTime"],
 						"info":-0.5,
-						"tooltip":"decreases process time by 0.5s",
 						"cost":[
-							{"resourceName":"Gear",	"amountRequired":5}
+							{"name":"gear",	"cost":5}
 						]
 					},
 					6:{
 						"column":3,
 						"row":2,
 						"prerequisites":[4],
-						"reference":["Gear", "outputBuffers", 0, "bufferMax"],
+						"reference":["gear", "outputBuffers", 0, "yield"],
 						"info":1,
-						"tooltip":"increases yield by 1",
 						"cost":[
-							{"resourceName":"Gear",	"amountRequired":6}
+							{"name":"gear",	"cost":6}
 						]
 					},
 					7:{
 						"column":4,
 						"row":1,
 						"prerequisites":[5,6],
-						"reference":["Gear", "processTime"],
+						"reference":["gear", "processTime"],
 						"info":-0.5,
-						"tooltip":"decreases process time by 0.5s",
 						"cost":[
-							{"resourceName":"Gear",	"amountRequired":7}
+							{"name":"gear",	"cost":7}
 						]
 					}
 				}
