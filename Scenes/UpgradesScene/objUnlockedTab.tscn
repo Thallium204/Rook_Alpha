@@ -1,8 +1,8 @@
 [gd_scene load_steps=2 format=2]
 
-[ext_resource path="res://Scripts/objUpgradesTab.gd" type="Script" id=1]
+[ext_resource path="res://Scripts/objUnlockedTab.gd" type="Script" id=1]
 
-[node name="Tabs" type="Tabs"]
+[node name="objLockedTab" type="Tabs"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_right = -160.0

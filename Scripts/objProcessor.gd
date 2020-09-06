@@ -5,7 +5,7 @@ onready var prgProcess = $prgProcess
 onready var sprStructure = $sprStructure
 
 # Variables unique to Buildings
-var processData = []
+var processesData = []
 var processNames = []
 var processIndex = 0
 var timer_processTime = 0.0 # Current timer
@@ -23,17 +23,55 @@ func _ready():
 
 func configure(processorData): # Called when we want to initialise the internal structure
 	
-	processData = processorData["processesData"]
-	for name in processData:
+	processesData = processorData["processesData"]
+	for name in processesData:
 		processNames.append(name)
-	updateTimer()
+	
+	for upgradeInfo in processorData["upgradeData"]:
+		upgrade(upgradeInfo)
+	
+	updateTimers()
 	
 	configure_Structure(processorData)
 	
 	prgProcess.rect_scale = entitySize/64 # Scale the progress bar
 
-func updateTimer():
-	timeProcess.wait_time = processData[processNames[processIndex]]["processTime"]
+func upgrade(upgInfo):
+	
+	if upgInfo.has("outputBuffers"):
+		#print("done")
+		processesData[upgInfo["outputBuffers"][0]["resourceName"]] = (upgInfo)
+		processNames.append(upgInfo["outputBuffers"][0]["resourceName"])
+		return
+	
+	var refs = upgInfo["reference"]
+	var info = upgInfo["info"]
+	
+	if refs[0] == "name": # If it's editing name
+		entityName = info
+	
+	else: # If it's editing processesData
+		#print(processesData)
+		# Adding input/output buffer
+		if refs[-1] == "inputBuffers" or refs[-1] == "outputBuffers":
+			processesData[refs[0]][refs[1]].append(info)
+		
+		# Modifying processTime
+		elif refs[-1] == "processTime":
+			processesData[refs[0]][refs[1]] += info
+			updateTimers()
+		
+		# Anything else
+		else: 
+			processesData[refs[0]][refs[1]][refs[2]][refs[3]] += info
+	
+
+func updateTimers():
+	for process in processesData.values():
+		timeProcess.stop()
+		timeProcess.wait_time = process["processTime"]
+		if isProcessing:
+			timeProcess.start()
 
 func updateUI(): # Called when we want to update the display nodes for the user
 	
@@ -43,13 +81,13 @@ func updateUI(): # Called when we want to update the display nodes for the user
 	sprStructure.position[1] = -sprStructure.frames.get_frame("idle",0).get_size()[1] + entitySize[1]
 
 #func inputResource(resName,resType):
-#	return inputResource_Structure(resName,resType,processData[processIndex]["inputBuffers"])
+#	return inputResource_Structure(resName,resType,processesData[processIndex]["inputBuffers"])
 
 func getInputBuffers():
-	return processData[processNames[processIndex]]["inputBuffers"]
+	return processesData[processNames[processIndex]]["inputBuffers"]
 
 func getOutputBuffers():
-	return processData[processNames[processIndex]]["outputBuffers"]
+	return processesData[processNames[processIndex]]["outputBuffers"]
 
 func _process(_delta):
 	
@@ -58,13 +96,13 @@ func _process(_delta):
 #		$netIDs.text += str(ID)
 	
 	if isProcessing:
-		progPerc = (timeProcess.wait_time-timeProcess.time_left)/float(processData[processNames[processIndex]]["processTime"])
+		progPerc = (timeProcess.wait_time-timeProcess.time_left)/float(processesData[processNames[processIndex]]["processTime"])
 		get_node("prgProcess").value = stepify(100*progPerc,0.1)
 	
 	if Globals.autoCraft == true and get_parent():
 		tryToProcess()
 	
-	for outputBuffer in processData[processNames[processIndex]]["outputBuffers"]:
+	for outputBuffer in processesData[processNames[processIndex]]["outputBuffers"]:
 		if outputBuffer["bufferCurrent"] > 0:
 			outputResource(outputBuffer)
 
@@ -76,7 +114,7 @@ func tryToProcess():
 	if haveEnoughResources() == true: # If we have the resources needed to process
 		if haveEnoughStorage() == true:
 			# Deduct resource costs
-			for inputBuffer in processData[processNames[processIndex]]["inputBuffers"]:
+			for inputBuffer in processesData[processNames[processIndex]]["inputBuffers"]:
 				inputBuffer["bufferCurrent"] -= inputBuffer["bufferMax"]
 				inputBuffer["bufferPotential"] = inputBuffer["bufferCurrent"]
 			# Commense Processing
@@ -87,13 +125,13 @@ func tryToProcess():
 #		sendRequest(generateRequest("process"))
 
 func haveEnoughResources():
-	for inputBuffer in processData[processNames[processIndex]]["inputBuffers"]:
+	for inputBuffer in processesData[processNames[processIndex]]["inputBuffers"]:
 		if inputBuffer["bufferCurrent"] < inputBuffer["bufferMax"]:
 			return false
 	return true
 
 func haveEnoughStorage():
-	for outputBuffer in processData[processNames[processIndex]]["outputBuffers"]:
+	for outputBuffer in processesData[processNames[processIndex]]["outputBuffers"]:
 		if outputBuffer["bufferCurrent"] > 0:
 			return false
 	return true
@@ -123,7 +161,7 @@ func onReleased(tile): # Released Processes for all Processors
 					texInfoBar.functionYet = true
 
 func _on_timeProcess_timeout():
-	for outputBuffer in processData[processNames[processIndex]]["outputBuffers"]:
+	for outputBuffer in processesData[processNames[processIndex]]["outputBuffers"]:
 		outputBuffer["bufferCurrent"] += outputBuffer["bufferMax"] # Gain resources
 	isProcessing = false
 	sprStructure.animation = "idle"

@@ -13,8 +13,6 @@ func configure(input_data):
 	
 	$VBoxContainer/HBoxContainer/Label.text = data["tooltip"]
 
-
 func _on_btnUpg_pressed():
 	get_parent().call("purchasedUpgrade")
 	queue_free()
-	pass # Replace with function body.

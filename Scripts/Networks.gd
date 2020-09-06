@@ -78,7 +78,7 @@ func updatePaths(netIDs):
 	
 	for netID in netIDs:
 		
-		print("\n\nNew Paths")
+		#print("\n\nNew Paths")
 		networkArray[netID]["Paths"] = {}
 		
 		for structure in networkArray[netID]["Structure"]: # For every structure
@@ -104,9 +104,9 @@ func updatePaths(netIDs):
 			
 			networkArray[netID]["Paths"][structure] = {}
 			for target_structure in networkArray[netID]["Structure"]:
-				print("\nFrom: ",structure.entityName," | To: ",target_structure.entityName)
-				for tile in target_structure.pulseList:
-					print(tile.fatherNode.name," | ",tile.name)
+#				print("\nFrom: ",structure.entityName," | To: ",target_structure.entityName)
+#				for tile in target_structure.pulseList:
+#					print(tile.fatherNode.name," | ",tile.name)
 				networkArray[netID]["Paths"][structure][target_structure] = target_structure.pulseList.duplicate()
 
 

@@ -14,12 +14,6 @@ func _on_node_pressed():
 	upgPopup.configure(data)
 	add_child(upgPopup)
 	upgPopup.popup_centered()
-	
-	
-	
-	
-	
-
 
 func purchasedUpgrade():
 	
@@ -27,13 +21,12 @@ func purchasedUpgrade():
 		return
 	
 	if data.has("cost"):
-		if Inventory.spendResources(data["cost"]) == true:
-			var flag = true
-			for prereq in data["prerequisites"]:
-				if Tab.nodes[prereq-1].data["acquired"] == false:
-					print(prereq-1)
-					flag = false
-			if flag == true:
+		var canUpgrade = true
+		for prereq in data["prerequisites"]:
+			if Tab.nodes[prereq-1].data["acquired"] == false:
+				canUpgrade = false
+		if canUpgrade == true:
+			if Inventory.spendResources(data["cost"]) == true:
 				texture_normal = load("res://Assets/icon_done.png")
 				data["acquired"] = true
 				Tab.applyUpgrade(data["ID"])

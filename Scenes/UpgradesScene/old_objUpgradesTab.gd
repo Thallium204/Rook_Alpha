@@ -53,7 +53,7 @@ func _process(delta):
 				upgPath = upgPath[index]
 			MetaData.processorBank[levelsSpeedRef[current_speedLevel-1][0]] [levelsSpeedRef[current_speedLevel-1][1]] [levelsSpeedRef[current_speedLevel-1][2]] [levelsSpeedRef[current_speedLevel-1][3]] = levelsSpeed[current_speedLevel-1]
 			#upgPath = levelsSpeed[current_speedLevel-1]
-			print (MetaData.processorBank[entityData["reference"][0]][entityData["reference"][1]][entityData["reference"][2]])
+			#print(MetaData.processorBank[entityData["reference"][0]][entityData["reference"][1]][entityData["reference"][2]])
 			#upgPath = levelsSpeed[current_speedLevel-1]
 			
 			pass

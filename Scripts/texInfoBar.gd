@@ -8,7 +8,7 @@ func _process(_delta):
 	updateInfo()
 
 func updateProcessorInfo():
-	var currentProcess = infoNode.processData[infoNode.processNames[infoNode.processIndex]] # Get the processData for the current
+	var currentProcess = infoNode.processesData[infoNode.processNames[infoNode.processIndex]] # Get the processesData for the current
 	
 	# Colour modulate the process change buttons
 	if infoNode.processIndex < infoNode.processNames.size()-1:
@@ -65,7 +65,7 @@ func updateProcessorInfo():
 	$infoProcessor/texStructure.texture = load(infoNode.imageDirectory + "/img_"+infoNode.entityName.to_lower() + ".png")
 
 func updateHolderInfo():
-	var internalStorage = infoNode.internalStorage # Get the processData for the current
+	var internalStorage = infoNode.internalStorage # Get the processesData for the current
 	
 	# Handle Internal
 	var texInternalStorage = $infoHolder/texInternalStorage # The vertical stack of input buffers
@@ -128,12 +128,12 @@ func _on_btnLeft_pressed():
 		return
 	if infoNode.processIndex > 0:
 		infoNode.processIndex -= 1
-		infoNode.updateTimer()
+		infoNode.updateTimers()
 
 
 func _on_btnRight_pressed():
 	if infoNode.isProcessing == true:
 		return
-	if infoNode.processIndex < infoNode.processData.size()-1:
+	if infoNode.processIndex < infoNode.processesData.size()-1:
 		infoNode.processIndex += 1
-		infoNode.updateTimer()
+		infoNode.updateTimers()

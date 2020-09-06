@@ -21,6 +21,9 @@ func configure(holderData): # Called when we want to initialise the internal str
 	
 	configure_Structure(holderData)
 
+func upgrade(_upgradeData):
+	pass
+
 func updateUI(): # Called when we want to update the display nodes for the user
 	
 	# Update the structure image

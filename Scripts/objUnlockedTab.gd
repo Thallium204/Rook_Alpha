@@ -1,12 +1,12 @@
 extends Tabs
 
-
 var load_objNode = preload("res://Scenes/UpgradesScene/node.tscn") 
 var load_column = preload("res://Scenes/UpgradesScene/column.tscn")
 var load_line = preload("res://Scenes/UpgradesScene/line.tscn")
 
-var treeNodes = {}
-var metaName
+var entityName
+var processName
+var upgradeData
 
 var nodes = []
 
@@ -15,29 +15,37 @@ var rowVector = []
 
 var timer = 0
 
-var flag = false
+var linesDrawn = false
 
-func configure(input_treeNodes, input_metaName):
-	treeNodes = input_treeNodes
-	metaName = input_metaName
+func configure(input_entityName,input_processName,input_upgradeData):
+	entityName = input_entityName
+	processName = input_processName
+	upgradeData = input_upgradeData
 	
-	for entry in treeNodes.keys():
-		treeNodes[entry]["unlocks"] = []
-		treeNodes[entry]["acquired"] = false
-		treeNodes[entry]["ID"] = entry
-		if not(treeNodes[entry].has("tooltip")):
-			treeNodes[entry]["tooltip"] = "This is a sample upgrade tooltip"
-	for entry in treeNodes.keys():
-		for prereq in treeNodes[entry]["prerequisites"]:
-			treeNodes[prereq]["unlocks"].append(entry)
-
+	for upgID in upgradeData:
+		upgradeData[upgID]["unlocks"] = []
+		upgradeData[upgID]["acquired"] = false
+		upgradeData[upgID]["ID"] = upgID
+		match upgradeData[upgID]["reference"][-1]:
+			"processTime": 
+				upgradeData[upgID]["tooltip"] = "Decrease process time by " + str(upgradeData[upgID]["info"])
+			"bufferMax": 
+				upgradeData[upgID]["tooltip"] = "Increase yield by " + str(-1*upgradeData[upgID]["info"])
+			"inputBuffers": 
+				upgradeData[upgID]["tooltip"] = "Add " + str(processName) + " to input buffer"
+			"outputBuffers": 
+				upgradeData[upgID]["tooltip"] = "Add " + str(processName) + " to output buffer"
 	
-	for entry in treeNodes.keys():
+	for upgID in upgradeData:
+		for prereq in upgradeData[upgID]["prerequisites"]:
+			upgradeData[prereq]["unlocks"].append(upgID)
+	
+	for upgrade in upgradeData.values():
 		
 		var objNode = load_objNode.instance()
-		objNode.data = treeNodes[entry]
-		if treeNodes[entry]["column"] > totalColumns:
-			var colToBuild = treeNodes[entry]["column"] - totalColumns
+		objNode.data = upgrade
+		if upgrade["column"] > totalColumns:
+			var colToBuild = upgrade["column"] - totalColumns
 			
 			for _i in range (0,colToBuild,1):
 				var column = load_column.instance()
@@ -45,23 +53,20 @@ func configure(input_treeNodes, input_metaName):
 				$ScrollContainer/HBoxContainer.add_child(column)
 				rowVector.append(0)
 				
-			totalColumns = treeNodes[entry]["column"]
+			totalColumns = upgrade["column"]
 			#print("created " + str(totalColumns) + " new columns")
 			
-		$ScrollContainer/HBoxContainer.get_node("col" + str(treeNodes[entry]["column"])).add_child(objNode)
-		rowVector[treeNodes[entry]["column"]-1] += 1
+		$ScrollContainer/HBoxContainer.get_node("col" + str(upgrade["column"])).add_child(objNode)
+		rowVector[upgrade["column"]-1] += 1
 		
 		#print(objNode.get_global_transform().get_origin())
 		nodes.append(objNode)
-	
-	pass
 
 func _process(delta):
 	timer += delta
-	if timer > 0.1 and flag == false:
+	if timer > 0.1 and not(linesDrawn):
 		draw_lines()
-		flag = true
-	pass
+		linesDrawn = true
 
 func draw_lines():
 	
@@ -122,29 +127,18 @@ func draw_lines():
 									
 				entry.add_child(line)
 
-func applyUpgrade(id):
+func applyUpgrade(upgID):
 	
-	var passUpgData = {"reference": treeNodes[id]["reference"], "info":treeNodes[id]["info"]}
-	MetaData.processorBank[metaName]["upgradeData"].append(passUpgData)
+	# Get upgrade data
+	var pass_upgradeData = {"reference": upgradeData[upgID]["reference"], "info":upgradeData[upgID]["info"]}
 	
-	print(MetaData.processorBank[metaName])
+	# Send it to metaData for new instances
+	MetaData.processorBank["meta"+entityName]["upgradeData"].append(pass_upgradeData)
 	
-	pass
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+	# Send it to existing instances
+	for processor in Inventory.factoryEntities["Processor"]:
+		if processor.entityName == entityName:
+			processor.upgrade(pass_upgradeData)
 
 
 

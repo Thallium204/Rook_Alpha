@@ -59,9 +59,9 @@ func _process(_delta):
 	
 	updateInvUI()
 
-func addEntityRef(entityRef):
-	entityInv[ entityRef.entityName ] -= 1
-	factoryEntities[ entityRef.entityClass ].append(entityRef)
+func addEntityRef(entityRef): # entityRef = node reference
+	entityInv[ entityRef.entityName ] -= 1 # Decrease inventory avaliable
+	factoryEntities[ entityRef.entityClass ].append(entityRef) # Add reference
 	if entityRef.entityClass == "Holder":
 		for internalBuffer in entityRef.internalStorage:
 			bufferList.append(internalBuffer)
@@ -92,6 +92,7 @@ func spendResources(costData):
 		while cost != 0:
 			var buffer = buffers[bufferIndex]
 			buffer["bufferCurrent"] -= 1
+			buffer["bufferPotential"] -= 1
 			cost -= 1
 			if buffer["bufferCurrent"] == 0:
 				buffer["resourceName"] = ""

@@ -29,6 +29,8 @@ var processorBank = {
 			},
 		}, 
 		
+		"upgradeData":[],
+		
 		"shapeData":[
 			[1]
 		
@@ -47,6 +49,8 @@ var processorBank = {
 				]
 			},
 		}, 
+		
+		"upgradeData":[],
 		
 		"shapeData":[
 			[1,1],
@@ -67,6 +71,8 @@ var processorBank = {
 			},
 		}, 
 		
+		"upgradeData":[],
+		
 		"shapeData":[
 			[1,1],
 			[1,1]
@@ -85,6 +91,8 @@ var processorBank = {
 				]
 			},
 		},
+		
+		"upgradeData":[],
 		
 		"shapeData":[
 			[1]
@@ -106,6 +114,8 @@ var processorBank = {
 				]
 			},
 		},
+		
+		"upgradeData":[],
 		
 		"costData":[
 			{"resourceName":"Cobble",	"amountRequired":8}
@@ -134,6 +144,8 @@ var processorBank = {
 				]
 			},
 		},
+		
+		"upgradeData":[],
 		
 		"costData":[
 			{"resourceName":"Log",	"amountRequired":4},
@@ -165,40 +177,31 @@ var processorBank = {
 			},
 			
 		},
-
-		"upgradeData":
-		[
-
-		],
+		"upgradeData":[],
 		
 		"costData":[
 			{"resourceName":"Log",	"amountRequired":4},
 			{"resourceName":"Hemp",	"amountRequired":3}
 		],
 		
-		"lockedProcesses":[
+		"lockedProcesses":{
 			
-			{
-				"name":"Gear",
-				"ref":["processData"],
-				"info":{
-
-					"inputBuffers":[
-						{"resourceName":"Plank",	"bufferPotential":0,	"bufferCurrent":0,	"bufferMax":1,	"resourceType":"Solid"}
-					],
-					"processTime":3,
-					"outputBuffers":[
-							{"resourceName":"Gear",	"bufferPotential":0,    "bufferCurrent":0,	"bufferMax":2,	"resourceType":"Solid"}
-						],
-					
-				},
+			"Gear":{
+				"inputBuffers":[
+					{"resourceName":"Plank",	"bufferPotential":0,	"bufferCurrent":0,	"bufferMax":1,	"resourceType":"Solid"}
+				],
+				"processTime":3,
+				"outputBuffers":[
+					{"resourceName":"Gear",	"bufferPotential":0,    "bufferCurrent":0,	"bufferMax":2,	"resourceType":"Solid"}
+				],
+				
 				"upgCost":[
 					{"resourceName":"Log",	"amountRequired":0}
 				],
-				"upgTime":2
+				"upgTime":4
 			}
 			
-		],
+		},
 		
 		"craftTime":
 			2,
@@ -233,6 +236,8 @@ var processorBank = {
 			}
 		}, 
 		
+		"upgradeData":[],
+		
 		"costData":[
 			{"resourceName":"Clay",	"amountRequired":12},
 			{"resourceName":"Cobble",	"amountRequired":16},
@@ -263,6 +268,8 @@ var processorBank = {
 			},
 		}, 
 		
+		"upgradeData":[],
+		
 		"costData":[
 			{"resourceName":"Brick",	"amountRequired":32},
 			{"resourceName":"Clay",	"amountRequired":32},
@@ -292,6 +299,8 @@ var processorBank = {
 			},
 		}, 
 		
+		"upgradeData":[],
+		
 		"costData":[],
 		
 		"craftTime":
@@ -315,6 +324,8 @@ var holderBank = {
 			{"resourceName":"",			"bufferCurrent":0,	"bufferMax":16,	"resourceType":"Solid"}
 		],
 		
+		"upgradeData":[],
+		
 		"shapeData":[
 			[1]
 		]},
@@ -326,6 +337,8 @@ var holderBank = {
 		"internalStorage":[
 			{"resourceName":"",			"bufferCurrent":0,	"bufferMax":64,	"resourceType":"Solid"}
 		],
+		
+		"upgradeData":[],
 		
 		"shapeData":[
 			[1,1],
@@ -340,7 +353,10 @@ var enhancerBank = {
 	"metaHeater":{
 		
 		"nameID":
-			"Heater"
+			"Heater",
+		
+		"upgradeData":[]
+		
 		}
 	
 }
@@ -353,7 +369,10 @@ var conveyorBank = {
 			"Slow",
 		
 		"conveyorSpeed":
-			0.2
+			0.2,
+		
+		"upgradeData":[]
+		
 		},
 	"metaStandard":{
 		
@@ -361,7 +380,10 @@ var conveyorBank = {
 			"Standard",
 		
 		"conveyorSpeed":
-			0.5
+			0.5,
+		
+		"upgradeData":[]
+		
 		},
 	"metaFast":{
 		
@@ -369,7 +391,10 @@ var conveyorBank = {
 			"Fast",
 		
 		"conveyorSpeed":
-			1
+			1,
+		
+		"upgradeData":[]
+		
 		},
 	"metaRapid":{
 		
@@ -377,7 +402,10 @@ var conveyorBank = {
 			"Rapid",
 		
 		"conveyorSpeed":
-			2
+			2,
+		
+		"upgradeData":[]
+		
 		}
 	
 }
@@ -450,7 +478,7 @@ var upgradesBank = {
 						"row":1,
 						"prerequisites":[],
 						"reference":["Plank", "processTime"],
-						"info":2.5,
+						"info":-0.5,
 						"tooltip":"decreases process time by 0.5s",
 						"cost":[
 							{"resourceName":"Plank",	"amountRequired":0},
@@ -462,8 +490,8 @@ var upgradesBank = {
 						"column":1,
 						"row":2,
 						"prerequisites":[],
-						"reference":["Plank", "outputBuffers", "bufferMax"],
-						"info":3,
+						"reference":["Plank", "outputBuffers", 0, "bufferMax"],
+						"info":1,
 						"tooltip":"increases yield by 1",
 						"cost":[
 							{"resourceName":"Plank",	"amountRequired":0}
@@ -474,7 +502,7 @@ var upgradesBank = {
 						"row":1,
 						"prerequisites":[1],
 						"reference":["Plank", "processTime"],
-						"info":2,
+						"info":-0.5,
 						"tooltip":"decreases process time by 0.5s",
 						"cost":[
 							{"resourceName":"Plank",	"amountRequired":0}
@@ -484,8 +512,8 @@ var upgradesBank = {
 						"column":2,
 						"row":2,
 						"prerequisites":[1,2],
-						"reference":["Plank", "outputBuffers", "bufferMax"],
-						"info":4,
+						"reference":["Plank", "outputBuffers", 0, "bufferMax"],
+						"info":1,
 						"tooltip":"increases yield by 1",
 						"cost":[
 							{"resourceName":"Plank",	"amountRequired":0}
@@ -496,7 +524,7 @@ var upgradesBank = {
 						"row":1,
 						"prerequisites":[3],
 						"reference":["Plank", "processTime"],
-						"info":1.5,
+						"info":-0.5,
 						"tooltip":"decreases process time by 0.5s",
 						"cost":[
 							{"resourceName":"Plank",	"amountRequired":0}
@@ -506,8 +534,8 @@ var upgradesBank = {
 						"column":3,
 						"row":2,
 						"prerequisites":[4],
-						"reference":["Plank", "outputBuffers", "bufferMax"],
-						"info":5,
+						"reference":["Plank", "outputBuffers", 0, "bufferMax"],
+						"info":1,
 						"tooltip":"increases yield by 1",
 						"cost":[
 							{"resourceName":"Plank",	"amountRequired":0}
@@ -518,7 +546,7 @@ var upgradesBank = {
 						"row":1,
 						"prerequisites":[5,6],
 						"reference":["Plank", "processTime"],
-						"info":1,
+						"info":-0.5,
 						"tooltip":"decreases process time by 0.5s",
 						"cost":[
 							{"resourceName":"Plank",	"amountRequired":0}
@@ -533,7 +561,7 @@ var upgradesBank = {
 						"row":1,
 						"prerequisites":[],
 						"reference":["Gear", "processTime"],
-						"info":2.5,
+						"info":-0.5,
 						"tooltip":"decreases process time by 0.5s",
 						"cost":[
 							{"resourceName":"Gear",	"amountRequired":1}
@@ -543,8 +571,8 @@ var upgradesBank = {
 						"column":2,
 						"row":1,
 						"prerequisites":[1],
-						"reference":["Gear", "outputBuffers", "bufferMax"],
-						"info":3,
+						"reference":["Gear", "outputBuffers", 0, "bufferMax"],
+						"info":1,
 						"tooltip":"increases yield by 1",
 						"cost":[
 							{"resourceName":"Gear",	"amountRequired":2}
@@ -555,7 +583,7 @@ var upgradesBank = {
 						"row":2,
 						"prerequisites":[],
 						"reference":["Gear", "processTime"],
-						"info":2,
+						"info":-0.5,
 						"tooltip":"decreases process time by 0.5s",
 						"cost":[
 							{"resourceName":"Gear",	"amountRequired":3}
@@ -565,8 +593,8 @@ var upgradesBank = {
 						"column":2,
 						"row":3,
 						"prerequisites":[1],
-						"reference":["Gear", "outputBuffers", "bufferMax"],
-						"info":4,
+						"reference":["Gear", "outputBuffers", 0, "bufferMax"],
+						"info":1,
 						"tooltip":"increases yield by 1",
 						"cost":[
 							{"resourceName":"Gear",	"amountRequired":4}
@@ -577,7 +605,7 @@ var upgradesBank = {
 						"row":1,
 						"prerequisites":[2,3],
 						"reference":["Gear", "processTime"],
-						"info":1.5,
+						"info":-0.5,
 						"tooltip":"decreases process time by 0.5s",
 						"cost":[
 							{"resourceName":"Gear",	"amountRequired":5}
@@ -587,8 +615,8 @@ var upgradesBank = {
 						"column":3,
 						"row":2,
 						"prerequisites":[4],
-						"reference":["Gear", "outputBuffers", "bufferMax"],
-						"info":5,
+						"reference":["Gear", "outputBuffers", 0, "bufferMax"],
+						"info":1,
 						"tooltip":"increases yield by 1",
 						"cost":[
 							{"resourceName":"Gear",	"amountRequired":6}
@@ -599,7 +627,7 @@ var upgradesBank = {
 						"row":1,
 						"prerequisites":[5,6],
 						"reference":["Gear", "processTime"],
-						"info":1,
+						"info":-0.5,
 						"tooltip":"decreases process time by 0.5s",
 						"cost":[
 							{"resourceName":"Gear",	"amountRequired":7}

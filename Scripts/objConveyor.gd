@@ -24,6 +24,8 @@ func configure(conveyorData): # Called when we want to initialise the internal s
 	
 	configure_Connector(conveyorData)
 
+func upgrade(_upgradeData):
+	pass
 
 func onPressed(tile): # Pressed Processes for all Processors
 	
