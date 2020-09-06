@@ -45,7 +45,7 @@ func _ready():
 				entityInv[nameID] = 2
 	
 	for resourceData in MetaData.resourceBank:
-		resourceInv[resourceData[0]] = 0
+		resourceInv[resourceData] = 0
 
 func _process(_delta):
 	
@@ -53,9 +53,9 @@ func _process(_delta):
 		resourceInv[resName] = 0
 	
 	for buffer in bufferList:
-		if buffer["resourceName"] == "":
+		if buffer["name"] == "":
 			continue
-		resourceInv[buffer["resourceName"]] += buffer["bufferCurrent"]
+		resourceInv[buffer["name"]] += buffer["current"]
 	
 	updateInvUI()
 
@@ -76,7 +76,7 @@ func removeEntityRef(entityRef):
 func getBuffers(resName):
 	var buffers = []
 	for buffer in bufferList:
-		if buffer["resourceName"] == resName:
+		if buffer["name"] == resName:
 			buffers.append(buffer)
 	return buffers
 
@@ -86,16 +86,16 @@ func spendResources(costData):
 		return false
 	
 	for resCostData in costData:
-		var cost = resCostData["amountRequired"]
-		var buffers = getBuffers(resCostData["resourceName"])
+		var cost = resCostData["cost"]
+		var buffers = getBuffers(resCostData["name"])
 		var bufferIndex = 0
 		while cost != 0:
 			var buffer = buffers[bufferIndex]
-			buffer["bufferCurrent"] -= 1
-			buffer["bufferPotential"] -= 1
+			buffer["current"] -= 1
+			buffer["potential"] -= 1
 			cost -= 1
-			if buffer["bufferCurrent"] == 0:
-				buffer["resourceName"] = ""
+			if buffer["current"] == 0:
+				buffer["name"] = ""
 				buffers.erase(buffer)
 	
 	return true
@@ -103,8 +103,7 @@ func spendResources(costData):
 func hasResources(costData):
 	var haveEnough = true
 	for resCostData in costData:
-		if resourceInv[resCostData["resourceName"]] < resCostData["amountRequired"]:
-			#print( "NOT ENOUGH "+resCostData["resourceName"]+" | Need:"+str(resCostData["amountRequired"])+" Have:"+str(resourceInv[resCostData["resourceName"]]))
+		if resourceInv[resCostData["name"]] < resCostData["cost"]:
 			haveEnough = false
 	return haveEnough
 

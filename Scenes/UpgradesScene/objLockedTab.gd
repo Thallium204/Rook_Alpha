@@ -44,12 +44,12 @@ func applyUnlock():
 		}
 	
 	# Send it to metaData for new instances
-	MetaData.processorBank["meta"+entityName]["processesData"][processName] = pass_unlockData
+	MetaData.processorBank["meta"+entityName]["processesData"][processName] = MetaData.configureProcess(pass_unlockData)
 	
 	# Send it to existing instances
 	for processor in Inventory.factoryEntities["Processor"]:
 		if processor.entityName == entityName:
-			processor.upgrade(pass_unlockData)
+			processor.unlock(pass_unlockData)
 	
 	get_parent().instanceUnlockedTab(entityName,processName)
 	queue_free()

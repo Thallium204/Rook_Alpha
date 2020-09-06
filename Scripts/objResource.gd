@@ -10,7 +10,7 @@ var resourceName = ""
 func configure(resName,tilePath,buffer):
 	resourceName = resName
 	tileList = tilePath.duplicate()
-	$sprResource.texture = load("res://Assets/Resources/img_"+resourceName.to_lower()+".png")
+	$sprResource.texture = load("res://Assets/Resources/img_"+resourceName+".png")
 	position = tileList[0].position
 	inputBuffer = buffer
 	tileList.remove(0)
@@ -18,7 +18,8 @@ func configure(resName,tilePath,buffer):
 func _process(delta):
 	
 	if tileList.empty(): # If we have arrived
-		inputBuffer["bufferCurrent"] += 1
+		inputBuffer["current"] += 1
+		#print(inputBuffer)
 		queue_free()
 	else:
 		var direction = (tileList[0].position - position).normalized()

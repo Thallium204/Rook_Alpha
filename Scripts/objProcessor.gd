@@ -38,12 +38,6 @@ func configure(processorData): # Called when we want to initialise the internal 
 
 func upgrade(upgInfo):
 	
-	if upgInfo.has("outputBuffers"):
-		#print("done")
-		processesData[upgInfo["outputBuffers"][0]["resourceName"]] = (upgInfo)
-		processNames.append(upgInfo["outputBuffers"][0]["resourceName"])
-		return
-	
 	var refs = upgInfo["reference"]
 	var info = upgInfo["info"]
 	
@@ -53,18 +47,29 @@ func upgrade(upgInfo):
 	else: # If it's editing processesData
 		#print(processesData)
 		# Adding input/output buffer
-		if refs[-1] == "inputBuffers" or refs[-1] == "outputBuffers":
-			processesData[refs[0]][refs[1]].append(info)
+		if refs[-1] == "inputBuffers":
+			processesData[refs[0]]["inputBuffers"].append(MetaData.configureInputBuffers([info]))
+		
+		elif refs[-1] == "outputBuffers":
+			processesData[refs[0]]["outputBuffers"].append(MetaData.configureOutputBuffers([info]))
 		
 		# Modifying processTime
 		elif refs[-1] == "processTime":
-			processesData[refs[0]][refs[1]] += info
+			processesData[refs[0]]["processTime"] += info
 			updateTimers()
+		
+		elif refs[-1] == "yield" or refs[-1] == "cost":
+			processesData[refs[0]][refs[1]][refs[2]][refs[3]] += info
+			processesData[refs[0]][refs[1]][refs[2]]["max"] = ceil(processesData[refs[0]][refs[1]][refs[2]][refs[3]])
 		
 		# Anything else
 		else: 
 			processesData[refs[0]][refs[1]][refs[2]][refs[3]] += info
-	
+
+func unlock(procInfo):
+	procInfo = MetaData.configureProcess(procInfo)
+	processesData[procInfo["outputBuffers"][0]["name"]] = procInfo
+	processNames.append(procInfo["outputBuffers"][0]["name"])
 
 func updateTimers():
 	for process in processesData.values():
@@ -80,9 +85,6 @@ func updateUI(): # Called when we want to update the display nodes for the user
 	sprStructure.animation = "idle"
 	sprStructure.position[1] = -sprStructure.frames.get_frame("idle",0).get_size()[1] + entitySize[1]
 
-#func inputResource(resName,resType):
-#	return inputResource_Structure(resName,resType,processesData[processIndex]["inputBuffers"])
-
 func getInputBuffers():
 	return processesData[processNames[processIndex]]["inputBuffers"]
 
@@ -90,10 +92,6 @@ func getOutputBuffers():
 	return processesData[processNames[processIndex]]["outputBuffers"]
 
 func _process(_delta):
-	
-#	$netIDs.text = ""
-#	for ID in networkIDs:
-#		$netIDs.text += str(ID)
 	
 	if isProcessing:
 		progPerc = (timeProcess.wait_time-timeProcess.time_left)/float(processesData[processNames[processIndex]]["processTime"])
@@ -103,7 +101,7 @@ func _process(_delta):
 		tryToProcess()
 	
 	for outputBuffer in processesData[processNames[processIndex]]["outputBuffers"]:
-		if outputBuffer["bufferCurrent"] > 0:
+		if outputBuffer["current"] > 0:
 			outputResource(outputBuffer)
 
 func tryToProcess():
@@ -114,27 +112,38 @@ func tryToProcess():
 	if haveEnoughResources() == true: # If we have the resources needed to process
 		if haveEnoughStorage() == true:
 			# Deduct resource costs
-			for inputBuffer in processesData[processNames[processIndex]]["inputBuffers"]:
-				inputBuffer["bufferCurrent"] -= inputBuffer["bufferMax"]
-				inputBuffer["bufferPotential"] = inputBuffer["bufferCurrent"]
+			spendProcessRes()
 			# Commense Processing
 			isProcessing = true
 			sprStructure.animation = "process"
 			timeProcess.start()
-#	else: # If we need resources
-#		sendRequest(generateRequest("process"))
 
 func haveEnoughResources():
 	for inputBuffer in processesData[processNames[processIndex]]["inputBuffers"]:
-		if inputBuffer["bufferCurrent"] < inputBuffer["bufferMax"]:
+		if inputBuffer["current"] < inputBuffer["max"]:
 			return false
 	return true
 
 func haveEnoughStorage():
 	for outputBuffer in processesData[processNames[processIndex]]["outputBuffers"]:
-		if outputBuffer["bufferCurrent"] > 0:
+		if outputBuffer["current"] > 0:
 			return false
 	return true
+
+func spendProcessRes():
+	for inputBuffer in processesData[processNames[processIndex]]["inputBuffers"]:
+		var chance = inputBuffer["cost"] - floor(inputBuffer["cost"])
+		var actualCost = floor( inputBuffer["cost"] ) + floor( chance + rng.randf_range(0,1) )
+		#print("Cost: ",inputBuffer["cost"]," -> ",actualCost)
+		inputBuffer["current"] -= actualCost # Deduct resource
+		inputBuffer["potential"] -= actualCost
+
+func gainProcessRes():
+	for outputBuffer in processesData[processNames[processIndex]]["outputBuffers"]:
+		var chance = outputBuffer["yield"] - floor(outputBuffer["yield"])
+		var actualYield = floor( outputBuffer["yield"] ) + floor( chance + rng.randf_range(0,1) )
+		#print("Yield: ",outputBuffer["yield"]," -> ",actualYield)
+		outputBuffer["current"] += actualYield # Gain resources
 
 func onPressed(tile): # Pressed Processes for all Processors
 	
@@ -161,8 +170,7 @@ func onReleased(tile): # Released Processes for all Processors
 					texInfoBar.functionYet = true
 
 func _on_timeProcess_timeout():
-	for outputBuffer in processesData[processNames[processIndex]]["outputBuffers"]:
-		outputBuffer["bufferCurrent"] += outputBuffer["bufferMax"] # Gain resources
+	gainProcessRes()
 	isProcessing = false
 	sprStructure.animation = "idle"
 	get_node("prgProcess").value = 0

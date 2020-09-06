@@ -12,7 +12,7 @@ func updateArrayList():
 	for resName in Inventory.resourceInv:
 		var objResTab = get_node_or_null(resName+"Tab")
 		if objResTab == null:
-			objResTab = addResTab(resName,load("res://Assets/Resources/img_"+resName.to_lower()+".png"))
+			objResTab = addResTab(resName,load("res://Assets/Resources/img_"+resName+".png"))
 		objResTab.resTotal = Inventory.resourceInv[resName]
 	
 	# Delete Tabs with no resources

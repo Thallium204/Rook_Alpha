@@ -31,11 +31,11 @@ func updateProcessorInfo():
 			var texResource = texInputBuffer.get_node("texResource")
 			var labAmount = texResource.get_node("labAmount")
 			var bufferInfo = currentProcess["inputBuffers"][inputPos] # Get the buffer data
-			labAmount.text = str(bufferInfo["bufferCurrent"])
-			labAmount.modulate = Color( 1,1,1, min(bufferInfo["bufferCurrent"],1) )
+			labAmount.text = str(bufferInfo["current"])
+			labAmount.modulate = Color( 1,1,1, min(bufferInfo["current"],1) )
 			labAmount.rect_scale = Vector2.ONE * texResource.rect_size[1]/64
-			texResource.texture = load("res://Assets/Resources/img_"+bufferInfo["resourceName"].to_lower()+".png")
-			texResource.modulate = Color( 1,1,1, clamp(0.3,bufferInfo["bufferCurrent"],1) )
+			texResource.texture = load("res://Assets/Resources/img_"+bufferInfo["name"]+".png")
+			texResource.modulate = Color( 1,1,1, clamp(0.3,bufferInfo["current"],1) )
 	
 	# Handle Process
 	var prgProcess = $infoProcessor/prgProcess # The vertical stack of process info
@@ -55,11 +55,11 @@ func updateProcessorInfo():
 			var texResource = texInputBuffer.get_node("texResource")
 			var labAmount = texResource.get_node("labAmount")
 			var bufferInfo = currentProcess["outputBuffers"][outputPos] # Get the buffer data
-			labAmount.text = str(bufferInfo["bufferCurrent"])
-			labAmount.modulate = Color( 1,1,1, min(bufferInfo["bufferCurrent"],1) )
+			labAmount.text = str(bufferInfo["current"])
+			labAmount.modulate = Color( 1,1,1, min(bufferInfo["current"],1) )
 			labAmount.rect_scale = Vector2.ONE * texResource.rect_size[1]/64
-			texResource.texture = load("res://Assets/Resources/img_"+bufferInfo["resourceName"].to_lower()+".png")
-			texResource.modulate = Color( 1,1,1, clamp(0.3,bufferInfo["bufferCurrent"],1) )
+			texResource.texture = load("res://Assets/Resources/img_"+bufferInfo["name"]+".png")
+			texResource.modulate = Color( 1,1,1, clamp(0.3,bufferInfo["current"],1) )
 	
 	# Draw the image
 	$infoProcessor/texStructure.texture = load(infoNode.imageDirectory + "/img_"+infoNode.entityName.to_lower() + ".png")
@@ -72,14 +72,14 @@ func updateHolderInfo():
 	for internalPos in range(1):
 		if internalPos < internalStorage.size(): # If we still have an input buffer to display
 			var bufferInfo = internalStorage[internalPos] # Get the buffer data
-			texInternalStorage.get_node("labAmount").text = str(bufferInfo["bufferCurrent"])
-			texInternalStorage.get_node("labAmount").modulate = Color(1,1,1,min(bufferInfo["bufferCurrent"],1))
+			texInternalStorage.get_node("labAmount").text = str(bufferInfo["current"])
+			texInternalStorage.get_node("labAmount").modulate = Color(1,1,1,min(bufferInfo["current"],1))
 			#texInternalStorage.get_node("labCapacity").text = str(bufferInfo["bufferMax"])
-			if bufferInfo["resourceName"] == "":
-				texInternalStorage.get_node("texResource").texture = load("res://Assets/Resources/img_empty_"+bufferInfo["resourceType"].to_lower()+".png")
+			if bufferInfo["name"] == "":
+				texInternalStorage.get_node("texResource").texture = load("res://Assets/Resources/img_empty_"+bufferInfo["type"]+".png")
 			else:
-				texInternalStorage.get_node("texResource").texture = load("res://Assets/Resources/img_"+bufferInfo["resourceName"].to_lower()+".png")
-			var alpha = clamp(0.3,bufferInfo["bufferCurrent"],1)
+				texInternalStorage.get_node("texResource").texture = load("res://Assets/Resources/img_"+bufferInfo["name"]+".png")
+			var alpha = clamp(0.3,bufferInfo["current"],1)
 			texInternalStorage.get_node("texResource").modulate = Color(1,1,1,alpha)
 			texInternalStorage.modulate = Color(1,1,1,1)
 		else:

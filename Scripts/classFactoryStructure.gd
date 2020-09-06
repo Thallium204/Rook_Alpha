@@ -57,8 +57,8 @@ func outputResource(outputBuffer):
 			if structure == self:
 				continue
 			for inputBuffer in structure.getInputBuffers():
-				if inputBuffer["resourceName"] == outputBuffer["resourceName"] or inputBuffer["resourceName"] == "":
-					if inputBuffer["bufferPotential"] < inputBuffer["bufferMax"]: # If it has room
+				if inputBuffer["name"] == outputBuffer["name"] or inputBuffer["name"] == "":
+					if inputBuffer["potential"] < inputBuffer["max"]: # If it has room
 						receivers.append({"entity":structure,"buffer":inputBuffer,"netID":netID})
 	
 	if receivers.empty():
@@ -66,14 +66,14 @@ func outputResource(outputBuffer):
 	
 	ioIndex["output"] = (ioIndex["output"]+1)%receivers.size()
 	var target = receivers[ioIndex["output"]]
-	target["buffer"]["bufferPotential"] += 1 # Tell the target it has our resource on the way
-	outputBuffer["bufferCurrent"] -= 1 # Deduct our resource
+	target["buffer"]["potential"] += 1 # Tell the target it has our resource on the way
+	outputBuffer["current"] -= 1 # Deduct our resource
 	if target["entity"].entityClass == "Holder":
-		target["buffer"]["resourceName"] = outputBuffer["resourceName"]
+		target["buffer"]["name"] = outputBuffer["name"]
 	if entityClass == "Holder":
-		outputBuffer["bufferPotential"] = outputBuffer["bufferCurrent"]
+		outputBuffer["potential"] = outputBuffer["current"]
 	var tilePath = Networks.networkArray[target["netID"]]["Paths"][self][target["entity"]] # Get travel path
-	ctrlFactoryFloor.spawnResource(outputBuffer["resourceName"],tilePath,target["buffer"])
+	ctrlFactoryFloor.spawnResource(outputBuffer["name"],tilePath,target["buffer"])
 
 func _process(_delta):
 	
