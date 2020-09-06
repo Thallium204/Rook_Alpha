@@ -4,9 +4,12 @@ onready var ctnCostInfo = get_node("HBoxContainer/ctnCostInfo")
 
 var entityData
 var load_objCostRes = preload("res://Scenes/CraftingScene/objCostRes.tscn")
+var load_objProcessStats = preload("res://Scenes/objProcessStats.tscn")
 
 var timer_craftingTime = 0.0 # Current timer
 var isCrafting = false
+var popup
+var tabContainer
 
 func _ready():
 	rect_size = rect_min_size
@@ -52,3 +55,31 @@ func updateUI():
 		$HBoxContainer/ctnCraftProgress/btnCraft.disabled = false
 	else:
 		$HBoxContainer/ctnCraftProgress/btnCraft.disabled = true
+
+
+func _on_TextureButton_pressed():
+	
+	print("info button is pressed")
+	popup = PopupPanel.new()
+	tabContainer = TabContainer.new()
+	popup.add_child(tabContainer)
+	var objProcessStats
+	for processIndex in entityData["processesData"]:
+		var tab = Tabs.new()
+		objProcessStats = load_objProcessStats.instance()
+		tab.add_child(objProcessStats)
+		objProcessStats.configure(entityData["processesData"][processIndex])
+		tab.rect_min_size = Vector2(880, 1080)
+		tab.name = processIndex
+		tabContainer.add_child(tab)
+	#objProcessStats.last = true
+	add_child(popup)
+	popup.popup_centered()
+
+#func setTabsSize(last, rectSize, tab):
+#	#tab = Tabs.new()
+#	tab.rect_min_size = rectSize
+#	tabContainer.add_child(tab)
+#	#if last == true:
+#	add_child(popup)
+#	popup.popup_centered()
