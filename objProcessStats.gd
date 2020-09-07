@@ -7,7 +7,7 @@ var processData
 func configure(input_processData):
 	
 	processData = input_processData
-
+	
 	var margin
 	var lab = Label.new()														# Input handling
 	lab.rect_min_size = Vector2(0, 64)
@@ -53,8 +53,8 @@ func configure(input_processData):
 	margin = MarginContainer.new()
 	margin.rect_min_size = Vector2(0, 64)
 	$HBoxContainer/VBoxContainer2.add_child(margin)
-
+	
+	queue_sort()
 
 func _on_Timer_timeout():
 	get_tree().call_group("grpCtnSort", "resizeMyself")
-	pass # Replace with function body.

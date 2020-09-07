@@ -10,6 +10,7 @@ var timer_craftingTime = 0.0 # Current timer
 var isCrafting = false
 var popup = PopupPanel.new()
 var tabContainer
+var maxTabSize = Vector2(0, 0)
 
 func _ready():
 	rect_size = rect_min_size
@@ -59,14 +60,13 @@ func updateUI():
 
 func _on_TextureButton_pressed():
 	
-	print("info button is pressed")
-	popup.queue_free()
+	var tab
 	popup = PopupPanel.new()
-	popup.connect("focus_exited", self, "deletePopups")
+	popup.connect("popup_hide", self, "deletePopups")
 	tabContainer = TabContainer.new()
 	popup.add_child(tabContainer)
 	for processIndex in entityData["processesData"]:
-		var tab = Tabs.new()
+		tab = Tabs.new()
 		tab.set_script(load("res://Scenes/objStatsTab.gd"))
 		tab.add_to_group("grpCtnSort")
 		var objProcessStats = load_objProcessStats.instance()
@@ -74,8 +74,11 @@ func _on_TextureButton_pressed():
 		objProcessStats.configure(entityData["processesData"][processIndex])
 		tab.name = processIndex
 		tabContainer.add_child(tab)
-	add_child(popup)
+	tab.last = true
+	tabContainer.queue_sort()
+	add_child(popup)	
+	
 
 func deletePopups():
-	print("popup deleted")
+	#print("popup deleted")
 	popup.queue_free()

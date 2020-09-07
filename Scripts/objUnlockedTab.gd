@@ -54,6 +54,7 @@ func configure(input_entityName,input_processName,input_upgradeData):
 				var column = VBoxContainer.new()
 				column.name = "col" + str(totalColumns+1)
 				column.alignment = ALIGN_CENTER
+				column.add_constant_override("separation", 0)
 				$ScrollContainer/HBoxContainer.add_child(column)
 				rowVector.append(0)
 				

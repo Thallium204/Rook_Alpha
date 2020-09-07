@@ -10,7 +10,6 @@ func configure(input_data):
 		var objCostRes = load_objCostRes.instance()
 		objCostRes.configure(costIndex)
 		$VBoxContainer/HBoxContainer/VBoxContainer.add_child(objCostRes)
-	
 	$VBoxContainer/HBoxContainer/Label.text = data["tooltip"]
 
 func _on_btnUpg_pressed():
