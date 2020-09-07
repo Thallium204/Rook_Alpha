@@ -4,9 +4,17 @@ onready var Tab = get_parent().get_parent().get_parent().get_parent()
 var load_upgPopup = preload("res://Scenes/UpgradesScene/upgPopup.tscn")
 var data
 
-func _ready():
-	pass
-
+func configure(input_data):
+	data = input_data
+	
+	match data["reference"][-1]:
+			"processTime":
+				texture_normal = load("res://Assets/UI/img_upgnode_speed.png")
+			"yield":
+				texture_normal = load("res://Assets/UI/img_upgnode_output.png")
+			"cost":
+				texture_normal = load("res://Assets/UI/img_upgnode_input.png")
+	self.modulate = Color( 0.5, 0.5, 0.5, 1 )
 
 func _on_node_pressed():
 	
@@ -27,7 +35,7 @@ func purchasedUpgrade():
 				canUpgrade = false
 		if canUpgrade == true:
 			if Inventory.spendResources(data["cost"]) == true:
-				texture_normal = load("res://Assets/icon_done.png")
+				self.modulate = Color( 1, 1, 1, 1 )
 				data["acquired"] = true
 				Tab.applyUpgrade(data["ID"])
 				for child in get_children():

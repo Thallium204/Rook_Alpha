@@ -33,10 +33,10 @@ margin_bottom = 46.0
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
 margin_top = 50.0
 margin_right = 880.0
-margin_bottom = 454.0
+margin_bottom = 114.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer"]
-margin_bottom = 404.0
+margin_bottom = 64.0
 
 [node name="MarginContainer" type="MarginContainer" parent="HBoxContainer/VBoxContainer"]
 margin_bottom = 64.0
@@ -45,7 +45,7 @@ rect_min_size = Vector2( 0, 64 )
 [node name="VBoxContainer2" type="VBoxContainer" parent="HBoxContainer"]
 margin_left = 4.0
 margin_right = 279.0
-margin_bottom = 404.0
+margin_bottom = 64.0
 
 [node name="Label" type="Label" parent="HBoxContainer/VBoxContainer2"]
 margin_right = 275.0
@@ -56,52 +56,19 @@ text = "base values"
 [node name="VSeparator" type="VSeparator" parent="HBoxContainer"]
 margin_left = 283.0
 margin_right = 287.0
-margin_bottom = 404.0
+margin_bottom = 64.0
 size_flags_vertical = 3
 
 [node name="VBoxContainer3" type="VBoxContainer" parent="HBoxContainer"]
 margin_left = 291.0
 margin_right = 515.0
-margin_bottom = 404.0
+margin_bottom = 64.0
 
 [node name="Label" type="Label" parent="HBoxContainer/VBoxContainer3"]
 margin_right = 224.0
 margin_bottom = 64.0
 rect_min_size = Vector2( 0, 64 )
 text = "modifiers"
-
-[node name="Label2" type="Label" parent="HBoxContainer/VBoxContainer3"]
-margin_top = 68.0
-margin_right = 224.0
-margin_bottom = 132.0
-rect_min_size = Vector2( 0, 64 )
-text = "50%"
-
-[node name="MarginContainer4" type="MarginContainer" parent="HBoxContainer/VBoxContainer3"]
-margin_top = 136.0
-margin_right = 224.0
-margin_bottom = 200.0
-rect_min_size = Vector2( 0, 64 )
-
-[node name="Label3" type="Label" parent="HBoxContainer/VBoxContainer3"]
-margin_top = 204.0
-margin_right = 224.0
-margin_bottom = 268.0
-rect_min_size = Vector2( 0, 64 )
-text = "50%"
-
-[node name="MarginContainer5" type="MarginContainer" parent="HBoxContainer/VBoxContainer3"]
-margin_top = 272.0
-margin_right = 224.0
-margin_bottom = 336.0
-rect_min_size = Vector2( 0, 64 )
-
-[node name="Label4" type="Label" parent="HBoxContainer/VBoxContainer3"]
-margin_top = 340.0
-margin_right = 224.0
-margin_bottom = 404.0
-rect_min_size = Vector2( 0, 64 )
-text = "50%"
 
 [node name="Timer" type="Timer" parent="."]
 wait_time = 0.1

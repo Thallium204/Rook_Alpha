@@ -46,7 +46,7 @@ func configure(input_entityName,input_processName,input_upgradeData):
 	for upgrade in upgradeData.values():
 		
 		var objNode = load_objNode.instance()
-		objNode.data = upgrade
+		objNode.configure(upgrade)
 		if upgrade["column"] > totalColumns:
 			var colToBuild = upgrade["column"] - totalColumns
 			
