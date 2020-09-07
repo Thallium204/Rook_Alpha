@@ -5,10 +5,13 @@ var entityInv = {
 	"Hole":5,
 	"Hole2":2,
 	
-	"Slow":5,
-	"Standard":100,
-	"Fast":6,
-	"Rapid":3
+	"Dense":16,
+	"Normal":64,
+	"Vacuum":16,
+	"Impulse":32,
+	"Warp":8,
+	
+	"NormalPipe":64
 	
 }
 

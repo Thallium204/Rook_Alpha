@@ -1,33 +1,41 @@
 extends Node2D
 
 onready var sprResource = get_node("sprResource")
+onready var timeSpeed = get_node("timeSpeed")
 
 var tileList = []
 var inputBuffer = null
-var speed = 0.5
+var speed
 var resourceName = ""
 
 func configure(resName,tilePath,buffer):
 	resourceName = resName
 	tileList = tilePath.duplicate()
+	$timeSpeed.wait_time =  1/float(tileList[1].fatherNode.conveyorSpeed)
 	$sprResource.texture = load("res://Assets/Resources/img_"+resourceName+".png")
 	position = tileList[0].position
 	inputBuffer = buffer
 	tileList.remove(0)
 
-func _process(delta):
+func _process(_delta):
 	
-	if tileList.empty(): # If we have arrived
+	var prcProgress = 1-($timeSpeed.time_left/$timeSpeed.wait_time)
+	position = tileList[0].position + prcProgress*(tileList[1].position-tileList[0].position) + Vector2(16,16)
+
+func updateSpeed():
+	$timeSpeed.stop()
+	$timeSpeed.wait_time =  1/float(tileList[0].fatherNode.conveyorSpeed)
+	$timeSpeed.start()
+
+func _on_timeSpeed_timeout():
+	
+	if tileList.size() == 2:
 		inputBuffer["current"] += 1
-		#print(inputBuffer)
 		queue_free()
+		return
 	else:
-		var direction = (tileList[0].position - position).normalized()
-		if (position - tileList[0].position).length() < speed:
-			position = tileList[0].position
-			if tileList[0].fatherNode != null:
-				tileList.remove(0)
-			else:
-				queue_free()
+		tileList.remove(0)
+		if tileList[0].fatherNode != null:
+			updateSpeed()
 		else:
-			position += direction*speed*delta*100
+			queue_free()

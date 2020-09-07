@@ -38,10 +38,7 @@ func _on_btnAdd_released():
 			ctrlFactoryFloor.addStructure(structureData,subType)
 		elif entityType == "Connector":
 			TopBarNode.call("_on_btn"+entityType+"Menu_pressed")
-			if Globals.drawConnector["nameID"] != entityName:
-				Globals.drawConnector = {"nameID":entityName,"connectorType":subType}
-			else:
-				Globals.drawConnector = {"nameID":"","connectorType":""}
+			Globals.drawConnector = {"nameID":entityName,"connectorType":subType}
 	hasMoved = false
 
 func _on_btnAdd_pressed():

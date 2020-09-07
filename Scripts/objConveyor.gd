@@ -6,10 +6,6 @@ func _ready():
 	imageDirectory += "/Conveyor"
 	entityClass = "Conveyor"
 
-#func _process(_delta):
-#	if not(networkIDs.empty()):
-#		$netID.text = str(networkIDs[0])
-
 func pointResource(resourceNode):
 	if ioList.empty():
 		return false
@@ -21,6 +17,9 @@ func pointResource(resourceNode):
 func configure(conveyorData): # Called when we want to initialise the internal structure
 	
 	conveyorSpeed = conveyorData["conveyorSpeed"]
+	$sprC.texture = load(imageDirectory+"/"+conveyorData["nameID"]+"/img_center.png")
+	for dire in direSprites:
+		dire.texture = load(imageDirectory+"/"+conveyorData["nameID"]+"/img_side.png")
 	
 	configure_Connector(conveyorData)
 
