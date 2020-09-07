@@ -14,6 +14,7 @@ func _on_node_pressed():
 	upgPopup.configure(data)
 	add_child(upgPopup)
 	upgPopup.popup_centered()
+	print("popup popped up")
 
 func purchasedUpgrade():
 	

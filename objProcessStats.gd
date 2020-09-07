@@ -15,7 +15,7 @@ func configure(input_processData):
 	$HBoxContainer/VBoxContainer.add_child(lab)
 	for inputBuffer in processData["inputBuffers"]:
 		var objResStats = load_objResStats.instance()
-		objResStats.configure(inputBuffer["bufferMax"], inputBuffer["resourceName"])
+		objResStats.configure(inputBuffer["cost"], inputBuffer["name"])
 		$HBoxContainer/VBoxContainer2.add_child(objResStats)
 		margin = MarginContainer.new()
 		margin.rect_min_size = Vector2(0, 64)
@@ -45,7 +45,7 @@ func configure(input_processData):
 	$HBoxContainer/VBoxContainer.add_child(lab)
 	for outputBuffer in processData["outputBuffers"]:
 		var objResStats = load_objResStats.instance()
-		objResStats.configure(outputBuffer["bufferMax"], outputBuffer["resourceName"])
+		objResStats.configure(outputBuffer["yield"], outputBuffer["name"])
 		$HBoxContainer/VBoxContainer2.add_child(objResStats)
 		margin = MarginContainer.new()
 		margin.rect_min_size = Vector2(0, 64)
@@ -53,3 +53,8 @@ func configure(input_processData):
 	margin = MarginContainer.new()
 	margin.rect_min_size = Vector2(0, 64)
 	$HBoxContainer/VBoxContainer2.add_child(margin)
+
+
+func _on_Timer_timeout():
+	get_tree().call_group("grpCtnSort", "resizeMyself")
+	pass # Replace with function body.
