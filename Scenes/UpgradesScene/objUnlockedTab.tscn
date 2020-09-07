@@ -28,3 +28,4 @@ custom_constants/separation = 128
 __meta__ = {
 "_edit_use_anchors_": false
 }
+[connection signal="sort_children" from="ScrollContainer/HBoxContainer" to="." method="_on_HBoxContainer_sort_children"]

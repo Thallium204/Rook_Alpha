@@ -1,7 +1,6 @@
 extends Tabs
 
 var load_objNode = preload("res://Scenes/UpgradesScene/node.tscn") 
-var load_column = preload("res://Scenes/UpgradesScene/column.tscn")
 var load_line = preload("res://Scenes/UpgradesScene/line.tscn")
 
 var entityName
@@ -52,8 +51,9 @@ func configure(input_entityName,input_processName,input_upgradeData):
 			var colToBuild = upgrade["column"] - totalColumns
 			
 			for _i in range (0,colToBuild,1):
-				var column = load_column.instance()
+				var column = VBoxContainer.new()
 				column.name = "col" + str(totalColumns+1)
+				column.alignment = ALIGN_CENTER
 				$ScrollContainer/HBoxContainer.add_child(column)
 				rowVector.append(0)
 				
@@ -65,12 +65,6 @@ func configure(input_entityName,input_processName,input_upgradeData):
 		
 		#print(objNode.get_global_transform().get_origin())
 		nodes.append(objNode)
-
-func _process(delta):
-	timer += delta
-	if timer > 0.1 and not(linesDrawn):
-		draw_lines()
-		linesDrawn = true
 
 func draw_lines():
 	
@@ -144,13 +138,6 @@ func applyUpgrade(upgID):
 		if processor.entityName == entityName:
 			processor.upgrade(pass_upgradeData)
 
-
-
-
-
-
-
-
-
-
-
+func _on_HBoxContainer_sort_children():
+	draw_lines()
+	pass # Replace with function body.
