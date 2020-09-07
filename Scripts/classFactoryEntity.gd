@@ -31,6 +31,8 @@ var adjacentTileList = []					# List of [ioTile,ioDire]'s of adjacent tiles
 var pulsed = false
 var pulseList = []
 
+var typeDict = { "solid":"Conveyor" , "fluid":"pipe" , "power":"cable" }
+
 var dirConv = { Vector2(-1,0):"U", Vector2(0,1):"R", Vector2(1,0):"D", Vector2(0,-1):"L" }
 
 func _ready():
@@ -80,6 +82,8 @@ func deleteSelf(isNew=false):
 		removeInputOutputRefs()
 		removeNetworkRefs()
 		addShapeToFactory(null)
+	if entityType == "Connector":
+		get_tree().call_group("sideBar","updateUI")
 	queue_free() # Remove self
 
 func onPressed_Entity(_tile): # Pressed Processes for all entities
@@ -113,7 +117,7 @@ func addShapeToFactory(father): # Write the father to each fatherNode entry base
 	if entityType == "Structure":
 		z_index = entityMasterTile["row"] + 100
 	elif entityType == "Connector":
-		z_index = 1
+		z_index = 2
 
 func removeInputOutputRefs():
 	

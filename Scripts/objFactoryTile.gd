@@ -67,6 +67,7 @@ func _on_areaTile_mouse_entered():
 	if fatherNode == null:
 		if Globals.drawConnectorMode == "moving":
 			drawConnector()
+			get_tree().call_group("sideBar","updateUI")
 		return
 	
 	fatherNode.updateUI()
@@ -104,6 +105,7 @@ func _on_objFactoryTile_released():
 	
 	if Globals.drawConnectorMode == "moving":
 		Globals.drawConnectorMode = "ready"
+		get_tree().call_group("sideBar","updateUI")
 	
 	if fatherNode == null or not(isReleasedValid):
 		return

@@ -20,7 +20,7 @@ func addEntityAddButton(nameID,entityType,subType):
 		newAddEntityButton.texture = load("res://Assets/FactoryEntity/"+entityType+"/"+subType+"/img_"+nameID.to_lower()+".png")
 		get_node("grd"+subType).add_child(newAddEntityButton)
 	elif entityType == "Connector":
-		newAddEntityButton.texture = load("res://Assets/FactoryEntity/"+entityType+"/"+subType+"/"+nameID+"/img_normal.png")
+		newAddEntityButton.texture = load("res://Assets/FactoryEntity/"+entityType+"/"+subType+"/"+nameID+"/img_center.png")
 		get_node("grdConnector").add_child(newAddEntityButton)
 
 func _ready():
@@ -28,10 +28,12 @@ func _ready():
 		addEntityAddButton(Processor["nameID"],"Structure","Processor")
 	for Holder in MetaData.holderBank.values():
 		addEntityAddButton(Holder["nameID"],"Structure","Holder")
-	for conveyor in MetaData.enhancerBank.values():
-		addEntityAddButton(conveyor["nameID"],"Structure","Enhancer")
+	for enhancer in MetaData.enhancerBank.values():
+		addEntityAddButton(enhancer["nameID"],"Structure","Enhancer")
 	for conveyor in MetaData.conveyorBank.values():
 		addEntityAddButton(conveyor["nameID"],"Connector","Conveyor")
+	for pipe in MetaData.pipeBank.values():
+		addEntityAddButton(pipe["nameID"],"Connector","Pipe")
 	updateUI()
 
 func move(target):
@@ -53,6 +55,7 @@ func updateUI():
 		$Buttons.modulate = Color(1,1,1) # Grey out buttons
 
 func updateIsMenuOpen():
+	
 	Globals.isMenuOpen = false
 	for btnData in barData:
 		if btnData[1] == true:
@@ -66,6 +69,8 @@ func updateIsMenuOpen():
 		get_node("../ctnFactoryViewport/vptFactoryScene").gui_disable_input = false
 		move(Vector2(0,0)) # Move the TopBar
 		SideBarNode.move("on")
+	
+	get_tree().call_group("bar","updateUI")
 
 func toggleButton(btnID):
 	if Globals.moveStructureMode == "moving": # If we're not moving a structure
@@ -79,13 +84,11 @@ func toggleButton(btnID):
 			barData[iter_btnID][1] = false
 	SideBarNode.untoggleButtons()
 	updateIsMenuOpen()
-	updateUI()
 
 func untoggleButtons():
 	for bar in barData:
 		bar[1] = false
 	updateIsMenuOpen()
-	updateUI()
 
 func _on_btnProcessorMenu_pressed():
 	toggleButton(0)

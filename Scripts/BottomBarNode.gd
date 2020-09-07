@@ -29,6 +29,8 @@ func updateButtonUIs():
 		else:
 			if screenNames[screenID] != null:
 				get_node("btn"+screenNames[screenID]+"Floor").normal = load("res://Assets/Buttons/BottomBarSquare/img_"+screenNames[screenID].to_lower()+"_off.png")
+	
+	get_tree().call_group("bar","updateUI")
 
 func _on_btnFactoryFloor_released():
 	currentScreen = 0

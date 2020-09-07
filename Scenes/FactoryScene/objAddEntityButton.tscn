@@ -31,7 +31,6 @@ show_behind_parent = true
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_bottom = -0.000396729
-color = Color( 1, 0.694118, 0.0313726, 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -56,6 +55,7 @@ anchor_bottom = 1.0
 margin_right = -12.0
 margin_bottom = -14.0
 custom_fonts/font = SubResource( 2 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "0"
 align = 2
 valign = 2

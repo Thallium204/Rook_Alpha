@@ -10,7 +10,7 @@ var drawConnectorMode = "off"		# "off" | "ready" | "touching"
 var deleteStructureMode = false
 var autoCraft = false
 
-var drawConnector = {"nameID":"Standard","connectorType":"Conveyor"}
+var drawConnector = {"nameID":"Normal","connectorType":"Conveyor"}
 var populace = {"total":1,"avaliable":1}
 var infoColorModifier = 0.3
 var colorList = [Color(1,1,1),

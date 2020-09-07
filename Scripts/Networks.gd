@@ -25,10 +25,10 @@ func getLowestID(noOfIDs=1):
 	else:
 		return IDs
 
-func instanceNetwork(entityList):
+func instanceNetwork(entityList,networkType):
 	
 	var newID = getLowestID()
-	networkArray[newID] = {"Connector":[], "Structure":[], "Paths":{}}
+	networkArray[newID] = {"Connector":[], "Structure":[], "tilePaths":{}, "type":networkType}
 	for entity in entityList:
 		addToNetwork(entity,newID)
 	
@@ -49,7 +49,7 @@ func deleteNetworks(netIDs,deleteStructNetsOnly=false):
 	for netID in netIDs:
 		var network = networkArray[netID]
 		for entity in network["Structure"]+network["Connector"]:
-			if deleteStructNetsOnly and not(network["Connector"].empty()): # If we're not supposed to delete this
+			if deleteStructNetsOnly and network["type"] != "Structure": # If we're not supposed to delete this
 				continue # Don't
 			removeFromNetwork(entity,[netID])
 	
@@ -79,7 +79,7 @@ func updatePaths(netIDs):
 	for netID in netIDs:
 		
 		#print("\n\nNew Paths")
-		networkArray[netID]["Paths"] = {}
+		networkArray[netID]["tilePaths"] = {}
 		
 		for structure in networkArray[netID]["Structure"]: # For every structure
 			#var uncharted = (networkArray[netID]["Structure"]+networkArray[netID]["Connector"]).duplicate()
@@ -102,12 +102,12 @@ func updatePaths(netIDs):
 				border = uncharted.duplicate()
 				uncharted = []
 			
-			networkArray[netID]["Paths"][structure] = {}
+			networkArray[netID]["tilePaths"][structure] = {}
 			for target_structure in networkArray[netID]["Structure"]:
 #				print("\nFrom: ",structure.entityName," | To: ",target_structure.entityName)
 #				for tile in target_structure.pulseList:
 #					print(tile.fatherNode.name," | ",tile.name)
-				networkArray[netID]["Paths"][structure][target_structure] = target_structure.pulseList.duplicate()
+				networkArray[netID]["tilePaths"][structure][target_structure] = target_structure.pulseList.duplicate()
 
 
 

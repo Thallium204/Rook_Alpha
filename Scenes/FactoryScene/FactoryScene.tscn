@@ -1,4 +1,4 @@
-[gd_scene load_steps=39 format=2]
+[gd_scene load_steps=40 format=2]
 
 [ext_resource path="res://Assets/UI/img_factory_nine_false.png" type="Texture" id=1]
 [ext_resource path="res://Scripts/ctrlFactoryFloor.gd" type="Script" id=2]
@@ -63,10 +63,14 @@ size = 64
 font_data = ExtResource( 26 )
 
 [sub_resource type="CircleShape2D" id=8]
-radius = 64.0
+radius = 16.0
 
 [sub_resource type="CircleShape2D" id=9]
-radius = 64.0
+radius = 16.0
+
+[sub_resource type="DynamicFont" id=11]
+size = 50
+font_data = ExtResource( 26 )
 
 [sub_resource type="CircleShape2D" id=10]
 radius = 16.0
@@ -142,7 +146,9 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="TopBarNode" type="Control" parent="."]
+[node name="TopBarNode" type="Control" parent="." groups=[
+"bar",
+]]
 mouse_filter = 2
 script = ExtResource( 12 )
 __meta__ = {
@@ -350,7 +356,10 @@ __meta__ = {
 
 [node name="twnTopBar" type="Tween" parent="TopBarNode"]
 
-[node name="SideBarNode" type="Control" parent="."]
+[node name="SideBarNode" type="Control" parent="." groups=[
+"bar",
+"sideBar",
+]]
 margin_left = 1080.0
 margin_top = 128.0
 margin_right = 1080.0
@@ -728,36 +737,57 @@ stretch_mode = 6
 
 [node name="btnInfoToggle" type="TouchScreenButton" parent="SideBarNode"]
 position = Vector2( -128, 8 )
+scale = Vector2( 4, 4 )
 normal = ExtResource( 17 )
 shape = SubResource( 8 )
 
 [node name="btnMoveToggle" type="TouchScreenButton" parent="SideBarNode"]
 position = Vector2( -128, 144 )
+scale = Vector2( 4, 4 )
 normal = ExtResource( 15 )
 shape = SubResource( 9 )
 
 [node name="btnConnectToggle" type="TouchScreenButton" parent="SideBarNode"]
-position = Vector2( -128, 280 )
+position = Vector2( -128, 272 )
+scale = Vector2( 4, 4 )
 normal = ExtResource( 19 )
 shape = SubResource( 9 )
 
 [node name="texConnector" type="TextureRect" parent="SideBarNode/btnConnectToggle"]
-margin_left = 32.0
-margin_top = 32.0
-margin_right = 64.0
-margin_bottom = 64.0
+anchor_left = -0.0058527
+anchor_right = -0.0058527
+margin_right = 16.0
+margin_bottom = 16.0
 rect_scale = Vector2( 2, 2 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="labConnect" type="Label" parent="SideBarNode"]
+margin_left = -104.0
+margin_top = 296.0
+margin_right = -6.00001
+margin_bottom = 385.0
+custom_fonts/font = SubResource( 11 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+custom_constants/shadow_offset_x = 3
+custom_constants/shadow_offset_y = 3
+text = "0"
+align = 2
+valign = 2
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="btnDeleteToggle" type="TouchScreenButton" parent="SideBarNode"]
-position = Vector2( -128, 416 )
+position = Vector2( -128, 400 )
+scale = Vector2( 4, 4 )
 normal = ExtResource( 10 )
 shape = SubResource( 8 )
 
 [node name="btnAutocraftToggle" type="TouchScreenButton" parent="SideBarNode"]
-position = Vector2( -128, 552 )
+position = Vector2( -128, 536 )
 scale = Vector2( 4, 4 )
 normal = ExtResource( 16 )
 shape = SubResource( 10 )

@@ -12,8 +12,10 @@ func updateNetwork():
 	var potentialNetIDs = []
 	for adj in adjacentTileList:
 		if adj["tile"].fatherNode != null:
-			addIOTile( { "tile":adj["tile"] , "dire":dirConv[adj["vector"]] , "self":adj["self"] } )
 			var checkEntity = adj["tile"].fatherNode
+			if checkEntity.entityType == "Connector" and checkEntity.entityClass != entityClass:
+				continue # Ignore different classes of connectors
+			addIOTile( { "tile":adj["tile"] , "dire":dirConv[adj["vector"]] , "self":adj["self"] } )
 			checkEntity.addIOTile( { "tile":adj["self"] , "dire":dirConv[-adj["vector"]] , "self":adj["tile"] } )
 			entityList.append(checkEntity)
 			if checkEntity.entityType == "Connector":
@@ -23,7 +25,7 @@ func updateNetwork():
 	var ourID = 0
 	if potentialNetIDs.empty():
 		# If we are the start of a new network
-		ourID = Networks.instanceNetwork([self])
+		ourID = Networks.instanceNetwork([self],entityClass)
 	else:
 		# If we're surrounded by one or more networks
 		potentialNetIDs.sort()
@@ -54,7 +56,7 @@ func deleteFromNetwork():
 				var networkList = checkEntity.sendPulse([])
 				if networkList != []:
 					#print(networkList)
-					newNetworkIDs.append( Networks.instanceNetwork(networkList) )
+					newNetworkIDs.append( Networks.instanceNetwork(networkList,entityClass) )
 				checkEntity.updateUI()
 	
 	Networks.unpulseNetworks(newNetworkIDs)
@@ -68,10 +70,6 @@ func updateUI():
 	
 	for io in ioList:
 		get_node("spr"+io["dire"]).visible = true
-	
-	if not(networkIDs.empty()):
-		modulate = Globals.colorList[networkIDs[0]%Globals.colorList.size()]
-
 
 func configure_Connector(connectorData):
 	

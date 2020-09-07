@@ -34,7 +34,7 @@ func updateNetwork():
 			ioList.append( { "tile":adj["tile"] , "dire":dirConv[adj["vector"]] , "self":selfTile } )
 			checkEntity.ioList.append( { "tile":selfTile , "dire":dirConv[-adj["vector"]] , "self":adj["tile"]} )
 			if checkEntity.entityType == "Structure":
-				Networks.instanceNetwork([self,checkEntity])
+				Networks.instanceNetwork([self,checkEntity],"Structure")
 			elif checkEntity.entityType == "Connector":
 				Networks.addToNetwork(self,checkEntity.networkIDs[0])
 			checkEntity.updateUI()
@@ -53,6 +53,9 @@ func outputResource(outputBuffer):
 	var receivers = []
 	for netID in networkIDs: # Go through our networks
 		var network = Networks.networkArray[netID]
+		print(netID," network: ",network["type"]," buffer: ",outputBuffer)
+		if network["type"] != typeDict[outputBuffer["type"]]: # If this network doesn't carry our resource
+			continue # skip it
 		for structure in network["Structure"]: # Go through the potential structures
 			if structure == self:
 				continue
@@ -72,7 +75,7 @@ func outputResource(outputBuffer):
 		target["buffer"]["name"] = outputBuffer["name"]
 	if entityClass == "Holder":
 		outputBuffer["potential"] = outputBuffer["current"]
-	var tilePath = Networks.networkArray[target["netID"]]["Paths"][self][target["entity"]] # Get travel path
+	var tilePath = Networks.networkArray[target["netID"]]["tilePaths"][self][target["entity"]] # Get travel path
 	ctrlFactoryFloor.spawnResource(outputBuffer["name"],tilePath,target["buffer"])
 
 func _process(_delta):
@@ -141,6 +144,8 @@ func enable_moveMode(isNew = false): # Called when we want to move this structur
 		addShapeToFactory(null) # Remove old shape
 
 func disable_moveMode(placed = false): # Called when we have stopped moving this structure
+	
+	get_tree().call_group("bar","updateUI")
 	
 	z_index = 0
 	$sprStructure.self_modulate = Color(1,1,1,1)

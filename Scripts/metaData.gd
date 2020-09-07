@@ -384,66 +384,80 @@ var enhancerBank = {
 		
 		"upgradeData":[]
 		
-		}
+	}
 	
 }
 
 var conveyorBank = {
 	
-	"metaSlow":{
+	"metaDense":{
 		
 		"nameID":
-			"Slow",
-		
-		"conveyorSpeed":
-			0.2,
-		
-		"upgradeData":[]
-		
-		},
-	"metaStandard":{
-		
-		"nameID":
-			"Standard",
-		
-		"conveyorSpeed":
-			0.5,
-		
-		"upgradeData":[]
-		
-		},
-	"metaFast":{
-		
-		"nameID":
-			"Fast",
+			"Dense",
 		
 		"conveyorSpeed":
 			1,
 		
 		"upgradeData":[]
 		
-		},
-	"metaRapid":{
+	},
+	"metaNormal":{
 		
 		"nameID":
-			"Rapid",
+			"Normal",
 		
 		"conveyorSpeed":
 			2,
 		
 		"upgradeData":[]
 		
-		}
-	
+	},
+	"metaVacuum":{
+		
+		"nameID":
+			"Vacuum",
+		
+		"conveyorSpeed":
+			3,
+		
+		"upgradeData":[]
+		
+	},
+	"metaImpulse":{
+		
+		"nameID":
+			"Impulse",
+		
+		"conveyorSpeed":
+			4,
+		
+		"upgradeData":[]
+		
+	},
+	"metaWarp":{
+		
+		"nameID":
+			"Warp",
+		
+		"conveyorSpeed":
+			6,
+		
+		"upgradeData":[]
+		
+	}
 }
 
 
 var pipeBank = {
 	
-	"metaStandard":{
+	"metaNormalPipe":{
 		
 		"nameID":
-			"Standard"}
+			"NormalPipe",
+		
+		"pipeSpeed":
+			2
+	}
 }
 
 
@@ -452,7 +466,8 @@ var cableBank = {
 	"metaStandard":{
 		
 		"nameID":
-			"Standard"}
+			"Standard"
+	}
 }
 
 var resourceBank = {

@@ -37,9 +37,10 @@ func updateUI():
 	# Handle Connect
 	if Globals.drawConnector["nameID"] != "":
 		if Inventory.entityInv[ Globals.drawConnector["nameID"] ] == 0:
-			Globals.drawConnector["nameID"] = ""
+			btnConnect.modulate = Color(0.3,0.3,0.3) # Grey out connect button
+			Globals.drawConnectorMode = "off"
 		btnConnect.get_node("texConnector").modulate = Color(1,1,1,1)
-		btnConnect.get_node("texConnector").texture = load("res://Assets/FactoryEntity/Connector/"+Globals.drawConnector["connectorType"]+"/"+Globals.drawConnector["nameID"]+"/img_normal.png")
+		btnConnect.get_node("texConnector").texture = load("res://Assets/FactoryEntity/Connector/"+Globals.drawConnector["connectorType"]+"/"+Globals.drawConnector["nameID"]+"/img_center.png")
 	else:
 		btnConnect.get_node("texConnector").modulate = Color(1,1,1,0)
 	btnConnect.normal = load("res://Assets/Buttons/"+barType+"/img_connect_"+Globals.drawConnectorMode+".png")
@@ -76,7 +77,7 @@ func untoggleButtons():
 	Globals.moveStructureMode = "off"
 	Globals.drawConnectorMode = "off"
 	Globals.deleteStructureMode = false
-	updateUI()
+	get_tree().call_group("bar","updateUI")
 
 
 func _on_btnInfoToggle_pressed():
@@ -88,7 +89,7 @@ func _on_btnInfoToggle_pressed():
 
 func _on_btnInfoToggle_released():
 	get_node("../ctnFactoryViewport/vptFactoryScene").gui_disable_input = false
-	updateUI()
+	get_tree().call_group("bar","updateUI")
 
 
 func _on_btnMoveToggle_pressed():
@@ -103,7 +104,7 @@ func _on_btnMoveToggle_pressed():
 
 func _on_btnMoveToggle_released():
 	get_node("../ctnFactoryViewport/vptFactoryScene").gui_disable_input = false
-	updateUI()
+	get_tree().call_group("bar","updateUI")
 
 func _on_btnConnectToggle_pressed():
 	get_node("../ctnFactoryViewport/vptFactoryScene").gui_disable_input = true
@@ -117,7 +118,7 @@ func _on_btnConnectToggle_pressed():
 
 func _on_btnConnectToggle_released():
 	get_node("../ctnFactoryViewport/vptFactoryScene").gui_disable_input = false
-	updateUI()
+	get_tree().call_group("bar","updateUI")
 
 func _on_btnDeleteToggle_pressed():
 	get_node("../ctnFactoryViewport/vptFactoryScene").gui_disable_input = true
@@ -132,7 +133,7 @@ func _on_btnDeleteToggle_pressed():
 
 func _on_btnDeleteToggle_released():
 	get_node("../ctnFactoryViewport/vptFactoryScene").gui_disable_input = false
-	updateUI()
+	get_tree().call_group("bar","updateUI")
 
 
 func _on_btnAutocraftToggle_pressed():
@@ -144,7 +145,7 @@ func _on_btnAutocraftToggle_pressed():
 
 func _on_btnAutocraftToggle_released():
 	get_node("../ctnFactoryViewport/vptFactoryScene").gui_disable_input = false
-	updateUI()
+	get_tree().call_group("bar","updateUI")
 
 
 
