@@ -75,6 +75,15 @@ var processorBank = {
 					{"name":"cobble",	"yield":1}
 				]
 			},
+			"clay":{
+				"inputBuffers":[
+					{"name":"water",	"cost":5}
+				],
+				"processTime":2,	
+				"outputBuffers":[
+					{"name":"clay",		"yield":2}
+				]
+			}
 		}, 
 		
 		"upgradeData":[],
@@ -96,7 +105,14 @@ var processorBank = {
 					{"name":"clay",		"yield":3}
 				]
 			},
-		}, 
+			"water":{
+				"inputBuffers":[],
+				"processTime":2,
+				"outputBuffers":[
+					{"name":"water",		"yield":10}
+				]
+			}
+		},
 		
 		"upgradeData":[],
 		
@@ -292,8 +308,8 @@ var processorBank = {
 				"outputBuffers":[
 					{"name":"ironingot",	"yield":1}
 				]
-			},
-		}, 
+			}
+		},
 		
 		"upgradeData":[],
 		
@@ -472,22 +488,22 @@ var cableBank = {
 
 var resourceBank = {
 	
-	"log":		{"type":"solid"},
-	"cobble":	{"type":"solid"},
-	"clay":		{"type":"solid"},
-	"plank":	{"type":"solid"},
-	"brick":	{"type":"solid"},
-	"hemp":		{"type":"solid"},
-	"ceramic":	{"type":"solid"},
-	"gear":		{"type":"solid"},
-	"coal":		{"type":"solid"},
-	"ironore":	{"type":"solid"},
-	"ironclump":{"type":"solid"},
-	"ironingot":{"type":"solid"},
+	"log":			{"type":"solid"},
+	"cobble":		{"type":"solid"},
+	"clay":			{"type":"solid"},
+	"plank":		{"type":"solid"},
+	"brick":		{"type":"solid"},
+	"hemp":			{"type":"solid"},
+	"ceramic":		{"type":"solid"},
+	"gear":			{"type":"solid"},
+	"coal":			{"type":"solid"},
+	"ironore":		{"type":"solid"},
+	"ironclump":	{"type":"solid"},
+	"ironingot":	{"type":"solid"},
 	
-	"water":	{"type":"fluid"},
+	"water":		{"type":"fluid"},
 	
-	"power":	{"type":"power"}
+	"power":		{"type":"power"}
 	
 	}
 

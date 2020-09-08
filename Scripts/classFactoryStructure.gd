@@ -55,6 +55,7 @@ func outputResource(outputBuffer):
 		var network = Networks.networkArray[netID]
 		#print(netID," network: ",network["type"]," buffer: ",outputBuffer)
 		if network["type"] != "Structure":
+			#print(network["type"]," != ",typeDict[outputBuffer["type"]])
 			if network["type"] != typeDict[outputBuffer["type"]]: # If this network doesn't carry our resource
 				continue # skip it
 		for structure in network["Structure"]: # Go through the potential structures
@@ -71,6 +72,7 @@ func outputResource(outputBuffer):
 	# Deduct resource and tell target it's receiving our resource
 	ioIndex["output"] = (ioIndex["output"]+1)%receivers.size()
 	var target = receivers[ioIndex["output"]]
+	#print(target["entity"].name)
 	target["buffer"]["potential"] += 1 # Tell the target it has our resource on the way
 	if target["entity"].entityClass == "Holder": # If the target is a holder
 		target["buffer"]["name"] = outputBuffer["name"] # Overwrite it's resource name

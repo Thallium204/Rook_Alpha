@@ -31,7 +31,7 @@ var adjacentTileList = []					# List of [ioTile,ioDire]'s of adjacent tiles
 var pulsed = false
 var pulseList = []
 
-var typeDict = { "solid":"Conveyor" , "fluid":"pipe" , "power":"cable" }
+var typeDict = { "solid":"Conveyor" , "fluid":"Pipe" , "power":"Cable" }
 
 var dirConv = { Vector2(-1,0):"U", Vector2(0,1):"R", Vector2(1,0):"D", Vector2(0,-1):"L" }
 
