@@ -74,7 +74,7 @@ func unlock(procInfo):
 func updateTimers():
 	for process in processesData.values():
 		timeProcess.stop()
-		timeProcess.wait_time = process["processTime"]
+		timeProcess.set_wait_time(process["processTime"])
 		if isProcessing:
 			timeProcess.start()
 

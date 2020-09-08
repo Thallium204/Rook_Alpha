@@ -6,14 +6,6 @@ func _ready():
 	imageDirectory += "/Conveyor"
 	entityClass = "Conveyor"
 
-func pointResource(resourceNode):
-	if ioList.empty():
-		return false
-	ioIndex["output"] %= ioList.size()
-	resourceNode.toPosition = ioList[ioIndex["output"]].position + Vector2(16,16)
-	ioIndex["output"] = (ioIndex["output"]+1)%ioList.size()
-	return true
-
 func configure(conveyorData): # Called when we want to initialise the internal structure
 	
 	conveyorSpeed = conveyorData["conveyorSpeed"]

@@ -53,9 +53,10 @@ func outputResource(outputBuffer):
 	var receivers = []
 	for netID in networkIDs: # Go through our networks
 		var network = Networks.networkArray[netID]
-		print(netID," network: ",network["type"]," buffer: ",outputBuffer)
-		if network["type"] != typeDict[outputBuffer["type"]]: # If this network doesn't carry our resource
-			continue # skip it
+		#print(netID," network: ",network["type"]," buffer: ",outputBuffer)
+		if network["type"] != "Structure":
+			if network["type"] != typeDict[outputBuffer["type"]]: # If this network doesn't carry our resource
+				continue # skip it
 		for structure in network["Structure"]: # Go through the potential structures
 			if structure == self:
 				continue
@@ -67,16 +68,32 @@ func outputResource(outputBuffer):
 	if receivers.empty():
 		return
 	
+	# Deduct resource and tell target it's receiving our resource
 	ioIndex["output"] = (ioIndex["output"]+1)%receivers.size()
 	var target = receivers[ioIndex["output"]]
 	target["buffer"]["potential"] += 1 # Tell the target it has our resource on the way
+	if target["entity"].entityClass == "Holder": # If the target is a holder
+		target["buffer"]["name"] = outputBuffer["name"] # Overwrite it's resource name
 	outputBuffer["current"] -= 1 # Deduct our resource
-	if target["entity"].entityClass == "Holder":
-		target["buffer"]["name"] = outputBuffer["name"]
-	if entityClass == "Holder":
-		outputBuffer["potential"] = outputBuffer["current"]
-	var tilePath = Networks.networkArray[target["netID"]]["tilePaths"][self][target["entity"]] # Get travel path
-	ctrlFactoryFloor.spawnResource(outputBuffer["name"],tilePath,target["buffer"])
+	if entityClass == "Holder": # If we're a holder
+		outputBuffer["potential"] -= 1 # Deduct our internalStorage potential
+	
+	# If this is a neighbouring structure
+	if Networks.networkArray[receivers[ioIndex["output"]]["netID"]]["type"] == "Structure":
+		target["buffer"]["current"] += 1 # Add the resource immediately
+	
+	# If this is a conveyor path
+	elif Networks.networkArray[receivers[ioIndex["output"]]["netID"]]["type"] == "Conveyor":
+		var tilePath = Networks.networkArray[target["netID"]]["tilePaths"][self][target["entity"]] # Get travel path
+		ctrlFactoryFloor.spawnResource(outputBuffer["name"],tilePath,target["buffer"])
+	
+	# If this is a pipe path
+	elif Networks.networkArray[receivers[ioIndex["output"]]["netID"]]["type"] == "Pipe":
+		target["buffer"]["current"] += 1 # Add the resource immediately
+	
+	# If this is a cable path
+	elif Networks.networkArray[receivers[ioIndex["output"]]["netID"]]["type"] == "Cable":
+		target["buffer"]["current"] += 1 # Add the resource immediately
 
 func _process(_delta):
 	
@@ -142,6 +159,8 @@ func enable_moveMode(isNew = false): # Called when we want to move this structur
 		camFactory.position = position+entitySize/2 # Move the camera to the middle of the structure
 		removeInputOutputRefs()
 		addShapeToFactory(null) # Remove old shape
+	
+	get_tree().call_group("sideBar","updateUI")
 
 func disable_moveMode(placed = false): # Called when we have stopped moving this structure
 	

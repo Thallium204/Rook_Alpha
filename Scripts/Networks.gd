@@ -28,7 +28,7 @@ func getLowestID(noOfIDs=1):
 func instanceNetwork(entityList,networkType):
 	
 	var newID = getLowestID()
-	networkArray[newID] = {"Connector":[], "Structure":[], "tilePaths":{}, "type":networkType}
+	networkArray[newID] = {"Connector":[], "Structure":[], "tilePaths":{}, "type":networkType, "resName":""}
 	for entity in entityList:
 		addToNetwork(entity,newID)
 	

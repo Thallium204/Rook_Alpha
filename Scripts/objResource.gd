@@ -24,18 +24,18 @@ func _process(_delta):
 
 func updateSpeed():
 	$timeSpeed.stop()
-	$timeSpeed.wait_time =  1/float(tileList[0].fatherNode.conveyorSpeed)
+	$timeSpeed.wait_time = 1/float(tileList[0].fatherNode.conveyorSpeed)
 	$timeSpeed.start()
 
 func _on_timeSpeed_timeout():
 	
-	if tileList.size() == 2:
-		inputBuffer["current"] += 1
-		queue_free()
-		return
-	else:
+	if tileList.size() == 2: # If we've reached our destination
+		inputBuffer["current"] += 1 # input the resource
+		queue_free() # Kill self
+	else: # If we're not there yet
 		tileList.remove(0)
-		if tileList[0].fatherNode != null:
+		if tileList[0].fatherNode != null: # If we've reached the next tile
 			updateSpeed()
-		else:
-			queue_free()
+		else: # If we've been derailed
+			inputBuffer["potential"] -= 1 # Release the potential
+			queue_free() # Kill self
