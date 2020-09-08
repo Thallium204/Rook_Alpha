@@ -5,6 +5,7 @@ onready var texInfoBar = get_node("texInfoBar")
 onready var btnMove = get_node("btnMoveToggle")
 onready var btnDelete = get_node("btnDeleteToggle")
 onready var btnConnect = get_node("btnConnectToggle")
+onready var labConnect = get_node("labConnect")
 onready var btnAutocraft = get_node("btnAutocraftToggle")
 
 onready var texInfoRef = texInfoBar.duplicate()
@@ -44,6 +45,7 @@ func updateUI():
 	else:
 		btnConnect.get_node("texConnector").modulate = Color(1,1,1,0)
 	btnConnect.normal = load("res://Assets/Buttons/"+barType+"/img_connect_"+Globals.drawConnectorMode+".png")
+	labConnect.text = str(Inventory.entityInv[Globals.drawConnector["nameID"]])
 	if Globals.drawConnectorMode == "moving":
 		btnMove.modulate = Color(0.3,0.3,0.3) # Grey out move button
 		btnDelete.modulate = Color(0.3,0.3,0.3) # Grey out delete button
