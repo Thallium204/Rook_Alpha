@@ -4,6 +4,9 @@ var infoNode = null
 var functionYet = false
 var processDisplay = 0
 
+var load_objInfoPopup = preload("res://Scenes/objInfoPopup.tscn")
+
+
 func _process(_delta):
 	updateInfo()
 
@@ -175,3 +178,33 @@ func _on_btnRight_pressed():
 	if infoNode.processIndex < infoNode.processesData.size()-1:
 		infoNode.processIndex += 1
 		infoNode.updateTimers()
+
+
+func _on_Button_button_down():
+	
+	var objInfoPopup = load_objInfoPopup.instance()
+	objInfoPopup.configure(infoNode)
+	add_child(objInfoPopup)
+	objInfoPopup.popup()
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
