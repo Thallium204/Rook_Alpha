@@ -7,14 +7,6 @@ func _ready():
 	imageDirectory += "/Holder"
 	entityClass = "Holder"
 
-func _process(_delta):
-	
-	for internalBuffer in internalStorage:
-		if internalBuffer["current"] > 0:
-			outputResource(internalBuffer)
-	
-	pass
-
 func configure(holderData): # Called when we want to initialise the internal structure
 	
 	internalStorage = holderData["internalStorage"]

@@ -99,10 +99,6 @@ func _process(_delta):
 	
 	if Globals.autoCraft == true and get_parent():
 		tryToProcess()
-	
-	for outputBuffer in processesData[processNames[processIndex]]["outputBuffers"]:
-		if outputBuffer["current"] > 0:
-			outputResource(outputBuffer)
 
 func tryToProcess():
 	

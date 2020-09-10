@@ -3,6 +3,8 @@ extends "res://Scripts/classFactoryEntity.gd"
 var last_entityMasterTile = null
 var waitingOnWorker = false
 
+var ioMode = "retrieve"		# "retrieve" | "extract"
+
 # BOOLEANS
 var moveMode = false		# Move mode: 		True when moving structure | False when not moving structure
 var canBePlaced = false		# Move mode: 		True when structure can be placed | False when structure is over other structures
@@ -47,7 +49,7 @@ func deleteFromNetwork():
 			if checkEntity.entityType == "Structure":
 				Networks.deleteNetworks(networkIDs,true)
 
-func outputResource(outputBuffer):
+func extractResource(outputBuffer):
 	
 	# Find all potential receivers
 	var receivers = []
@@ -97,6 +99,55 @@ func outputResource(outputBuffer):
 	elif Networks.networkArray[receivers[ioIndex["output"]]["netID"]]["type"] == "Cable":
 		target["buffer"]["current"] += 1 # Add the resource immediately
 
+func retrieveResource(inputBuffer):
+	# Find all potential receivers
+	var extractors = []
+	for netID in networkIDs: # Go through our networks
+		var network = Networks.networkArray[netID]
+		#print(netID," network: ",network["type"]," buffer: ",outputBuffer)
+		if network["type"] != "Structure":
+			#print(network["type"]," != ",typeDict[outputBuffer["type"]])
+			if network["type"] != typeDict[inputBuffer["type"]]: # If this network doesn't carry our resource
+				continue # skip it
+		for structure in network["Structure"]: # Go through the potential structures
+			if structure == self:
+				continue
+			for outputBuffer in structure.getOutputBuffers():
+				if outputBuffer["name"] ==  inputBuffer["name"] or inputBuffer["name"] == "":
+					if outputBuffer["current"] > 0: # If we have room
+						extractors.append({"entity":structure,"buffer":outputBuffer,"netID":netID})
+	
+	if extractors.empty():
+		return
+	
+	# Deduct resource and tell target it's receiving our resource
+	ioIndex["input"] = (ioIndex["input"]+1)%extractors.size()
+	var target = extractors[ioIndex["input"]]
+	#print(target["entity"].name)
+	inputBuffer["potential"] += 1 # Tell ourself the resource is on the way
+	if entityClass == "Holder": # If we're a holder
+		inputBuffer["name"] = target["buffer"]["name"] # Overwrite our resource name
+	target["buffer"]["current"] -= 1 # Deduct their resource
+	if target["entity"].entityClass == "Holder": # If we're a holder
+		target["buffer"]["potential"] -= 1 # Deduct their internalStorage potential
+	
+	# If this is a neighbouring structure
+	if Networks.networkArray[extractors[ioIndex["input"]]["netID"]]["type"] == "Structure":
+		inputBuffer["current"] += 1 # Add the resource immediately
+	
+	# If this is a conveyor path
+	elif Networks.networkArray[extractors[ioIndex["input"]]["netID"]]["type"] == "Conveyor":
+		var tilePath = Networks.networkArray[target["netID"]]["tilePaths"][target["entity"]][self] # Get travel path
+		ctrlFactoryFloor.spawnResource(target["buffer"]["name"],tilePath,inputBuffer)
+	
+	# If this is a pipe path
+	elif Networks.networkArray[extractors[ioIndex["input"]]["netID"]]["type"] == "Pipe":
+		inputBuffer["current"] += 1 # Add the resource immediately
+	
+	# If this is a cable path
+	elif Networks.networkArray[extractors[ioIndex["input"]]["netID"]]["type"] == "Cable":
+		inputBuffer["current"] += 1 # Add the resource immediately
+
 func _process(_delta):
 	
 	if moveMode == true:
@@ -106,6 +157,18 @@ func _process(_delta):
 		$texSelect.modulate = Color(1,1,1,1)
 	else:
 		$texSelect.modulate = Color(1,1,1,0)
+	
+	if ioMode == "retrieve":
+		
+		for inputBuffer in call("getInputBuffers"):
+			if inputBuffer["current"] < inputBuffer["max"]:
+				retrieveResource(inputBuffer)
+		
+	elif ioMode == "extract":
+		
+		for outputBuffer in call("getOutputBuffers"):
+			if outputBuffer["current"] > 0:
+				extractResource(outputBuffer)
 
 func configure_Structure(structureData):
 	
