@@ -67,7 +67,7 @@ func _on_TextureButton_pressed():
 	popup.add_child(tabContainer)
 	for processIndex in entityData["processesData"]:
 		tab = Tabs.new()
-		tab.set_script(load("res://Scenes/objStatsTab.gd"))
+		tab.set_script(load("res://Scripts/objStatsTab.gd"))
 		tab.add_to_group("grpCtnSort")
 		var objProcessStats = load_objProcessStats.instance()
 		tab.add_child(objProcessStats)
