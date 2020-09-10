@@ -5,6 +5,7 @@ var conveyorSpeed = 0.0
 func _ready():
 	imageDirectory += "/Conveyor"
 	entityClass = "Conveyor"
+	add_to_group("Conveyor")
 
 func configure(conveyorData): # Called when we want to initialise the internal structure
 	

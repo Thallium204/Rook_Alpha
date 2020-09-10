@@ -24,7 +24,7 @@ func configure(input_entityData):
 		objProcessStats.configure(entityData["processesData"][processIndex])
 		tab.name = processIndex
 		tabContainer.add_child(tab)
-	tab.last
+	#tab.last
 	tabContainer.queue_sort()
 	
 

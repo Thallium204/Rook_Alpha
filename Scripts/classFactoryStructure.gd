@@ -12,6 +12,7 @@ var canBePlaced = false		# Move mode: 		True when structure can be placed | Fals
 func _ready():
 	imageDirectory += "/Structure"
 	entityType = "Structure"
+	add_to_group("Structure")
 
 func generateRequest(requestType):
 	

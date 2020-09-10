@@ -5,6 +5,7 @@ var pipeSpeed = 0.0
 func _ready():
 	imageDirectory += "/Pipe"
 	entityClass = "Pipe"
+	add_to_group("Pipe")
 
 func configure(pipeData): # Called when we want to initialise the internal structure
 	

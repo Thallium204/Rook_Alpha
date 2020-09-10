@@ -36,6 +36,7 @@ var typeDict = { "solid":"Conveyor" , "fluid":"Pipe" , "power":"Cable" }
 var dirConv = { Vector2(-1,0):"U", Vector2(0,1):"R", Vector2(1,0):"D", Vector2(0,-1):"L" }
 
 func _ready():
+	add_to_group("Entity")
 	rng.randomize()
 
 func setAdjacencyTileList():
@@ -58,6 +59,7 @@ func configure_Entity(entityData):
 	entityTileSize = Vector2(entityShape[0].size(),entityShape.size())
 	entitySize = ctrlFactoryFloor.tileSize * entityTileSize
 	Inventory.addEntityRef(self)
+	add_to_group(entityName)
 
 func addNetworkID(newID):
 	if not(newID in networkIDs):

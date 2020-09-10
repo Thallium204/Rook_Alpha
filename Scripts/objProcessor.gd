@@ -20,6 +20,7 @@ var autoCraft = false		# General: 			True when always trying to process | False 
 func _ready():
 	imageDirectory += "/Processor"
 	entityClass = "Processor"
+	add_to_group("Processor")
 
 func configure(processorData): # Called when we want to initialise the internal structure
 	

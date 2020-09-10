@@ -5,6 +5,7 @@ onready var direSprites = [$sprU,$sprR,$sprD,$sprL]
 func _ready():
 	imageDirectory += "/Connector"
 	entityType = "Connector"
+	add_to_group("Connector")
 
 func updateNetwork():
 	# Find the surrounding entities and networks

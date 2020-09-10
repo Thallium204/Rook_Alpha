@@ -6,6 +6,7 @@ var internalStorage = []
 func _ready():
 	imageDirectory += "/Holder"
 	entityClass = "Holder"
+	add_to_group("Holder")
 
 func configure(holderData): # Called when we want to initialise the internal structure
 	
